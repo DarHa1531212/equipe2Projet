@@ -1,5 +1,0 @@
-<<<<<<< HEAD
-allo
-=======
-boombadaboom
->>>>>>> eb2d051e3e570f56b8edbacbf1738934577838b2

@@ -1,0 +1,167 @@
+header {
+    background-color: #083A7C;
+    height: 100px;
+    width: calc(100% + 15px);
+    margin-left: -10px;
+    margin-top: -10px;
+    border-bottom: 1px solid black;
+}
+
+header>.left{
+    width: 200px;
+    height: 100px;
+    display: inline-block;
+}
+
+#logo{
+    height: 100%;
+    width: 100%;
+}
+
+header>.content{
+    width: calc(100% - 400px);
+    height: 100px;
+    margin-left: -5px;
+    margin-right: -5px;
+    display: inline-block;
+}
+
+header>.right{ 
+    border-left: 2px solid white;
+    width: 200px;
+    height: 100px;
+    display: inline-block;
+}
+
+/* --------------------------------------------------------------- */
+
+content>.container{
+    margin-top: 20px;
+    background-color: #CBD4E0;
+    height: auto;
+    border-radius: 5px;
+    box-shadow: 2px 2px 5px #e1e1e1;
+    border-bottom: 1px solid #b7c6cf;
+    border-right: 1px solid #b7c6cf;
+}
+
+content>.ressource>.item{
+    list-style: none;
+    margin-top: 5px;
+    line-height: 20px;
+    margin-left: -25px;
+}
+
+content .entete{
+    height: 40px;
+    background-color: #083A7C;
+    color: white;
+    text-align: center;
+    border-radius: 5px 5px 0px 0px;
+    width: calc(100% + 1px);
+}
+
+/* --------------------------------------------------------------- */
+
+content>.container>.infoStagiaire{
+    height: 500px;
+    width: 1200px;
+    margin: auto;
+    margin-bottom: 20px;
+    margin-top: 20px;
+    background-color: rgba(255,255,255,0.6);
+}
+
+.infoStagiaire>.zoneProfil{
+    width: 100%;
+    display: inline-block;
+    text-align: center;
+}
+
+.infoStagiaire>.zoneProfil>.element{
+    margin: 10px;
+    width: 300px;
+    background-color: #f5f5f5;/*rgb(255,255,255)*/;
+    border: solid 1px #CBD4E0;
+    height: auto;
+    text-align: center;
+    display: inline-block;
+}
+
+.element>.entete{
+    height: auto;
+    border-radius: 0px;
+}
+
+.element>.entete>h2{
+    margin: 0px;
+}
+
+/* --------------------------------------------------------------- */
+
+th{
+    border-bottom: solid 1px #CBD4E0;
+    text-align: left;
+    height: 20px;
+    padding-left: 10px;
+    background-color: #eaeef3;
+}
+
+td{
+    border-bottom: solid 1px #CBD4E0;
+    height: 40px;
+    padding-left: 10px;
+}
+
+tr:hover{
+    background-color: white;
+}
+
+tbody{
+    border: solid 1px #CBD4E0;
+}
+
+table{
+    width: 90%;
+    margin: auto;
+    margin-top: 20px;
+    border-collapse: collapse;   
+    background-color: #f5f5f5;
+}
+
+/* --------------------------------------------------------------- */
+
+.commentaireContainer{
+    width: 90%;
+    margin: auto;
+    margin-top: 20px;
+}
+
+#boutonCommentaire{
+    width: 100%;
+    height: auto;
+    font-size: 25px;
+    background-color: #083A7C;
+    color: white;
+    padding: 5px;
+    transition: 0.15s;
+    border: outset 2px #083A7C;
+}
+
+#boutonCommentaire:hover{
+    background-color: #f9a11d;
+}
+
+#boutonCommentaire:active{
+    transition: 0s;
+    background-color: #ffb74d;
+    border: inset 2px #f9a11d;
+}
+
+/* --------------------------------------------------------------- */
+
+footer{
+    border-top: 1px solid #cbd4e0;
+    margin-top: 20px;
+    height: 120px;
+}
