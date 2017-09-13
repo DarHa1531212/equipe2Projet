@@ -1,8 +1,3 @@
-.bootstrap{
-    padding: 8px;
-    height: 109px;
-}
-
 header {
     background-color: #083A7C;
     height: 100px;
@@ -16,7 +11,6 @@ header>.left{
     width: 200px;
     height: 100px;
     display: inline-block;
-    vertical-align: top;
 }
 
 #logo{
@@ -24,7 +18,7 @@ header>.left{
     width: 100%;
 }
 
-header>.conteneur{
+header>.content{
     width: calc(100% - 400px);
     height: 100px;
     margin-left: -5px;
@@ -51,7 +45,7 @@ header>.right>a:hover{
 
 /* --------------------------------------------------------------- */
 
-content>.conteneur{
+content>.container{
     margin-top: 20px;
     background-color: #CBD4E0;
     height: auto;
@@ -79,7 +73,7 @@ content .entete{
 
 /* --------------------------------------------------------------- */
 
-content>.conteneur>.infoStagiaire{
+content>.container>.infoStagiaire{
     height: 500px;
     width: 1200px;
     margin: auto;
@@ -183,7 +177,7 @@ table{
 
 /* --------------------------------------------------------------- */
 
-.conteneur>.content{
+.container>.content{
     width: 80%;
     margin: auto;
     background-color: rgba(255,255,255,0.6);
@@ -257,10 +251,6 @@ textarea{
     color: black;
 }
 
-td>.zoneCliquable{
-    padding-top: 10px;
-}
-
 .zoneCliquable:hover{
     background-color: white;
 }
@@ -269,13 +259,4 @@ footer{
     border-top: 1px solid #cbd4e0;
     margin-top: 20px;
     height: 120px;
-}
-
-.groupboxFormulaire
-{
-	margin:1% 2%;
-}
-
-.lolipop{
-    margin: 8px;
 }
