@@ -265,6 +265,70 @@ td>.zoneCliquable{
     background-color: white;
 }
 
+.rowTitle{
+    background-color: #083A7C;
+    width: 250px;
+    color: white;
+}
+
+.tableIdentification{
+    width: 60%;
+    margin-bottom: 20px;
+}
+
+/* --------------------------------------------------------------- */
+
+.description{
+    width: 60%;
+    margin: auto;
+    margin-bottom: 20px;
+    margin-top: 20px;
+}
+
+.critere{
+    width: 50%;
+    background-color: #083A7C;
+    color: white;
+}
+
+.reponse{
+    width: 12.5%;
+    text-align: center;
+}
+
+.tbEvaluation{
+    width: 70%;
+    margin-bottom: 20px;
+}
+
+.btnSectionEval{
+    background-color: white;
+    border: 1px solid #f9a11d;
+    color: #f9a11d;
+    font-weight: bold;
+}
+
+.btnNextSection{
+    width: 200px;
+    height: 30px;
+    background-color: #f9a11d;
+    border: 1px solid white;
+    color: white;
+}
+
+.btnSectionContainer{
+    width: 70%;
+    margin: auto;
+    text-align: center;
+}
+
+.btnSuivantContainer{
+    width: 100%;
+    text-align: right;
+}
+
+/* --------------------------------------------------------------- */
+
 footer{
     border-top: 1px solid #cbd4e0;
     margin-top: 20px;
