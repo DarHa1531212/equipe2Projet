@@ -12,6 +12,7 @@
         <link rel="stylesheet" media="screen and (max-width: 735px)" href="CSS/style-735px.css" />
     </head>
     <body>
+        <script src="js/scripts.js"></script>
         <header>
             <aside class="left">
                 <img id="logo" src="Images/LogoDICJ2.png"/>
@@ -36,10 +37,10 @@
                 </div>
                 
                 <ul class="item">
-                    <li>Offre de stage 2017.pdf</li>
-                    <li>Cahier entreprise 2017.pdf</li>
-                    <li>Cahier stagiaire 2017.pdf</li>
-                    <li>Lettre d'entente 2017.pdf</li>
+                    <li><a href="PDF/Offre%20de%20stage%202017.docx">Offre de stage 2017.docx</a></li>
+                    <li><a href="PDF/Cahier%20entreprise%202017.pdf">Cahier entreprise 2017.pdf</a></li>
+                    <li><a href="PDF/Cahier%20stagiaire%202017.pdf">Cahier stagiaire 2017.pdf</a></li>
+                    <li><a href="PDF/Lettre%20d'entente%202017.docx">Lettre d'entente 2017.docx</a></li>
                 </ul>
             </div>
             
@@ -48,100 +49,206 @@
                     <h1>Stagiaires</h1>
                 </div>
                 
-                <div class="infoStagiaire">
-                    <div class="zoneProfil">
-                            <div class="element">
-                                <div class="entete">
-                                    <h2>Stagiaire</h2>
-                                </div>
+                
+                <div class="slideContainerAsides">
+                    <input class="asideButtons" id="btnPrecedent" type="button" onclick="SlideMove(this)"/>
+                
+                    <div id="slideContainer">
+                        <div class="infoStagiaire slide">
+                            <div class="zoneProfil">
+                                    <div class="element">
+                                        <div class="entete">
+                                            <h2>Stagiaire</h2>
+                                        </div>
 
-                                <a class="zoneCliquable" href="ProfilEntreprise.html">
-                                    <p>Martin Mystère</p>
-                                    <p>(418) 666-7777</p>
-                                </a>
+                                        <a class="zoneCliquable" href="ProfilEntreprise.html">
+                                            <p>Martin Mystère</p>
+                                            <p>(418) 666-7777</p>
+                                        </a>
+                                    </div>
+
+                                    <div class="element">
+                                        <div class="entete">
+                                            <h2>Superviseur</h2>
+                                        </div>
+
+                                        <div class="infoProfil">
+                                            <a class="zoneCliquable" href="ProfilEntreprise.html">
+                                                <p>Martin Mystère</p>
+                                                <p>(418) 666-7777</p>
+                                            </a>
+                                        </div>
+                                    </div>
+
+                                    <div class="element">
+                                        <div class="entete">
+                                            <h2>Enseignant</h2>
+                                        </div>
+
+                                        <div class="infoProfil">
+                                            <a class="zoneCliquable" href="ProfilEntreprise.html">
+                                                <p>Martin Mystère</p>
+                                                <p>(418) 666-7777</p>
+                                            </a>
+                                        </div>
+                                    </div>
                             </div>
 
-                            <div class="element">
-                                <div class="entete">
-                                    <h2>Superviseur</h2>
-                                </div>
-
-                                <div class="infoProfil">
-                                    <a class="zoneCliquable" href="ProfilEntreprise.html">
-                                        <p>Martin Mystère</p>
-                                        <p>(418) 666-7777</p>
-                                    </a>
-                                </div>
+                            <div class="evaluation">
+                                <table class="table" class="tableauEvaluation">
+                                    <thead>
+                                        <tr>
+                                            <th>
+                                                Évaluation
+                                            </th>
+                                            <th>
+                                                Statut
+                                            </th>
+                                            <th>
+                                                Date début
+                                            </th>
+                                            <th>
+                                                Date limite
+                                            </th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>
+                                                Évaluation 1
+                                            </td>
+                                            <td>
+                                                Complétée
+                                            </td>
+                                            <td>
+                                                2017-09-07
+                                            </td>
+                                            <td>
+                                                2017-12-07
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                Évaluation 2
+                                            </td>
+                                            <td>
+                                                Non complétée
+                                            </td>
+                                            <td>
+                                                2018-01-15
+                                            </td>
+                                            <td>
+                                                2018-03-15
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
                             </div>
 
-                            <div class="element">
-                                <div class="entete">
-                                    <h2>Enseignant</h2>
-                                </div>
-
-                                <div class="infoProfil">
-                                    <a class="zoneCliquable" href="ProfilEntreprise.html">
-                                        <p>Martin Mystère</p>
-                                        <p>(418) 666-7777</p>
-                                    </a>
-                                </div>
+                            <div class="commentaireContainer">
+                                <input class="bouton" id="boutonCommentaire" value="Écrire un commentaire" type="button"/>
                             </div>
+                        </div>
+
+                        <div class="infoStagiaire slide">
+                            <div class="zoneProfil">
+                                    <div class="element">
+                                        <div class="entete">
+                                            <h2>Stagiaire</h2>
+                                        </div>
+
+                                        <a class="zoneCliquable" href="ProfilEntreprise.html">
+                                            <p>Martin Luther</p>
+                                            <p>(418) 666-7777</p>
+                                        </a>
+                                    </div>
+
+                                    <div class="element">
+                                        <div class="entete">
+                                            <h2>Superviseur</h2>
+                                        </div>
+
+                                        <div class="infoProfil">
+                                            <a class="zoneCliquable" href="ProfilEntreprise.html">
+                                                <p>Martin Luther</p>
+                                                <p>(418) 666-7777</p>
+                                            </a>
+                                        </div>
+                                    </div>
+
+                                    <div class="element">
+                                        <div class="entete">
+                                            <h2>Enseignant</h2>
+                                        </div>
+
+                                        <div class="infoProfil">
+                                            <a class="zoneCliquable" href="ProfilEntreprise.html">
+                                                <p>Martin Luther</p>
+                                                <p>(418) 666-7777</p>
+                                            </a>
+                                        </div>
+                                    </div>
+                            </div>
+
+                            <div class="evaluation">
+                                <table class="table" class="tableauEvaluation">
+                                    <thead>
+                                        <tr>
+                                            <th>
+                                                Évaluation
+                                            </th>
+                                            <th>
+                                                Statut
+                                            </th>
+                                            <th>
+                                                Date début
+                                            </th>
+                                            <th>
+                                                Date limite
+                                            </th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>
+                                                Évaluation 1
+                                            </td>
+                                            <td>
+                                                Complétée
+                                            </td>
+                                            <td>
+                                                2017-09-07
+                                            </td>
+                                            <td>
+                                                2017-12-07
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                Évaluation 2
+                                            </td>
+                                            <td>
+                                                Non complétée
+                                            </td>
+                                            <td>
+                                                2018-01-15
+                                            </td>
+                                            <td>
+                                                2018-03-15
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+
+                            <div class="commentaireContainer">
+                                <input class="bouton" id="boutonCommentaire" value="Écrire un commentaire" type="button"/>
+                            </div>
+                        </div>
                     </div>
                     
-                    <div class="evaluation">
-                        <table class="table" class="tableauEvaluation">
-							<thead>
-								<tr>
-									<th>
-										Évaluation
-									</th>
-									<th>
-										Statut
-									</th>
-									<th>
-										Date début
-									</th>
-									<th>
-										Date limite
-									</th>
-								</tr>
-							</thead>
-							<tbody>
-								<tr>
-									<td>
-										Évaluation 1
-									</td>
-									<td>
-										Complétée
-									</td>
-									<td>
-								        2017-09-07
-									</td>
-									<td>
-										2017-12-07
-									</td>
-								</tr>
-								<tr>
-									<td>
-										Évaluation 2
-									</td>
-									<td>
-										Non complétée
-									</td>
-									<td>
-										2018-01-15
-									</td>
-									<td>
-										2018-03-15
-									</td>
-								</tr>
-							</tbody>
-						</table>
-                    </div>
+                    <input class="asideButtons" id="btnSuivant" type="button" onclick="SlideMove(this)"/>
                     
-                    <div class="commentaireContainer">
-                        <input class="bouton" id="boutonCommentaire" value="Écrire un commentaire" type="button"/>
-                    </div>
                 </div>
             </div>
         </content>
