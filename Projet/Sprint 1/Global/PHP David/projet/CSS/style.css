@@ -1,0 +1,98 @@
+header {
+    background-color: #083A7C;
+    height: 100px;
+    width: calc(100% + 15px);
+    margin-left: -10px;
+    margin-top: -10px;
+    border-bottom: 1px solid black;
+}
+
+header>.left{
+    width: 200px;
+    height: 100px;
+    display: inline-block;
+}
+
+#logo{
+    height: 100%;
+    width: 100%;
+}
+
+header>.content{
+    width: calc(100% - 400px);
+    height: 100px;
+    margin-left: -5px;
+    margin-right: -5px;
+    display: inline-block;
+}
+
+header>.right{ 
+    border-left: 2px solid white;
+    width: 200px;
+    height: 100px;
+    display: inline-block;
+}
+
+/* --------------------------------------------------------------- */
+
+content>.ressource{
+    margin-top: 20px;
+    background-color: #CBD4E0;
+    height: auto;
+}
+
+content .entete{
+    height: 40px;
+    background-color: #083A7C;
+    color: white;
+    text-align: center;
+}
+
+content>.stagiaires{
+    margin-top: 20px;
+    background-color: #CBD4E0;
+}
+
+footer{
+    margin-top: 20px;
+    background-color: yellow;
+    height: 120px;
+}
+
+button{
+    float: left;
+}
+
+.martin
+{
+    
+    padding: 20px;
+    padding-bottom: -20px;
+
+}
+.logoEntreprise{
+    float: left;
+    height: 80px;
+    width: auto;
+}
+
+.underline{
+    text-decoration: underline;
+}
+
+.poste{
+    margin-left:20px;
+}
+
+.nom{
+    margin-left:100px;
+}
+
+.departement{
+    margin-left:100px;
+}
+
+.bouton{
+    position:relative;
+    float:right;
+}
