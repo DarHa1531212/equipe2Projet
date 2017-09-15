@@ -31,7 +31,7 @@
             <div class="ressource">
                 <div class="entete">
                 <h1>Profil Stagiaire</h1>
-                </div>
+            </div>
                 <div class = "martin">
                     <img class = "logoEntreprise" src="Images/LogoDICJ2Petit.png"/>
                     <h3 class="nom"><?php  echo $prenom . " " . $nom; ?></h3>
@@ -43,7 +43,7 @@
                     <br/>
                     <hr/>
                     <h4 class = "underline">Informations professionnelles</h4>
-                    <label><?php echo $numTelEntreprise; ?></label><label class="poste"><?php echo'Poste : ' . $poste;?>></label></br>
+                    <label><?php echo $numTelEntreprise; ?></label><label class="poste"><?php echo'Poste : ' . $poste;?></label></br>
                     <label><?php echo $courrielEntreprise; ?></label>
                     <a href="Html/ModifProfilStagiaire.html">
                         <button class="bouton">Modifier</button>

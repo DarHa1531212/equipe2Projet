@@ -93,6 +93,7 @@ button{
 }
 
 .bouton{
+    display: inline-block;
     position:relative;
     float:right;
 }
