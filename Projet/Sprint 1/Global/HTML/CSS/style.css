@@ -79,13 +79,61 @@ content .entete{
 
 /* --------------------------------------------------------------- */
 
-content>.conteneur>.infoStagiaire{
-    height: 500px;
-    width: 1200px;
+#btnPrecedent{
+    background-image: url(../Images/fleche._gauche.png);
+}
+
+#btnSuivant{
+    background-image: url(../Images/fleche._gauche.png);
+    transform: scale(-1);
+}
+
+.asideButtons{
+    width: 70px;
+    height: 70px;
+    margin-top: auto;
+    margin-bottom: auto;
+    background-color: #083A7C;
+    background-size: 60%;
+    background-repeat: no-repeat;
+    background-position: center;
+    border: outset 1px #CBD4E0;
+    transition: 0.1s;
+}
+
+.asideButtons:hover{
+    background-size: 70%;
+}
+
+.asideButtons:active{
+    border: inset 2px white;
+}
+
+.slideContainerAsides{
+    width: 80%;
     margin: auto;
+    display: flex;
+}
+
+.slideContainerAsides>#slideContainer{
+    width: 90%;
+    margin: auto;
+    overflow-x: hidden;
+    white-space: nowrap;
+    font-size: 0px;
+}
+
+content>.conteneur>.slideContainerAsides>#slideContainer>.infoStagiaire{
+    height: auto;
+    width: 100%;
     margin-bottom: 20px;
     margin-top: 20px;
+    padding-top: 20px;
+    padding-bottom: 30px;
     background-color: rgba(255,255,255,0.6);
+    display: inline-block;
+    font-size: 16px;
+    white-space:normal;
 }
 
 .infoStagiaire>.zoneProfil{
@@ -102,6 +150,7 @@ content>.conteneur>.infoStagiaire{
     height: auto;
     text-align: center;
     display: inline-block;
+    white-space: nowrap;
 }
 
 .element>.entete{
@@ -264,6 +313,70 @@ td>.zoneCliquable{
 .zoneCliquable:hover{
     background-color: white;
 }
+
+.rowTitle{
+    background-color: #083A7C;
+    width: 250px;
+    color: white;
+}
+
+.tableIdentification{
+    width: 60%;
+    margin-bottom: 20px;
+}
+
+/* --------------------------------------------------------------- */
+
+.description{
+    width: 60%;
+    margin: auto;
+    margin-bottom: 20px;
+    margin-top: 20px;
+}
+
+.critere{
+    width: 50%;
+    background-color: #083A7C;
+    color: white;
+}
+
+.reponse{
+    width: 12.5%;
+    text-align: center;
+}
+
+.tbEvaluation{
+    width: 70%;
+    margin-bottom: 20px;
+}
+
+.btnSectionEval{
+    background-color: white;
+    border: 1px solid #f9a11d;
+    color: #f9a11d;
+    font-weight: bold;
+}
+
+.btnNextSection{
+    width: 200px;
+    height: 30px;
+    background-color: #f9a11d;
+    border: 1px solid white;
+    color: white;
+}
+
+.btnSectionContainer{
+    width: 70%;
+    margin: auto;
+    text-align: center;
+}
+
+.btnSuivantContainer{
+    width: 100%;
+    text-align: right;
+}
+
+/* --------------------------------------------------------------- */
 
 footer{
     border-top: 1px solid #cbd4e0;
