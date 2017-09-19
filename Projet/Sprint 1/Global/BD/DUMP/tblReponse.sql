@@ -1,6 +1,10 @@
 /*
 -- Query: SELECT * FROM tblReponse
 LIMIT 0, 1000
+<<<<<<< HEAD
+=======
+
+>>>>>>> master
 -- Date: 2017-09-18 10:07
 */
 INSERT INTO `tblReponse` (`Id`,`Texte`,`tagEvaluation`,`tag`) VALUES (1,'Généralement',NULL,NULL);
