@@ -1,0 +1,6 @@
+Les questions on une catégorie de questions
+
+Les évaluations ont des descriptions
+
+Les évaluations ont besoin d'une date limite, d'une date de complétion et d'un statut.
+
