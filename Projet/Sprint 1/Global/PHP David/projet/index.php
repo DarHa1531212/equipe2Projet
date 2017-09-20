@@ -4,16 +4,21 @@
     <head>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <title>Profil</title>
+        <title>Tableau de bord - Étudiant</title>
         <meta name="description" content="An interactive getting started guide for Brackets.">
         <link rel="stylesheet" href="CSS/style.css">
+        <link rel="stylesheet" media="screen and (max-width: 1240px)" href="CSS/style-1240px.css" />
+        <link rel="stylesheet" media="screen and (max-width: 1040px)" href="CSS/style-1040px.css" />
+        <link rel="stylesheet" media="screen and (max-width: 735px)" href="CSS/style-735px.css" />
         <?php include 'PHP/connexionBDTest.php' ?>
         <?php include 'PHP/vProfilStagiaire.php' ?>
     </head>
     <body>
         <header>
-            <aside class="left">
-                <img id="logo" src="Images/LogoDICJ2.png"/>
+            <aside class="left" id="dicj">
+                <a href="http://dicj.info">
+                    <img id="logo" src="Images/LogoDICJ2.png"/>
+                </a>
             </aside>
             
             <div class="conteneur">
@@ -21,49 +26,145 @@
             </div>
             
             <aside class="right "id="profil">
-                <a class="zoneCliquable" href="index.php">
+                <a class="zoneCliquable" href="PHP/ProfilStagiaire.php">
                     <h3>Bonjour</h3>
-                    <h3><?php echo $prenom . ' ' . $nom ?></h3>
+                    <h3><?php echo $prenomStagiaire . ' ' . $nomStagiaire; ?></h3>
                 </a>
             </aside>
         </header>
         
         <content>
             <div class="conteneur">
-                <div class="entete" >   
-                    <h1>Profil Superviseur/Stagiaire/...</h1>
+                <div class="entete">
+                    <h1>Ressources</h1>
                 </div>
                 
-                <div class="content">
-                    <div class="containerInfoProfil">  
-                        <div class="bordureBleu">
-                        
-                        </div>
-                        
-                        <div class="contentInfo">
-                            <div class="infoPerso">
-                                <p>
-                                    <?php echo $prenom . ' ' . $nom ?><br/>
-                                    Stagiaire Cégep Jonquière<br/><br/>
-                                    Téléphone : <?php echo $numTelMaison ?><br/>
-                                    Cellulaire : <?php echo $numTelPersonnel ?><br/><br/>
-                                    Courriel personnel : <?php echo $courrielPersonnel ?><br/>
-                                    Courriel étudiant : <?php echo $courrielScolaire ?>
-                                </p>
+                <ul class="item">
+                    <li>Cahier stagiaire 2017.pdf</li>
+                    <li>Lettre d'entente 2017.pdf</li>
+                </ul>
+            </div>
+            
+            <div class="conteneur">
+                <div class="entete">
+                    <h1>Informations</h1>
+                </div>
+                
+                <div class="infoStagiaire">
+                    <div class="zoneProfil">
+                            <div class="element">
+                                <div class="entete">
+                                    <h2>Stagiaire</h2>
+                                </div>
+
+                                <a class="zoneCliquable" href="PHP/ProfilStagiaire.php">
+                                    <p><?php echo $prenomStagiaire . ' ' . $nomStagiaire; ?></p>
+                                    <p><?php echo $numTelPersonnelStagiaire; ?></p>
+                                </a>
                             </div>
 
-                            <div class="infoPerso">
-                                <p>
-                                    Stage<br/><br/>
-                                    Téléphone : <?php echo $numTelEntreprise ?><br/>
-                                    Poste : <?php echo $poste ?><br/><br/>
-                                    Courriel : <?php echo $courrielEntreprise ?>
-                                </p>
+                            <div class="element">
+                                <div class="entete">
+                                    <h2>Superviseur</h2>
+                                </div>
+
+                                <div class="infoProfil">
+                                    <a class="zoneCliquable" href="PHP/ProfilSuperviseur.php">
+                                        <p>Martin Mystère</p>
+                                        <p>(418) 666-7777</p>
+                                    </a>
+                                </div>
                             </div>
-                        </div>
+
+                            <div class="element">
+                                <div class="entete">
+                                    <h2>Enseignant</h2>
+                                </div>
+
+                                <div class="infoProfil">
+                                    <a class="zoneCliquable" href="ProfilEntreprise.html">
+                                        <p>Martin Mystère</p>
+                                        <p>(418) 666-7777</p>
+                                    </a>
+                                </div>
+                            </div>
                     </div>
-                    <div class="commentaireContainer">
-                        <input class="bouton" value="Modifier" onClick="document.location.href='PHP/ModifProfil.php';" type="button"/>
+                    
+                    <div class="evaluation">
+                        <table class="table" class="tableauEvaluation">
+							<thead>
+								<tr>
+									<th>
+										Rapport
+									</th>
+									<th>
+										Statut
+									</th>
+									<th>
+										Date début
+									</th>
+									<th>
+										Date limite
+									</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr>
+									<td>
+										Rapport 1
+									</td>
+									<td>
+										Complétée
+									</td>
+									<td>
+								        2017-09-07
+									</td>
+									<td>
+										2017-12-07
+									</td>
+								</tr>
+								<tr>
+									<td>
+										Rapport 2
+									</td>
+									<td>
+										Non complétée
+									</td>
+									<td>
+										2018-01-15
+									</td>
+									<td>
+										2018-03-15
+									</td>
+								</tr>
+							</tbody>
+						</table>
+                    </div>
+                    
+                    <div class="evaluation">
+                        <table class="table" class="tableauEvaluation">
+							<thead>
+								<tr>
+									<th>
+										Autre
+									</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr>
+									<td>
+										Auto-Évaluation
+									</td>
+								</tr>
+								<tr>
+									<td>
+                                        <a href="JournalBord.html" class="zoneCliquable">
+                                            Journal de bord
+                                        </a>
+									</td>
+								</tr>
+							</tbody>
+						</table>
                     </div>
                 </div>
             </div>

@@ -196,11 +196,17 @@ table{
 
 /* --------------------------------------------------------------- */
 
+#retourTBL{
+    margin-left:15px;
+    margin-bottom:15px;
+    width:300px;
+}
+
 .commentaireContainer{
     width: 90%;
     margin: auto;
     margin-top: 20px;
-    text-align: center;
+    text-align: right;
 }
 
 #boutonCommentaire{
@@ -228,6 +234,10 @@ table{
     padding: 5px;
     transition: 0.15s;
     border: outset 2px #083A7C;
+}
+
+#boutonProfilStagiaire{
+    margin-bottom: 15px;
 }
 
 /* --------------------------------------------------------------- */
