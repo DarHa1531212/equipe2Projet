@@ -8,14 +8,14 @@
 		while($row = $result->fetch_assoc()) //Boucle qui va chercher automatiquement le employe.
 		{
 			//$logo = $row["Logo"];
-			$prenom = $row["Prenom"]; //Initialisation des variables a afficher dans les balises.
-			$nom = $row["nom"];
-			//$nomEntreprise = $row["NomEntreprise"];
-			$numTelCell = $row["NumTelCell"];
-			$courrielPersonnel = $row["CourrielPersonnel"];
-			$numTelEntreprise = $row["NumTelEntreprise"];
-			$poste = $row["Poste"];
-			$courrielEntreprise = $row["CourrielEntreprise"];
+			$prenomSup = $row["Prenom"]; //Initialisation des variables a afficher dans les balises.
+			$nomSup = $row["Nom"];
+			//$nomEntrepriseSup = $row["NomEntreprise"];
+			$numTelCellSup = $row["NumTelCell"];
+			$courrielPersonnelSup = $row["CourrielPersonnel"];
+			$numTelEntrepriseSup = $row["NumTelEntreprise"];
+			$posteSup = $row["Poste"];
+			$courrielEntrepriseSup = $row["CourrielEntreprise"];
 		}
 	}
 	else
