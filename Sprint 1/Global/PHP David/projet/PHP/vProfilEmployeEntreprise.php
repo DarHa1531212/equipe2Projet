@@ -1,6 +1,6 @@
 <?php
 
-	$sql = "SELECT Prenom, Nom, NumTelCell, CourrielPersonnel, NumTelEntreprise, Poste, CourrielEntreprise, FROM vEmployeEntreprise WHERE /*email de connexion?*/ = /*Employe connecté*/";//Query de la vue employe
+	$sql = "SELECT Prenom, Nom, NumTelCell, CourrielPersonnel, NumTelEntreprise, Poste, CourrielEntreprise FROM vEmployeEntreprise WHERE CourrielEntreprise = 'Sophisticated@entreprise.com'";//Query de la vue employe
 	$result = $bdd->query($sql);
 
 	if($result->num_rows > 0) //Permet de voir s'il y a des résultats.
