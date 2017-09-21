@@ -15,10 +15,7 @@ $aCourrielEntreprise = $_POST['courrielEntreprise'];
 		if($aNom != "" AND $aPrenom != "" OR $aNumTelPersonnel != "" OR $aNumTelMaison != "" OR $aNumTelEntreprise != "" OR $aPoste != "" OR $aCourrielEntreprise != "")
 		{
 			$sql = "UPDATE vStagiaire SET Nom = '$aNom', Prenom = '$aPrenom', NumTelPersonnel = '$aNumTelPersonnel', NumTelMaison = '$aNumTelMaison', NumTelEntreprise = '$aNumTelEntreprise', Poste = '$aPoste', CourrielEntreprise = '$aCourrielEntreprise' WHERE CourrielScolaire = 'Tremblay.Olimpia@etu.cegepjonquiere.ca'";
-			echo $sql;
 			$bdd->query($sql);
-
-			echo 'Les informations ont bien été enregistré.';
 		}
 		else
 		{
@@ -29,5 +26,7 @@ $aCourrielEntreprise = $_POST['courrielEntreprise'];
 	{
 		die('Erreur : ' .$e->getMessage());
 	}
+
+	include 'ProfilStagiaire.php';
 
 	?> 

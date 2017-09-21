@@ -38,7 +38,7 @@
                 </div>
                 
                 <div class="content">
-                    <input class="bouton" id="retourTBL" value="Retour au tableau de bord" onClick="document.location.href='../index.php';" type="button"/>
+                    <input class="bouton" id="retourTBL" value="Retour au tableau de bord" onClick="document.location.href='TableauBordStagiaire.php';" type="button"/>
                     <div class="containerInfoProfil">  
                         <div class="bordureBleu">
                         

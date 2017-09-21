@@ -193,10 +193,8 @@ Condition de mot de passe
 										
 							</div>
 							
-							<a href="ProfilStagiaire.php">
-								<button type="button" class="bouton" >Annuler</button>
-							</a>
-							<button type="submit" class="bouton">Sauvegarder</button>
+							<button type="button" class="bouton" onClick="document.location.href='ProfilStagiaire.php';" >Annuler</button>
+							<button type="submit" class="bouton" ocClick="document.location.href='ProfilStagiaire.php';">Sauvegarder</button>
 							
 						  </div>
 						  
