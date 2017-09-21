@@ -117,7 +117,8 @@ content .entete{
 
 .slideContainerAsides>#slideContainer{
     width: 90%;
-    margin: auto;
+    margin-left: 10px;
+    margin-right: 10px;
     overflow-x: hidden;
     white-space: nowrap;
     font-size: 0px;
