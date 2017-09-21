@@ -5,33 +5,15 @@ $entree = array();
 
 
 $entree = array(htmlspecialchars($_POST['contenu']));
-$textContinu = "";
-
-/*
-
-$i = 0;
-while(isset($entree[$i]))
-{
-   
-    echo $entree[$i];
-    $textContinu += $entree[$i];
-    echo $textContinu;
-    $i++;
-    
-    echo "la boucle a rou;ée";
-}
-echo "voici texte continu";?></br><?php
-echo $textContinu;
-
-*/
+    	$date = date('Y-m-d h:i:s', time());
 
 	try
 	{
 		//                        Hôte/serever        nom de bd                          nom de connexion    mot de passe
 		$bdd = new PDO('mysql:host=dicj.info;dbname=cegepjon_p2017_2_tests;charset=utf8','cegepjon_p2017_2','madfpfadshdb');
-    
          // $sql = "INSERT INTO tblJournalDeBord (Entree) VALUES (" . $entree[0] . ");";
-         $sql = "INSERT INTO tblJournalDeBord (Entree) VALUES ('" . $entree[0] . "');";
+         $sql = "INSERT INTO 
+         tblJournalDeBord (Entree,IdStagiaire, Dates ) VALUES ('" . $entree[0] . "',17,'". $date.  "');";
          $bdd->exec($sql);          
     }
 	catch(Exception $e)
@@ -53,5 +35,5 @@ if(mysqli_query($link, $sql)){
 }*/
 
 
-include ('JournalBord.html');
+include ('JournalBord2.php');
 ?>

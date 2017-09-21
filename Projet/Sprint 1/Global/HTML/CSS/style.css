@@ -79,61 +79,13 @@ content .entete{
 
 /* --------------------------------------------------------------- */
 
-#btnPrecedent{
-    background-image: url(../Images/fleche._gauche.png);
-}
-
-#btnSuivant{
-    background-image: url(../Images/fleche._gauche.png);
-    transform: scale(-1);
-}
-
-.asideButtons{
-    width: 70px;
-    height: 70px;
-    margin-top: auto;
-    margin-bottom: auto;
-    background-color: #083A7C;
-    background-size: 60%;
-    background-repeat: no-repeat;
-    background-position: center;
-    border: outset 1px #CBD4E0;
-    transition: 0.1s;
-}
-
-.asideButtons:hover{
-    background-size: 70%;
-}
-
-.asideButtons:active{
-    border: inset 2px white;
-}
-
-.slideContainerAsides{
-    width: 80%;
+content>.conteneur>.infoStagiaire{
+    height: 500px;
+    width: 1200px;
     margin: auto;
-    display: flex;
-}
-
-.slideContainerAsides>#slideContainer{
-    width: 90%;
-    margin: auto;
-    overflow-x: hidden;
-    white-space: nowrap;
-    font-size: 0px;
-}
-
-content>.conteneur>.slideContainerAsides>#slideContainer>.infoStagiaire{
-    height: auto;
-    width: 100%;
     margin-bottom: 20px;
     margin-top: 20px;
-    padding-top: 20px;
-    padding-bottom: 30px;
     background-color: rgba(255,255,255,0.6);
-    display: inline-block;
-    font-size: 16px;
-    white-space:normal;
 }
 
 .infoStagiaire>.zoneProfil{
@@ -150,7 +102,6 @@ content>.conteneur>.slideContainerAsides>#slideContainer>.infoStagiaire{
     height: auto;
     text-align: center;
     display: inline-block;
-    white-space: nowrap;
 }
 
 .element>.entete{
