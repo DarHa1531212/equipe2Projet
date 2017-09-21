@@ -54,6 +54,9 @@
                 <div class="entete" >   
                     <h1>Entrées précédentes</h1>
                 </div>
+                
+                <div class="content">
+                    
                 <?php
                         $host="dicj.info";
                         $port=3306;
@@ -61,45 +64,38 @@
                         $user="cegepjon_p2017_2";
                         $password="madfpfadshdb";
                         $dbname="cegepjon_p2017_2_tests";
-
+                    
                         $con = new mysqli($host, $user, $password, $dbname, $port, $socket)
                             or die ('Could not connect to the database server' . mysqli_connect_error());
 
                         //$con->close();
 
                         $query = "select  Entree, Date_Format (Dates, '%d/%m/%Y') as Dates from tblJournalDeBord where IdStagiaire like 17 ORDER BY  Dates desc limit 5;";
-
+                    
 
                         if ($stmt = $con->prepare($query)) {
                             $stmt->execute();
                             $stmt->bind_result($Entree, $Dates);
                             while ($stmt->fetch()) {
-                             echo   '<div class = "content">
-                                                <div class = "entree">       
-                                                    <h2>' .  $Dates . '</h2>
-                                                    
-                                                    <p>'
-                                                      . $Entree . '
-                                                    </p>
-                                                </div>';                            
-                                            }
+                                
+                                echo '<div class = "entree">       
+                                            <h2>'.$Dates .'</h2>
+                                            <p>'.$Entree.'</p>
+                                         </div>';
+                            }
+                            
                             $stmt->close();
-}
-
-
-                
+                        }
                 ?>
+                
+                </div>
           
-                  
-                    
-                    <div class="commentaireContainer">
-                        <form action="JournalBord3.php" method="POST">
-                        <input  type="submit" class="bouton" value="Afficher tout"></input>
-                        </form>
-                        
-                    </div>    
-                </div>                   
-            </div>
+                <div class="commentaireContainer">
+                    <form action="JournalBord3.php" method="POST">
+                    <input  type="submit" class="bouton" value="Afficher tout"/>
+                    </form>
+                </div>    
+            </div>                   
         </content>
         
         <footer>
