@@ -37,7 +37,7 @@
                     <form action = "JournalBord.php" method = 'post'>
                     <div class = "nouvelleEntree">                   
                      
-                        <textarea rows="5" cols="100" name = "contenu"></textarea>
+                        <textarea rows="5" cols="100" maxlength="500" name = "contenu"></textarea>
                     </div>  
                 
                     <div class="commentaireContainer">
@@ -54,8 +54,6 @@
                 <div class="entete" >   
                     <h1>Entrées précédentes</h1>
                 </div>
-                <div class="content">
-                    
                 <?php
                         $host="dicj.info";
                         $port=3306;
@@ -63,32 +61,40 @@
                         $user="cegepjon_p2017_2";
                         $password="madfpfadshdb";
                         $dbname="cegepjon_p2017_2_tests";
-                    
+
                         $con = new mysqli($host, $user, $password, $dbname, $port, $socket)
                             or die ('Could not connect to the database server' . mysqli_connect_error());
 
                         //$con->close();
 
-                        $query = "select  Entree, Date_Format (Dates, '%d/%m/%Y') as Dates from tblJournalDeBord where IdStagiaire like 17 ORDER BY  Dates desc limit 5;";
-                    
+                        $query = "select  Entree, Date_Format (Dates, '%d/%m/%Y') as Dates, Dates as datescompletes from tblJournalDeBord where IdStagiaire like 17 ORDER BY  datescompletes desc;";
+
 
                         if ($stmt = $con->prepare($query)) {
                             $stmt->execute();
-                            $stmt->bind_result($Entree, $Dates);
+                            $stmt->bind_result($Entree, $Dates, $datescompletes);
                             while ($stmt->fetch()) {
-                                
-                                echo '<div class = "entree">       
-                                            <h2>'.$Dates .'</h2>
-                                            <p>'.$Entree.'</p>
-                                         </div>';
-                            }
-                            
+                             echo   '<div class = "content">
+                                                <div class = "entree">       
+                                                    <h2>' .  $Dates . '</h2>
+                                                    
+                                                    <p>'
+                                                      . nl2br($Entree) . '
+                                                    </p>
+                                                </div>';                            
+                                            }
                             $stmt->close();
-                        }
-                ?>
+}
+
+
                 
-                </div>
-            </div>                   
+                ?>
+          
+                  
+                    
+              
+                </div>                   
+            </div>
         </content>
         
         <footer>
