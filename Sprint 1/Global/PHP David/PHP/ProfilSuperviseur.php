@@ -7,6 +7,7 @@
         <title>Profil</title>
         <meta name="description" content="An interactive getting started guide for Brackets.">
         <link rel="stylesheet" href="../CSS/style.css">
+        <link rel="shortcut icon" href="../Images/LogoDICJ2Petit.ico">
         <?php include 'connexionBDTest.php' ?>
         <?php include 'vProfilStagiaire.php' ?>
         <?php include 'vProfilEmployeEntreprise.php' ?>
@@ -38,7 +39,7 @@
                 </div>
                 
                 <div class="content">
-                    <input class="bouton" id="retourTBL" value="Retour au tableau de bord" onClick="document.location.href='../index.php';" type="button"/>
+                    <input class="bouton" id="retourTBL" value="Retour au tableau de bord" onClick="document.location.href='TableauBordStagiaire.php';" type="button"/>
                     <div class="containerInfoProfil">  
                         <div class="bordureBleu">
                         
