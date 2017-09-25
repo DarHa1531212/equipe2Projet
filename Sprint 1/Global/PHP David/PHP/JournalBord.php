@@ -1,45 +1,28 @@
 
 
 <?php
-$entree = array();
 
 
-//$entree = array(htmlspecialchars($_POST['contenu']));
-$textContinu = "";
 
-/*
+	$entree = array();
+	$entree = array(htmlspecialchars($_POST['contenu']));
+	$date = date('Y-m-d h:i:s', time());
+    $link = mysqli_connect("dicj.info", "cegepjon_p2017_2", "madfpfadshdb", "cegepjon_p2017_2_tests");
 
-$i = 0;
-while(isset($entree[$i]))
-{
-   
-    echo $entree[$i];
-    $textContinu += $entree[$i];
-    echo $textContinu;
-    $i++;
-    
-    echo "la boucle a rou;ée";
-}
-echo "voici texte continu";?></br><?php
-echo $textContinu;
-
-*/
-
-	try
-	{
-		//                        Hôte/serever        nom de bd                          nom de connexion    mot de passe
-		$bdd = new PDO('mysql:host=dicj.info;dbname=cegepjon_p2017_2_tests;charset=utf8','cegepjon_p2017_2','madfpfadshdb');
-    
-         // $sql = "INSERT INTO tblJournalDeBord (Entree) VALUES (" . $entree[0] . ");";
-         $sql = "INSERT INTO tblJournalDeBord (Entree) VALUES ('" . $entree[0] . "');";
-         $bdd->exec($sql);          
-    }
-	catch(Exception $e)
-	{
-		die('Erreur : ' .$e->getMessage());
+		/* check connection */
+	if (mysqli_connect_errno()) {
+	    printf("Connect failed: %s\n", mysqli_connect_error());
+	    exit();
 	}
-    
+		
+		$text = mysqli_real_escape_string($link, $entree[0]);
+    	//$text = str_replace("\n", "<br/>", $text);
+    	/* this query with escaped $city will work */
 
+
+
+
+mysqli_query($link, "INSERT into tblJournalDeBord (	Entree	, idStagiaire, Dates  ) VALUES ('$text', 17, '$date');");
 /*
 $link = mysqli_connect("host=dicj.info", "cegepjon_p2017_2", "madfpfadshdb", "cegepjon_p2017_2_tests");
 if(mysqli_query($link, $sql)){
@@ -53,5 +36,5 @@ if(mysqli_query($link, $sql)){
 }*/
 
 
-include ('JournalBord.php');
+include ('JournalBord2.php');
 ?>

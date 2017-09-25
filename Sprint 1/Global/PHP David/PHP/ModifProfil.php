@@ -11,6 +11,7 @@
         <link rel="stylesheet" media="screen and (max-width: 1240px)" href="../CSS/style-1240px.css" />
         <link rel="stylesheet" media="screen and (max-width: 1040px)" href="../CSS/style-1040px.css" />
         <link rel="stylesheet" media="screen and (max-width: 735px)" href="../CSS/style-735px.css" />
+        <link rel="shortcut icon" href="../Images/LogoDICJ2Petit.ico">
 		<?php include'connexionBDTest.php'; ?>
 		<?php include'vProfilStagiaire.php'; ?>
     </head>
@@ -62,9 +63,16 @@
 										  
 										  
 										  <div class="form-group">
-											<label class="control-label col-sm-4" for="numeroCellulaire">Numero cellulaire :</label>
+											<label class="control-label col-sm-4" for="numeroCellulaire">Numero de téléphone cellulaire :</label>
 											<div class="col-sm-5"> 
-											  <input type="text" class="form-control" name="numTelPersonnel" id="numeroCellulaire" placeholder="Entrez le numero de cellulaire" value=<?php echo'"' . $numTelPersonnelStagiaire . '"'; ?>>
+											  <input type="text" class="form-control" name="numTelPersonnel" id="numeroCellulaire" placeholder="Entrez le numero de téléphone" value=<?php echo'"' . $numTelPersonnelStagiaire . '"'; ?>>
+											</div>
+										  </div>
+
+										  <div class="form-group">
+											<label class="control-label col-sm-4" for="courriel">Courriel personnel :</label>
+											<div class="col-sm-5"> 
+											  <input type="email" class="form-control" name="courrielPersonnel" id="courriel" placeholder="Entrez votre courriel" value=<?php echo'"' . $courrielPersonnelStagiaire . '"'; ?>>
 											</div>
 										  </div>
 										  
@@ -86,12 +94,12 @@
 										  
 										  
 										  <div class="form-group">
-											<label class="control-label col-sm-4" for="numeroMaison">Numero maison :</label>
+											<label class="control-label col-sm-4" for="numeroMaison">Numero de téléphone à la  maison :</label>
 											<div class="col-sm-5"> 
-											  <input type="text" class="form-control" name="numTelMaison" id="numeroMaison" placeholder="Entrez le numero de maison" value=<?php echo'"' . $numTelMaisonStagiaire . '"'; ?>>
+											  <input type="text" class="form-control" name="numTelMaison" id="numeroMaison" placeholder="Entrez le numero de téléphone" value=<?php echo'"' . $numTelMaisonStagiaire . '"'; ?>>
 											</div>
 										  </div>
-							
+
 									</div>
 								
 							</div>
@@ -105,9 +113,9 @@
 									<div class="col-md-6">
 										
 										  <div class="form-group">
-											<label class="control-label col-sm-4" for="numeroEntreprise">Numero entreprise:</label>
+											<label class="control-label col-sm-4" for="numeroEntreprise">Numero de téléphone:</label>
 											<div class="col-sm-5">
-											  <input type="text" class="form-control" name="numTelEntreprise" id="numeroEntreprise" placeholder="Entrez le numero de l'entreprise" value=<?php echo'"' . $numTelEntrepriseStagiaire . '"'; ?>>
+											  <input type="text" class="form-control" name="numTelEntreprise" id="numeroEntreprise" placeholder="Entrez le numero de téléphone" value=<?php echo'"' . $numTelEntrepriseStagiaire . '"'; ?>>
 											</div>
 										  </div>
 										  

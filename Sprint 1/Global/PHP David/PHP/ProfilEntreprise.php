@@ -10,6 +10,7 @@
         <link rel="shortcut icon" href="../Images/LogoDICJ2Petit.ico">
         <?php include 'connexionBDTest.php' ?>
         <?php include 'vProfilStagiaire.php' ?>
+        <?php include 'vProfilEntreprise.php' ?>
     </head>
     <body>
         <header>
@@ -24,7 +25,7 @@
             </div>
             
             <aside class="right" id="profil">
-                <a class="zoneCliquable" href="ProfilStagiaire.php">
+                <a class="zoneCliquable" href="ProfilEntreprise.php">
                     <h3>Bonjour</h3>
                     <h3><?php echo $prenomStagiaire . ' ' . $nomStagiaire; ?></h3>
                 </a>
@@ -34,7 +35,7 @@
         <content>
             <div class="conteneur">
                 <div class="entete" >   
-                    <h1>Profil Stagiaire</h1>
+                    <h1>Profil de l'entreprise</h1>
                 </div>
                 
                 <div class="content">
@@ -45,29 +46,17 @@
                         </div>
                         
                         <div class="contentInfo">
-                            <div class="infoPerso">
-                                <p>
-                                    <?php echo $prenomStagiaire . ' ' . $nomStagiaire ?><br/>
-                                    Stagiaire Cégep Jonquière<br/><br/>
-                                    Téléphone : <?php echo $numTelMaisonStagiaire ?><br/>
-                                    Cellulaire : <?php echo $numTelPersonnelStagiaire ?><br/><br/>
-                                    Courriel personnel : <?php echo $courrielPersonnelStagiaire ?><br/>
-                                    Courriel étudiant : <?php echo $courrielScolaireStagiaire ?>
-                                </p>
-                            </div>
-
-                            <div class="infoPerso">
-                                <p>
+                            <div class="infoPersoEntreprise">
+                                <p><br/>
+                                    <?php echo $nomEntreprise?><br/><br/>
                                     <br/><br/>
-                                    Téléphone : <?php echo $numTelEntrepriseStagiaire ?><br/>
-                                    Poste : <?php echo $posteStagiaire ?><br/><br/>
-                                    Courriel : <?php echo $courrielEntrepriseStagiaire ?>
+                                    Téléphone : <?php echo $numTelEntreprise ?><br/><br/>
+                                    Courriel de l'entreprise : <?php echo $courrielEntrepriseEnt ?><br/><br/>
+                                    Adresse : <?php echo $numCivique . ' ' . $rue . ' ' . $ville . ' ' . $province;?><br/><br/>
+
                                 </p>
                             </div>
                         </div>
-                    </div>
-                    <div class="commentaireContainer">
-                        <input class="bouton" id="boutonProfilStagiaire" value="Modifier" onClick="document.location.href='ModifProfil.php';" type="button"/>
                     </div>
                 </div>
             </div>

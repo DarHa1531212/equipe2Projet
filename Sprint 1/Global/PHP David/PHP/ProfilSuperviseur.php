@@ -7,6 +7,7 @@
         <title>Profil</title>
         <meta name="description" content="An interactive getting started guide for Brackets.">
         <link rel="stylesheet" href="../CSS/style.css">
+        <link rel="shortcut icon" href="../Images/LogoDICJ2Petit.ico">
         <?php include 'connexionBDTest.php' ?>
         <?php include 'vProfilStagiaire.php' ?>
         <?php include 'vProfilEmployeEntreprise.php' ?>

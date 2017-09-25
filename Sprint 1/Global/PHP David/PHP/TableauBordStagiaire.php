@@ -10,6 +10,7 @@
         <link rel="stylesheet" media="screen and (max-width: 1240px)" href="CSS/style-1240px.css" />
         <link rel="stylesheet" media="screen and (max-width: 1040px)" href="CSS/style-1040px.css" />
         <link rel="stylesheet" media="screen and (max-width: 735px)" href="CSS/style-735px.css" />
+        <link rel="shortcut icon" href="../Images/LogoDICJ2Petit.ico">
         <?php include 'connexionBDTest.php' ?>
         <?php include 'vProfilStagiaire.php' ?>
         <?php include 'vProfilEmployeEntreprise.php' ?>
@@ -159,7 +160,7 @@
 								</tr>
 								<tr>
 									<td>
-                                        <a href="JournalBord.php" class="zoneCliquable">
+                                        <a href="JournalBord2.php" class="zoneCliquable">
                                             Journal de bord
                                         </a>
 									</td>

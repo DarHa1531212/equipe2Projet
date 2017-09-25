@@ -232,17 +232,11 @@ table{
 
 /* --------------------------------------------------------------- */
 
-#retourTBL{
-    margin-left:15px;
-    margin-bottom:15px;
-    width:300px;
-}
-
 .commentaireContainer{
     width: 90%;
     margin: auto;
     margin-top: 20px;
-    text-align: right;
+    text-align: center;
 }
 
 #boutonCommentaire{
@@ -272,15 +266,10 @@ table{
     border: outset 2px #083A7C;
 }
 
-#boutonProfilStagiaire{
-    margin-bottom: 15px;
-}
-
 /* --------------------------------------------------------------- */
 
 .conteneur>.content{
     width: 80%;
-    height: 470px;
     margin: auto;
     background-color: rgba(255,255,255,0.6);
     padding-top: 20px;
