@@ -1,9 +1,4 @@
-/*
--- Query: SELECT * FROM bdprojet_equipe2v2.tblEmployeEntreprise
-LIMIT 0, 1000
 
--- Date: 2017-09-17 12:09
-*/
 -- USE cegepjon_p2017_2_dev;
 -- USE cegepjon_p2017_2_prod;
 -- USE cegepjon_p2017_2_tests;
