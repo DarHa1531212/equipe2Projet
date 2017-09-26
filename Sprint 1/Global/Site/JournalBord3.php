@@ -70,6 +70,20 @@
 
                         //$con->close();
 
+                            $query1 = "select Dates as datecomplete from tblJournalDeBord where IdStagiaire like 17 ORDER BY  datecomplete desc limit 1;";
+
+                            if ($stmt1 = $con->prepare($query1)) {
+                                $stmt1->execute();
+                                $stmt1->bind_result( $Datescomplete);
+                            }
+
+                             while ($stmt1->fetch()) {
+
+                            $datediff = date('Y-m-d h:i:s', time()) - $Datescomplete ;
+                            echo  '<div class = "entree">       
+                                            <h2>' .  $datediff . ' jours depuis la dernière entrée au journal de bord</h2>';
+                             }
+
                         $query = "select  Entree, Date_Format (Dates, '%d/%m/%Y') as Dates, Dates as datescompletes from tblJournalDeBord where IdStagiaire like 17 ORDER BY  datescompletes desc;";
 
 

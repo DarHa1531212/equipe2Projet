@@ -67,14 +67,29 @@
                             $con = new mysqli($host, $user, $password, $dbname, $port, $socket)
                                 or die ('Could not connect to the database server' . mysqli_connect_error());
 
+                            $query1 = "select Dates as datecomplete from tblJournalDeBord where IdStagiaire like 17 ORDER BY  datecomplete desc limit 1;";
+
+                            if ($stmt1 = $con->prepare($query1)) {
+                                $stmt1->execute();
+                                $stmt1->bind_result( $Datescomplete);
+                            }
+
+                             while ($stmt1->fetch()) {
+
+                            $datediff = date('Y-m-d h:i:s', time()) - $Datescomplete ;
+                            echo  '<div class = "entree">       
+                                            <h2>' .  $datediff . ' jours depuis la dernière entrée au journal de bord</h2>';
+                             }
                             //$con->close();
 
+                       
                             $query = "select  Entree, Date_Format (Dates, '%d/%m/%Y') as Dates, Dates as datecomplete from tblJournalDeBord where IdStagiaire like 17 ORDER BY  datecomplete desc limit 5;";
 
-
-                            if ($stmt = $con->prepare($query)) {
+                                 if ($stmt = $con->prepare($query)) {
                                 $stmt->execute();
                                 $stmt->bind_result($Entree, $Dates, $Datescomplete);
+
+
                                 while ($stmt->fetch()) {
                                  echo   '<div class = "entree">       
                                             <h2>' .  $Dates . '</h2>
