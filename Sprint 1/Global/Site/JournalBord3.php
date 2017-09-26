@@ -64,6 +64,16 @@
                         $user="cegepjon_p2017_2";
                         $password="madfpfadshdb";
                         $dbname="cegepjon_p2017_2_tests";
+                    
+                        function dateDifference($date_1 , $date_2 , $differenceFormat = '%a' )
+                        {
+                            $datetime1 = date_create($date_1);
+                            $datetime2 = date_create($date_2);
+
+                            $interval = date_diff($datetime1, $datetime2);
+
+                            return $interval->format($differenceFormat);
+                        }
 
                         $con = new mysqli($host, $user, $password, $dbname, $port, $socket)
                             or die ('Could not connect to the database server' . mysqli_connect_error());

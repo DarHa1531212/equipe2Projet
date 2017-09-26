@@ -64,6 +64,16 @@
                             $password="madfpfadshdb";
                             $dbname="cegepjon_p2017_2_tests";
 
+                            function dateDifference($date_1 , $date_2 , $differenceFormat = '%a' )
+                            {
+                                $datetime1 = date_create($date_1);
+                                $datetime2 = date_create($date_2);
+
+                                $interval = date_diff($datetime1, $datetime2);
+
+                                return $interval->format($differenceFormat);
+                            }
+                            
                             $con = new mysqli($host, $user, $password, $dbname, $port, $socket)
                                 or die ('Could not connect to the database server' . mysqli_connect_error());
 
@@ -83,6 +93,19 @@
                             //$con->close();
 
                        
+                            $query1 = "select Dates as datecomplete from tblJournalDeBord where IdStagiaire like 17 ORDER BY  datecomplete desc limit 1;";
+
+                            if ($stmt1 = $con->prepare($query1)) {
+                                $stmt1->execute();
+                                $stmt1->bind_result( $Datescomplete);
+                            }
+                    
+                             while ($stmt1->fetch()) {
+                                echo  '<div class = "entree">       
+                                            <h2>' .dateDifference(date('Y-m-d h:i:s'), $Datescomplete).' jours depuis la dernière entrée au journal de bord</h2>
+                                        </div>';
+                             }
+                         
                             $query = "select  Entree, Date_Format (Dates, '%d/%m/%Y') as Dates, Dates as datecomplete from tblJournalDeBord where IdStagiaire like 17 ORDER BY  datecomplete desc limit 5;";
 
                                  if ($stmt = $con->prepare($query)) {
