@@ -1,13 +1,8 @@
-/*
--- Query: SELECT * FROM bdprojet_equipe2v2.tblEmployeEntreprise
-LIMIT 0, 1000
 
--- Date: 2017-09-17 12:09
-*/
 -- USE cegepjon_p2017_2_dev;
 -- USE cegepjon_p2017_2_prod;
 -- USE cegepjon_p2017_2_tests;
- USE bdprojet_equipe2v2;
+-- USE bdprojet_equipe2v2;
 INSERT INTO `tblEmployeEntreprise` (`Id`,`CourrielEntreprise`,`Nom`,`Prenom`,`NumTelCell`,`CourrielPersonnel`,`NumTelEntreprise`,`Poste`,`IdEntreprise`) VALUES (1,'TheNoxiousGamer@gmail.com','MARTIN','Alex','(831) 191-7291','Lovely@gmail.com','(386) 926-6928','45210',25);
 INSERT INTO `tblEmployeEntreprise` (`Id`,`CourrielEntreprise`,`Nom`,`Prenom`,`NumTelCell`,`CourrielPersonnel`,`NumTelEntreprise`,`Poste`,`IdEntreprise`) VALUES (2,'Fancy@entreprise.com','BERNARD','Alexis','(202) 518-1297','Flippant@gmail.com','(582) 487-3269','84300',7);
 INSERT INTO `tblEmployeEntreprise` (`Id`,`CourrielEntreprise`,`Nom`,`Prenom`,`NumTelCell`,`CourrielPersonnel`,`NumTelEntreprise`,`Poste`,`IdEntreprise`) VALUES (3,'Rude@entreprise.com','THOMAS','Antoine','(567) 588-7693','Picayune@gmail.com','(888) 258-8370','38486',30);
@@ -840,50 +835,50 @@ INSERT INTO `tblStage` (`Id`,`IdEntreprise`,`IdResponsable`,`IdSuperviseur`,`IdS
 INSERT INTO `tblStage` (`Id`,`IdEntreprise`,`IdResponsable`,`IdSuperviseur`,`IdStagiaire`,`IdGestionnaire`,`IdEnseignant`) VALUES (3,3,3,3,3,3,3);
 INSERT INTO `tblStage` (`Id`,`IdEntreprise`,`IdResponsable`,`IdSuperviseur`,`IdStagiaire`,`IdGestionnaire`,`IdEnseignant`) VALUES (4,4,4,4,4,4,4);
 INSERT INTO `tblStage` (`Id`,`IdEntreprise`,`IdResponsable`,`IdSuperviseur`,`IdStagiaire`,`IdGestionnaire`,`IdEnseignant`) VALUES (5,5,5,5,5,5,5);
-INSERT INTO `tblStage` (`Id`,`IdEntreprise`,`IdResponsable`,`IdSuperviseur`,`IdStagiaire`,`IdGestionnaire`,`IdEnseignant`) VALUES (6,6,6,6,6,1,6);
-INSERT INTO `tblStage` (`Id`,`IdEntreprise`,`IdResponsable`,`IdSuperviseur`,`IdStagiaire`,`IdGestionnaire`,`IdEnseignant`) VALUES (7,7,7,7,7,2,7);
-INSERT INTO `tblStage` (`Id`,`IdEntreprise`,`IdResponsable`,`IdSuperviseur`,`IdStagiaire`,`IdGestionnaire`,`IdEnseignant`) VALUES (8,8,8,8,8,3,8);
-INSERT INTO `tblStage` (`Id`,`IdEntreprise`,`IdResponsable`,`IdSuperviseur`,`IdStagiaire`,`IdGestionnaire`,`IdEnseignant`) VALUES (9,9,9,9,9,4,9);
-INSERT INTO `tblStage` (`Id`,`IdEntreprise`,`IdResponsable`,`IdSuperviseur`,`IdStagiaire`,`IdGestionnaire`,`IdEnseignant`) VALUES (10,10,10,10,10,5,10);
-INSERT INTO `tblStage` (`Id`,`IdEntreprise`,`IdResponsable`,`IdSuperviseur`,`IdStagiaire`,`IdGestionnaire`,`IdEnseignant`) VALUES (11,11,11,11,11,1,11);
-INSERT INTO `tblStage` (`Id`,`IdEntreprise`,`IdResponsable`,`IdSuperviseur`,`IdStagiaire`,`IdGestionnaire`,`IdEnseignant`) VALUES (12,12,12,12,12,2,12);
-INSERT INTO `tblStage` (`Id`,`IdEntreprise`,`IdResponsable`,`IdSuperviseur`,`IdStagiaire`,`IdGestionnaire`,`IdEnseignant`) VALUES (13,13,13,13,13,3,13);
-INSERT INTO `tblStage` (`Id`,`IdEntreprise`,`IdResponsable`,`IdSuperviseur`,`IdStagiaire`,`IdGestionnaire`,`IdEnseignant`) VALUES (14,14,14,14,14,4,14);
-INSERT INTO `tblStage` (`Id`,`IdEntreprise`,`IdResponsable`,`IdSuperviseur`,`IdStagiaire`,`IdGestionnaire`,`IdEnseignant`) VALUES (15,15,15,15,15,5,15);
-INSERT INTO `tblStage` (`Id`,`IdEntreprise`,`IdResponsable`,`IdSuperviseur`,`IdStagiaire`,`IdGestionnaire`,`IdEnseignant`) VALUES (16,16,16,16,16,1,16);
-INSERT INTO `tblStage` (`Id`,`IdEntreprise`,`IdResponsable`,`IdSuperviseur`,`IdStagiaire`,`IdGestionnaire`,`IdEnseignant`) VALUES (17,17,17,17,17,2,17);
-INSERT INTO `tblStage` (`Id`,`IdEntreprise`,`IdResponsable`,`IdSuperviseur`,`IdStagiaire`,`IdGestionnaire`,`IdEnseignant`) VALUES (18,18,18,18,18,3,18);
-INSERT INTO `tblStage` (`Id`,`IdEntreprise`,`IdResponsable`,`IdSuperviseur`,`IdStagiaire`,`IdGestionnaire`,`IdEnseignant`) VALUES (19,19,19,19,19,4,19);
-INSERT INTO `tblStage` (`Id`,`IdEntreprise`,`IdResponsable`,`IdSuperviseur`,`IdStagiaire`,`IdGestionnaire`,`IdEnseignant`) VALUES (20,1,1,20,20,5,20);
-INSERT INTO `tblStage` (`Id`,`IdEntreprise`,`IdResponsable`,`IdSuperviseur`,`IdStagiaire`,`IdGestionnaire`,`IdEnseignant`) VALUES (21,2,2,21,21,1,21);
-INSERT INTO `tblStage` (`Id`,`IdEntreprise`,`IdResponsable`,`IdSuperviseur`,`IdStagiaire`,`IdGestionnaire`,`IdEnseignant`) VALUES (22,3,3,22,22,2,22);
-INSERT INTO `tblStage` (`Id`,`IdEntreprise`,`IdResponsable`,`IdSuperviseur`,`IdStagiaire`,`IdGestionnaire`,`IdEnseignant`) VALUES (23,4,4,23,23,3,23);
-INSERT INTO `tblStage` (`Id`,`IdEntreprise`,`IdResponsable`,`IdSuperviseur`,`IdStagiaire`,`IdGestionnaire`,`IdEnseignant`) VALUES (24,5,5,24,24,4,24);
-INSERT INTO `tblStage` (`Id`,`IdEntreprise`,`IdResponsable`,`IdSuperviseur`,`IdStagiaire`,`IdGestionnaire`,`IdEnseignant`) VALUES (25,6,6,25,25,5,25);
-INSERT INTO `tblStage` (`Id`,`IdEntreprise`,`IdResponsable`,`IdSuperviseur`,`IdStagiaire`,`IdGestionnaire`,`IdEnseignant`) VALUES (26,7,7,26,26,1,26);
-INSERT INTO `tblStage` (`Id`,`IdEntreprise`,`IdResponsable`,`IdSuperviseur`,`IdStagiaire`,`IdGestionnaire`,`IdEnseignant`) VALUES (27,8,8,27,27,2,27);
-INSERT INTO `tblStage` (`Id`,`IdEntreprise`,`IdResponsable`,`IdSuperviseur`,`IdStagiaire`,`IdGestionnaire`,`IdEnseignant`) VALUES (28,9,9,28,28,3,28);
-INSERT INTO `tblStage` (`Id`,`IdEntreprise`,`IdResponsable`,`IdSuperviseur`,`IdStagiaire`,`IdGestionnaire`,`IdEnseignant`) VALUES (29,10,10,29,29,4,29);
-INSERT INTO `tblStage` (`Id`,`IdEntreprise`,`IdResponsable`,`IdSuperviseur`,`IdStagiaire`,`IdGestionnaire`,`IdEnseignant`) VALUES (30,11,11,30,30,5,30);
-INSERT INTO `tblStage` (`Id`,`IdEntreprise`,`IdResponsable`,`IdSuperviseur`,`IdStagiaire`,`IdGestionnaire`,`IdEnseignant`) VALUES (31,1,12,1,31,1,31);
-INSERT INTO `tblStage` (`Id`,`IdEntreprise`,`IdResponsable`,`IdSuperviseur`,`IdStagiaire`,`IdGestionnaire`,`IdEnseignant`) VALUES (32,2,13,2,32,2,32);
-INSERT INTO `tblStage` (`Id`,`IdEntreprise`,`IdResponsable`,`IdSuperviseur`,`IdStagiaire`,`IdGestionnaire`,`IdEnseignant`) VALUES (33,3,14,3,33,3,33);
-INSERT INTO `tblStage` (`Id`,`IdEntreprise`,`IdResponsable`,`IdSuperviseur`,`IdStagiaire`,`IdGestionnaire`,`IdEnseignant`) VALUES (34,4,15,4,34,4,34);
-INSERT INTO `tblStage` (`Id`,`IdEntreprise`,`IdResponsable`,`IdSuperviseur`,`IdStagiaire`,`IdGestionnaire`,`IdEnseignant`) VALUES (35,5,16,5,35,5,35);
-INSERT INTO `tblStage` (`Id`,`IdEntreprise`,`IdResponsable`,`IdSuperviseur`,`IdStagiaire`,`IdGestionnaire`,`IdEnseignant`) VALUES (36,6,17,6,36,1,36);
-INSERT INTO `tblStage` (`Id`,`IdEntreprise`,`IdResponsable`,`IdSuperviseur`,`IdStagiaire`,`IdGestionnaire`,`IdEnseignant`) VALUES (37,7,18,7,37,2,37);
-INSERT INTO `tblStage` (`Id`,`IdEntreprise`,`IdResponsable`,`IdSuperviseur`,`IdStagiaire`,`IdGestionnaire`,`IdEnseignant`) VALUES (38,8,19,8,38,3,38);
-INSERT INTO `tblStage` (`Id`,`IdEntreprise`,`IdResponsable`,`IdSuperviseur`,`IdStagiaire`,`IdGestionnaire`,`IdEnseignant`) VALUES (39,9,1,9,39,4,39);
-INSERT INTO `tblStage` (`Id`,`IdEntreprise`,`IdResponsable`,`IdSuperviseur`,`IdStagiaire`,`IdGestionnaire`,`IdEnseignant`) VALUES (40,10,2,10,40,5,40);
-INSERT INTO `tblStage` (`Id`,`IdEntreprise`,`IdResponsable`,`IdSuperviseur`,`IdStagiaire`,`IdGestionnaire`,`IdEnseignant`) VALUES (41,11,3,11,41,1,41);
-INSERT INTO `tblStage` (`Id`,`IdEntreprise`,`IdResponsable`,`IdSuperviseur`,`IdStagiaire`,`IdGestionnaire`,`IdEnseignant`) VALUES (42,12,4,12,42,2,42);
-INSERT INTO `tblStage` (`Id`,`IdEntreprise`,`IdResponsable`,`IdSuperviseur`,`IdStagiaire`,`IdGestionnaire`,`IdEnseignant`) VALUES (43,13,5,13,43,3,43);
-INSERT INTO `tblStage` (`Id`,`IdEntreprise`,`IdResponsable`,`IdSuperviseur`,`IdStagiaire`,`IdGestionnaire`,`IdEnseignant`) VALUES (44,14,6,14,44,4,44);
-INSERT INTO `tblStage` (`Id`,`IdEntreprise`,`IdResponsable`,`IdSuperviseur`,`IdStagiaire`,`IdGestionnaire`,`IdEnseignant`) VALUES (45,15,7,15,45,5,45);
-INSERT INTO `tblStage` (`Id`,`IdEntreprise`,`IdResponsable`,`IdSuperviseur`,`IdStagiaire`,`IdGestionnaire`,`IdEnseignant`) VALUES (46,16,8,16,46,1,46);
-INSERT INTO `tblStage` (`Id`,`IdEntreprise`,`IdResponsable`,`IdSuperviseur`,`IdStagiaire`,`IdGestionnaire`,`IdEnseignant`) VALUES (47,17,9,17,47,2,47);
-INSERT INTO `tblStage` (`Id`,`IdEntreprise`,`IdResponsable`,`IdSuperviseur`,`IdStagiaire`,`IdGestionnaire`,`IdEnseignant`) VALUES (48,18,10,18,48,3,48);
-INSERT INTO `tblStage` (`Id`,`IdEntreprise`,`IdResponsable`,`IdSuperviseur`,`IdStagiaire`,`IdGestionnaire`,`IdEnseignant`) VALUES (49,19,11,19,49,4,49);
+INSERT INTO `tblStage` (`Id`,`IdEntreprise`,`IdResponsable`,`IdSuperviseur`,`IdStagiaire`,`IdGestionnaire`,`IdEnseignant`) VALUES (6,6,6,6,6,1,4);
+INSERT INTO `tblStage` (`Id`,`IdEntreprise`,`IdResponsable`,`IdSuperviseur`,`IdStagiaire`,`IdGestionnaire`,`IdEnseignant`) VALUES (7,7,7,7,7,2,3);
+INSERT INTO `tblStage` (`Id`,`IdEntreprise`,`IdResponsable`,`IdSuperviseur`,`IdStagiaire`,`IdGestionnaire`,`IdEnseignant`) VALUES (8,8,8,8,8,3,4);
+INSERT INTO `tblStage` (`Id`,`IdEntreprise`,`IdResponsable`,`IdSuperviseur`,`IdStagiaire`,`IdGestionnaire`,`IdEnseignant`) VALUES (9,9,9,9,9,4,2);
+INSERT INTO `tblStage` (`Id`,`IdEntreprise`,`IdResponsable`,`IdSuperviseur`,`IdStagiaire`,`IdGestionnaire`,`IdEnseignant`) VALUES (10,10,10,10,10,5,1);
+INSERT INTO `tblStage` (`Id`,`IdEntreprise`,`IdResponsable`,`IdSuperviseur`,`IdStagiaire`,`IdGestionnaire`,`IdEnseignant`) VALUES (11,11,11,11,11,1,5);
+INSERT INTO `tblStage` (`Id`,`IdEntreprise`,`IdResponsable`,`IdSuperviseur`,`IdStagiaire`,`IdGestionnaire`,`IdEnseignant`) VALUES (12,12,12,12,12,2,2);
+INSERT INTO `tblStage` (`Id`,`IdEntreprise`,`IdResponsable`,`IdSuperviseur`,`IdStagiaire`,`IdGestionnaire`,`IdEnseignant`) VALUES (13,13,13,13,13,3,3);
+INSERT INTO `tblStage` (`Id`,`IdEntreprise`,`IdResponsable`,`IdSuperviseur`,`IdStagiaire`,`IdGestionnaire`,`IdEnseignant`) VALUES (14,14,14,14,14,4,4);
+INSERT INTO `tblStage` (`Id`,`IdEntreprise`,`IdResponsable`,`IdSuperviseur`,`IdStagiaire`,`IdGestionnaire`,`IdEnseignant`) VALUES (15,15,15,15,15,5,5);
+INSERT INTO `tblStage` (`Id`,`IdEntreprise`,`IdResponsable`,`IdSuperviseur`,`IdStagiaire`,`IdGestionnaire`,`IdEnseignant`) VALUES (16,16,16,16,16,1,5);
+INSERT INTO `tblStage` (`Id`,`IdEntreprise`,`IdResponsable`,`IdSuperviseur`,`IdStagiaire`,`IdGestionnaire`,`IdEnseignant`) VALUES (17,17,17,17,17,2,4);
+INSERT INTO `tblStage` (`Id`,`IdEntreprise`,`IdResponsable`,`IdSuperviseur`,`IdStagiaire`,`IdGestionnaire`,`IdEnseignant`) VALUES (18,18,18,18,18,3,1);
+INSERT INTO `tblStage` (`Id`,`IdEntreprise`,`IdResponsable`,`IdSuperviseur`,`IdStagiaire`,`IdGestionnaire`,`IdEnseignant`) VALUES (19,19,19,19,19,4,2);
+INSERT INTO `tblStage` (`Id`,`IdEntreprise`,`IdResponsable`,`IdSuperviseur`,`IdStagiaire`,`IdGestionnaire`,`IdEnseignant`) VALUES (20,1,1,20,20,5,1);
+INSERT INTO `tblStage` (`Id`,`IdEntreprise`,`IdResponsable`,`IdSuperviseur`,`IdStagiaire`,`IdGestionnaire`,`IdEnseignant`) VALUES (21,2,2,21,21,1,2);
+INSERT INTO `tblStage` (`Id`,`IdEntreprise`,`IdResponsable`,`IdSuperviseur`,`IdStagiaire`,`IdGestionnaire`,`IdEnseignant`) VALUES (22,3,3,22,22,2,4);
+INSERT INTO `tblStage` (`Id`,`IdEntreprise`,`IdResponsable`,`IdSuperviseur`,`IdStagiaire`,`IdGestionnaire`,`IdEnseignant`) VALUES (23,4,4,23,23,3,5);
+INSERT INTO `tblStage` (`Id`,`IdEntreprise`,`IdResponsable`,`IdSuperviseur`,`IdStagiaire`,`IdGestionnaire`,`IdEnseignant`) VALUES (24,5,5,24,24,4,3);
+INSERT INTO `tblStage` (`Id`,`IdEntreprise`,`IdResponsable`,`IdSuperviseur`,`IdStagiaire`,`IdGestionnaire`,`IdEnseignant`) VALUES (25,6,6,25,25,5,4);
+INSERT INTO `tblStage` (`Id`,`IdEntreprise`,`IdResponsable`,`IdSuperviseur`,`IdStagiaire`,`IdGestionnaire`,`IdEnseignant`) VALUES (26,7,7,26,26,1,5);
+INSERT INTO `tblStage` (`Id`,`IdEntreprise`,`IdResponsable`,`IdSuperviseur`,`IdStagiaire`,`IdGestionnaire`,`IdEnseignant`) VALUES (27,8,8,27,27,2,2);
+INSERT INTO `tblStage` (`Id`,`IdEntreprise`,`IdResponsable`,`IdSuperviseur`,`IdStagiaire`,`IdGestionnaire`,`IdEnseignant`) VALUES (28,9,9,28,28,3,4);
+INSERT INTO `tblStage` (`Id`,`IdEntreprise`,`IdResponsable`,`IdSuperviseur`,`IdStagiaire`,`IdGestionnaire`,`IdEnseignant`) VALUES (29,10,10,29,29,4,1);
+INSERT INTO `tblStage` (`Id`,`IdEntreprise`,`IdResponsable`,`IdSuperviseur`,`IdStagiaire`,`IdGestionnaire`,`IdEnseignant`) VALUES (30,11,11,30,30,5,4);
+INSERT INTO `tblStage` (`Id`,`IdEntreprise`,`IdResponsable`,`IdSuperviseur`,`IdStagiaire`,`IdGestionnaire`,`IdEnseignant`) VALUES (31,1,12,1,31,1,5);
+INSERT INTO `tblStage` (`Id`,`IdEntreprise`,`IdResponsable`,`IdSuperviseur`,`IdStagiaire`,`IdGestionnaire`,`IdEnseignant`) VALUES (32,2,13,2,32,2,2);
+INSERT INTO `tblStage` (`Id`,`IdEntreprise`,`IdResponsable`,`IdSuperviseur`,`IdStagiaire`,`IdGestionnaire`,`IdEnseignant`) VALUES (33,3,14,3,33,3,1);
+INSERT INTO `tblStage` (`Id`,`IdEntreprise`,`IdResponsable`,`IdSuperviseur`,`IdStagiaire`,`IdGestionnaire`,`IdEnseignant`) VALUES (34,4,15,4,34,4,2);
+INSERT INTO `tblStage` (`Id`,`IdEntreprise`,`IdResponsable`,`IdSuperviseur`,`IdStagiaire`,`IdGestionnaire`,`IdEnseignant`) VALUES (35,5,16,5,35,5,2);
+INSERT INTO `tblStage` (`Id`,`IdEntreprise`,`IdResponsable`,`IdSuperviseur`,`IdStagiaire`,`IdGestionnaire`,`IdEnseignant`) VALUES (36,6,17,6,36,1,4);
+INSERT INTO `tblStage` (`Id`,`IdEntreprise`,`IdResponsable`,`IdSuperviseur`,`IdStagiaire`,`IdGestionnaire`,`IdEnseignant`) VALUES (37,7,18,7,37,2,2);
+INSERT INTO `tblStage` (`Id`,`IdEntreprise`,`IdResponsable`,`IdSuperviseur`,`IdStagiaire`,`IdGestionnaire`,`IdEnseignant`) VALUES (38,8,19,8,38,3,2);
+INSERT INTO `tblStage` (`Id`,`IdEntreprise`,`IdResponsable`,`IdSuperviseur`,`IdStagiaire`,`IdGestionnaire`,`IdEnseignant`) VALUES (39,9,1,9,39,4,2);
+INSERT INTO `tblStage` (`Id`,`IdEntreprise`,`IdResponsable`,`IdSuperviseur`,`IdStagiaire`,`IdGestionnaire`,`IdEnseignant`) VALUES (40,10,2,10,40,5,5);
+INSERT INTO `tblStage` (`Id`,`IdEntreprise`,`IdResponsable`,`IdSuperviseur`,`IdStagiaire`,`IdGestionnaire`,`IdEnseignant`) VALUES (41,11,3,11,41,1,3);
+INSERT INTO `tblStage` (`Id`,`IdEntreprise`,`IdResponsable`,`IdSuperviseur`,`IdStagiaire`,`IdGestionnaire`,`IdEnseignant`) VALUES (42,12,4,12,42,2,4);
+INSERT INTO `tblStage` (`Id`,`IdEntreprise`,`IdResponsable`,`IdSuperviseur`,`IdStagiaire`,`IdGestionnaire`,`IdEnseignant`) VALUES (43,13,5,13,43,3,5);
+INSERT INTO `tblStage` (`Id`,`IdEntreprise`,`IdResponsable`,`IdSuperviseur`,`IdStagiaire`,`IdGestionnaire`,`IdEnseignant`) VALUES (44,14,6,14,44,4,2);
+INSERT INTO `tblStage` (`Id`,`IdEntreprise`,`IdResponsable`,`IdSuperviseur`,`IdStagiaire`,`IdGestionnaire`,`IdEnseignant`) VALUES (45,15,7,15,45,5,5);
+INSERT INTO `tblStage` (`Id`,`IdEntreprise`,`IdResponsable`,`IdSuperviseur`,`IdStagiaire`,`IdGestionnaire`,`IdEnseignant`) VALUES (46,16,8,16,46,1,3);
+INSERT INTO `tblStage` (`Id`,`IdEntreprise`,`IdResponsable`,`IdSuperviseur`,`IdStagiaire`,`IdGestionnaire`,`IdEnseignant`) VALUES (47,17,9,17,47,2,5);
+INSERT INTO `tblStage` (`Id`,`IdEntreprise`,`IdResponsable`,`IdSuperviseur`,`IdStagiaire`,`IdGestionnaire`,`IdEnseignant`) VALUES (48,18,10,18,48,3,4);
+INSERT INTO `tblStage` (`Id`,`IdEntreprise`,`IdResponsable`,`IdSuperviseur`,`IdStagiaire`,`IdGestionnaire`,`IdEnseignant`) VALUES (49,19,11,19,49,4,5);
 
 
 INSERT INTO `tblEmployeCegep` (`Id`,`CourrielCegep`,`CodePermanent`,`Nom`,`NumTelCell`,`Prenom`,`CourrielPersonnel`) VALUES (2,'bouchard.Sanford@cegepJonquiere.ca','1032695','bouchard','(418) 695-1235','Sanford','bouchard.Sanford@hotmail.com');
@@ -935,3 +930,16 @@ INSERT INTO `tblEmployeCegep` (`Id`,`CourrielCegep`,`CodePermanent`,`Nom`,`NumTe
 INSERT INTO `tblEmployeCegep` (`Id`,`CourrielCegep`,`CodePermanent`,`Nom`,`NumTelCell`,`Prenom`,`CourrielPersonnel`) VALUES (48,'sioud.Stefan@cegepJonquiere.ca','1032741','sioud','(418) 695-1281','Stefan','sioud.Stefan@hotmail.com');
 INSERT INTO `tblEmployeCegep` (`Id`,`CourrielCegep`,`CodePermanent`,`Nom`,`NumTelCell`,`Prenom`,`CourrielPersonnel`) VALUES (49,'tremblay.Marcel@cegepJonquiere.ca','1032742','tremblay','(418) 695-1282','Marcel','tremblay.Marcel@hotmail.com');
 INSERT INTO `tblEmployeCegep` (`Id`,`CourrielCegep`,`CodePermanent`,`Nom`,`NumTelCell`,`Prenom`,`CourrielPersonnel`) VALUES (50,'bouchard.Manual@cegepJonquiere.ca','1032743','bouchard','(418) 695-1283','Manual','bouchard.Manual@hotmail.com');
+
+
+INSERT INTO `tblEnseignant` (`Id`,`IdEmployeCegep`) VALUES (1,1);
+INSERT INTO `tblEnseignant` (`Id`,`IdEmployeCegep`) VALUES (2,2);
+INSERT INTO `tblEnseignant` (`Id`,`IdEmployeCegep`) VALUES (3,3);
+INSERT INTO `tblEnseignant` (`Id`,`IdEmployeCegep`) VALUES (4,4);
+INSERT INTO `tblEnseignant` (`Id`,`IdEmployeCegep`) VALUES (5,5);
+
+INSERT INTO `tblGestionnaire` (`Id`,`IdEmployeCegep`) VALUES (1,6);
+INSERT INTO `tblGestionnaire` (`Id`,`IdEmployeCegep`) VALUES (2,7);
+INSERT INTO `tblGestionnaire` (`Id`,`IdEmployeCegep`) VALUES (3,8);
+INSERT INTO `tblGestionnaire` (`Id`,`IdEmployeCegep`) VALUES (4,9);
+INSERT INTO `tblGestionnaire` (`Id`,`IdEmployeCegep`) VALUES (5,10);
