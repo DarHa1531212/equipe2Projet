@@ -21,19 +21,8 @@
 
 
 
-
+if ($text != "")
 mysqli_query($link, "INSERT into tblJournalDeBord (	Entree	, idStagiaire, Dates  ) VALUES ('$text', 17, '$date');");
-/*
-$link = mysqli_connect("host=dicj.info", "cegepjon_p2017_2", "madfpfadshdb", "cegepjon_p2017_2_tests");
-if(mysqli_query($link, $sql)){
-
-    echo "Records inserted successfully.";
-
-} else{
-
-    echo "ERROR: Could not able to execute $sql. " . mysqli_error($link);
-
-}*/
 
 
 include ('JournalBord2.php');
