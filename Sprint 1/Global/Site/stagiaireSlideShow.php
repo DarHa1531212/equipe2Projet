@@ -8,15 +8,7 @@
 		die('Erreur : ' .$e->getMessage());
 	}
 
-    $query =    "SELECT Stagiaire.Id, Stagiaire.Nom, Stagiaire.Prenom, Stagiaire.NumTelPersonnel, Emp.Nom AS 'Nom Superviseur', Emp.Prenom AS 'Prenom Superviseur', Emp.NumTelCell AS 'Cell Superviseur'
-                FROM vStagiaire AS Stagiaire
-                JOIN vStage AS Stage
-                ON Stage.IdStagiaire = Stagiaire.Id
-                JOIN vSuperviseur AS Sup
-                ON Sup.Id = Stage.IdSuperviseur
-                JOIN vEmployeEntreprise AS Emp
-                ON Emp.Id = Sup.IdEmployeEntreprise
-                WHERE Sup.Id > 20";
+    $query = "SELECT * FROM vTableauBord";
 
     $result = $bdd->query($query);
 
@@ -24,19 +16,27 @@
 	{
 		while($row = $result->fetch_assoc())
 		{
+            $idStagiaire = $row["Id"];
 			$prenomStagiaire = $row["Prenom"];
             $nomStagiaire = $row["Nom"];
             $telPerso = $row["NumTelPersonnel"];
+            
+            $idSup = $row["Id Superviseur"];
             $nomSup = $row["Nom Superviseur"];
             $prenomSup = $row["Prenom Superviseur"];
             $cellSup = $row["Cell Superviseur"];
             
-            NouvelleZoneStagiaire($prenomStagiaire, $nomStagiaire, $telPerso, $prenomSup, $nomSup, $cellSup);
+            $idProf = $row["Id Enseignant"];
+            $prenomProf = $row["Prenom Enseignant"];
+            $nomProf = $row["Nom Enseignant"];
+            $telProf = $row["Tel Enseignant"];
+            
+            NouvelleZoneStagiaire($idStagiaire, $prenomStagiaire, $nomStagiaire, $telPerso, $idSup, $prenomSup, $nomSup, $cellSup, $idProf, $prenomProf, $nomProf, $telProf);
 		}
 	}
 
 
-    function NouvelleZoneStagiaire($prenomStag, $nomStag, $numTelStag, $prenomSup, $nomSup, $numSup){
+    function NouvelleZoneStagiaire($idStagiaire, $prenomStag, $nomStag, $numTelStag, $idSup, $prenomSup, $nomSup, $numSup, $idProf, $prenomProf, $nomProf, $telProf){
         echo    '<div class="infoStagiaire slide">
                                 <div class="zoneProfil">
                                         <div class="element">
@@ -44,10 +44,13 @@
                                                 <h2>Stagiaire</h2>
                                             </div>
 
-                                            <a class="zoneCliquable" href="ProfilEntreprise.html">
-                                                <p>'.$prenomStag." ".$nomStag.'</p>
-                                                <p>'.$numTelStag.'</p>
-                                            </a>
+                                            <form action="PHP/ProfilStagiaire.php" method="post">
+                                                <a class="zoneCliquable" href="javascript:;" onclick="parentNode.submit();">
+                                                    <input type="hidden" value="'.$idStagiaire.'" name="idStagiaire"/>
+                                                    <p>'.$prenomStag." ".$nomStag.'</p>
+                                                    <p>'.$numTelStag.'</p>
+                                                </a>
+                                            </form>
                                         </div>
 
                                         <div class="element">
@@ -56,10 +59,13 @@
                                             </div>
 
                                             <div class="infoProfil">
-                                                <a class="zoneCliquable" href="ProfilEntreprise.html">
-                                                    <p>'.$prenomSup." ".$nomSup.'</p>
-                                                    <p>'.$numSup.'</p>
-                                                </a>
+                                                <form action="PHP/ProfilSuperviseur.php" method="post">
+                                                    <a class="zoneCliquable" href="javascript:;" onclick="parentNode.submit();">
+                                                        <input type="hidden" value="'.$idSup.'" name="idSuperviseur"/>
+                                                        <p>'.$prenomSup." ".$nomSup.'</p>
+                                                        <p>'.$numSup.'</p>
+                                                    </a>
+                                                </form>
                                             </div>
                                         </div>
 
@@ -69,10 +75,13 @@
                                             </div>
 
                                             <div class="infoProfil">
-                                                <a class="zoneCliquable" href="ProfilEntreprise.html">
-                                                    <p>Martin Mystère</p>
-                                                    <p>(418) 666-7777</p>
-                                                </a>
+                                                <form action="PHP/ProfilEnseignant.php" method="post">
+                                                    <a class="zoneCliquable" href="javascript:;" onclick="parentNode.submit();">
+                                                        <input type="hidden" value="'.$idProf.'" name="idEnseignant"/>
+                                                        <p>'.$prenomProf." ".$nomProf.'</p>
+                                                        <p>'.$telProf.'</p>
+                                                    </a>
+                                                </form>
                                             </div>
                                         </div>
                                 </div>
