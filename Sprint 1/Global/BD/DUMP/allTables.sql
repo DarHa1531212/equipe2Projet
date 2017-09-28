@@ -1,7 +1,7 @@
 
 -- USE cegepjon_p2017_2_dev;
 -- USE cegepjon_p2017_2_prod;
--- USE cegepjon_p2017_2_tests;
+ USE cegepjon_p2017_2_tests;
 -- USE bdprojet_equipe2v2;
 INSERT INTO `tblEmployeEntreprise` (`Id`,`CourrielEntreprise`,`Nom`,`Prenom`,`NumTelCell`,`CourrielPersonnel`,`NumTelEntreprise`,`Poste`,`IdEntreprise`) VALUES (1,'TheNoxiousGamer@gmail.com','MARTIN','Alex','(831) 191-7291','Lovely@gmail.com','(386) 926-6928','45210',25);
 INSERT INTO `tblEmployeEntreprise` (`Id`,`CourrielEntreprise`,`Nom`,`Prenom`,`NumTelCell`,`CourrielPersonnel`,`NumTelEntreprise`,`Poste`,`IdEntreprise`) VALUES (2,'Fancy@entreprise.com','BERNARD','Alexis','(202) 518-1297','Flippant@gmail.com','(582) 487-3269','84300',7);
@@ -763,7 +763,7 @@ INSERT INTO `tblSuperviseurEvaluationStagiaireStage` (`IdEvaluation`,`IdSupervis
 INSERT INTO `tblSuperviseurEvaluationStagiaireStage` (`IdEvaluation`,`IdSuperviseur`,`IdStage`,`IdStagiaire`) VALUES (49,49,49,49);
 
 
-INSERT INTO `tblJournalDeBord` (`Id`,`Dates`,`Entree`,`Documents`,`IdStagiaire`) VALUES (1,'2010-01-01','Lorem ipsum dolor sit amet, consectetur adipiscing',NULL,17);
+INSERT INTO `tblJournalDeBord` (`Id`,`Dates`,`Entree`,`Documents`,`IdStagiaire`) VALUES (1,'2017-01-01','Lorem ipsum dolor sit amet, consectetur adipiscing',NULL,17);
 INSERT INTO `tblJournalDeBord` (`Id`,`Dates`,`Entree`,`Documents`,`IdStagiaire`) VALUES (2,'2010-01-01','a faucibus nunc mattis, porttitor nunc non, bl',NULL,17);
 INSERT INTO `tblJournalDeBord` (`Id`,`Dates`,`Entree`,`Documents`,`IdStagiaire`) VALUES (3,'2010-01-01','Aenean semper purus ut velit accumsan dapibus.',NULL,17);
 INSERT INTO `tblJournalDeBord` (`Id`,`Dates`,`Entree`,`Documents`,`IdStagiaire`) VALUES (4,'2010-01-01','Curabitur fermentum lectus nec erat feugiat malesu',NULL,17);
