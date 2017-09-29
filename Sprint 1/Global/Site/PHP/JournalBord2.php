@@ -60,8 +60,6 @@
                 </div>
                 <?php
                         $host="dicj.info";
-                        $port=3306;
-                        $socket="";
                         $user="cegepjon_p2017_2";
                         $password="madfpfadshdb";
                         $dbname="cegepjon_p2017_2_tests";
@@ -78,44 +76,55 @@
                             
 
 
+<<<<<<< HEAD
                         $con = new mysqli($host, $user, $password, $dbname/*, $port, $socket*/)
+=======
+                        $con = new mysqli($host, $user, $password, $dbname)
+>>>>>>> 9f70bc89add22ac1af40b7d388317403caec8b0e
                             or die ('Could not connect to the database server' . mysqli_connect_error());
 
                         //$con->close();
                 
+<<<<<<< HEAD
                         $query1 = "select Dates as datecomplete from vJournalDeBord where IdStagiaire like 17 ORDER BY  datecomplete desc limit 1;";
+=======
+                        $query1 = "select Dates as DateComplete from vJournalDeBord where IdStagiaire like 17 ORDER BY  datecomplete desc limit 1;";
 
-                            if ($stmt1 = $con->prepare($query1)) {
-                                $stmt1->execute();
-                                $stmt1->bind_result( $Datescomplete);
-                            }
-                    
-                             while ($stmt1->fetch()) {
+                        $result = $con->query($query1);
+
+                            if($result->num_rows > 0)
+                        {
+                            while($row = $result->fetch_assoc())
+                            {
+                                $dateComplete = $row["DateComplete"];
+>>>>>>> 9f70bc89add22ac1af40b7d388317403caec8b0e
+
                                 echo  '<div class = "entree">       
-                                            <h2>' .dateDifference(date('Y-m-d h:i:s'), $Datescomplete).' jours depuis la dernière entrée au journal de bord</h2>
+                                            <h2>' .dateDifference(date('Y-m-d h:i:s'), $dateComplete).' jours depuis la dernière entrée au journal de bord</h2>
                                         </div>';
-                             }
-                         
-
-
-                        $query = "select  Entree, Date_Format (Dates, '%d/%m/%Y') as Dates, Dates as datecomplete from tblJournalDeBord where IdStagiaire like 17 ORDER BY  datecomplete desc limit 5;";
-
-
-                        if ($stmt = $con->prepare($query)) {
-                            $stmt->execute();
-                            $stmt->bind_result($Entree, $Dates, $Datescomplete);
-                            while ($stmt->fetch()) {
-                             echo   '<div class = "content">
-                                                <div class = "entree">       
-                                                    <h2>' .  $Dates . '</h2>
-                                                    
-                                                    <p>'
-                                                      . nl2br($Entree) . '
-                                                    </p>
-                                                </div>';                            
-                                            }
-                            $stmt->close();
                             }
+                        }
+
+                        $query = "select  Entree, Date_Format (Dates, '%d/%m/%Y') as Dates, Dates as DateComplete from vJournalDeBord where IdStagiaire like 17 ORDER BY  datecomplete desc limit 5;";
+
+
+                        $result = $con->query($query);
+
+                        if($result->num_rows > 0)
+                        {
+                            while($row = $result->fetch_assoc())
+                            {
+                                $entree = $row["Entree"];
+                                $dates = $row["Dates"];
+                                $dateComplete = $row["DateComplete"];
+
+                                echo   '<div class = "content"><div class = "entree"><h2>' .  $dates . '</h2><p class = "entreeValeur">' . nl2br($entree) . '</p></div>'; 
+                            }
+                        }
+                        else
+                        {
+                            ?><script>alert("Les entrées n'ont pas été trouvées...");</script><?php
+                        }
                         ?>
 
                   
