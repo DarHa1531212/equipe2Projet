@@ -78,12 +78,12 @@
                             
 
 
-                        $con = new mysqli($host, $user, $password, $dbname, $port, $socket)
+                        $con = new mysqli($host, $user, $password, $dbname/*, $port, $socket*/)
                             or die ('Could not connect to the database server' . mysqli_connect_error());
 
                         //$con->close();
                 
-                        $query1 = "select Dates as datecomplete from tblJournalDeBord where IdStagiaire like 17 ORDER BY  datecomplete desc limit 1;";
+                        $query1 = "select Dates as datecomplete from vJournalDeBord where IdStagiaire like 17 ORDER BY  datecomplete desc limit 1;";
 
                             if ($stmt1 = $con->prepare($query1)) {
                                 $stmt1->execute();
@@ -121,7 +121,8 @@
                   
                     
                     <div class="commentaireContainer">
-                        <form action="JournalBordShow=ALL.php" method="POST">
+                        <form action="JournalBord.php" method="POST">
+                        <input type="hidden" name="afficher" value="true"/>
                         <input  type="submit" class="bouton" value="Afficher tout">
                         </form>
                         
