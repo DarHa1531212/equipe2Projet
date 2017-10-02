@@ -78,31 +78,28 @@
                             $stmt->execute();
                             $stmt->bind_result($Entree, $Dates, $Datescomplete);
                             while ($stmt->fetch()) {
-                             echo   '<div class = "content">
-                                                <div class = "entree">       
-                                                    <h2>' .  $Dates . '</h2>
-                                                    
-                                                    <p class = "entreeValeur">'
-                                                      . nl2br($Entree) . '
-                                                    </p>
-                                                </div>';                            
+                            echo   '<div class = "content">
+                                        <div class = "entree">       
+                                            <h2>' .  $Dates . '</h2>
+
+                                            <p class = "entreeValeur">'
+                                              . nl2br($Entree) . '
+                                            </p>
+                                        </div>';                            
                                             }
                             $stmt->close();
-}
+                        }
 
 
                 
                 ?>
           
                   
-                    
                     <div class="commentaireContainer">
                         <form action="JournalBord3.php" method="POST">
-                        <input  type="submit" class="bouton" value="Afficher tout"></input>
+                            <input  type="submit" class="bouton" value="Afficher tout"/>
                         </form>
-                        
-                    </div>    
-                </div>                   
+                    </div>                       
             </div>
         </content>
         

@@ -1,25 +1,24 @@
 <?php
     
-    $id = $_POST["idEnseignant"];
+    $id = $_POST["idProf"];
 
-	$sql = "SELECT * FROM vEmployeCegep WHERE Id = $id";//Query de la vue employe
+	$sql = "SELECT * FROM vEmployeCegep WHERE Id=$id";//Query de la vue Stagiaire
 	$result = $bdd->query($sql);
 
 	if($result->num_rows > 0) //Permet de voir s'il y a des résultats.
 	{
-		while($row = $result->fetch_assoc()) //Boucle qui va chercher automatiquement le employe.
+		while($row = $result->fetch_assoc()) //Boucle qui va chercher automatiquement le stagiaire
 		{
-			$prenom = $row["Prenom"]; //Initialisation des variables a afficher dans les balises.
+            $prenom = $row["Prenom"];
 			$nom = $row["Nom"];
-			$numTelCell = $row["NumTelCell"];
-			$courrielPersonnel = $row["CourrielPersonnel"];
-			$courrielCegep = $row["CourrielCegep"];
+            $numTelPerso = $row["NumTelCell"];
+            $courrielPerso = $row["CourrielPersonnel"];
             $codePermanent = $row["CodePermanent"];
+            $courrielProf = $row["CourrielCegep"];
 		}
 	}
 	else
 	{
-		?><script>alert("Le superviseur n'a pas été trouvé...");</script><?php //Renvoi un alerte que le employe n'a pas été trouvé.
+		?><script>alert("Le stagiaire n'a pas été trouvé...");</script><?php //Renvoi un alerte que le stagiaire n'a pas été trouvé.
 	}
-
 ?>

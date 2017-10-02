@@ -25,19 +25,6 @@ function SubmitForm(input, id){
 
 var indiceCategorie = 1;
 
-function SlideMove(bouton)
-{
-    var slide = document.getElementById("slideContainer");
-    var width = slide.clientWidth;
-    
-    if(bouton.id == "btnSuivant"){
-        slide.scrollLeft += width;
-    }
-    else
-        slide.scrollLeft -= width;
-}
-
-
 function chargementPage()
 {
 	var i;

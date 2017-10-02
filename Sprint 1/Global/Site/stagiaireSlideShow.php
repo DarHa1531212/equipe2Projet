@@ -1,42 +1,77 @@
 <?php
+
     try
 	{
-		$bdd = new mysqli("dicj.info","cegepjon_p2017_2","madfpfadshdb","cegepjon_p2017_2_tests"); //Connexion a la bd au serveur.
+        $bdd = new PDO('mysql:host=dicj.info;dbname=cegepjon_p2017_2_tests', 'cegepjon_p2017_2', 'madfpfadshdb',array(PDO::MYSQL_ATTR_INIT_COMMAND => 'SET NAMES utf8'));
 	}
 	catch(Exception $e)
 	{
 		die('Erreur : ' .$e->getMessage());
 	}
+    
+    $query = $bdd->prepare("SELECT * FROM vTableauBord");
 
-    $query = "SELECT * FROM vTableauBord";
+    $query2 = $bdd->prepare("SELECT Eval.Id, Titre, Statut, DateLimite, DateComplétée
+                            FROM vSuperviseurEvaluationStagiaireStage AS SESS
+                            JOIN vEvaluation AS Eval
+                            ON SESS.IdEvaluation = Eval.Id
+                            JOIN vStagiaire AS Stag
+                            ON Stag.Id = SESS.IdStagiaire
+                            WHERE Stag.Id = :idStagiaire");
 
-    $result = $bdd->query($query);
+    $query->execute(array());
+    $profils = $query->fetchAll();
+    
+    foreach($profils as $profil){
+        $idStagiaire = $profil["Id"];
+        $prenomStagiaire = $profil["Prenom"];
+        $nomStagiaire = $profil["Nom"];
+        $telPerso = $profil["NumTelPersonnel"];
 
-	if($result->num_rows > 0)
-	{
-		while($row = $result->fetch_assoc())
-		{
-            $idStagiaire = $row["Id"];
-			$prenomStagiaire = $row["Prenom"];
-            $nomStagiaire = $row["Nom"];
-            $telPerso = $row["NumTelPersonnel"];
-            
-            $idSup = $row["Id Superviseur"];
-            $nomSup = $row["Nom Superviseur"];
-            $prenomSup = $row["Prenom Superviseur"];
-            $cellSup = $row["Cell Superviseur"];
-            
-            $idProf = $row["Id Enseignant"];
-            $prenomProf = $row["Prenom Enseignant"];
-            $nomProf = $row["Nom Enseignant"];
-            $telProf = $row["Tel Enseignant"];
-            
-            NouvelleZoneStagiaire($idStagiaire, $prenomStagiaire, $nomStagiaire, $telPerso, $idSup, $prenomSup, $nomSup, $cellSup, $idProf, $prenomProf, $nomProf, $telProf);
-		}
-	}
+        $idSup = $profil["Id Superviseur"];
+        $nomSup = $profil["Nom Superviseur"];
+        $prenomSup = $profil["Prenom Superviseur"];
+        $cellSup = $profil["Cell Superviseur"];
 
+        $idProf = $profil["Id Enseignant"];
+        $prenomProf = $profil["Prenom Enseignant"];
+        $nomProf = $profil["Nom Enseignant"];
+        $telProf = $profil["Tel Enseignant"];
+        
+        $query2->execute(array('idStagiaire'=> $idStagiaire));
+        $evals = $query2->fetchAll();
+        $tblEvaluation = array();
+        
+        foreach($evals as $eval){
+            $evaluation = (object)[];
 
-    function NouvelleZoneStagiaire($idStagiaire, $prenomStag, $nomStag, $numTelStag, $idSup, $prenomSup, $nomSup, $numSup, $idProf, $prenomProf, $nomProf, $telProf){
+            if($eval["Statut"] == "0"){
+                $eval["Statut"] = "Non complétée";
+            }
+            else{
+                $eval["Statut"] = "Complétée";   
+            }
+
+            $evaluation->statut = $eval["Statut"];
+            $evaluation->titre = $eval["Titre"]; 
+            $evaluation->dateLimite = $eval["DateLimite"];
+            $evaluation->dateCompletee = $eval["DateComplétée"];
+
+            $tblEvaluation[] = $evaluation;
+        }
+ 
+        NouvelleZoneStagiaire($idStagiaire, $prenomStagiaire, $nomStagiaire, $telPerso,
+                              $idSup, $prenomSup, $nomSup, $cellSup, 
+                              $idProf, $prenomProf, $nomProf, $telProf,
+                              $tblEvaluation[0]->titre, $tblEvaluation[0]->statut, $tblEvaluation[0]->dateLimite, $tblEvaluation[0]->dateCompletee,
+                              $tblEvaluation[1]->titre, $tblEvaluation[1]->statut, $tblEvaluation[1]->dateLimite, $tblEvaluation[1]->dateCompletee);
+    }
+
+    function NouvelleZoneStagiaire($idStagiaire, $prenomStag, $nomStag, $numTelStag,
+                                   $idSup, $prenomSup, $nomSup, $numSup,
+                                   $idProf, $prenomProf, $nomProf, $telProf,
+                                   $titreEval1, $statutEval1, $dateLimiteEval1, $dateCompleteeEval1,
+                                   $titreEval2, $statutEval2, $dateLimiteEval2, $dateCompleteeEval2){
         echo    '<div class="infoStagiaire slide">
                                 <div class="zoneProfil">
                                         <div class="element">
@@ -77,7 +112,7 @@
                                             <div class="infoProfil">
                                                 <form action="PHP/ProfilEnseignant.php" method="post">
                                                     <a class="zoneCliquable" href="javascript:;" onclick="parentNode.submit();">
-                                                        <input type="hidden" value="'.$idProf.'" name="idEnseignant"/>
+                                                        <input type="hidden" value="'.$idProf.'" name="idProf"/>
                                                         <p>'.$prenomProf." ".$nomProf.'</p>
                                                         <p>'.$telProf.'</p>
                                                     </a>
@@ -97,40 +132,40 @@
                                                     Statut
                                                 </th>
                                                 <th>
-                                                    Date début
+                                                    Date limite
                                                 </th>
                                                 <th>
-                                                    Date limite
+                                                    Date complétée
                                                 </th>
                                             </tr>
                                         </thead>
                                         <tbody>
                                             <tr>
                                                 <td>
-                                                    Évaluation 1
+                                                    '.$titreEval1.'
                                                 </td>
                                                 <td>
-                                                    Complétée
+                                                    '.$statutEval1.'
                                                 </td>
                                                 <td>
-                                                    2017-09-07
+                                                    '.$dateLimiteEval1.'
                                                 </td>
                                                 <td>
-                                                    2017-12-07
+                                                    '.$dateCompleteeEval1.'
                                                 </td>
                                             </tr>
                                             <tr>
                                                 <td>
-                                                    Évaluation 2
+                                                    '.$titreEval2.'
                                                 </td>
                                                 <td>
-                                                    Non complétée
+                                                    '.$statutEval2.'
                                                 </td>
                                                 <td>
-                                                    2018-01-15
+                                                    '.$dateLimiteEval2.'
                                                 </td>
                                                 <td>
-                                                    2018-03-15
+                                                    '.$dateCompleteeEval2.'
                                                 </td>
                                             </tr>
                                         </tbody>

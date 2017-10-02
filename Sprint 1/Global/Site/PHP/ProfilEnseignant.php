@@ -48,8 +48,8 @@
                             <div class="infoPerso">
                                 <p>
                                     <?php echo $prenom . ' ' . $nom . '   '; //. $posteEmploi??><br/><br/>
-                                    Cellulaire : <?php echo $numTelCell ?><br/><br/>
-                                    Courriel personnel : <?php echo $courrielPersonnel ?><br/>
+                                    Cellulaire : <?php echo $numTelPerso ?><br/><br/>
+                                    Courriel personnel : <?php echo $courrielPerso ?><br/>
                                 </p>
                             </div>
 
@@ -58,7 +58,7 @@
                                     Informations professionnelles
                                     <br/><br/>
                                     Code Permanent : <?php echo $codePermanent ?><br/>
-                                    Courriel : <?php echo $courrielCegep ?>
+                                    Courriel : <?php echo $courrielProf ?>
                                 </p>
                             </div>
                         </div>
