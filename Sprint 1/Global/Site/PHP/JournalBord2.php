@@ -82,7 +82,7 @@
                                                 <div class = "entree">       
                                                     <h2>' .  $Dates . '</h2>
                                                     
-                                                    <p>'
+                                                    <p class = "entreeValeur">'
                                                       . nl2br($Entree) . '
                                                     </p>
                                                 </div>';                            

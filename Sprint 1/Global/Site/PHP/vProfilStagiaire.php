@@ -1,6 +1,7 @@
 <?php
 
-	$sql = "SELECT Prenom, Nom, NumTelMaison, NumTelPersonnel, CourrielPersonnel, NumTelEntreprise, Poste, CourrielEntreprise, CourrielScolaire FROM vStagiaire WHERE CourrielScolaire = 'Tremblay.Olimpia@etu.cegepjonquiere.ca'"; //Query de la vue Stagiaire
+    $id = $_POST["idStagiaire"];
+	$sql = "SELECT * FROM vStagiaire WHERE Id=$id";//Query de la vue Stagiaire
 	$result = $bdd->query($sql);
 
 	if($result->num_rows > 0) //Permet de voir s'il y a des résultats.

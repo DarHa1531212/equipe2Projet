@@ -17,10 +17,11 @@ $aCourrielPersonnel = $_POST['courrielPersonnel'];
 		{
 			$sql = "UPDATE vStagiaire SET Nom = '$aNom', Prenom = '$aPrenom', NumTelPersonnel = '$aNumTelPersonnel', NumTelMaison = '$aNumTelMaison', NumTelEntreprise = '$aNumTelEntreprise', Poste = '$aPoste', CourrielEntreprise = '$aCourrielEntreprise', CourrielPersonnel = '$aCourrielPersonnel' WHERE CourrielScolaire = 'Tremblay.Olimpia@etu.cegepjonquiere.ca'";
 			$bdd->query($sql);
+			include 'ProfilStagiaire.php';
 		}
 		else
 		{
-			echo 'Certaines informations ne correspondent pas aux critères demandés...';
+			?><script>alert("Les informations ne correspondent pas aux critères demandées...")</script><?php
 		}
 	} 
 	catch (Exception $e) 
@@ -28,6 +29,4 @@ $aCourrielPersonnel = $_POST['courrielPersonnel'];
 		die('Erreur : ' .$e->getMessage());
 	}
 
-	include 'ProfilStagiaire.php';
-
-	?> 
+?> 
