@@ -68,29 +68,27 @@
                             {
                                 $datetime1 = date_create($date_1);
                                 $datetime2 = date_create($date_2);
-
                                 $interval = date_diff($datetime1, $datetime2);
-
                                 return $interval->format($differenceFormat);
                             }
                             
 
 
+
                         $con = new mysqli($host, $user, $password, $dbname)
-                            or die ('Could not connect to the database server' . mysqli_connect_error());
+                        or die ('Could not connect to the database server' . mysqli_connect_error());
 
                         //$con->close();
-                
+
                         $query1 = "select Dates as DateComplete from vJournalDeBord where IdStagiaire like 17 ORDER BY  datecomplete desc limit 1;";
 
                         $result = $con->query($query1);
 
-                            if($result->num_rows > 0)
+                       if($result->num_rows > 0)
                         {
                             while($row = $result->fetch_assoc())
                             {
                                 $dateComplete = $row["DateComplete"];
-
                                 echo  '<div class = "entree">       
                                             <h2>' .dateDifference(date('Y-m-d h:i:s'), $dateComplete).' jours depuis la dernière entrée au journal de bord</h2>
                                         </div>';
@@ -122,7 +120,8 @@
                   
                     
                     <div class="commentaireContainer">
-                        <form action="JournalBordShow=ALL.php" method="POST">
+                        <form action="JournalBord.php" method="POST">
+                        <input type="hidden" name="afficher" value="true"/>
                         <input  type="submit" class="bouton" value="Afficher tout">
                         </form>
                         
