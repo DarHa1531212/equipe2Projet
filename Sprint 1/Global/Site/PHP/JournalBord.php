@@ -1,24 +1,27 @@
 
 
 <?php
-
+$host="dicj.info";
+$user="cegepjon_p2017_2";
+$password="madfpfadshdb";
+$dbname="cegepjon_p2017_2_tests";
 $date = date('Y-m-d h:i:s', time());
 $stringShowAll = "false";
-$link = mysqli_connect("dicj.info", "cegepjon_p2017_2", "madfpfadshdb", "cegepjon_p2017_2_tests");
-if (mysqli_connect_errno()) {
-		/* check connection */
-        printf("Connect failed: %s\n", mysqli_connect_error());
-	    exit();
-    }
+$con = new mysqli($host, $user, $password, $dbname)
+                            or die ('Could not connect to the database server' . mysqli_connect_error());
 	
    //si la page a été appelée pour insérer une entrée 
 if ( !empty($_POST['contenu']) )  
     {
        	$entree = array();
         $entree = array(htmlspecialchars($_POST['contenu']));
-        $text = mysqli_real_escape_string($link, $entree[0]);
+        $text = mysqli_real_escape_string($con, $entree[0]);
+        echo $text;
         if ($text != "")
-            mysqli_query($link, "INSERT into tblJournalDeBord (	Entree	, idStagiaire, Dates  ) VALUES ('$text', 17, '$date');");
+        {
+            $query = "INSERT into vJournalDeBord (  Entree  , idStagiaire, Dates  ) VALUES ('$text', 17, '$date');";
+            $con->query($query);
+        }
 
     }
 //si la page a été appelée pour afficher toutes les entrées
