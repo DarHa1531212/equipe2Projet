@@ -16,7 +16,6 @@ if ( !empty($_POST['contenu']) )
        	$entree = array();
         $entree = array(htmlspecialchars($_POST['contenu']));
         $text = mysqli_real_escape_string($con, $entree[0]);
-        echo $text;
         if ($text != "")
         {
             $query = "INSERT into vJournalDeBord (  Entree  , idStagiaire, Dates  ) VALUES ('$text', 17, '$date');";
