@@ -12,10 +12,12 @@
         <link rel="stylesheet" media="screen and (max-width: 735px)" href="CSS/style-735px.css" />
     </head>
     <body>
-        <script src="js/Scripts.js"></script>
+        <script src="js/scripts.js"></script>
         <header>
             <aside class="left">
-                <img id="logo" src="Images/LogoDICJ2.png"/>
+                <a href="http://dicj.info">
+                    <img id="logo" src="Images/LogoDICJ2.png"/>
+                </a>
             </aside>
             
             <div class="conteneur">

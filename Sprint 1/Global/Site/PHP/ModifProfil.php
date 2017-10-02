@@ -53,7 +53,7 @@
 										  <div class="form-group">
 											<label class="control-label col-sm-4" for="nom">Nom:</label>
 											<div class="col-sm-5">
-											  <input type="text" class="form-control" name="nom" id="nom" placeholder="Entrez votre nom" value=<?php echo'"' . $nomStagiaire . '"'; ?>>
+											  <input type="text" class="form-control" name="nom" id="nom" placeholder="Entrez votre nom" value=<?php echo'"' . $nomStagiaire . '"'; ?> disabled>
 											</div>
 										  </div>
 										  
@@ -84,7 +84,7 @@
 										<div class="form-group">
 											<label class="control-label col-sm-4" for="prenom">Prenom:</label>
 											<div class="col-sm-5">
-											  <input type="text" class="form-control" name="prenom" id="prenom" placeholder="Entrez votre nom" value=<?php echo'"' . $prenomStagiaire . '"'; ?>>
+											  <input type="text" class="form-control" name="prenom" id="prenom" placeholder="Entrez votre nom" value=<?php echo'"' . $prenomStagiaire . '"'; ?> disabled>
 											</div>
 										  </div>
 										  

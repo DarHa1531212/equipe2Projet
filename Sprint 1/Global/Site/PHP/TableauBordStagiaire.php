@@ -42,8 +42,8 @@
                 </div>
                 
                 <ul class="item">
-                    <li>Cahier stagiaire 2017.pdf</li>
-                    <li>Lettre d'entente 2017.pdf</li>
+                    <li><a href="../PDF/Cahier%20stagiaire%202017.pdf">Cahier stagiaire 2017.pdf</a></li>
+                    <li><a href="../PDF/Lettre%20d'entente%202017.docx">Lettre d'entente 2017.docx</a></li>
                 </ul>
             </div>
             
