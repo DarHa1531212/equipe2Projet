@@ -7,7 +7,7 @@
 
 -- USE cegepjon_p2017_2_dev;
 -- USE cegepjon_p2017_2_prod;
--- USE cegepjon_p2017_2_tests;
+ USE cegepjon_p2017_2_tests;
 
 -- Table Reponsesss
 DROP TABLE IF EXISTS tblReponse;
@@ -19,7 +19,7 @@ CREATE TABLE tblReponse(
 
 
 DROP VIEW IF EXISTS vReponse;
-CREATE VIEW vReponse AS SELECT Id,Texte,CONCAT(Id,Texte) AS tag FROM tblReponse;
+CREATE VIEW vReponse AS SELECT Id,Texte,CONCAT(Texte) AS tag FROM tblReponse;
 
 
 -- Table ReponseQuestionGrille
@@ -28,10 +28,13 @@ DROP TABLE IF EXISTS tblReponseQuestionGrille;
 CREATE TABLE tblReponseQuestionGrille(
 	IdQuestionGrille		INT				NOT NULL,
 	IdReponse				INT			 	NOT NULL,
+	ReponseChoisie			BIT			 	NULL,
 	PRIMARY KEY(IdQuestionGrille,IdReponse)
 );
+ALTER TABLE tblReponseQuestionGrille
+ALTER COLUMN ReponseChoisie SET DEFAULT 0;
 DROP VIEW IF EXISTS vReponseQuestionGrille;
-CREATE VIEW vReponseQuestionGrille AS SELECT IdQuestionGrille,IdReponse,CONCAT(IdQuestionGrille,IdReponse) AS tag FROM tblReponseQuestionGrille;
+CREATE VIEW vReponseQuestionGrille AS SELECT IdQuestionGrille,IdReponse,CONCAT(IdQuestionGrille,IdReponse,ReponseChoisie) AS tag ,ReponseChoisie FROM tblReponseQuestionGrille;
 
 -- Table ReponseQuestionChoixReponse
 
@@ -83,7 +86,7 @@ CREATE TABLE tblQuestionGrille(
 );
 
 DROP VIEW IF EXISTS vQuestionGrille;
-CREATE VIEW vQuestionGrille AS SELECT Id,Texte,CONCAT(Id,Texte,IdCategorieQuestion) 
+CREATE VIEW vQuestionGrille AS SELECT Id,Texte,CONCAT(Texte,IdCategorieQuestion) 
 AS tag,idCategorieQuestion FROM tblQuestionGrille;
 
 -- Table QuestionChoixReponse
@@ -97,7 +100,7 @@ CREATE TABLE tblQuestionChoixReponse(
 );
 
 DROP VIEW IF EXISTS vQuestionChoixReponse;
-CREATE VIEW vQuestionChoixReponse AS SELECT Id,Texte,CONCAT(Id,Texte,idCategorieQuestion)
+CREATE VIEW vQuestionChoixReponse AS SELECT Id,Texte,CONCAT(Texte,idCategorieQuestion)
 AS tag, idCategorieQuestion FROM tblQuestionChoixReponse;
 
 -- Table Evaluation
@@ -111,7 +114,7 @@ CREATE TABLE tblEvaluation(
 );
 
 DROP VIEW IF EXISTS vEvaluation;
-CREATE VIEW vEvaluation AS SELECT Id,Titre,DateLimite,CONCAT(Id,Titre,DateLimite) AS tag FROM tblEvaluation;
+CREATE VIEW vEvaluation AS SELECT Id,Titre,DateLimite,CONCAT(Titre,DateLimite) AS tag FROM tblEvaluation;
 
 -- Table SuperviseurEvaluationStagiaireStage
 
@@ -121,11 +124,12 @@ CREATE TABLE tblSuperviseurEvaluationStagiaireStage(
 	IdSuperviseur			INT				NOT NULL,
 	IdStage					INT				NOT NULL,
 	IdStagiaire				INT				NOT NULL,
-	Statut					BIT				NOT	NULL,
+	Statut					BOOL			NOT	NULL,
 	DateComplétée			DATE			NULL,
 	PRIMARY KEY(IdEvaluation,IdSuperviseur,IdStage,IdStagiaire)
 );
-
+ALTER TABLE tblSuperviseurEvaluationStagiaireStage
+ALTER COLUMN Statut SET DEFAULT 0;
 DROP VIEW IF EXISTS vSuperviseurEvaluationStagiaireStage;
 CREATE VIEW vSuperviseurEvaluationStagiaireStage AS SELECT IdEvaluation,IdSuperviseur,IdStage,IdStagiaire,Statut,DateComplétée,
 CONCAT(IdEvaluation,IdSuperviseur,IdStage,IdStagiaire,Statut,IFNULL(DateComplétée,'')) AS tag FROM tblSuperviseurEvaluationStagiaireStage;
@@ -151,7 +155,7 @@ CREATE TABLE tblStagiaire(
 
 DROP VIEW IF EXISTS vStagiaire;
 CREATE VIEW vStagiaire AS SELECT Id,CourrielScolaire,Nom,Prenom,NumTelPersonnel,NumTelMaison,CourrielPersonnel
-,NumTelEntreprise,Poste,CourrielEntreprise,CONCAT(Id,CourrielScolaire,Nom,Prenom,NumTelPersonnel,NumTelMaison,CourrielPersonnel
+,NumTelEntreprise,Poste,CourrielEntreprise,CONCAT(CourrielScolaire,Nom,Prenom,NumTelPersonnel,NumTelMaison,CourrielPersonnel
 ,IFNULL(NumTelEntreprise,''),IFNULL(Poste,''),IFNULL(CourrielEntreprise,''),IFNULL(IdStage,'')) AS tag,IdStage FROM tblStagiaire;
 
 -- Table JournalDeBord
@@ -167,7 +171,7 @@ CREATE TABLE tblJournalDeBord(
 );
 
 DROP VIEW IF EXISTS vJournalDeBord;
-CREATE VIEW vJournalDeBord AS SELECT Id,Dates,Entree,Documents,CONCAT(Id,Dates,Entree,IdStagiaire) AS tag,
+CREATE VIEW vJournalDeBord AS SELECT Id,Dates,Entree,Documents,CONCAT(Dates,IFNULL(Entree,''),IdStagiaire) AS tag,
  IdStagiaire FROM tblJournalDeBord;
 
 -- Table Stage
@@ -185,7 +189,7 @@ CREATE TABLE tblStage(
 );
 
 DROP VIEW IF EXISTS vStage;
-CREATE VIEW vStage AS SELECT Id,CONCAT(Id,IdEntreprise,IdResponsable,IdSuperviseur,IdStagiaire,IdGestionnaire,IdEnseignant)
+CREATE VIEW vStage AS SELECT Id,CONCAT(IdEntreprise,IdResponsable,IdSuperviseur,IdStagiaire,IdGestionnaire,IdEnseignant)
 AS tag,IdEntreprise,IdResponsable,IdSuperviseur,IdStagiaire,IdGestionnaire,IdEnseignant FROM tblStage;
 
 -- Table Gestionnaire
@@ -198,7 +202,7 @@ CREATE TABLE tblGestionnaire(
 );
 
 DROP VIEW IF EXISTS vGestionnaire;
-CREATE VIEW vGestionnaire AS SELECT Id,CONCAT(Id,IFNULL(IdEmployeCegep,'')) AS tag,IdEmployeCegep FROM tblGestionnaire;
+CREATE VIEW vGestionnaire AS SELECT Id,CONCAT(IFNULL(IdEmployeCegep,'')) AS tag,IdEmployeCegep FROM tblGestionnaire;
 
 -- Table Enseignant
 
@@ -210,7 +214,7 @@ CREATE TABLE tblEnseignant(
 );
 
 DROP VIEW IF EXISTS vEnseignant;
-CREATE VIEW vEnseignant AS SELECT Id,CONCAT(Id,IdemployeCegep) AS tag,IdEmployeCegep FROM tblEnseignant;
+CREATE VIEW vEnseignant AS SELECT Id,CONCAT(IdemployeCegep) AS tag,IdEmployeCegep FROM tblEnseignant;
 
 -- Table EmployeCegep
 
@@ -229,7 +233,7 @@ CREATE TABLE tblEmployeCegep(
 
 DROP VIEW IF EXISTS vEmployeCegep;
 CREATE VIEW vEmployeCegep AS SELECT Id,CourrielCegep,CodePermanent,Nom,NumTelCell,Prenom,
-CourrielPersonnel,CONCAT(Id,CourrielCegep,CodePermanent,Nom,NumTelCell,Prenom,
+CourrielPersonnel,CONCAT(CourrielCegep,CodePermanent,Nom,NumTelCell,Prenom,
 CourrielPersonnel) AS tag FROM tblEmployeCegep;
 
 --  Table Entreprise
@@ -251,7 +255,7 @@ CREATE TABLE tblEntreprise(
 );
 DROP VIEW IF EXISTS vEntreprise;
 CREATE VIEW vEntreprise AS SELECT Id,CourrielEntreprise,Nom,NumTel,NumCivique,Rue,Ville,Province,CodePostal,Logo,
-CONCAT(Id,CourrielEntreprise,Nom,NumTel,NumCivique,Rue,Ville,Province,CodePostal,IFNULL(Logo,'')) AS tag FROM tblEntreprise;
+CONCAT(CourrielEntreprise,Nom,NumTel,NumCivique,Rue,Ville,Province,CodePostal,IFNULL(Logo,'')) AS tag FROM tblEntreprise;
 
 -- Table EmployeEntreprise
 
@@ -272,7 +276,7 @@ CREATE TABLE tblEmployeEntreprise(
 
 DROP VIEW IF EXISTS vEmployeEntreprise;
 CREATE VIEW vEmployeEntreprise AS SELECT Id,CourrielEntreprise,Nom,Prenom,NumTelCell,
-CourrielPersonnel,NumTelEntreprise,Poste,CONCAT(Id,CourrielEntreprise,Nom,Prenom,NumTelCell,
+CourrielPersonnel,NumTelEntreprise,Poste,CONCAT(CourrielEntreprise,Nom,Prenom,NumTelCell,
 CourrielPersonnel,NumTelEntreprise,IFNULL(Poste, ""),IdEntreprise) AS tag,IdEntreprise FROM tblEmployeEntreprise;
 
 -- Table tblSuperviseur
@@ -285,7 +289,7 @@ CREATE TABLE tblSuperviseur(
 );
 
 DROP VIEW IF EXISTS vSuperviseur;
-CREATE VIEW vSuperviseur AS SELECT Id,CONCAT(Id,IdEmployeEntreprise) AS tag,IdEmployeEntreprise FROM tblSuperviseur;
+CREATE VIEW vSuperviseur AS SELECT Id,CONCAT(IdEmployeEntreprise) AS tag,IdEmployeEntreprise FROM tblSuperviseur;
 
 -- Table Responsable
 
@@ -297,7 +301,7 @@ CREATE TABLE tblResponsable(
 );
 
 DROP VIEW IF EXISTS vResponsable;
-CREATE VIEW vResponsable AS SELECT Id,CONCAT(Id,IdEmployeEntreprise) AS tag,IdEmployeEntreprise FROM tblResponsable;
+CREATE VIEW vResponsable AS SELECT Id,CONCAT(IdEmployeEntreprise) AS tag,IdEmployeEntreprise FROM tblResponsable;
 
 -- Table Categorie Question
 
@@ -311,7 +315,7 @@ CREATE TABLE tblCategorieQuestion
 );
 
 DROP VIEW IF EXISTS vCategorieQuestion;
-CREATE VIEW vCategorieQuestion AS SELECT Id,descriptionCategorie,CONCAT(Id,descriptionCategorie) AS tag FROM tblCategorieQuestion;
+CREATE VIEW vCategorieQuestion AS SELECT Id,descriptionCategorie,CONCAT(descriptionCategorie) AS tag FROM tblCategorieQuestion;
 
 
 

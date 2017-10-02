@@ -540,13 +540,13 @@ INSERT INTO `tblReponseQuestionChoixReponse` (`IdQuestionChoixReponse`,`IdRepons
 
 
 
-INSERT INTO `tblReponseQuestionGrille` (`IdQuestionGrille`,`IdReponse`) VALUES (1,1);
+INSERT INTO `tblReponseQuestionGrille` (`IdQuestionGrille`,`IdReponse`,`ReponseChoisie`) VALUES (1,1,1);
 INSERT INTO `tblReponseQuestionGrille` (`IdQuestionGrille`,`IdReponse`) VALUES (1,2);
 INSERT INTO `tblReponseQuestionGrille` (`IdQuestionGrille`,`IdReponse`) VALUES (1,3);
 INSERT INTO `tblReponseQuestionGrille` (`IdQuestionGrille`,`IdReponse`) VALUES (1,4);
 INSERT INTO `tblReponseQuestionGrille` (`IdQuestionGrille`,`IdReponse`) VALUES (2,1);
 INSERT INTO `tblReponseQuestionGrille` (`IdQuestionGrille`,`IdReponse`) VALUES (2,2);
-INSERT INTO `tblReponseQuestionGrille` (`IdQuestionGrille`,`IdReponse`) VALUES (2,3);
+INSERT INTO `tblReponseQuestionGrille` (`IdQuestionGrille`,`IdReponse`,`ReponseChoisie`) VALUES (2,3,1);
 INSERT INTO `tblReponseQuestionGrille` (`IdQuestionGrille`,`IdReponse`) VALUES (2,4);
 INSERT INTO `tblReponseQuestionGrille` (`IdQuestionGrille`,`IdReponse`) VALUES (3,1);
 INSERT INTO `tblReponseQuestionGrille` (`IdQuestionGrille`,`IdReponse`) VALUES (3,2);
