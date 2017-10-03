@@ -11,12 +11,14 @@
     
     $query = $bdd->prepare("SELECT * FROM vTableauBord");
 
-    $query2 = $bdd->prepare("SELECT Eval.Id, Titre, Statut, DateLimite, DateComplétée
+    $query2 = $bdd->prepare("SELECT Prenom, Eval.Id, Titre, Statut, DateLimite, DateComplétée
                             FROM vSuperviseurEvaluationStagiaireStage AS SESS
                             JOIN vEvaluation AS Eval
                             ON SESS.IdEvaluation = Eval.Id
                             JOIN vStagiaire AS Stag
                             ON Stag.Id = SESS.IdStagiaire
+                            JOIN vTypeEvaluation AS TypeEval
+                            ON TypeEval.Id = Eval.IdTypeEvaluation
                             WHERE Stag.Id = :idStagiaire");
 
     $query->execute(array());

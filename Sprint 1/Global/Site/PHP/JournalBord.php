@@ -1,40 +1,41 @@
-
-
 <?php
+try
+{
+    $bdd = new PDO('mysql:host=dicj.info;dbname=cegepjon_p2017_2_tests', 'cegepjon_p2017_2', 'madfpfadshdb',array(PDO::MYSQL_ATTR_INIT_COMMAND => 'SET NAMES utf8'));
+}
+catch(Exception $e)
+{
+    die('Erreur : ' .$e->getMessage());
+}
 
+$date = date('Y-m-d h:i:s', time());
+$stringShowAll = "false";
+	
+//si la page a été appelée pour insérer une entrée 
+if ( !empty($_POST['contenu']) )  
+    {
+       	$entree = array();
+        $entree = array(htmlspecialchars($_POST['contenu']));
+        $text = $entree[0];
 
+        if ($text != "")
+        {
+            $query = $bdd->prepare("INSERT INTO tblJournalDeBord (Entree, idStagiaire, Dates) VALUES (:text,17,'$date');");
+            $query->bindValue( 'text', $text, PDO::PARAM_STR );
+            $query->execute();
+        }
 
-	$entree = array();
-	$entree = array(htmlspecialchars($_POST['contenu']));
-	$date = date('Y-m-d h:i:s', time());
-    $link = mysqli_connect("dicj.info", "cegepjon_p2017_2", "madfpfadshdb", "cegepjon_p2017_2_tests");
-
-		/* check connection */
-	if (mysqli_connect_errno()) {
-	    printf("Connect failed: %s\n", mysqli_connect_error());
-	    exit();
-	}
-		
-		$text = mysqli_real_escape_string($link, $entree[0]);
-    	//$text = str_replace("\n", "<br/>", $text);
-    	/* this query with escaped $city will work */
-
-
-
-
-mysqli_query($link, "INSERT into tblJournalDeBord (	Entree	, idStagiaire, Dates  ) VALUES ('$text', 17, '$date');");
-/*
-$link = mysqli_connect("host=dicj.info", "cegepjon_p2017_2", "madfpfadshdb", "cegepjon_p2017_2_tests");
-if(mysqli_query($link, $sql)){
-
-    echo "Records inserted successfully.";
-
-} else{
-
-    echo "ERROR: Could not able to execute $sql. " . mysqli_error($link);
-
-}*/
-
-
-include ('JournalBord2.php');
+    }
+//si la page a été appelée pour afficher toutes les entrées
+if ( !empty($_POST['afficher']))
+    {
+       	$showAll = array();
+        $showAll = array($_POST['afficher']);
+        $stringShowAll = $showAll[0];
+    }
+             	
+if ($stringShowAll == "true")
+    include ('JournalBordShow=ALL.php');
+else
+    include ('JournalBord2.php');
 ?>

@@ -59,8 +59,7 @@
                 <?php       
                         try
                         {
-                            $bdd = new PDO('mysql:host=dicj.info;dbname=cegepjon_p2017_2_tests;', 'cegepjon_p2017_2', 'madfpfadshdb'/*array(PDO::MYSQL_ATTR_INIT_COMMAND => 'SET NAMES utf8')*/);
-                            $bdd->exec("SET NAMES 'utf8';");
+                            $bdd = new PDO('mysql:host=dicj.info;dbname=cegepjon_p2017_2_tests', 'cegepjon_p2017_2', 'madfpfadshdb',array(PDO::MYSQL_ATTR_INIT_COMMAND => 'SET NAMES utf8'));
                         }
                         catch(Exception $e)
                         {
@@ -76,7 +75,7 @@
                         }
                 
                         $query = $bdd->prepare("SELECT Dates AS DateComplete FROM vJournalDeBord WHERE IdStagiaire LIKE 17 ORDER BY datecomplete DESC LIMIT 1;");
-                        $query2 = $bdd->prepare("SELECT Entree, Date_Format (Dates, '%d/%m/%Y') AS Dates, Dates AS DateComplete FROM vJournalDeBord WHERE IdStagiaire LIKE 17 ORDER BY datecomplete desc LIMIT 5;");
+                        $query2 = $bdd->prepare("SELECT  Entree, Date_Format (Dates, '%d/%m/%Y') AS Dates, Dates AS DateComplete FROM vJournalDeBord WHERE IdStagiaire LIKE 17 ORDER BY  datecomplete DESC;");
                         
                         $query->execute(array());
                         $result = $query->fetchall();
@@ -101,13 +100,6 @@
                         }
                     ?>
                 </div>
-
-                <div class="commentaireContainer">
-                    <form action="JournalBord.php" method="POST">
-                        <input type="hidden" name="afficher" value="true"/>
-                        <input  type="submit" class="bouton" value="Afficher tout">
-                    </form>      
-                </div>    
             </div>                   
            
         </content>
