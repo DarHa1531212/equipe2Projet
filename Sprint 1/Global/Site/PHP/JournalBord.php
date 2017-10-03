@@ -12,13 +12,16 @@ $stringShowAll = "false";
    //si la page a été appelée pour insérer une entrée 
 if ( !empty($_POST['contenu']) )  
     {
+
+    	//string 1000 date, entree, idstagiaire
+    	$idStagiaire = '17';
        	$entree = array();
         $entree = array(htmlspecialchars($_POST['contenu']));
         $text = mysqli_real_escape_string($bdd, $entree[0]);
         echo $text;
         if ($text != "")
         {
-            $query = "INSERT INTO vJournalDeBord (Entree, idStagiaire, Dates) VALUES ('$text',17,'$date');";
+            $query = "INSERT INTO tblJournalDeBord (Entree, idStagiaire, Dates) VALUES ('$text', '$idStagiaire','$date');";
             //$bdd->query($query);
             if(!mysqli_query($bdd, $query))
             {
