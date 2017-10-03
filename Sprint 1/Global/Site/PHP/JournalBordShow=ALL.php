@@ -60,39 +60,60 @@
                 </div>
                 <?php
                         $host="dicj.info";
-                        $port=3306;
-                        $socket="";
                         $user="cegepjon_p2017_2";
                         $password="madfpfadshdb";
                         $dbname="cegepjon_p2017_2_tests";
+                
+                
+                            function dateDifference($date_1 , $date_2 , $differenceFormat = '%a' )
+                            {
+                                $datetime1 = date_create($date_1);
+                                $datetime2 = date_create($date_2);
+                                $interval = date_diff($datetime1, $datetime2);
+                                return $interval->format($differenceFormat);
+                            }
+                            
 
-                        $con = new mysqli($host, $user, $password, $dbname, $port, $socket)
+                        $con = new mysqli($host, $user, $password, $dbname)
                             or die ('Could not connect to the database server' . mysqli_connect_error());
 
                         //$con->close();
+                $query1 = "select Dates as DateComplete from tblJournalDeBord where IdStagiaire like 17 ORDER BY  DateComplete desc limit 1;";
+                       
+                $result = $con->query($query1);
 
-                        $query = "select  Entree, Date_Format (Dates, '%d/%m/%Y') as Dates, Dates as datescompletes from tblJournalDeBord where IdStagiaire like 17 ORDER BY  datescompletes desc;";
+				if($result->num_rows > 0)
+                        {
+                            while($row = $result->fetch_assoc())
+                            {
+                                $dateComplete = $row["DateComplete"];
+                                echo  '<div class = "entree">       
+                                            <h2>' .dateDifference(date('Y-m-d h:i:s'), $dateComplete).' jours depuis la dernière entrée au journal de bord</h2>
+                                        </div>';
+                            }
+                        }
 
-
-                        if ($stmt = $con->prepare($query)) {
-                            $stmt->execute();
-                            $stmt->bind_result($Entree, $Dates, $datescompletes);
-                            while ($stmt->fetch()) {
-                             echo   '<div class = "content">
-                                                <div class = "entree">       
-                                                    <h2>' .  $Dates . '</h2>
-                                                    
-                                                    <p class = "entreeValeur">'
-                                                      . nl2br($Entree) . '
-                                                    </p>
-                                                </div>';                            
-                                            }
-                            $stmt->close();
-}
+                        $query = "select  Entree, Date_Format (Dates, '%d/%m/%Y') as Dates, Dates as DateComplete from vJournalDeBord where IdStagiaire like 17 ORDER BY  datecomplete desc;";
 
 
-                
-                ?>
+                        $result = $con->query($query);
+
+                        if($result->num_rows > 0)
+                        {
+                            while($row = $result->fetch_assoc())
+                            {
+                                $entree = $row["Entree"];
+                                $dates = $row["Dates"];
+                                $dateComplete = $row["DateComplete"];
+
+                                echo   '<div class = "content"><div class = "entree"><h2>' .  $dates . '</h2><p class = "entreeValeur">' . nl2br($entree) . '</p></div>'; 
+                            }
+                        }
+                        else
+                        {
+                            ?><script>alert("Les entrées n'ont pas été trouvées...");</script><?php
+                        }
+                        ?>
           
                   
                     
