@@ -58,9 +58,9 @@
 
                             <div class="infoPerso">
                                 <p>
-                                    <br/><br/>
-                                    Téléphone : <?php echo $numTelEntrepriseStagiaire ?><br/>
-                                    Poste : <?php echo $posteStagiaire ?><br/><br/>
+                                    <h4>Informations Professionnelles</h4>
+                                    Téléphone : <?php echo $numTelEntrepriseStagiaire?>
+                                    <span class="poste">Poste : <?php echo $posteStagiaire ?></span><br/><br/>
                                     Courriel : <?php echo $courrielEntrepriseStagiaire ?>
                                 </p>
                             </div>
