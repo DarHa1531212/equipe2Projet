@@ -167,9 +167,12 @@
 								</tr>
 								<tr>
 									<td>
-                                        <a href="JournalBord2.php" class="zoneCliquable">
-                                            Journal de bord
-                                        </a>
+                                        <form action="JournalBord.php" method="post">
+                                            <a class="zoneCliquable" href="javascript:;" onclick="parentNode.submit();">
+                                                <input type="hidden" value="<?php echo $idStagiaire; ?>" name="idStagiaire"/>
+                                                Journal de bord
+                                            </a>
+                                        </form>
 									</td>
 								</tr>
 							</tbody>

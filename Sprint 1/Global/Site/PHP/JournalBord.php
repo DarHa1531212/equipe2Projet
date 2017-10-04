@@ -8,6 +8,9 @@ catch(Exception $e)
     die('Erreur : ' .$e->getMessage());
 }
 
+if(isset($_POST["idStagiaire"]))
+    $idStagiaire = $_POST["idStagiaire"];
+
 $date = date('Y-m-d h:i:s', time());
 $stringShowAll = "false";
 	
@@ -20,11 +23,11 @@ if ( !empty($_POST['contenu']) )
 
         if ($text != "")
         {
-            $query = $bdd->prepare("INSERT INTO tblJournalDeBord (Entree, idStagiaire, Dates) VALUES (:text,17,'$date');");
+            $query = $bdd->prepare("INSERT INTO tblJournalDeBord (Entree, idStagiaire, Dates) VALUES (:text, :id,'$date');");
             $query->bindValue( 'text', $text, PDO::PARAM_STR );
+            $query->bindValue( 'id', $idStagiaire, PDO::PARAM_INT);
             $query->execute();
         }
-
     }
 //si la page a été appelée pour afficher toutes les entrées
 if ( !empty($_POST['afficher']))
@@ -38,4 +41,5 @@ if ($stringShowAll == "true")
     include ('JournalBordShow=ALL.php');
 else
     include ('JournalBord2.php');
+
 ?>

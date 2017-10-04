@@ -43,7 +43,8 @@
                     </div>  
 
                     <div class="commentaireContainer">
-                        <input class="bouton" type="submit" name ='submit'value = 'Confirmer'/>
+                        <input class="bouton" type="submit" name ="submit" value = "Confirmer"/>
+                        <input type="hidden" name="idStagiaire" value="<?php echo $idStagiaire; ?>"/>
                         <input class="bouton" type="button" value = 'Joindre un fichier'/>
                     </div> 
                 </form>
@@ -74,8 +75,8 @@
                             return $interval->format($differenceFormat);
                         }
                 
-                        $query = $bdd->prepare("SELECT Dates AS DateComplete FROM vJournalDeBord WHERE IdStagiaire LIKE 17 ORDER BY datecomplete DESC LIMIT 1;");
-                        $query2 = $bdd->prepare("SELECT  Entree, Date_Format (Dates, '%d/%m/%Y') AS Dates, Dates AS DateComplete FROM vJournalDeBord WHERE IdStagiaire LIKE 17 ORDER BY  datecomplete DESC;");
+                        $query = $bdd->prepare("SELECT Dates AS DateComplete FROM vJournalDeBord WHERE IdStagiaire LIKE $idStagiaire ORDER BY datecomplete DESC LIMIT 1;");
+                        $query2 = $bdd->prepare("SELECT  Entree, Date_Format (Dates, '%d/%m/%Y') AS Dates, Dates AS DateComplete FROM vJournalDeBord WHERE IdStagiaire LIKE $idStagiaire ORDER BY  datecomplete DESC;");
                         
                         $query->execute(array());
                         $result = $query->fetchall();

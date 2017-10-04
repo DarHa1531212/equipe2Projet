@@ -23,7 +23,7 @@
             
             </div>
             
-            <aside class="right "id="profil">
+            <aside class="right" id="profil">
                 <a class="zoneCliquable" href="ProfilStagiaire.php">
                     <h3>Bonjour</h3>
                     <h3>Martin Mystère</h3>
@@ -37,14 +37,15 @@
                     <h1>Journal de bord</h1>
                 </div>
                 
-                <form action = "JournalBord.php" method = 'post'>
+                <form action = "JournalBord.php" method = "post">
                     <div class = "nouvelleEntree">                   
                         <textarea rows="5" cols="100" maxlength="500" name = "contenu"></textarea>
                     </div>  
 
                     <div class="commentaireContainer">
-                        <input class="bouton" type="submit" name ='submit'value = 'Confirmer'/>
-                        <input class="bouton" type="button" value = 'Joindre un fichier'/>
+                        <input class="bouton" type="submit" name ="submit" value = "Confirmer"/>
+                        <input type="hidden" name="idStagiaire" value="<?php echo $idStagiaire; ?>"/>
+                        <input class="bouton" type="button" value = "Joindre un fichier"/>
                     </div> 
                 </form>
             </div>
@@ -75,8 +76,8 @@
                             return $interval->format($differenceFormat);
                         }
                 
-                        $query = $bdd->prepare("SELECT Dates AS DateComplete FROM vJournalDeBord WHERE IdStagiaire LIKE 17 ORDER BY datecomplete DESC LIMIT 1;");
-                        $query2 = $bdd->prepare("SELECT Entree, Date_Format (Dates, '%d/%m/%Y') AS Dates, Dates AS DateComplete FROM vJournalDeBord WHERE IdStagiaire LIKE 17 ORDER BY datecomplete desc LIMIT 5;");
+                        $query = $bdd->prepare("SELECT Dates AS DateComplete FROM vJournalDeBord WHERE IdStagiaire LIKE $idStagiaire ORDER BY datecomplete DESC LIMIT 1;");
+                        $query2 = $bdd->prepare("SELECT Entree, Date_Format (Dates, '%d/%m/%Y') AS Dates, Dates AS DateComplete FROM vJournalDeBord WHERE IdStagiaire LIKE $idStagiaire ORDER BY datecomplete desc LIMIT 5;");
                         
                         $query->execute(array());
                         $result = $query->fetchall();
@@ -105,6 +106,7 @@
                 <div class="commentaireContainer">
                     <form action="JournalBord.php" method="POST">
                         <input type="hidden" name="afficher" value="true"/>
+                        <input type="hidden" name="idStagiaire" value="<?php echo $idStagiaire; ?>"/>
                         <input  type="submit" class="bouton" value="Afficher tout">
                     </form>      
                 </div>    
