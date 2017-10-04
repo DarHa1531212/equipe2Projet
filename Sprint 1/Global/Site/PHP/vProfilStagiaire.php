@@ -8,6 +8,7 @@
 	{
 		while($row = $result->fetch_assoc()) //Boucle qui va chercher automatiquement le stagiaire
 		{
+            $idStagiaire = $id;
 			$prenomStagiaire = $row["Prenom"]; //Initialisation des variables a afficher dans les balises de la page profil.
 			$nomStagiaire = $row["Nom"];
 			$numTelMaisonStagiaire = $row["NumTelMaison"];

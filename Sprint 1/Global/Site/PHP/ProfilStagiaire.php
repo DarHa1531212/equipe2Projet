@@ -26,7 +26,7 @@
             <aside class="right" id="profil">
                 <a class="zoneCliquable" href="ProfilStagiaire.php">
                     <h3>Bonjour</h3>
-                    <h3><?php echo $prenomStagiaire . ' ' . $nomStagiaire; ?></h3>
+                    <h3>Martin Mystère</h3>
                 </a>
             </aside>
         </header>
@@ -38,7 +38,12 @@
                 </div>
                 
                 <div class="content">
-                    <input class="bouton" id="retourTBL" value="Retour au tableau de bord" onClick="document.location.href='TableauBordStagiaire.php';" type="button"/>
+                    
+                    <form action="TableauBordStagiaire.php" method="get">
+                        <input value="<?php echo $idStagiaire; ?>" name="idStagiaire" type="hidden"/>
+                        <input class="bouton" id="retourTBL" value="Retour au tableau de bord" type="submit"/>
+                    </form>
+                    
                     <div class="containerInfoProfil">  
                         <div class="bordureBleu">
                         
@@ -67,7 +72,10 @@
                         </div>
                     </div>
                     <div class="commentaireContainer">
-                        <input class="bouton" id="boutonProfilStagiaire" value="Modifier" onClick="document.location.href='ModifProfil.php';" type="button"/>
+                        <form action="ModifProfil.php" method="post">
+                            <input type="hidden" name="idStagiaire" value="<?php echo $idStagiaire; ?>"/>
+                            <input class="bouton" id="boutonProfilStagiaire" value="Modifier" type="submit"/>
+                        </form>                        
                     </div>
                 </div>
             </div>

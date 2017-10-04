@@ -12,6 +12,7 @@
         <link rel="stylesheet" media="screen and (max-width: 1040px)" href="../CSS/style-1040px.css" />
         <link rel="stylesheet" media="screen and (max-width: 735px)" href="../CSS/style-735px.css" />
         <link rel="shortcut icon" href="../Images/LogoDICJ2Petit.ico">
+        <script src="../js/regexProfilStag.js"></script>
 		<?php include'connexionBDTest.php'; ?>
 		<?php include'vProfilStagiaire.php'; ?>
     </head>
@@ -30,7 +31,7 @@
             <aside class="right" id="profil">
                 <a class="zoneCliquable" href="ProfilStagiaire.php">
                     <h3>Bonjour</h3>
-                    <h3><?php echo $prenomStagiaire . ' ' . $nomStagiaire; ?></h3>
+                    <h3>Martin Mystère</h3>
                 </a>
             </aside>
         </header>
@@ -42,7 +43,7 @@
                     <h1>Modification de votre profil</h1>
                 </div>
                 
-                	<form class="form-horizontal" action="ModifBDStagiaire.php" method="POST">
+                	<form action="ModifBDStagiaire.php" class="form-horizontal" method="POST">
 						<div class="panel panel-default groupboxFormulaire">
 						  <div class="panel-heading">Informations personnelles</div>
 						  
@@ -53,7 +54,7 @@
 										  <div class="form-group">
 											<label class="control-label col-sm-4" for="nom">Nom:</label>
 											<div class="col-sm-5">
-											  <input type="text" class="form-control" name="nom" id="nom" placeholder="Entrez votre nom" value=<?php echo'"' . $nomStagiaire . '"'; ?> disabled>
+											  <input type="text" class="form-control" name="nom" id="nom" placeholder="Entrez votre nom" value=<?php echo'"' . $nomStagiaire . '"'; ?> disabled> 
 											</div>
 										  </div>
 										  
@@ -65,14 +66,14 @@
 										  <div class="form-group">
 											<label class="control-label col-sm-4" for="numeroCellulaire">Numero de téléphone cellulaire :</label>
 											<div class="col-sm-5"> 
-											  <input type="text" class="form-control" name="numTelPersonnel" id="numeroCellulaire" placeholder="Entrez le numero de téléphone" value=<?php echo'"' . $numTelPersonnelStagiaire . '"'; ?>>
+											  <input type="text" class="form-control" name="numTelPersonnel" id="numeroCellulaire" onkeyup="RegexProfilStagiaire();" maxlength="14" placeholder="Entrez le numero de téléphone" value=<?php echo'"' . $numTelPersonnelStagiaire . '"'; ?>>Standard : (123) 123-1234
 											</div>
 										  </div>
 
 										  <div class="form-group">
 											<label class="control-label col-sm-4" for="courriel">Courriel personnel :</label>
 											<div class="col-sm-5"> 
-											  <input type="email" class="form-control" name="courrielPersonnel" id="courriel" placeholder="Entrez votre courriel" value=<?php echo'"' . $courrielPersonnelStagiaire . '"'; ?>>
+											  <input type="email" class="form-control" name="courrielPersonnel" id="courrielPersonnel" onkeyup="RegexProfilStagiaire();" placeholder="Entrez votre courriel" value=<?php echo'"' . $courrielPersonnelStagiaire . '"'; ?>>
 											</div>
 										  </div>
 										  
@@ -96,7 +97,7 @@
 										  <div class="form-group">
 											<label class="control-label col-sm-4" for="numeroMaison">Numero de téléphone à la  maison :</label>
 											<div class="col-sm-5"> 
-											  <input type="text" class="form-control" name="numTelMaison" id="numeroMaison" placeholder="Entrez le numero de téléphone" value=<?php echo'"' . $numTelMaisonStagiaire . '"'; ?>>
+											  <input type="text" class="form-control" name="numTelMaison" id="numeroMaison" onkeyup="RegexProfilStagiaire();" maxlength="14" placeholder="Entrez le numero de téléphone" value=<?php echo'"' . $numTelMaisonStagiaire . '"'; ?>>Standard : (123) 123-1234
 											</div>
 										  </div>
 
@@ -115,7 +116,7 @@
 										  <div class="form-group">
 											<label class="control-label col-sm-4" for="numeroEntreprise">Numero de téléphone:</label>
 											<div class="col-sm-5">
-											  <input type="text" class="form-control" name="numTelEntreprise" id="numeroEntreprise" placeholder="Entrez le numero de téléphone" value=<?php echo'"' . $numTelEntrepriseStagiaire . '"'; ?>>
+											  <input type="text" class="form-control" name="numTelEntreprise" id="numeroEntreprise" onkeyup="RegexProfilStagiaire();" maxlength="14" placeholder="Entrez le numero de téléphone" value=<?php echo'"' . $numTelEntrepriseStagiaire . '"'; ?>>Standard : (123) 123-1234
 											</div>
 										  </div>
 										  
@@ -127,7 +128,7 @@
 										  <div class="form-group">
 											<label class="control-label col-sm-4" for="courriel">Courriel :</label>
 											<div class="col-sm-5"> 
-											  <input type="email" class="form-control" name="courrielEntreprise" id="courriel" placeholder="Entrez le courriel" value=<?php echo'"' . $courrielEntrepriseStagiaire . '"'; ?>>
+											  <input type="email" class="form-control" name="courrielEntreprise" id="courrielEntreprise" onkeyup="RegexProfilStagiaire();" placeholder="Entrez le courriel" value=<?php echo'"' . $courrielEntrepriseStagiaire . '"'; ?>>
 											</div>
 										  </div>
 										  
@@ -139,7 +140,7 @@
 										<div class="form-group">
 											<label class="control-label col-sm-4" for="poste">Poste:</label>
 											<div class="col-sm-5">
-											  <input type="text" class="form-control" name="poste" id="poste" placeholder="Entrez votre poste" value=<?php echo'"' . $posteStagiaire . '"'; ?>>
+											  <input type="text" class="form-control" name="poste" id="poste" onkeyup="RegexProfilStagiaire();" placeholder="Entrez votre poste" maxlength="7" value=<?php echo'"' . $posteStagiaire . '"'; ?>>
 											</div>
 										 </div>
 										  
@@ -163,7 +164,7 @@
 										  <div class="form-group">
 											<label class="control-label col-sm-4" for="newPwd">Nouveau mot de passe:</label>
 											<div class="col-sm-6">
-											  <input type="password" class="form-control" name="newPwd" id="newPwd" placeholder="Entrez le nouveau mot de passe">
+											  <input type="password" class="form-control" name="newPwd" id="newPwd" onkeyup="RegexProfilStagiaire();" placeholder="Entrez le nouveau mot de passe">
 											</div>
 										  </div>
 										  
@@ -175,13 +176,10 @@
 										  <div class="form-group">
 											<label class="control-label col-sm-4" for="confirmationNewPwd">Confirmer nouveau mot de passe:</label>
 											<div class="col-sm-6">
-											  <input type="password" class="form-control" name="confirmNewPwd" id="confirmationNewPwd" placeholder="Entrez le nouveau mot de passe">
+											  <input type="password" class="form-control" name="confirmNewPwd" id="confirmationNewPwd" onkeyup="RegexProfilStagiaire();" placeholder="Entrez le nouveau mot de passe">
 											</div>
 										  </div>
-										  
-										  
-										  
-										
+												
 							</div>
 								
 							<div class="col-md-2">
@@ -191,9 +189,9 @@
 							
 							<div class="col-md-4" >
 									
-								<textarea rows="7" style="width:80%;" >
+								<textarea rows="7" style="width:80%;" disabled>
 Condition de mot de passe   
-        
+
 - 8 caractères minimum
 - Au moins une majuscule
 - Au moins un chiffre(0-9)
@@ -201,8 +199,9 @@ Condition de mot de passe
 										
 							</div>
 							
-							<button type="button" class="bouton" onClick="document.location.href='ProfilStagiaire.php';" >Annuler</button>
-							<button type="submit" class="bouton" ocClick="document.location.href='ProfilStagiaire.php';">Sauvegarder</button>
+                            <input type="hidden" name="idStagiaire" value="<?php echo $idStagiaire; ?>"/>
+                            <input type="submit" id="Save" class="bouton" value="Sauvegarder"/>
+
 							
 						  </div>
 						  
@@ -210,7 +209,11 @@ Condition de mot de passe
 						
 						
 					</form>
-                   
+                    
+                    <form action="ModifProfil.php" method="post">
+                        <input type="hidden" name="idStagiaire" value="<?php echo $idStagiaire; ?>"/>
+                        <input type="submit" class="bouton" value="Annuler"/>
+                    </form>
                     
             </div>
          

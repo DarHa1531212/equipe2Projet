@@ -2,8 +2,6 @@
 
 include 'connexionBDTest.php';
 
-$aNom = $_POST['nom'];
-$aPrenom = $_POST['prenom'];
 $aNumTelPersonnel = $_POST['numTelPersonnel'];
 $aNumTelMaison = $_POST['numTelMaison'];
 $aNumTelEntreprise = $_POST['numTelEntreprise'];
@@ -13,9 +11,9 @@ $aCourrielPersonnel = $_POST['courrielPersonnel'];
 
 	try 
 	{
-		if($aNom != "" AND $aPrenom != "" OR $aNumTelPersonnel != "" OR $aNumTelMaison != "" OR $aNumTelEntreprise != "" OR $aPoste != "" OR $aCourrielEntreprise != "")
+		if($aNumTelPersonnel != "" OR $aNumTelMaison != "" OR $aNumTelEntreprise != "" OR $aPoste != "" OR $aCourrielEntreprise != "")
 		{
-			$sql = "UPDATE vStagiaire SET Nom = '$aNom', Prenom = '$aPrenom', NumTelPersonnel = '$aNumTelPersonnel', NumTelMaison = '$aNumTelMaison', NumTelEntreprise = '$aNumTelEntreprise', Poste = '$aPoste', CourrielEntreprise = '$aCourrielEntreprise', CourrielPersonnel = '$aCourrielPersonnel' WHERE CourrielScolaire = 'Tremblay.Olimpia@etu.cegepjonquiere.ca'";
+			$sql = "UPDATE vStagiaire SET NumTelPersonnel = '$aNumTelPersonnel', NumTelMaison = '$aNumTelMaison', NumTelEntreprise = '$aNumTelEntreprise', Poste = '$aPoste', CourrielEntreprise = '$aCourrielEntreprise', CourrielPersonnel = '$aCourrielPersonnel' WHERE CourrielScolaire = 'Tremblay.Olimpia@etu.cegepjonquiere.ca'";
 			$bdd->query($sql);
 			include 'ProfilStagiaire.php';
 		}
