@@ -3,10 +3,11 @@
 
 -- Création de la bd
 -- DROP DATABASE IF EXISTS BDProjet_equipe2V2;
--- CREATE DATABASE BDProjet_equipe2V2;- 
+-- CREATE DATABASE BDProjet_equipe2V2;-
+
 -- USE cegepjon_p2017_2_dev;
- USE cegepjon_p2017_2_prod;
--- USE cegepjon_p2017_2_tests;
+-- USE cegepjon_p2017_2_prod;
+ USE cegepjon_p2017_2_tests;
 
 -- Table Reponsesss
 DROP TABLE IF EXISTS tblReponse;
@@ -21,109 +22,21 @@ DROP VIEW IF EXISTS vReponse;
 CREATE VIEW vReponse AS SELECT Id,Texte,CONCAT(Texte) AS tag FROM tblReponse;
 
 
--- Table ReponseQuestionGrille
 
-DROP TABLE IF EXISTS tblReponseQuestionGrille;
-CREATE TABLE tblReponseQuestionGrille(
-	IdQuestionGrille		INT				NOT NULL,
-	IdReponse				INT			 	NOT NULL,
-	PRIMARY KEY(IdQuestionGrille,IdReponse)
-);
-DROP VIEW IF EXISTS vReponseQuestionGrille;
-CREATE VIEW vReponseQuestionGrille AS SELECT IdQuestionGrille,IdReponse,CONCAT(IdQuestionGrille,IdReponse) AS tag  FROM tblReponseQuestionGrille;
-
--- Table ReponseQuestionChoixReponse
-
-DROP TABLE IF EXISTS tblReponseQuestionChoixReponse;
-CREATE TABLE tblReponseQuestionChoixReponse(
-	IdQuestionChoixReponse	INT				NOT NULL,
-	IdReponse				INT			 	NOT NULL,
-	PRIMARY KEY(IdQuestionChoixReponse,IdReponse)
-);
-
-DROP VIEW IF EXISTS vReponseQuestionChoixReponse;
-CREATE VIEW vReponseQuestionChoixReponse AS SELECT
- IdQuestionChoixReponse,IdReponse,CONCAT(IdQuestionChoixReponse,idReponse) AS tag FROM  tblReponseQuestionChoixReponse;
-
--- Table QuestionChoixReponseEvaluation
-
-DROP TABLE IF EXISTS tblQuestionChoixReponseEvaluation;
-CREATE TABLE tblQuestionChoixReponseEvaluation(
-	IdQuestionChoixReponse	INT				NOT NULL,
-	IdEvaluation			INT			 	NOT NULL,
-	PRIMARY KEY(IdQuestionChoixReponse,IdEvaluation)
-);
-
-DROP VIEW IF EXISTS vQuestionChoixReponseEvaluation;
-CREATE VIEW vQuestionChoixReponseEvaluation AS SELECT 
-IdQuestionChoixReponse,IdEvaluation,CONCAT(IdQuestionChoixReponse,IdEvaluation) AS tag FROM tblQuestionChoixReponseEvaluation;
-
--- Table tblQuestionGrilleEvaluation
-
-DROP TABLE IF EXISTS tblQuestionGrilleEvaluation;
-CREATE TABLE tblQuestionGrilleEvaluation(
-	IdQuestionGrille		INT				NOT NULL,
-	IdEvaluation			INT			 	NOT NULL,
-	IdReponse				INT			 	NULL,
-	PRIMARY KEY(IdQuestionGrille,IdEvaluation)
-);
-
-DROP VIEW IF EXISTS vQuestionGrilleEvaluation;
-CREATE VIEW vQuestionGrilleEvaluation AS SELECT 
-IdQuestionGrille,IdEvaluation,CONCAT(IdQuestionGrille,IdEvaluation) AS tag FROM tblQuestionGrilleEvaluation;
-
--- Table QuestionGrille
-
-DROP TABLE IF EXISTS tblQuestionGrille;
-CREATE TABLE tblQuestionGrille(
-	Id						INT				AUTO_INCREMENT,
-	Texte 					VARCHAR(250) 	NOT NULL,
-	PRIMARY KEY(Id),
-	idCategorieQuestion		INT				NOT NULL
-);
-
-DROP VIEW IF EXISTS vQuestionGrille;
-CREATE VIEW vQuestionGrille AS SELECT Id,Texte,CONCAT(Texte,IdCategorieQuestion) 
-AS tag,idCategorieQuestion FROM tblQuestionGrille;
-
--- Table QuestionChoixReponse
-
-DROP TABLE IF EXISTS tblQuestionChoixReponse;
-CREATE TABLE tblQuestionChoixReponse(
-	Id						INT				AUTO_INCREMENT,
-	Texte 					VARCHAR(250) 	NOT NULL,
-	PRIMARY KEY(Id),
-	idCategorieQuestion		INT			    NULL
-);
-
-DROP VIEW IF EXISTS vQuestionChoixReponse;
-CREATE VIEW vQuestionChoixReponse AS SELECT Id,Texte,CONCAT(Texte,idCategorieQuestion)
-AS tag, idCategorieQuestion FROM tblQuestionChoixReponse;
 
 -- Table Evaluation
 
 DROP TABLE IF EXISTS tblEvaluation;
 CREATE TABLE tblEvaluation(
 	Id						INT				AUTO_INCREMENT,
-	Statut 					BOOL		 	NOT NULL DEFAULT 0,
-	DateCréation			TIMESTAMP		NOT NULL  DEFAULT CURRENT_TIMESTAMP,
-	PRIMARY KEY(Id),
-	IdTypeEvaluation		INT				NOT NULL
-);
-DROP VIEW IF EXISTS vEvaluation;
-CREATE VIEW vEvaluation AS SELECT Id,Statut,DateCréation,CONCAT(Statut,DateCréation) AS tag,IdTypeEvaluation FROM tblEvaluation;
-
--- Table type evaluation
-
-DROP TABLE IF EXISTS tblTypeEvaluation;
-CREATE TABLE tblTypeEvaluation(
-	Id						INT				AUTO_INCREMENT,
-	Titre					VARCHAR(100)	NOT NULL,
-	DateLimite				TIMESTAMP		NOT NULL,
+	Titre 					VARCHAR(40) 	NOT NULL,
+	DateLimite				DATE			NOT NULL,
 	PRIMARY KEY(Id)
 );
-DROP VIEW IF EXISTS vTypeEvaluation;
-CREATE VIEW vTypeEvaluation AS SELECT Id,Titre,DateLimite,CONCAT(Titre,DateLimite) AS tag FROM tblTypeEvaluation;
+
+DROP VIEW IF EXISTS vEvaluation;
+CREATE VIEW vEvaluation AS SELECT Id,Titre,DateLimite,CONCAT(Titre,DateLimite) AS tag FROM tblEvaluation;
+
 -- Table SuperviseurEvaluationStagiaireStage
 
 DROP TABLE IF EXISTS tblSuperviseurEvaluationStagiaireStage;
@@ -132,12 +45,15 @@ CREATE TABLE tblSuperviseurEvaluationStagiaireStage(
 	IdSuperviseur			INT				NOT NULL,
 	IdStage					INT				NOT NULL,
 	IdStagiaire				INT				NOT NULL,
+	Statut					BOOL			NOT	NULL,
 	DateComplétée			DATE			NULL,
 	PRIMARY KEY(IdEvaluation,IdSuperviseur,IdStage,IdStagiaire)
 );
+ALTER TABLE tblSuperviseurEvaluationStagiaireStage
+ALTER COLUMN Statut SET DEFAULT 0;
 DROP VIEW IF EXISTS vSuperviseurEvaluationStagiaireStage;
-CREATE VIEW vSuperviseurEvaluationStagiaireStage AS SELECT IdEvaluation,IdSuperviseur,IdStage,IdStagiaire,DateComplétée,
-CONCAT(IdEvaluation,IdSuperviseur,IdStage,IdStagiaire,IFNULL(DateComplétée,'')) AS tag FROM tblSuperviseurEvaluationStagiaireStage;
+CREATE VIEW vSuperviseurEvaluationStagiaireStage AS SELECT IdEvaluation,IdSuperviseur,IdStage,IdStagiaire,Statut,DateComplétée,
+CONCAT(IdEvaluation,IdSuperviseur,IdStage,IdStagiaire,Statut,IFNULL(DateComplétée,'')) AS tag FROM tblSuperviseurEvaluationStagiaireStage;
 
 -- Table stagiaire
 
@@ -346,7 +262,6 @@ ON EmpCeg.Id = Enseignant.IdEmployeCegep;
 -- Foreign key
 
 
-
 ALTER TABLE tblReponseQuestionChoixReponse
 ADD FOREIGN KEY (IdReponse)
 REFERENCES
@@ -381,12 +296,6 @@ ALTER TABLE tblQuestionGrilleEvaluation
 ADD FOREIGN KEY (IdQuestionGrille)
 REFERENCES
 tblQuestionGrille(Id);
-
-
-ALTER TABLE tblQuestionGrilleEvaluation
-ADD FOREIGN KEY (IdReponse)
-REFERENCES
-tblReponse(Id);
 
 
 ALTER TABLE tblReponseQuestionGrille
@@ -511,8 +420,3 @@ ALTER TABLE tblQuestionChoixReponse
 ADD FOREIGN KEY (IdCategorieQuestion)
 REFERENCES
 tblCategorieQuestion(Id);
-
-ALTER TABLE tblEvaluation
-ADD FOREIGN KEY (IdTypeEvaluation)
-REFERENCES
-tblTypeEvaluation(Id);
