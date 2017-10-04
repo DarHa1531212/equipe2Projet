@@ -8,12 +8,12 @@ $aNumTelEntreprise = $_POST['numTelEntreprise'];
 $aPoste = $_POST['poste'];
 $aCourrielEntreprise = $_POST['courrielEntreprise'];
 $aCourrielPersonnel = $_POST['courrielPersonnel'];
-
+$idStagiaire = $_POST['idStagiaire'];
 	try 
 	{
 		if($aNumTelPersonnel != "" OR $aNumTelMaison != "" OR $aNumTelEntreprise != "" OR $aPoste != "" OR $aCourrielEntreprise != "")
 		{
-			$sql = "UPDATE vStagiaire SET NumTelPersonnel = '$aNumTelPersonnel', NumTelMaison = '$aNumTelMaison', NumTelEntreprise = '$aNumTelEntreprise', Poste = '$aPoste', CourrielEntreprise = '$aCourrielEntreprise', CourrielPersonnel = '$aCourrielPersonnel' WHERE CourrielScolaire = 'Tremblay.Olimpia@etu.cegepjonquiere.ca'";
+			$sql = "UPDATE vStagiaire SET NumTelPersonnel = '$aNumTelPersonnel', NumTelMaison = '$aNumTelMaison', NumTelEntreprise = '$aNumTelEntreprise', Poste = '$aPoste', CourrielEntreprise = '$aCourrielEntreprise', CourrielPersonnel = '$aCourrielPersonnel' WHERE CourrielScolaire = $idStagiaire";
 			$bdd->query($sql);
 			include 'ProfilStagiaire.php';
 		}
