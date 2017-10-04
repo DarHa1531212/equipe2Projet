@@ -11,6 +11,7 @@
         <link rel="stylesheet" media="screen and (max-width: 1040px)" href="CSS/style-1040px.css" />
         <link rel="stylesheet" media="screen and (max-width: 735px)" href="CSS/style-735px.css" />
     </head>
+    
     <body onload="chargementPage()">
         <header>
             <aside class="left">
@@ -98,7 +99,7 @@
                     <h1>Évaluation</h1>
                 </div>
 
-                <form onsubmit="return valider();">
+                <form onsubmit="return valider();" method="post" action="evaluationPost.php">
 
                  <?php
 
@@ -116,26 +117,21 @@
                    // mysql_query("SET NAMES 'utf8'");
 
 
-                    $requeteReponses = $bd->prepare('select distinct RE.Texte
-                                                FROM tblQuestionGrille AS QG
-                                                JOIN tblReponseQuestionGrille AS RQG
-                                                ON QG.Id = RQG.IdQuestionGrille
-                                                JOIN tblReponse AS RE
-                                                ON RE.Id = RQG.IdReponse
-                                                WHERE QG.idCategorieQuestion = :idCategorieQuestion');
+                    $requeteReponses = $bd->prepare('select distinct(RE.Id), RE.Texte
+                                                    FROM tblQuestionGrille AS QG
+                                                    JOIN tblReponseQuestionGrille AS RQG
+                                                    ON QG.Id = RQG.IdQuestionGrille
+                                                    JOIN tblReponse AS RE
+                                                    ON RE.Id = RQG.IdReponse
+                                                    WHERE QG.idCategorieQuestion = :idCategorieQuestion');
 
-                    $requeteQuestions = $bd->prepare('select distinct QG.Texte
-                                                FROM tblQuestionGrille AS QG
-                                                JOIN tblReponseQuestionGrille AS RQG
-                                                ON QG.Id = RQG.IdQuestionGrille
-                                                JOIN tblReponse AS RE
-                                                ON RE.Id = RQG.IdReponse
-                                                WHERE QG.idCategorieQuestion = :idCategorieQuestion');
-
-                   
+                    $requeteQuestions = $bd->prepare('select QG.Id,QG.Texte
+                                                    FROM tblQuestionGrille AS QG
+                                                    WHERE QG.idCategorieQuestion = :idCategorieQuestion');
 
 
                     $requeteCategories = $bd->prepare('select * from tblCategorieQuestion');
+
 
                     $requeteCategories->execute();
 
@@ -191,7 +187,7 @@
                                 {
                                     $indiceReponse++;
 
-                                    echo '<td><input type="radio" name="question'.$i.''.$indiceQuestion.'"></td>';
+                                    echo '<td><input type="radio" name="question'.$question['Id'].'" value="'.$reponse['Id'].'"></td>';
                                 }
 
                                   echo '</tr>';
