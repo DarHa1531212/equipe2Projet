@@ -199,9 +199,14 @@ Condition de mot de passe
 										
 							</div>
 							
+<<<<<<< HEAD
                             <input type="hidden" name="idStagiaire" value="<?php echo $idStagiaire; ?>"/>
                             <input type="submit" id="Save" class="bouton" value="Sauvegarder"/>
 
+=======
+							<button type="button" class="bouton" onClick="document.location.href='ProfilStagiaire.php';" >Annuler</button>
+							<button type="submit" id="Save" class="bouton">Sauvegarder</button>
+>>>>>>> David
 							
 						  </div>
 						  
