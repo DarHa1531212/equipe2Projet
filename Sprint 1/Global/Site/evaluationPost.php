@@ -5,7 +5,7 @@
 
     try
     {
-        $bd = new PDO('mysql:host=dicj.info;dbname=cegepjon_p2017_2_prod','cegepjon_p2017_2','madfpfadshdb',array(PDO::MYSQL_ATTR_INIT_COMMAND => 'SET NAMES utf8'));
+        $bd = new PDO('mysql:host=dicj.info;dbname=cegepjon_p2017_2_tests','cegepjon_p2017_2','madfpfadshdb',array(PDO::MYSQL_ATTR_INIT_COMMAND => 'SET NAMES utf8'));
     }
     catch(Exception $e)
     {
