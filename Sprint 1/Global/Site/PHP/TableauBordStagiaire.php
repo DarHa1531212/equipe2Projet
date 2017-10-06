@@ -1,3 +1,4 @@
+<?php include 'session.php'; ?>
 <!DOCTYPE html>
 <html>
     
@@ -15,11 +16,11 @@
     </head>
     <body>
         <header>
-            <aside class="left" id="dicj">
-                <a href="http://dicj.info">
-                    <img id="logo" src="../Images/LogoDICJ2.png"/>
-                </a>
-            </aside>
+                <aside class="left" id="dicj">
+                    <a href="http://dicj.info">
+                        <img id="logo" src="../Images/LogoDICJ2.png"/>
+                    </a>
+                </aside>
             
             <div class="conteneur">
             
@@ -28,7 +29,7 @@
             <aside class="right "id="profil">
                 <a class="zoneCliquable" href="ProfilStagiaire.php">
                     <h3>Bonjour</h3>
-                    <h3>Martin Mystère</h3>
+                    <h3><?php echo $_SESSION['PrenomConnecte'] . ' ' . $_SESSION['NomConnecte']; ?></h3>
                 </a>
             </aside>
         </header>
