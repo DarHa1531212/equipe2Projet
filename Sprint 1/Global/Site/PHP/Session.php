@@ -8,19 +8,20 @@
 
 	if($user == 'Stagiaire')
 	{
-		$_POST['idStagiaire'] = 1;
+		$_POST['idStagiaire'] = 2;
+		$_SESSION['idConnecter'] = $_POST['idStagiaire'];
 		include 'vProfilStagiaire.php';
 		$_SESSION['PrenomConnecte'] = $prenomStagiaire;
-		$_SESSION['NomConnecte'] = $prenomStagiaire;
-		$_SESSION['PrenomStag'] = $prenomStagiaire;
-		$_SESSION['NomStag'] = $nomStagiaire;
-		$_SESSION['NumTelMaisonStag'] = $numTelMaisonStagiaire;
-		$_SESSION['NumTelPersonnelStag'] = $numTelPersonnelStagiaire;
-		$_SESSION['CourrielPersonnelStag'] = $courrielPersonnelStagiaire;
-		$_SESSION['NumTelEntrepriseStag'] = $numTelEntrepriseStagiaire;
-		$_SESSION['PosteStag'] = $posteStagiaire;
-		$_SESSION['CourrielEntrepriseStag'] = $courrielEntrepriseStagiaire;
-		$_SESSION['CourrielScolaireStag'] = $courrielScolaireStagiaire;
+		$_SESSION['NomConnecte'] = $nomStagiaire; //Pt que ce sera a changer quand la connexion sera active avec la sécurité et la hashage de mdp...
+		//$_SESSION['PrenomStag'] = $prenomStagiaire;
+		//$_SESSION['NomStag'] = $nomStagiaire;
+		//$_SESSION['NumTelMaisonStag'] = $numTelMaisonStagiaire;
+		//$_SESSION['NumTelPersonnelStag'] = $numTelPersonnelStagiaire;
+		//$_SESSION['CourrielPersonnelStag'] = $courrielPersonnelStagiaire;
+		//$_SESSION['NumTelEntrepriseStag'] = $numTelEntrepriseStagiaire;
+		//$_SESSION['PosteStag'] = $posteStagiaire;
+		//$_SESSION['CourrielEntrepriseStag'] = $courrielEntrepriseStagiaire;
+		//$_SESSION['CourrielScolaireStag'] = $courrielScolaireStagiaire;
 	}
 	else
 	{

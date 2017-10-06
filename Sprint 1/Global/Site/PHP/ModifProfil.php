@@ -198,14 +198,13 @@ Condition de mot de passe
 								</textarea>
 										
 							</div>
-							
+						
                             <input type="hidden" name="idStagiaire" value="<?php echo $idStagiaire; ?>"/>
                             <input type="submit" id="Save" class="bouton" value="Sauvegarder"/>
-							
+	
 						  </div>
 						  
 						</div>
-						
 						
 					</form>
                     

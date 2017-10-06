@@ -41,7 +41,7 @@
                 <div class="content">
                     
                     <form action="TableauBordStagiaire.php" method="get">
-                        <input value="<?php echo $idStagiaire; ?>" name="idStagiaire" type="hidden"/>
+                        <input value="<?php echo $_SESSION['idConnecter']?>" name="idStagiaire" type="hidden"/>
                         <input class="bouton" id="retourTBL" value="Retour au tableau de bord" type="submit"/>
                     </form>
                     
