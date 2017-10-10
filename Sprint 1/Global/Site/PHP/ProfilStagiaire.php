@@ -1,4 +1,9 @@
-<?php session_start(); ?>
+<?php 
+    if(session_id() == '' || !isset($_SESSION))
+    {
+        session_start();
+    }
+ ?>
 <!DOCTYPE html>
 <html>
     
@@ -40,8 +45,7 @@
                 
                 <div class="content">
                     
-                    <form action="TableauBordStagiaire.php" method="get">
-                        <input value="<?php echo $_SESSION['idConnecter']?>" name="idStagiaire" type="hidden"/>
+                    <form action="TableauBordStagiaire.php" method="POST">
                         <input class="bouton" id="retourTBL" value="Retour au tableau de bord" type="submit"/>
                     </form>
                     

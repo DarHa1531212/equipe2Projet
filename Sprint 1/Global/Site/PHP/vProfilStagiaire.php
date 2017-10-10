@@ -1,6 +1,6 @@
 <?php
 
-    $id = $_POST["idStagiaire"];
+    $id = $_SESSION['idConnecte'];
 	$sql = "SELECT * FROM vStagiaire WHERE Id=$id";//Query de la vue Stagiaire
 	$result = $bdd->query($sql);
 

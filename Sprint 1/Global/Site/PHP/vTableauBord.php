@@ -8,8 +8,7 @@
 	{
 		die('Erreur : ' .$e->getMessage());
 	}
-
-    $id = $_GET["idStagiaire"];
+    $id = $_SESSION['idConnecte'];
 
 	$query = $bdd->prepare("SELECT * FROM vTableauBord WHERE Id = :idStagiaire");
 

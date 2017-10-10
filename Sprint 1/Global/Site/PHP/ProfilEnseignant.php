@@ -1,3 +1,9 @@
+<?php 
+    if(session_id() == '' || !isset($_SESSION))
+    {
+        session_start();
+    }
+?>
 <!DOCTYPE html>
 <html>
     
@@ -24,9 +30,9 @@
             </div>
             
             <aside class="right" id="profil">
-                <a class="zoneCliquable" href="ProfilSuperviseur.php">
+                <a class="zoneCliquable" href="<?php if($_SESSION['RoleConnecte'] == 'Stagiaire'){echo'ProfilStagiaire.php';}else{} ?>">
                     <h3>Bonjour</h3>
-                    <h3>Martin Mystère</h3>
+                    <h3><?php echo $_SESSION['PrenomConnecte'] . ' ' . $_SESSION['NomConnecte']; ?></h3>
                 </a>
             </aside>
         </header>
@@ -38,7 +44,7 @@
                 </div>
                 
                 <div class="content">
-                    <input class="bouton" id="retourTBL" value="Retour au tableau de bord" onClick="document.location.href='TableauBordStagiaire.php';" type="button"/>
+                    <input class="bouton" id="retourTBL" value="Retour au tableau de bord" onClick="document.location.href='<?php if($_SESSION['RoleConnecte'] == 'Stagiaire'){echo'TableauBordStagiaire.php';}else{echo'../TBEntreprise.php';} ?>';" type="button"/>
                     <div class="containerInfoProfil">  
                         <div class="bordureBleu">
                         

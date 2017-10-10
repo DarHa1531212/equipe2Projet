@@ -6,13 +6,14 @@
 
 	session_start(); //Démarrage de la session NB. toujours l'écrire avant la balise DOCTYPE HTML
 
+	$_SESSION['PrenomConnecte'] = $prenomStagiaire;
+	$_SESSION['NomConnecte'] = $nomStagiaire; //Pt que ce sera a changer quand la connexion sera active avec la sécurité et la hashage de mdp...
+	
 	if($user == 'Stagiaire')
 	{
 		$_POST['idStagiaire'] = 2;
 		$_SESSION['idConnecter'] = $_POST['idStagiaire'];
 		include 'vProfilStagiaire.php';
-		$_SESSION['PrenomConnecte'] = $prenomStagiaire;
-		$_SESSION['NomConnecte'] = $nomStagiaire; //Pt que ce sera a changer quand la connexion sera active avec la sécurité et la hashage de mdp...
 		//$_SESSION['PrenomStag'] = $prenomStagiaire;
 		//$_SESSION['NomStag'] = $nomStagiaire;
 		//$_SESSION['NumTelMaisonStag'] = $numTelMaisonStagiaire;
