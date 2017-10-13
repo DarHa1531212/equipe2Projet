@@ -9,7 +9,7 @@
         <link rel="stylesheet" href="../CSS/style.css">
         <link rel="shortcut icon" href="../Images/LogoDICJ2Petit.ico">
         <?php include 'connexionBDTest.php' ?>
-        <?php include 'vProfilEmployeEntreprise.php' ?>
+        <?php include 'vProfilEnseignant.php' ?>
     </head>
     <body>
         <header>
@@ -47,10 +47,9 @@
                         <div class="contentInfo">
                             <div class="infoPerso">
                                 <p>
-                                    <?php echo $prenomSup . ' ' . $nomSup . '   '; //. $posteEmploi??><br/><br/>
-                                    Employé de (<?php echo $nomEntrepriseSup ?>)<br/><br/>
-                                    Cellulaire : <?php echo $numTelCellSup ?><br/><br/>
-                                    Courriel personnel : <?php echo $courrielPersonnelSup ?><br/>
+                                    <?php echo $prenom . ' ' . $nom . '   '; //. $posteEmploi??><br/><br/>
+                                    Cellulaire : <?php echo $numTelPerso ?><br/><br/>
+                                    Courriel personnel : <?php echo $courrielPerso ?><br/>
                                 </p>
                             </div>
 
@@ -58,9 +57,8 @@
                                 <p>
                                     Informations professionnelles
                                     <br/><br/>
-                                    Téléphone : <?php echo $numTelEntrepriseSup ?><br/>
-                                    Poste : <?php echo $posteSup ?><br/><br/>
-                                    Courriel : <?php echo $courrielEntrepriseSup ?>
+                                    Code Permanent : <?php echo $codePermanent ?><br/>
+                                    Courriel : <?php echo $courrielProf ?>
                                 </p>
                             </div>
                         </div>

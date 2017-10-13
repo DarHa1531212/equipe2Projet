@@ -1,6 +1,11 @@
 <?php
-
-	$sql = "SELECT Prenom, Nom, NumTelCell, CourrielPersonnel, NumTelEntreprise, Poste, CourrielEntreprise FROM vEmployeEntreprise WHERE CourrielEntreprise = 'Sophisticated@entreprise.com'";//Query de la vue employe
+    
+    $id = $_POST["idSuperviseur"];
+	$sql = "SELECT Prenom, Emp.Nom, Ent.Nom AS 'Nom Entreprise', NumTelCell, CourrielPersonnel, NumTelEntreprise, Poste, Emp.CourrielEntreprise
+            FROM vEmployeEntreprise AS Emp
+            JOIN vEntreprise AS Ent
+            ON Emp.IdEntreprise = Ent.Id
+            WHERE Emp.Id = $id";//Query de la vue employe
 	$result = $bdd->query($sql);
 
 	if($result->num_rows > 0) //Permet de voir s'il y a des résultats.
@@ -10,7 +15,7 @@
 			//$logo = $row["Logo"];
 			$prenomSup = $row["Prenom"]; //Initialisation des variables a afficher dans les balises.
 			$nomSup = $row["Nom"];
-			//$nomEntrepriseSup = $row["NomEntreprise"];
+			$nomEntrepriseSup = $row["Nom Entreprise"];
 			$numTelCellSup = $row["NumTelCell"];
 			$courrielPersonnelSup = $row["CourrielPersonnel"];
 			$numTelEntrepriseSup = $row["NumTelEntreprise"];

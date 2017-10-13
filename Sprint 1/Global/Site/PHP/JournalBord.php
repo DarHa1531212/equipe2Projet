@@ -1,34 +1,33 @@
 <?php
-include 'connexionBDTest.php';
-//$host="dicj.info";
-//$user="cegepjon_p2017_2";
-//$password="madfpfadshdb";
-//$dbname="cegepjon_p2017_2_tests";
+try
+{
+    $bdd = new PDO('mysql:host=dicj.info;dbname=cegepjon_p2017_2_prod', 'cegepjon_p2017_2', 'madfpfadshdb',array(PDO::MYSQL_ATTR_INIT_COMMAND => 'SET NAMES utf8'));
+}
+catch(Exception $e)
+{
+    die('Erreur : ' .$e->getMessage());
+}
+
+if(isset($_POST["idStagiaire"]))
+    $idStagiaire = $_POST["idStagiaire"];
+
 $date = date('Y-m-d h:i:s', time());
 $stringShowAll = "false";
-//$con = new mysqli($host, $user, $password, $dbname)
-//                            or die ('Could not connect to the database server' . mysqli_connect_error());
 	
-   //si la page a été appelée pour insérer une entrée 
+//si la page a été appelée pour insérer une entrée 
 if ( !empty($_POST['contenu']) )  
     {
-
-    	//string 1000 date, entree, idstagiaire
-    	$idStagiaire = '17';
        	$entree = array();
         $entree = array(htmlspecialchars($_POST['contenu']));
-        $text = mysqli_real_escape_string($bdd, $entree[0]);
-        echo $text;
+        $text = $entree[0];
+
         if ($text != "")
         {
-            $query = "INSERT INTO tblJournalDeBord (Entree, idStagiaire, Dates) VALUES ('$text', '$idStagiaire','$date');";
-            //$bdd->query($query);
-            if(!mysqli_query($bdd, $query))
-            {
-                die('ROGER EST EN TBK' . mysqli_error($bdd));
-            }
+            $query = $bdd->prepare("INSERT INTO tblJournalDeBord (Entree, idStagiaire, Dates) VALUES (:text, :id,'$date');");
+            $query->bindValue( 'text', $text, PDO::PARAM_STR );
+            $query->bindValue( 'id', $idStagiaire, PDO::PARAM_INT);
+            $query->execute();
         }
-
     }
 //si la page a été appelée pour afficher toutes les entrées
 if ( !empty($_POST['afficher']))
@@ -42,4 +41,5 @@ if ($stringShowAll == "true")
     include ('JournalBordShow=ALL.php');
 else
     include ('JournalBord2.php');
+
 ?>

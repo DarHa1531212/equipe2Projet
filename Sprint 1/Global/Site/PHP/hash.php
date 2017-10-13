@@ -1,13 +1,14 @@
 
 <?php
 
-/**
- * We just want to hash our password using the current DEFAULT algorithm.
- * This is presently BCRYPT, and will produce a 60 character result.
- *
- * Beware that DEFAULT may change over time, so you would want to prepare
- * By allowing your storage to expand past 60 characters (255 would be good)
- */
+ try{
+    $bdd = new PDO('mysql:host=dicj.info;dbname=cegepjon_p2017_2_prod;', 'cegepjon_p2017_2', 'madfpfadshdb'/*array(PDO::MYSQL_ATTR_INIT_COMMAND => 'SET NAMES utf8')*/);
+    $bdd->exec("SET NAMES 'utf8';");
+    }
+    catch(Exception $e)
+    {
+    	die('Erreur : ' .$e->getMessage());
+    }
 
 
 $mdpHashe = password_hash("rasmuslerdorf", PASSWORD_DEFAULT);
@@ -19,5 +20,16 @@ if (password_verify('rasmuslerdorf', $mdpHashe)) {
     echo 'Invalid password.';
 }
 
-//$2y$12$DMyKra0WEQrmstWT7IkD9O/JTi/bvKNcJx8FFd9aG9pqBErUgLcYa
+void SetPassword ($userEmail, $password)
+{
+
+}
+
+void Login ($userEmail, $password)
+{
+	$query = $bdd->prepare("SELECT Dates AS DateComplete FROM vJournalDeBord WHERE IdStagiaire LIKE $idStagiaire ORDER BY datecomplete DESC LIMIT 1;");
+
+
+}
+
 ?>

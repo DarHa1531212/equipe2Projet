@@ -11,9 +11,7 @@
         <link rel="stylesheet" media="screen and (max-width: 1040px)" href="CSS/style-1040px.css" />
         <link rel="stylesheet" media="screen and (max-width: 735px)" href="CSS/style-735px.css" />
         <link rel="shortcut icon" href="../Images/LogoDICJ2Petit.ico">
-        <?php include 'connexionBDTest.php' ?>
-        <?php include 'vProfilStagiaire.php' ?>
-        <?php include 'vProfilEmployeEntreprise.php' ?>
+        <?php include 'vTableauBord.php' ?>
     </head>
     <body>
         <header>
@@ -30,7 +28,7 @@
             <aside class="right "id="profil">
                 <a class="zoneCliquable" href="ProfilStagiaire.php">
                     <h3>Bonjour</h3>
-                    <h3><?php echo $prenomStagiaire . ' ' . $nomStagiaire; ?></h3>
+                    <h3>Martin Mystère</h3>
                 </a>
             </aside>
         </header>
@@ -59,10 +57,13 @@
                                     <h2>Stagiaire</h2>
                                 </div>
 
-                                <a class="zoneCliquable" href="ProfilStagiaire.php">
-                                    <p><?php echo $prenomStagiaire . ' ' . $nomStagiaire; ?></p>
-                                    <p><?php echo $numTelPersonnelStagiaire; ?></p>
-                                </a>
+                                <form action="ProfilStagiaire.php" method="post">
+                                    <a class="zoneCliquable" href="javascript:;" onclick="parentNode.submit();">
+                                        <input type="hidden" value="<?php echo $idStagiaire; ?>" name="idStagiaire"/>
+                                        <p><?php echo $prenomStagiaire." ".$nomStagiaire; ?></p>
+                                        <p><?php echo $telPerso; ?></p>
+                                    </a>
+                                </form>
                             </div>
 
                             <div class="element">
@@ -71,10 +72,13 @@
                                 </div>
 
                                 <div class="infoProfil">
-                                    <a class="zoneCliquable" href="ProfilSuperviseur.php">
-                                        <p><?php echo $prenomSup . ' ' . $nomSup; ?></p>
-                                        <p><?php echo $numTelCellSup ?></p>
-                                    </a>
+                                    <form action="ProfilSuperviseur.php" method="post">
+                                        <a class="zoneCliquable" href="javascript:;" onclick="parentNode.submit();">
+                                            <input type="hidden" value="<?php echo $idSup; ?>" name="idSuperviseur"/>
+                                            <p><?php echo $prenomSup." ".$nomSup; ?></p>
+                                            <p><?php echo $cellSup; ?></p>
+                                        </a>
+                                    </form>
                                 </div>
                             </div>
 
@@ -84,10 +88,13 @@
                                 </div>
 
                                 <div class="infoProfil">
-                                    <a class="zoneCliquable" href="TableauBordStagiaire.php">
-                                        <p>Martin Mystère</p>
-                                        <p>(418) 666-7777</p>
-                                    </a>
+                                    <form action="ProfilEnseignant.php" method="post">
+                                        <a class="zoneCliquable" href="javascript:;" onclick="parentNode.submit();">
+                                            <input type="hidden" value="<?php echo $idProf; ?>" name="idProf"/>
+                                            <p><?php echo $prenomProf." ".$nomProf; ?></p>
+                                            <p><?php echo $telProf; ?></p>
+                                        </a>
+                                    </form>
                                 </div>
                             </div>
                     </div>
@@ -160,9 +167,12 @@
 								</tr>
 								<tr>
 									<td>
-                                        <a href="JournalBord2.php" class="zoneCliquable">
-                                            Journal de bord
-                                        </a>
+                                        <form action="JournalBord.php" method="post">
+                                            <a class="zoneCliquable" href="javascript:;" onclick="parentNode.submit();">
+                                                <input type="hidden" value="<?php echo $idStagiaire; ?>" name="idStagiaire"/>
+                                                Journal de bord
+                                            </a>
+                                        </form>
 									</td>
 								</tr>
 							</tbody>
