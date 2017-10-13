@@ -159,7 +159,7 @@ DROP TABLE IF EXISTS tblUtilisateur;
 CREATE TABLE tblUtilisateur(
 	Id			 			INT				AUTO_INCREMENT,
 	Courriel		 		VARCHAR(320)	NOT NULL,
-	MotDePasse				VARCHAR(50)		NOT NULL,
+	MotDePasse				VARCHAR(250)		NOT NULL,
 	PRIMARY KEY(Id),
 	IdRole					INT				NULL
 );
