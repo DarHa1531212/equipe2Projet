@@ -1,6 +1,6 @@
 <?php
 
-include 'connexionBDTest.php';
+include 'ConnexionBDLocal.php';
 
 $aNumTelPersonnel = $_POST['numTelPersonnel'];
 $aNumTelMaison = $_POST['numTelMaison'];

@@ -13,7 +13,7 @@
         <link rel="stylesheet" media="screen and (max-width: 735px)" href="../CSS/style-735px.css" />
         <link rel="shortcut icon" href="../Images/LogoDICJ2Petit.ico">
         <script src="../js/regexProfilStag.js"></script>
-		<?php include'connexionBDTest.php'; ?>
+		<?php include 'ConnexionBDLocal.php'; ?>
 		<?php include'vProfilStagiaire.php'; ?>
     </head>
     <body>
