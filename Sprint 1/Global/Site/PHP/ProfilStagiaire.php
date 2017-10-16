@@ -44,7 +44,6 @@
                 </div>
                 
                 <div class="content">
-                    
                     <form action="TableauBordStagiaire.php" method="POST">
                         <input class="bouton" id="retourTBL" value="Retour au tableau de bord" type="submit"/>
                     </form>
@@ -78,13 +77,12 @@
                     </div>
                     <div class="commentaireContainer">
                         <?php if($_SESSION['RoleConnecte'] == 'Stagiaire')
-                        {
-                            echo '<form action="ModifProfil.php" method="post">
-                                    <input type="hidden" name="idStagiaire" value="<?php echo $idStagiaire; ?>"/>
-                                    <input class="bouton" id="boutonProfilStagiaire" value="Modifier" type="submit"/>
-                                </form>';
-                        } 
-
+                            {
+                                echo '<form action="ModifProfil.php" method="post">
+                                        <input type="hidden" name="idStagiaire" value="<?php echo $idStagiaire; ?>"/>
+                                        <input class="bouton" id="boutonProfilStagiaire" value="Modifier" type="submit"/>
+                                    </form>';
+                            } 
                         ?>
                                                
                     </div>

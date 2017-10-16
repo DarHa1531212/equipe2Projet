@@ -54,6 +54,7 @@
                             <div class="infoPerso">
                                 <p>
                                     <?php echo $prenomSup . ' ' . $nomSup . '   '; //. $posteEmploi? ?><br/><br/>
+
                                     Employé de (<?php echo $nomEntrepriseSup ?>)<br/><br/>
                                     Cellulaire : <?php echo $numTelCellSup ?><br/><br/>
                                     Courriel personnel : <?php echo $courrielPersonnelSup ?><br/>

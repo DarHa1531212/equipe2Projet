@@ -1,5 +1,5 @@
 <?php
-	include 'connexionBDTest.php';
+	include 'connexionBD.php';
 	//$userName = $_POST['email'];
 	//include 'ici le php pour savoir quel utilisateur c'est connecter 
 	$user = 'Stagiaire';

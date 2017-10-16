@@ -1,5 +1,5 @@
 <?php
-    
+
     include 'ConnexionBD.php';
 
     $id = $_GET["idStagiaire"];

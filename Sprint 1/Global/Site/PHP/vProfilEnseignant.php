@@ -15,5 +15,5 @@
         $codePermanent = $prof["CodePermanent"];
         $courrielProf = $prof["CourrielCegep"];
     }
-	
+
 ?>

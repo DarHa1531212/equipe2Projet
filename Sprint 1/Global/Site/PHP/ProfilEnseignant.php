@@ -14,6 +14,7 @@
         <meta name="description" content="An interactive getting started guide for Brackets.">
         <link rel="stylesheet" href="../CSS/style.css">
         <link rel="shortcut icon" href="../Images/LogoDICJ2Petit.ico">
+
         <?php include 'ConnexionBD.php'; ?>
         <?php include 'vProfilEnseignant.php' ?>
     </head>
@@ -44,7 +45,9 @@
                 </div>
                 
                 <div class="content">
+
                     <input class="bouton" id="retourTBL" value="Retour au tableau de bord" onClick="document.location.href='<?php if($_SESSION['RoleConnecte'] == 'Stagiaire'){echo'TableauBordStagiaire.php';}else{echo'../TBEntreprise.php';} ?>';" type="button"/>
+
                     <div class="containerInfoProfil">  
                         <div class="bordureBleu">
                         

@@ -19,6 +19,7 @@
         <link rel="stylesheet" media="screen and (max-width: 735px)" href="../CSS/style-735px.css" />
         <link rel="shortcut icon" href="../Images/LogoDICJ2Petit.ico">
         <script src="../js/regexProfilStag.js"></script>
+
 		<?php include 'ConnexionBD.php'; ?>
 		<?php include'vProfilStagiaire.php'; ?>
     </head>
@@ -203,8 +204,8 @@ Condition de mot de passe
 - Au moins un chiffre(0-9)
 								</textarea>
 										
-							</div>
-						
+							</div>	
+                              
                             <input type="hidden" name="idStagiaire" value="<?php echo $idStagiaire; ?>"/>
                             <input type="submit" id="Save" class="bouton" value="Sauvegarder"/>
 	
