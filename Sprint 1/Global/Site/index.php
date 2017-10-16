@@ -5,7 +5,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
-    <link rel="shortcut icon" href="Images/LogoDICJ2Petit.ico">
+    <link rel="sortcut icon" href="Images/LogoDICJ2Petit.ico" type="image/x-icon"/>
     <title>Connexion</title>
     <link href="CSS/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="CSS/Site.css">

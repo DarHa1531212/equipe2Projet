@@ -1,3 +1,9 @@
+<?php 
+    if(session_id() == '' || !isset($_SESSION))
+    {
+        session_start();
+    }
+ ?>
 <!DOCTYPE html>
 <html>
     
@@ -31,7 +37,7 @@
             <aside class="right" id="profil">
                 <a class="zoneCliquable" href="ProfilStagiaire.php">
                     <h3>Bonjour</h3>
-                    <h3>Martin Mystère</h3>
+                    <h3><?php echo $_SESSION['PrenomConnecte'] . ' ' . $_SESSION['NomConnecte']; ?></h3>
                 </a>
             </aside>
         </header>
@@ -198,14 +204,13 @@ Condition de mot de passe
 								</textarea>
 										
 							</div>
-							
+						
                             <input type="hidden" name="idStagiaire" value="<?php echo $idStagiaire; ?>"/>
                             <input type="submit" id="Save" class="bouton" value="Sauvegarder"/>
-							
+	
 						  </div>
 						  
 						</div>
-						
 						
 					</form>
                     

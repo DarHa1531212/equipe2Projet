@@ -1,3 +1,9 @@
+<?php 
+    if(session_id() == '' || !isset($_SESSION))
+    {
+        session_start();
+    }
+ ?>
 <!DOCTYPE html>
 <html>
     
@@ -26,7 +32,7 @@
             <aside class="right" id="profil">
                 <a class="zoneCliquable" href="ProfilStagiaire.php">
                     <h3>Bonjour</h3>
-                    <h3>Martin Mystère</h3>
+                    <h3><?php echo $_SESSION['PrenomConnecte'] . ' ' . $_SESSION['NomConnecte']; ?></h3>
                 </a>
             </aside>
         </header>
@@ -39,8 +45,7 @@
                 
                 <div class="content">
                     
-                    <form action="TableauBordStagiaire.php" method="get">
-                        <input value="<?php echo $idStagiaire; ?>" name="idStagiaire" type="hidden"/>
+                    <form action="TableauBordStagiaire.php" method="POST">
                         <input class="bouton" id="retourTBL" value="Retour au tableau de bord" type="submit"/>
                     </form>
                     
@@ -72,10 +77,16 @@
                         </div>
                     </div>
                     <div class="commentaireContainer">
-                        <form action="ModifProfil.php" method="post">
-                            <input type="hidden" name="idStagiaire" value="<?php echo $idStagiaire; ?>"/>
-                            <input class="bouton" id="boutonProfilStagiaire" value="Modifier" type="submit"/>
-                        </form>                        
+                        <?php if($_SESSION['RoleConnecte'] == 'Stagiaire')
+                        {
+                            echo '<form action="ModifProfil.php" method="post">
+                                    <input type="hidden" name="idStagiaire" value="<?php echo $idStagiaire; ?>"/>
+                                    <input class="bouton" id="boutonProfilStagiaire" value="Modifier" type="submit"/>
+                                </form>';
+                        } 
+
+                        ?>
+                                               
                     </div>
                 </div>
             </div>
