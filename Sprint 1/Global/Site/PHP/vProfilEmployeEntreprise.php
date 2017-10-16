@@ -1,5 +1,6 @@
 <?php
     
+<<<<<<< HEAD
     if(!isset($_POST['idSuperviseur']))
     {
     	$id = $_SESSION['idConnecte'];
@@ -9,6 +10,9 @@
     	$id = $_POST["idSuperviseur"];
     }
 
+=======
+    $id = $_POST["idSuperviseur"];
+>>>>>>> 2eab736c45c47d1d130320a4d72aea76897f0b6d
 	$sql = "SELECT Prenom, Emp.Nom, Ent.Nom AS 'Nom Entreprise', NumTelCell, CourrielPersonnel, NumTelEntreprise, Poste, Emp.CourrielEntreprise
             FROM vEmployeEntreprise AS Emp
             JOIN vEntreprise AS Ent

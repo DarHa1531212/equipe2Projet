@@ -1,9 +1,12 @@
+<<<<<<< HEAD
 <?php 
     if(session_id() == '' || !isset($_SESSION))
     {
         session_start();
     }
 ?>
+=======
+>>>>>>> 2eab736c45c47d1d130320a4d72aea76897f0b6d
 <!DOCTYPE html>
 <html>
     
@@ -30,9 +33,15 @@
             </div>
             
             <aside class="right" id="profil">
+<<<<<<< HEAD
                 <a class="zoneCliquable" href="<?php if($_SESSION['RoleConnecte'] == 'Stagiaire'){echo'ProfilStagiaire.php';}else{} ?>">
                     <h3>Bonjour</h3>
                     <h3><?php echo $_SESSION['PrenomConnecte'] . ' ' . $_SESSION['NomConnecte']; ?></h3>
+=======
+                <a class="zoneCliquable" href="ProfilSuperviseur.php">
+                    <h3>Bonjour</h3>
+                    <h3>Martin Mystère</h3>
+>>>>>>> 2eab736c45c47d1d130320a4d72aea76897f0b6d
                 </a>
             </aside>
         </header>
@@ -44,7 +53,11 @@
                 </div>
                 
                 <div class="content">
+<<<<<<< HEAD
                     <input class="bouton" id="retourTBL" value="Retour au tableau de bord" onClick="document.location.href='<?php if($_SESSION['RoleConnecte'] == 'Stagiaire'){echo'TableauBordStagiaire.php';}else{echo'../TBEntreprise.php';} ?>';" type="button"/>
+=======
+                    <input class="bouton" id="retourTBL" value="Retour au tableau de bord" onClick="document.location.href='TableauBordStagiaire.php';" type="button"/>
+>>>>>>> 2eab736c45c47d1d130320a4d72aea76897f0b6d
                     <div class="containerInfoProfil">  
                         <div class="bordureBleu">
                         

@@ -1,13 +1,5 @@
 <?php
-    
-    try
-	{
-        $bdd = new PDO('mysql:host=dicj.info;dbname=cegepjon_p2017_2_tests', 'cegepjon_p2017_2', 'madfpfadshdb',array(PDO::MYSQL_ATTR_INIT_COMMAND => 'SET NAMES utf8'));
-	}
-	catch(Exception $e)
-	{
-		die('Erreur : ' .$e->getMessage());
-	}
+
     $id = $_SESSION['idConnecte'];
 
 	$query = $bdd->prepare("SELECT * FROM vTableauBord WHERE Id = :idStagiaire");

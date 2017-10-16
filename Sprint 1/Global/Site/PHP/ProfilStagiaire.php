@@ -32,7 +32,11 @@
             <aside class="right" id="profil">
                 <a class="zoneCliquable" href="ProfilStagiaire.php">
                     <h3>Bonjour</h3>
+<<<<<<< HEAD
                     <h3><?php echo $_SESSION['PrenomConnecte'] . ' ' . $_SESSION['NomConnecte']; ?></h3>
+=======
+                    <h3>Martin Mystère</h3>
+>>>>>>> 2eab736c45c47d1d130320a4d72aea76897f0b6d
                 </a>
             </aside>
         </header>
@@ -45,7 +49,12 @@
                 
                 <div class="content">
                     
+<<<<<<< HEAD
                     <form action="TableauBordStagiaire.php" method="POST">
+=======
+                    <form action="TableauBordStagiaire.php" method="get">
+                        <input value="<?php echo $idStagiaire; ?>" name="idStagiaire" type="hidden"/>
+>>>>>>> 2eab736c45c47d1d130320a4d72aea76897f0b6d
                         <input class="bouton" id="retourTBL" value="Retour au tableau de bord" type="submit"/>
                     </form>
                     
@@ -77,6 +86,7 @@
                         </div>
                     </div>
                     <div class="commentaireContainer">
+<<<<<<< HEAD
                         <?php if($_SESSION['RoleConnecte'] == 'Stagiaire')
                         {
                             echo '<form action="ModifProfil.php" method="post">
@@ -87,6 +97,12 @@
 
                         ?>
                                                
+=======
+                        <form action="ModifProfil.php" method="post">
+                            <input type="hidden" name="idStagiaire" value="<?php echo $idStagiaire; ?>"/>
+                            <input class="bouton" id="boutonProfilStagiaire" value="Modifier" type="submit"/>
+                        </form>                        
+>>>>>>> 2eab736c45c47d1d130320a4d72aea76897f0b6d
                     </div>
                 </div>
             </div>

@@ -32,7 +32,11 @@
             <aside class="right" id="profil">
                 <a class="zoneCliquable" href="<?php if($_SESSION['RoleConnecte'] == 'Stagiaire'){echo'ProfilStagiaire.php';}else{} ?>">
                     <h3>Bonjour</h3>
+<<<<<<< HEAD
                     <h3><?php echo $_SESSION['PrenomConnecte'] . ' ' . $_SESSION['NomConnecte']; ?></h3>
+=======
+                    <h3>Martin Mystère</h3>
+>>>>>>> 2eab736c45c47d1d130320a4d72aea76897f0b6d
                 </a>
             </aside>
         </header>
@@ -53,7 +57,11 @@
                         <div class="contentInfo">
                             <div class="infoPerso">
                                 <p>
+<<<<<<< HEAD
                                     <?php echo $prenomSup . ' ' . $nomSup . '   '; //. $posteEmploi? ?><br/><br/>
+=======
+                                    <?php echo $prenomSup . ' ' . $nomSup . '   '; //. $posteEmploi??><br/><br/>
+>>>>>>> 2eab736c45c47d1d130320a4d72aea76897f0b6d
                                     Employé de (<?php echo $nomEntrepriseSup ?>)<br/><br/>
                                     Cellulaire : <?php echo $numTelCellSup ?><br/><br/>
                                     Courriel personnel : <?php echo $courrielPersonnelSup ?><br/>
