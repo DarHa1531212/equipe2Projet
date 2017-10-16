@@ -2,34 +2,48 @@
 <?php
 
  try{
-    $bdd = new PDO('mysql:host=dicj.info;dbname=cegepjon_p2017_2_prod;', 'cegepjon_p2017_2', 'madfpfadshdb'/*array(PDO::MYSQL_ATTR_INIT_COMMAND => 'SET NAMES utf8')*/);
+    $bdd = new PDO('mysql:host=dicj.info;dbname=cegepjon_p2017_2_dev', 'cegepjon_p2017_2', 'madfpfadshdb');
     $bdd->exec("SET NAMES 'utf8';");
     }
     catch(Exception $e)
     {
-    	die('Erreur : ' .$e->getMessage());
+      echo "erreur de BD";
+        die('Erreur : ' .$e->getMessage());
     }
 
+$userEmail = "Bouchard.Olga@etu.cegepjonquiere.ca";
+$userEmail = strtolower($userEmail);
+Login($userEmail, "motpasse", $bdd);
 
-$mdpHashe = password_hash("rasmuslerdorf", PASSWORD_DEFAULT);
-echo $mdpHashe;
-
-if (password_verify('rasmuslerdorf', $mdpHashe)) {
-    echo 'Password is valid!';
-} else {
-    echo 'Invalid password.';
+function SetPassword ($userEmail, $password)
+{
+    echo "Set Password function";
 }
 
-void SetPassword ($userEmail, $password)
+function Login ($userEmail, $password, $bdd)
 {
+    $userEmail = strtolower($userEmail);
+    $query = $bdd->prepare("SELECT Id, Courriel, MotDePasse FROM vUtilisateur where Courriel like '$userEmail' ");
+    $query->execute(array());
+    $result = $query->fetchall();
+    foreach($result as $entree)
+    {
+        $Id = $entree["Id"];
+        $CourrielBD = $entree["Courriel"];
+        $MotDePasse = $entree["MotDePasse"];
 
-}
-
-void Login ($userEmail, $password)
-{
-	$query = $bdd->prepare("SELECT Dates AS DateComplete FROM vJournalDeBord WHERE IdStagiaire LIKE $idStagiaire ORDER BY datecomplete DESC LIMIT 1;");
+        echo gettype($CourrielBD), "\n";
+        $CourrielBD = mb_strtolower($CourrielBD);
+        echo $CourrielBD;   
 
 
+
+        if (password_verify($password, $MotDePasse)) {
+        echo 'Password is valid!';
+        } else {
+        echo 'Invalid password.';
+        }
+    }
 }
 
 ?>
