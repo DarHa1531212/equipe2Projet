@@ -81,7 +81,7 @@
                                                 <h2>Stagiaire</h2>
                                             </div>
 
-                                            <form action="PHP/ProfilStagiaire.php" method="post">
+                                            <form action="ProfilStagiaire.php" method="post">
                                                 <a class="zoneCliquable" href="javascript:;" onclick="parentNode.submit();">
                                                     <input type="hidden" value="'.$idStagiaire.'" name="idStagiaire"/>
                                                     <p>'.$prenomStag." ".$nomStag.'</p>
@@ -96,7 +96,7 @@
                                             </div>
 
                                             <div class="infoProfil">
-                                                <form action="PHP/ProfilSuperviseur.php" method="post">
+                                                <form action="ProfilSuperviseur.php" method="post">
                                                     <a class="zoneCliquable" href="javascript:;" onclick="parentNode.submit();">
                                                         <input type="hidden" value="'.$idSup.'" name="idSuperviseur"/>
                                                         <p>'.$prenomSup." ".$nomSup.'</p>
@@ -112,7 +112,7 @@
                                             </div>
 
                                             <div class="infoProfil">
-                                                <form action="PHP/ProfilEnseignant.php" method="post">
+                                                <form action="ProfilEnseignant.php" method="post">
                                                     <a class="zoneCliquable" href="javascript:;" onclick="parentNode.submit();">
                                                         <input type="hidden" value="'.$idProf.'" name="idProf"/>
                                                         <p>'.$prenomProf." ".$nomProf.'</p>

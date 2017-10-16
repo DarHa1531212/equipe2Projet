@@ -77,10 +77,16 @@
                         </div>
                     </div>
                     <div class="commentaireContainer">
-                        <form action="ModifProfil.php" method="post">
-                            <input type="hidden" name="idStagiaire" value="<?php echo $idStagiaire; ?>"/>
-                            <input class="bouton" id="boutonProfilStagiaire" value="Modifier" type="submit"/>
-                        </form>                        
+                        <?php if($_SESSION['RoleConnecte'] == 'Stagiaire')
+                        {
+                            echo '<form action="ModifProfil.php" method="post">
+                                    <input type="hidden" name="idStagiaire" value="<?php echo $idStagiaire; ?>"/>
+                                    <input class="bouton" id="boutonProfilStagiaire" value="Modifier" type="submit"/>
+                                </form>';
+                        } 
+
+                        ?>
+                                               
                     </div>
                 </div>
             </div>

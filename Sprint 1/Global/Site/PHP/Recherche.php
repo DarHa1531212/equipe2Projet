@@ -25,7 +25,11 @@
 		{
 			while($row = $result->fetch_assoc())
 			{
-				
+				$_SESSION['PrenomConnecte'] = $row['Prenom'];
+				$_SESSION['NomConnecte'] = $row['Nom'];
+				$_SESSION['idConnecte'] = $row['Id'];
+				$_SESSION['RoleConnecte'] = "Entreprise";
+				include 'TBEntreprise.php';
 			}
 		}
 		else

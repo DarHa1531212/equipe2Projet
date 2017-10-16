@@ -44,7 +44,7 @@
                 </div>
                 
                 <div class="content">
-                    <input class="bouton" id="retourTBL" value="Retour au tableau de bord" onClick="document.location.href='<?php if($_SESSION['RoleConnecte'] == 'Stagiaire'){echo'TableauBordStagiaire.php';}else{echo'../TBEntreprise.php';} ?>';" type="button"/>
+                    <input class="bouton" id="retourTBL" value="Retour au tableau de bord" onClick="document.location.href='<?php if($_SESSION['RoleConnecte'] == 'Stagiaire'){echo'TableauBordStagiaire.php';}else{echo'TBEntreprise.php';} ?>';" type="button"/>
                     <div class="containerInfoProfil">  
                         <div class="bordureBleu">
                         
@@ -53,13 +53,13 @@
                         <div class="contentInfo">
                             <div class="infoPerso">
                                 <p>
-                                    <?php echo $prenomSup . ' ' . $nomSup . '   '; //. $posteEmploi??><br/><br/>
+                                    <?php echo $prenomSup . ' ' . $nomSup . '   '; //. $posteEmploi? ?><br/><br/>
                                     Employé de (<?php echo $nomEntrepriseSup ?>)<br/><br/>
                                     Cellulaire : <?php echo $numTelCellSup ?><br/><br/>
                                     Courriel personnel : <?php echo $courrielPersonnelSup ?><br/>
                                 </p>
                             </div>
-
+                            
                             <div class="infoPerso">
                                 <p>
                                     Informations professionnelles
