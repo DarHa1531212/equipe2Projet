@@ -2,6 +2,8 @@
 
     $id = $_SESSION['idConnecte'];
 
+    include 'ConnexionBD.php';
+
 	$query = $bdd->prepare("SELECT * FROM vTableauBord WHERE Id = :idStagiaire");
 
     $query->execute(array('idStagiaire'=>$id));

@@ -1,24 +1,19 @@
 <?php
 
-	$sql = "SELECT Logo, Nom, NumTel, CourrielEntreprise, NumCivique, Rue, Ville, Province FROM vEntreprise WHERE CourrielEntreprise = '1'";//Query de la vue entreprise
-	$result = $bdd->query($sql);
+    $query = $bdd->prepare("SELECT Logo, Nom, NumTel, CourrielEntreprise, NumCivique, Rue, Ville, Province FROM vEntreprise WHERE CourrielEntreprise = '1'");
 
-	if($result->num_rows > 0) //Permet de voir s'il y a des résultats.
-	{
-		while($row = $result->fetch_assoc()) //Boucle qui va chercher automatiquement le entreprise.
-		{
-			$logoEntreprise = $row["Logo"]; //Initialisation des variables a afficher dans les balises.
-			$nomEntreprise = $row["Nom"]; //Nom de l'entreprise.
-			$numTelEntreprise = $row["NumTel"];
-			$courrielEntrepriseEnt = $row["CourrielEntreprise"];
-			$numCivique = $row["NumCivique"];
-			$rue = $row["Rue"];
-			$ville = $row["Ville"];
-			$province = $row["Province"];
-		}
-	}
-	else
-	{
-		?><script>alert("L'entreprise n'a pas été trouvé...");</script><?php //Renvoi un alerte que l'entreprise n'a pas été trouvé.
-	}
+    $query->execute();
+    $entreprises = $query->fetchAll();
+    
+    foreach($entreprises as $entreprise){
+        $logoEntreprise = $entreprise["Logo"]; //Initialisation des variables a afficher dans les balises.
+        $nomEntreprise = $entreprise["Nom"]; //Nom de l'entreprise.
+        $numTelEntreprise = $entreprise["NumTel"];
+        $courrielEntrepriseEnt = $entreprise["CourrielEntreprise"];
+        $numCivique = $entreprise["NumCivique"];
+        $rue = $entreprise["Rue"];
+        $ville = $entreprise["Ville"];
+        $province = $entreprise["Province"];
+    }
+
 ?>

@@ -1,19 +1,6 @@
 <?php
-<<<<<<< HEAD
 
-try
-{
-    $bdd = new PDO('mysql:host=dicj.info;dbname=cegepjon_p2017_2_tests', 'cegepjon_p2017_2', 'madfpfadshdb',array(PDO::MYSQL_ATTR_INIT_COMMAND => 'SET NAMES utf8'));
-=======
-try
-{
-    $bdd = new PDO('mysql:host=dicj.info;dbname=cegepjon_p2017_2_prod', 'cegepjon_p2017_2', 'madfpfadshdb',array(PDO::MYSQL_ATTR_INIT_COMMAND => 'SET NAMES utf8'));
->>>>>>> 2eab736c45c47d1d130320a4d72aea76897f0b6d
-}
-catch(Exception $e)
-{
-    die('Erreur : ' .$e->getMessage());
-}
+include 'ConnexionBD.php';
 
 if(isset($_POST["idStagiaire"]))
     $idStagiaire = $_POST["idStagiaire"];

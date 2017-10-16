@@ -1,32 +1,23 @@
 <?php
 
-<<<<<<< HEAD
     $id = $_SESSION['idConnecte'];
-=======
-    $id = $_POST["idStagiaire"];
->>>>>>> 2eab736c45c47d1d130320a4d72aea76897f0b6d
-	$sql = "SELECT * FROM vStagiaire WHERE Id=$id";//Query de la vue Stagiaire
-	$result = $bdd->query($sql);
 
-	if($result->num_rows > 0) //Permet de voir s'il y a des résultats.
-	{
-		while($row = $result->fetch_assoc()) //Boucle qui va chercher automatiquement le stagiaire
-		{
-            $idStagiaire = $id;
-			$prenomStagiaire = $row["Prenom"]; //Initialisation des variables a afficher dans les balises de la page profil.
-			$nomStagiaire = $row["Nom"];
-			$numTelMaisonStagiaire = $row["NumTelMaison"];
-			$numTelPersonnelStagiaire = $row["NumTelPersonnel"];
-			$courrielPersonnelStagiaire = $row["CourrielPersonnel"];
-			$numTelEntrepriseStagiaire = $row["NumTelEntreprise"];
-			$posteStagiaire = $row["Poste"];
-			$courrielEntrepriseStagiaire = $row["CourrielEntreprise"];
-			$courrielScolaireStagiaire = $row["CourrielScolaire"];
-		}
-	}
-	else
-	{
-		?><script>alert("Le stagiaire n'a pas été trouvé...");</script><?php //Renvoi un alerte que le stagiaire n'a pas été trouvé.
-	}
+	$query = $bdd->prepare("SELECT * FROM vStagiaire WHERE Id = :idStagiaire"); //Les ':' servent à mettre un paramètre dans ce cas le paramètre c'est idStagiaire.
+
+    $query->execute(array('idStagiaire'=>$id)); //Lorsqu'on éxecute le query ont peut préciser la valeur des paramètres à l'aide d'un tableau associatif. idStagiaire = à la valeur de la variable $id.
+    $stagiaires = $query->fetchAll(); //la fonction fetchAll() met les valeurs du query dans une liste d'objets. J'ai donc fait une liste $stagiaires.
+    
+    foreach($stagiaires as $stagiaire){ //Puisque $stagiaires est une liste je peux faire une boucle foreach pour récupérer les données.
+        $idStagiaire = $stagiaire['Id'];
+        $prenomStagiaire = $stagiaire["Prenom"]; //Comme un $stagiaire est un objet je peux récupérer leur valeur de la même manière qu'avec $row['propriété'].
+        $nomStagiaire = $stagiaire["Nom"];
+        $numTelMaisonStagiaire = $stagiaire["NumTelMaison"];
+        $numTelPersonnelStagiaire = $stagiaire["NumTelPersonnel"];
+        $courrielPersonnelStagiaire = $stagiaire["CourrielPersonnel"];
+        $numTelEntrepriseStagiaire = $stagiaire["NumTelEntreprise"];
+        $posteStagiaire = $stagiaire["Poste"];
+        $courrielEntrepriseStagiaire = $stagiaire["CourrielEntreprise"];
+        $courrielScolaireStagiaire = $stagiaire["CourrielScolaire"];
+    }
 
 ?>

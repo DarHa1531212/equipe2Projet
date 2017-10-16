@@ -19,7 +19,8 @@
         <link rel="stylesheet" media="screen and (max-width: 735px)" href="../CSS/style-735px.css" />
         <link rel="shortcut icon" href="../Images/LogoDICJ2Petit.ico">
         <script src="../js/regexProfilStag.js"></script>
-		<?php include'connexionBDTest.php'; ?>
+
+		<?php include 'ConnexionBD.php'; ?>
 		<?php include'vProfilStagiaire.php'; ?>
     </head>
     <body>
@@ -37,11 +38,7 @@
             <aside class="right" id="profil">
                 <a class="zoneCliquable" href="ProfilStagiaire.php">
                     <h3>Bonjour</h3>
-<<<<<<< HEAD
                     <h3><?php echo $_SESSION['PrenomConnecte'] . ' ' . $_SESSION['NomConnecte']; ?></h3>
-=======
-                    <h3>Martin Mystère</h3>
->>>>>>> 2eab736c45c47d1d130320a4d72aea76897f0b6d
                 </a>
             </aside>
         </header>
@@ -206,20 +203,12 @@ Condition de mot de passe
 - Au moins une majuscule
 - Au moins un chiffre(0-9)
 								</textarea>
-										
+                                
 							</div>
-<<<<<<< HEAD
-						
-                            <input type="hidden" name="idStagiaire" value="<?php echo $idStagiaire; ?>"/>
-                            <input type="submit" id="Save" class="bouton" value="Sauvegarder"/>
-	
-=======
 							
                             <input type="hidden" name="idStagiaire" value="<?php echo $idStagiaire; ?>"/>
                             <input type="submit" id="Save" class="bouton" value="Sauvegarder"/>
 
-							
->>>>>>> 2eab736c45c47d1d130320a4d72aea76897f0b6d
 						  </div>
 						  
 						</div>

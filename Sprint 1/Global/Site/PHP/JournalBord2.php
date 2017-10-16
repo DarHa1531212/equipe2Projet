@@ -64,19 +64,8 @@
                 <div class="content">
                 
                 <?php       
-                        try
-                        {
-<<<<<<< HEAD
-                            $bdd = new PDO('mysql:host=dicj.info;dbname=cegepjon_p2017_2_tests;', 'cegepjon_p2017_2', 'madfpfadshdb'/*array(PDO::MYSQL_ATTR_INIT_COMMAND => 'SET NAMES utf8')*/);
-=======
-                            $bdd = new PDO('mysql:host=dicj.info;dbname=cegepjon_p2017_2_prod;', 'cegepjon_p2017_2', 'madfpfadshdb'/*array(PDO::MYSQL_ATTR_INIT_COMMAND => 'SET NAMES utf8')*/);
->>>>>>> 2eab736c45c47d1d130320a4d72aea76897f0b6d
-                            $bdd->exec("SET NAMES 'utf8';");
-                        }
-                        catch(Exception $e)
-                        {
-                            die('Erreur : ' .$e->getMessage());
-                        }
+
+                        include 'ConnexionBD.php';
                 
                         function dateDifference($date_1 , $date_2 , $differenceFormat = '%a' )
                         {
