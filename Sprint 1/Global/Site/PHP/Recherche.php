@@ -1,6 +1,6 @@
 <?php //recherche de connexion dans la bd
 	session_start();
-	include 'connexionBDTest.php';
+	include 'connexionBD.php';
 
 	$query = "SELECT * FROM vStagiaire WHERE CourrielScolaire = '$username'";
 	$result = $bdd->query($query);
