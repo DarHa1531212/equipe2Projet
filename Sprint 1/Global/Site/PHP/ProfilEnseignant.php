@@ -8,7 +8,7 @@
         <meta name="description" content="An interactive getting started guide for Brackets.">
         <link rel="stylesheet" href="../CSS/style.css">
         <link rel="shortcut icon" href="../Images/LogoDICJ2Petit.ico">
-        <?php include 'ConnexionBDLocal.php'; ?>
+        <?php include 'ConnexionBD.php'; ?>
         <?php include 'vProfilEnseignant.php' ?>
     </head>
     <body>

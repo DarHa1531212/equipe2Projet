@@ -3,7 +3,7 @@
    
     $i=1;
 
-    include 'PHP/ConnexionBDLocal.php';
+    include 'PHP/ConnexionBD.php';
 
 
     //$requeteInsertionEvaluation = 'insert into tblEvaluation(Statut, IdTypeEvaluation) values (:Statut,:IdTypeEvaluation)';

@@ -1,6 +1,6 @@
 <?php
     
-    include 'ConnexionBDLocal.php';
+    include 'ConnexionBD.php';
 
     $id = $_GET["idStagiaire"];
 

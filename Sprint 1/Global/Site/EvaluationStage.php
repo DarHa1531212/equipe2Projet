@@ -105,7 +105,7 @@
 
 
 
-                    include 'PHP/ConnexionBDLocal.php';
+                    include 'PHP/ConnexionBD.php';
 
 
                     $requeteReponses = $bd->prepare('select distinct(RE.Id), RE.Texte

@@ -1,6 +1,6 @@
 <?php
 
-include 'ConnexionBDLocal.php';
+include 'ConnexionBD.php';
 
 if(isset($_POST["idStagiaire"]))
     $idStagiaire = $_POST["idStagiaire"];
