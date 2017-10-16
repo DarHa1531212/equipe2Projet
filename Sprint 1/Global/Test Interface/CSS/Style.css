@@ -128,6 +128,32 @@ tbody>tr{
     color: #4b4b4b;
 }
 
+.navigateur{
+    height: 40px;
+}
+
+.fleche{
+    background-image: url(../Images/flecheVide.png);
+    background-position: center;
+    background-size: 100% 100%;
+    height: 40px;
+    width: 40px;
+    transition: 0.2s;
+}
+
+.fleche:hover{
+    background-image: url(../Images/flechePleine.png);
+    cursor: pointer;
+}
+
+.flecheGauche{
+    transform: rotate(180deg);
+    float: left;
+}
+
+.flecheDroite{
+    float: right;
+}
 
 @media screen and (max-width: 1240px){
     .blocInfo{

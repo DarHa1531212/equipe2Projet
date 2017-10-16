@@ -11,7 +11,8 @@
         <link rel="stylesheet" href="CSS/StyleFooter.css">
         <link rel="stylesheet" href="CSS/Style.css">
     </head>
-    <body>
+    <body onload="CacherDiv()">
+        <script src="Script/jquery-3.2.1.js"></script>
         <script src="Script/Script.js"></script>
         <header>
             <img class="logoHeader" src="Images/LogoDICJ2.png"/>
@@ -119,6 +120,81 @@
                 <br/><br/><br/>
                 
                 <input class="bouton" type="button" value="Écrire un commentaire"/>
+                
+                <div class="navigateur">
+                    <div class="fleche flecheGauche" onclick="ChangerStagiaire(this)"></div>
+                    <div class="fleche flecheDroite" onclick="ChangerStagiaire(this)"></div>
+                </div>
+            </article>
+            
+            <article class="stagiaire">
+                <div class="infoStagiaire">
+                    <h2>Anus</h2>
+                    <input class="bouton" type="button" value="Afficher le profil"/>
+                    <h3>Courriel@hotmail.com</h3>
+                </div>
+                
+                <div class="blocInfo itemHover">
+                    <a class="linkFill" href="TBEntreprise.html">
+                        <div class="entete">
+                            <h2>Enseignant</h2>
+                        </div>
+
+                        <div>
+                            <p>Prenom Nom</p>
+                            <p>(418) 490-1037</p>
+                        </div>
+                    </a>
+                </div>
+                
+                <div class="blocInfo itemHover">
+                    <a class="linkFill" href="TBEntreprise.html">
+                        <div class="entete">
+                            <h2>Superviseur</h2>
+                        </div>
+
+                        <div>
+                            <p>Prenom Nom</p>
+                            <p>(418) 490-1037</p>
+                        </div>
+                    </a>
+                </div>
+                
+                <br/><br/><br/><br/>
+                
+                <table>
+                    <thead>
+                        <th>Évaluation</th>
+                        <th>Statut</th>
+                        <th>Date limite</th>
+                        <th>Date complétée</th>
+                    </thead>
+                    
+                    <tbody>
+                        <tr class="itemHover" onclick="window.document.location='';">
+                            <td>Évaluation mi-stage</td>
+                            <td>Non complétée</td>
+                            <td>2017-02-15</td>
+                            <td></td>
+                        </tr>
+                        
+                        <tr class="itemHover" onclick="window.document.location='';">
+                            <td>Évaluation finale</td>
+                            <td>Complétée</td>
+                            <td>2017-03-30</td>
+                            <td>2017-03-25</td>
+                        </tr>
+                    </tbody>
+                </table>
+                
+                <br/><br/><br/>
+                
+                <input class="bouton" type="button" value="Écrire un commentaire"/>
+                
+                <div class="navigateur">
+                    <div class="fleche flecheGauche" onclick="ChangerStagiaire(this)"></div>
+                    <div class="fleche flecheDroite" onclick="ChangerStagiaire(this)"></div>
+                </div>
             </article>
         </section>
         
