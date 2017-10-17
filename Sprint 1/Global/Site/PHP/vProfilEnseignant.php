@@ -2,7 +2,7 @@
     
     $id = $_POST["idProf"];
 
-    $query = $bdd->prepare("SELECT * FROM vEmployeCegep WHERE Id = :idProf");
+    $query = $bdd->prepare("SELECT * FROM vEnseignant WHERE Id = :idProf");
 
     $query->execute(array('idProf'=>$id));
     $profs = $query->fetchAll();

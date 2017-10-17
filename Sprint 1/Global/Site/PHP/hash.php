@@ -1,15 +1,7 @@
 
 <?php
 
- try{
-    $bdd = new PDO('mysql:host=dicj.info;dbname=cegepjon_p2017_2_dev', 'cegepjon_p2017_2', 'madfpfadshdb');
-    $bdd->exec("SET NAMES 'utf8';");
-    }
-    catch(Exception $e)
-    {
-      echo "erreur de BD";
-        die('Erreur : ' .$e->getMessage());
-    }
+include 'ConnexionBD.php';
 
 $userEmail = "Bouchard.Olga@etu.cegepjonquiere.ca";
 $userEmail = strtolower($userEmail);
