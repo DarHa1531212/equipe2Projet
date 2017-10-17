@@ -63,7 +63,7 @@
                                     <h2>Stagiaire</h2>
                                 </div>
 
-                                <form action="ProfilStagiaire.php" method="post">
+                                <form action="Profil.php" method="post">
                                     <a class="zoneCliquable" href="javascript:;" onclick="parentNode.submit();">
                                         <input type="hidden" value="<?php echo $idStagiaire; ?>" name="idStagiaire"/>
                                         <p><?php echo $prenomStagiaire." ".$nomStagiaire; ?></p>
@@ -78,9 +78,9 @@
                                 </div>
 
                                 <div class="infoProfil">
-                                    <form action="ProfilSuperviseur.php" method="post">
+                                    <form action="Profil.php" method="post">
                                         <a class="zoneCliquable" href="javascript:;" onclick="parentNode.submit();">
-                                            <input type="hidden" value="<?php echo $idSup; ?>" name="idSuperviseur"/>
+                                            <input type="hidden" value="<?php echo $idSup; ?>" name="idEmploye"/>
                                             <p><?php echo $prenomSup." ".$nomSup; ?></p>
                                             <p><?php echo $cellSup; ?></p>
                                         </a>
@@ -94,9 +94,9 @@
                                 </div>
 
                                 <div class="infoProfil">
-                                    <form action="ProfilEnseignant.php" method="post">
+                                    <form action="Profil.php" method="post">
                                         <a class="zoneCliquable" href="javascript:;" onclick="parentNode.submit();">
-                                            <input type="hidden" value="<?php echo $idProf; ?>" name="idProf"/>
+                                            <input type="hidden" value="<?php echo $idProf; ?>" name="idEmploye"/>
                                             <p><?php echo $prenomProf." ".$nomProf; ?></p>
                                             <p><?php echo $telProf; ?></p>
                                         </a>

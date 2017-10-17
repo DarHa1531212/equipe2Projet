@@ -15,7 +15,7 @@
         <link rel="stylesheet" href="../CSS/style.css">
         <link rel="shortcut icon" href="../Images/LogoDICJ2Petit.ico">
         <?php include 'ConnexionBD.php'; ?>
-        <?php include 'vProfilEmployeEntreprise.php' ?>
+        <?php include 'vProfil.php' ?>
     </head>
     <body>
         <header>
@@ -53,11 +53,11 @@
                         <div class="contentInfo">
                             <div class="infoPerso">
                                 <p>
-                                    <?php echo $prenomSup . ' ' . $nomSup . '   '; //. $posteEmploi? ?><br/><br/>
+                                    <?php echo $prenom . ' ' . $nom . '   '; //. $posteEmploi? ?><br/><br/>
 
-                                    Employé de (<?php echo $nomEntrepriseSup ?>)<br/><br/>
-                                    Cellulaire : <?php echo $numTelCellSup ?><br/><br/>
-                                    Courriel personnel : <?php echo $courrielPersonnelSup ?><br/>
+                                    Employé de (<?php echo $entreprise ?>)<br/><br/>
+                                    Cellulaire : <?php echo $numTel ?><br/><br/>
+                                    Courriel personnel : <?php echo $courrielPerso ?><br/>
                                 </p>
                             </div>
                             
@@ -65,9 +65,9 @@
                                 <p>
                                     Informations professionnelles
                                     <br/><br/>
-                                    Téléphone : <?php echo $numTelEntrepriseSup ?><br/>
-                                    Poste : <?php echo $posteSup ?><br/><br/>
-                                    Courriel : <?php echo $courrielEntrepriseSup ?>
+                                    Téléphone : <?php echo $numTelEntreprise ?><br/>
+                                    Poste : <?php echo $poste ?><br/><br/>
+                                    Courriel : <?php echo $courrielEntreprise ?>
                                 </p>
                             </div>
                         </div>

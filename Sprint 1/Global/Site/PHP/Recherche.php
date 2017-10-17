@@ -1,17 +1,18 @@
 <?php //recherche de connexion dans la bd
 	session_start();
 	include 'connexionBD.php';
+    
+	$query = $bdd->prepare("SELECT * FROM vStagiaire WHERE CourrielScolaire = :username");
+    $query->execute(array('username'=>$username));
+	$result = $query->fetchAll();
 
-	$query = "SELECT * FROM vStagiaire WHERE CourrielScolaire = '$username'";
-	$result = $bdd->query($query);
-
-	if($result->num_rows > 0)
+	if($result != null)
 	{
-		while($row = $result->fetch_assoc())
+		foreach($result as $stagiaire)
 		{
-			$_SESSION['PrenomConnecte'] = $row['Prenom'];
-			$_SESSION['NomConnecte'] = $row['Nom'];
-			$_SESSION['idConnecte'] = $row['Id'];
+			$_SESSION['PrenomConnecte'] = $stagiaire['Prenom'];
+			$_SESSION['NomConnecte'] = $stagiaire['Nom'];
+			$_SESSION['idConnecte'] = $stagiaire['Id'];
 			$_SESSION['RoleConnecte'] = "Stagiaire";
 			include'TableauBordStagiaire.php';
 		}
