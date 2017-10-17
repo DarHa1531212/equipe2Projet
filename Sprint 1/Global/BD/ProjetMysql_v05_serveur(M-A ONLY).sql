@@ -165,7 +165,7 @@ CREATE TABLE tblUtilisateur(
 );
 
 DROP VIEW IF EXISTS vUtilisateur;
-CREATE VIEW vUtilisateur AS SELECT Id,Courriel,MotDePasse,CONCAT(Courriel,MotDePasse) AS tag FROM tblUtilisateur;
+CREATE VIEW vUtilisateur AS SELECT Id,LOWER(Courriel) AS Courriel,MotDePasse,CONCAT(LOWER(Courriel),MotDePasse) AS tag FROM tblUtilisateur;
 
 
 -- Table tblUtilisateurRole
