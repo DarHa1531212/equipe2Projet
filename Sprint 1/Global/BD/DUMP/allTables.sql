@@ -5,7 +5,7 @@
 
 
 INSERT IGNORE INTO `tblRole` (`Id`,`Titre`) VALUES (1,'Gestionnaire');
-INSERT IGNORE INTO `tblRole` (`Id`,`Titre`) VALUES (2,'Responsible');
+INSERT IGNORE INTO `tblRole` (`Id`,`Titre`) VALUES (2,'Responsable');
 INSERT IGNORE INTO `tblRole` (`Id`,`Titre`) VALUES (3,'Enseignant');
 INSERT IGNORE INTO `tblRole` (`Id`,`Titre`) VALUES (4,'Superviseur');
 INSERT IGNORE INTO `tblRole` (`Id`,`Titre`) VALUES (5,'Stagiaire');

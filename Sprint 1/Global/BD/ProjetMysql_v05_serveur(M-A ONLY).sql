@@ -48,7 +48,7 @@ CREATE TABLE tblReponseQuestion(
 
 
 DROP VIEW IF EXISTS vReponseQuestion;
-CREATE VIEW vReponseQuestion AS SELECT IdReponse FROM tblReponseQuestion;
+CREATE VIEW vReponseQuestion AS SELECT IdReponse ,IdQuestion,CONCAT(IdReponse ,IdQuestion) AS tag FROM tblReponseQuestion;
 
 
 
@@ -66,7 +66,7 @@ CREATE TABLE tblQuestion(
 
 
 DROP VIEW IF EXISTS vQuestion;
-CREATE VIEW vQuestion AS SELECT Id,Texte,CONCAT(Texte) AS tag FROM tblQuestion;
+CREATE VIEW vQuestion AS SELECT Id,Texte,CONCAT(Texte) AS tag, IdTypeQuestion,IdCategorieQuestion FROM tblQuestion;
 
 
 
@@ -83,7 +83,8 @@ CREATE TABLE tblEvaluationQuestionReponse(
 
 
 DROP VIEW IF EXISTS vEvaluationQuestionReponse;
-CREATE VIEW vEvaluationQuestionReponse AS SELECT IdQuestion,IdReponse,IdEvaluation,CONCAT(IdQuestion,IdReponse,IdEvaluation) AS tag FROM tblEvaluationQuestionReponse;
+CREATE VIEW vEvaluationQuestionReponse AS SELECT IdQuestion,IdReponse,IdEvaluation,
+CONCAT(IdQuestion,IdReponse,IdEvaluation) AS tag FROM tblEvaluationQuestionReponse;
 
 
 -- Table Evaluation
@@ -98,7 +99,8 @@ CREATE TABLE tblEvaluation(
 );
 
 DROP VIEW IF EXISTS vEvaluation;
-CREATE VIEW vEvaluation AS SELECT Id,Statut,DateComplétée,CONCAT(Id,Statut,DateComplétée,IdTypeEvaluation) AS tag FROM tblEvaluation;
+CREATE VIEW vEvaluation AS SELECT Id,Statut,DateComplétée,
+CONCAT(Id,Statut,DateComplétée,IdTypeEvaluation,IdTypeEvaluation,Statut,IFNULL(DateComplétée,'')) AS tag,IdTypeEvaluation FROM tblEvaluation;
 
 
 -- Table tblTypeEvaluation
@@ -148,7 +150,8 @@ CREATE TABLE tblStagiaire(
 
 DROP VIEW IF EXISTS vStagiaire;
 CREATE VIEW vStagiaire AS SELECT Id,CourrielScolaire,Nom,Prenom,NumTelPersonnel,NumTelMaison,CourrielPersonnel
-,NumTelEntreprise,Poste,CourrielEntreprise,CONCAT(CourrielScolaire,Nom,Prenom,NumTelPersonnel,NumTelMaison,CourrielPersonnel
+,NumTelEntreprise,Poste,CourrielEntreprise,
+CONCAT(CourrielScolaire,Nom,Prenom,NumTelPersonnel,NumTelMaison,CourrielPersonnel
 ,IFNULL(NumTelEntreprise,''),IFNULL(Poste,''),IFNULL(CourrielEntreprise,''),IFNULL(IdStage,''),IdUtilisateur) AS tag,IdStage,IdUtilisateur FROM tblStagiaire;
 
 -- Table tblUtilisateur
@@ -301,6 +304,7 @@ ON Sup.Id = Stage.IdSuperviseur
 JOIN vEmployeEntreprise AS Emp
 ON Emp.Id = Sup.IdEmployeEntreprise
 JOIN vEnseignant AS Enseignant
+
 ON Enseignant.Id = Stage.IdEnseignant
 JOIN vEmployeCegep AS EmpCeg
 ON EmpCeg.Id = Enseignant.IdEmployeCegep;
