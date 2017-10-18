@@ -5,7 +5,7 @@
 
     if(isset($_POST["idEmploye"])){
         $id = $_POST["idEmploye"];
-        $query = $bdd->prepare("SELECT Emp.Id, Emp.CourrielEntreprise, Prenom, Emp.Nom, NumTelCell, CourrielPersonnel, 
+        $query = $bdd->prepare("SELECT Emp.Id, Emp.CourrielEntreprise, Prenom, Emp.Nom, Emp.NumTel, CourrielPersonnel, 
                                 Ent.Nom AS 'Nom Entreprise', Emp.CourrielEntreprise, Emp.NumTelEntreprise, Poste, CodePermanent
                                 FROM vEmploye AS Emp
                                 JOIN vEntreprise AS Ent
@@ -14,7 +14,7 @@
     }
     else if(isset($_POST["idStagiaire"])){
         $id = $_POST["idStagiaire"];
-        $query = $bdd->prepare("SELECT Stagiaire.Id, Stagiaire.Prenom, Stagiaire.Nom, NumTelMaison AS NumTelCell, Stagiaire.CourrielPersonnel,
+        $query = $bdd->prepare("SELECT Stagiaire.Id, Stagiaire.Prenom, Stagiaire.Nom, Stagiaire.NumTel, Stagiaire.CourrielPersonnel, Stagiaire.CodePermanent,
                                 Stagiaire.CourrielEntreprise, Stagiaire.NumTelEntreprise, Stagiaire.Poste, Ent.Nom AS 'Nom Entreprise'
                                 FROM vStage AS Stage
                                 JOIN vStagiaire AS Stagiaire
@@ -34,7 +34,7 @@
         $courrielEntreprise = $profil['CourrielEntreprise'];
         $nom = $profil['Nom'];
         $prenom = $profil['Prenom'];
-        $numTel = $profil['NumTelCell'];
+        $numTel = $profil['NumTel'];
         $courrielPerso = $profil['CourrielPersonnel'];
         $numTelEntreprise = $profil['NumTelEntreprise'];
         $poste = $profil['Poste'];
