@@ -1,18 +1,9 @@
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> Hans
 <?php 
     if(session_id() == '' || !isset($_SESSION))
     {
         session_start();
     }
 ?>
-<<<<<<< HEAD
-=======
->>>>>>> 2eab736c45c47d1d130320a4d72aea76897f0b6d
-=======
->>>>>>> Hans
 <!DOCTYPE html>
 <html>
     
@@ -40,7 +31,7 @@
             </div>
             
             <aside class="right" id="profil">
-                <a class="zoneCliquable" href="<?php if($_SESSION['RoleConnecte'] == 'Stagiaire'){echo'ProfilStagiaire.php';}else{} ?>">
+                <a class="zoneCliquable" href="<?php if($_SESSION['roleConnecte'] == 'Stagiaire'){echo'ProfilStagiaire.php';}else{} ?>">
                     <h3>Bonjour</h3>
                     <h3><?php echo $_SESSION['PrenomConnecte'] . ' ' . $_SESSION['NomConnecte']; ?></h3>
                 </a>
@@ -54,7 +45,7 @@
                 </div>
                 
                 <div class="content">
-                    <input class="bouton" id="retourTBL" value="Retour au tableau de bord" onClick="document.location.href='<?php if($_SESSION['RoleConnecte'] == 'Stagiaire'){echo'TableauBordStagiaire.php';}else{echo'../TBEntreprise.php';} ?>';" type="button"/>
+                    <input class="bouton" id="retourTBL" value="Retour au tableau de bord" onClick="document.location.href='<?php if($_SESSION['roleConnecte'] == 'Stagiaire'){echo'TableauBordStagiaire.php';}else{echo'../TBEntreprise.php';} ?>';" type="button"/>
 
                     <div class="containerInfoProfil">  
                         <div class="bordureBleu">

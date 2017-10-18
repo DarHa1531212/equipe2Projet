@@ -18,7 +18,7 @@
         $idSup = $profil["Id Superviseur"];
         $nomSup = $profil["Nom Superviseur"];
         $prenomSup = $profil["Prenom Superviseur"];
-        $cellSup = $profil["Cell Superviseur"];
+        $cellSup = $profil["Tel Superviseur"];
 
         $idProf = $profil["Id Enseignant"];
         $prenomProf = $profil["Prenom Enseignant"];

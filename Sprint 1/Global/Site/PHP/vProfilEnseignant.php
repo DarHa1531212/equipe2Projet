@@ -2,7 +2,7 @@
     
     $id = $_POST["idProf"];
 
-    $query = $bdd->prepare("SELECT * FROM vEmployeCegep WHERE Id = :idProf");
+    $query = $bdd->prepare("SELECT * FROM vEmploye WHERE Id = :idProf");
 
     $query->execute(array('idProf'=>$id));
     $profs = $query->fetchAll();
@@ -13,7 +13,7 @@
         $numTelPerso = $prof["NumTelCell"];
         $courrielPerso = $prof["CourrielPersonnel"];
         $codePermanent = $prof["CodePermanent"];
-        $courrielProf = $prof["CourrielCegep"];
+        $courrielProf = $prof["CourrielEntreprise"];
     }
 
 ?>
