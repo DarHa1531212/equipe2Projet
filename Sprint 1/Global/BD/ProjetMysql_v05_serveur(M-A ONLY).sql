@@ -5,7 +5,7 @@
 -- DROP DATABASE IF EXISTS BDProjet_equipe2V2;
 -- CREATE DATABASE BDProjet_equipe2V2;
 
-USE cegepjon_p2017_2_dev;
+ USE cegepjon_p2017_2_dev;
 -- USE cegepjon_p2017_2_prod;
 -- USE cegepjon_p2017_2_tests;
 -- USE bdprojet_equipe2v2;
@@ -137,11 +137,12 @@ CREATE TABLE tblStagiaire(
 	Nom 					VARCHAR(50)		NOT NULL,
 	Prenom 					VARCHAR(50)		NOT NULL,
 	NumTelPersonnel 		CHAR(14)		NOT NULL,
-	NumTelMaison 			CHAR(14)		NOT NULL,
+	NumTel		 			CHAR(14)		NOT NULL,
 	CourrielPersonnel 		VARCHAR(320)	NOT NULL,
 	NumTelEntreprise 		CHAR(14)		NULL,
 	Poste 					VARCHAR(7)		NULL,
 	CourrielEntreprise	 	VARCHAR(320)	NULL,
+	CodePermanent			VARCHAR(12)		NULL,
 	PRIMARY KEY(Id),
 	IdStage					INT				NULL,
 	IdUtilisateur			INT				NULL,
@@ -149,10 +150,10 @@ CREATE TABLE tblStagiaire(
 );
 
 DROP VIEW IF EXISTS vStagiaire;
-CREATE VIEW vStagiaire AS SELECT Id,CourrielScolaire,Nom,Prenom,NumTelPersonnel,NumTelMaison,CourrielPersonnel
-,NumTelEntreprise,Poste,CourrielEntreprise,
-CONCAT(CourrielScolaire,Nom,Prenom,NumTelPersonnel,NumTelMaison,CourrielPersonnel
-,IFNULL(NumTelEntreprise,''),IFNULL(Poste,''),IFNULL(CourrielEntreprise,''),IFNULL(IdStage,''),IdUtilisateur) AS tag,IdStage,IdUtilisateur FROM tblStagiaire;
+CREATE VIEW vStagiaire AS SELECT Id,CourrielScolaire,Nom,Prenom,NumTelPersonnel,NumTel,CourrielPersonnel
+,NumTelEntreprise,Poste,CourrielEntreprise,CodePermanent,
+CONCAT(CourrielScolaire,Nom,Prenom,NumTelPersonnel,NumTel,CourrielPersonnel
+,IFNULL(NumTelEntreprise,''),IFNULL(Poste,''),IFNULL(CourrielEntreprise,''),IFNULL(IdStage,''),IdUtilisateur,CodePermanent) AS tag,IdStage,IdUtilisateur FROM tblStagiaire;
 
 -- Table tblUtilisateur
 
@@ -256,7 +257,7 @@ CREATE TABLE tblEmploye(
 	CourrielEntreprise 		VARCHAR(320)	NOT NULL,
 	Nom 					VARCHAR(50)		NOT NULL,
 	Prenom 					VARCHAR(50)		NOt NULL,
-	NumTelCell		 		CHAR(14)		NOT NULL,
+	NumTel			 		CHAR(14)		NOT NULL,
 	CourrielPersonnel 		VARCHAR(320)	NOT NULL,
 	NumTelEntreprise 		CHAR(14)		NOT NULL,
 	Poste 					VARCHAR(7)		NULL,
@@ -268,8 +269,8 @@ CREATE TABLE tblEmploye(
 );
 
 DROP VIEW IF EXISTS vEmploye;
-CREATE VIEW vEmploye AS SELECT Id,CourrielEntreprise,Nom,Prenom,NumTelCell,
-CourrielPersonnel,NumTelEntreprise,Poste,CodePermanent,CONCAT(CourrielEntreprise,Nom,Prenom,NumTelCell,
+CREATE VIEW vEmploye AS SELECT Id,CourrielEntreprise,Nom,Prenom,NumTel,
+CourrielPersonnel,NumTelEntreprise,Poste,CodePermanent,CONCAT(CourrielEntreprise,Nom,Prenom,NumTel,
 CourrielPersonnel,NumTelEntreprise,IFNULL(Poste, ""),CodePermanent,IdEntreprise,IdUtilisateur) AS tag,IdEntreprise,IdUtilisateur FROM tblEmploye;
 
 
