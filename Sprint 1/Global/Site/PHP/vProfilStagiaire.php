@@ -1,6 +1,10 @@
 <?php
 
+<<<<<<< HEAD
     $id = $_SESSION['Id'];
+=======
+    $id = $_SESSION['idConnecte'];
+>>>>>>> 15338485dfa844dfeecc3df1f22e0e079b149682
 
 	$query = $bdd->prepare("SELECT * FROM vStagiaire WHERE Id = :idStagiaire"); //Les ':' servent à mettre un paramètre dans ce cas le paramètre c'est idStagiaire.
 

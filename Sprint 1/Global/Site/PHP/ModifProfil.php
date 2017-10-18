@@ -203,12 +203,12 @@ Condition de mot de passe
 - Au moins une majuscule
 - Au moins un chiffre(0-9)
 								</textarea>
-										
-							</div>	
-                              
+                                
+							</div>
+							
                             <input type="hidden" name="idStagiaire" value="<?php echo $idStagiaire; ?>"/>
                             <input type="submit" id="Save" class="bouton" value="Sauvegarder"/>
-	
+
 						  </div>
 						  
 						</div>

@@ -1,7 +1,6 @@
 
 <?php
-session_start();
-include 'ConnexionBD.php';
+//session_start();
 
 $_SESSION['Username'] = "Bouchard.Olga@etu.cegepjonquiere.ca";
 $_SESSION['Username'] = strtolower($_SESSION['Username']);
@@ -18,9 +17,8 @@ function SetPassword ($userEmail, $newPassword, $bdd)
 function Login ($userEmail, $password, $bdd)
 {
     $userEmail = strtolower($userEmail);
-    $query = $bdd->prepare("SELECT vUtilisateur.Id, vUtilisateur.Courriel, vUtilisateur.MotDePasse, vUtilisateurRole.IdRole FROM vUtilisateur join vUtilisateurRole on vUtilisateur.Id = vUtilisateurRole.IdUtilisateur  where Courriel like '$userEmail'
- ");
-    $query->execute(array());
+    $query = $bdd->prepare("SELECT vUtilisateur.Id, vUtilisateur.Courriel, vUtilisateur.MotDePasse, vUtilisateurRole.IdRole FROM vUtilisateur join vUtilisateurRole on vUtilisateur.Id = vUtilisateurRole.IdUtilisateur  where Courriel like :userEmail");
+    $query->execute(array("userEmail"=>$_SESSION['Username']));
     $result = $query->fetchall();
     foreach($result as $entree)
     {
@@ -33,13 +31,11 @@ function Login ($userEmail, $password, $bdd)
         $CourrielBD = mb_strtolower($CourrielBD);
 
         if (password_verify($password, $MotDePasse)) {
-       $_SESSION['Id'] = $Id;
+       $_SESSION['idConnecte'] = $Id;
        $_SESSION['IdRole'] = $IdRole;
-       $_SESSION ['PrenomConnecte']
-        echo "acess granted";
+       
         return true;
         } else {
-        echo "acess denied";
         return false;
         }
     }

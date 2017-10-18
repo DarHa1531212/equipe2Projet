@@ -76,6 +76,7 @@
                         </div>
                     </div>
                     <div class="commentaireContainer">
+
                         <?php if($_SESSION['RoleConnecte'] == 'Stagiaire')
                             {
                                 echo '<form action="ModifProfil.php" method="post">
@@ -84,9 +85,8 @@
                                     </form>';
                             } 
                         ?>
-                                               
+                      
                     </div>
-                </div>
             </div>
         </content>
         

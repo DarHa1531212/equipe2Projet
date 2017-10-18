@@ -1,10 +1,17 @@
 <?php
 
-    $id = $_POST["idSuperviseur"];
+    if(!isset($_POST['idSuperviseur']))
+    {
+    	$id = $_SESSION['idConnecte'];
+    }
+    else
+    {
+    	$id = $_POST["idSuperviseur"];
+    }
 
     $query = $bdd->prepare("SELECT Prenom, Emp.Nom, Ent.Nom AS 'Nom Entreprise', NumTelCell, CourrielPersonnel, NumTelEntreprise, Poste, Emp.CourrielEntreprise
-                            FROM vEmployeEntreprise AS Emp
-                            JOIN vEntreprise AS Ent
+                            FROM vEmploye AS Emp
+                            INNER JOIN vEntreprise AS Ent
                             ON Emp.IdEntreprise = Ent.Id
                             WHERE Emp.Id = :idSuperviseur");
 
