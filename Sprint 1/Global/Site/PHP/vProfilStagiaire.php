@@ -1,6 +1,6 @@
 <?php
 
-    $id = $_POST["idStagiaire"];
+    $id = $_SESSION['Id'];
 
 	$query = $bdd->prepare("SELECT * FROM vStagiaire WHERE Id = :idStagiaire"); //Les ':' servent à mettre un paramètre dans ce cas le paramètre c'est idStagiaire.
 

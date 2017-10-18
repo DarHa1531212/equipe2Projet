@@ -3,7 +3,7 @@
 	include 'ConnexionBD.php';
 	include 'hash.php';
 	$username = $_POST['Username'];
-	$MDP = $_POST['Password'];
+	$MDP = $_POST['Password'];p
 
 	/*try
 	{
@@ -17,31 +17,35 @@
 		{
 			case 1:
 			//call page using header("Location: path");
+			echo "I am a teacher";
 			break;
 
 			case 2:
-			//call page using header("Location: path");
+			header("Location: TBEntreprise.php");
 			break;
 
 			case 3:
 			//call page using header("Location: path");
+			echo "I am a teacher";
 			break;
 
 			case 4:
+			header("Location: TBEntreprise.php");
 			//call page using header("Location: path");
 			break;
 
 			case 5:
+					header("Location: TableauBordStagiaire.php");
+
 			//call page using header("Location: path");
 			break;
 
 			default: echo "error unknown IdRole";
-	}
-
-
 		}
 
-		header("Location: TableauBordStagiaire.php");
+
+		
+
 	}
 	else
 	{

@@ -2,8 +2,10 @@
 	session_start();
 	include 'connexionBD.php';
 
-	$query = "SELECT * FROM vStagiaire WHERE CourrielScolaire = '$username'";
-	$result = $bdd->query($query);
+	$query =  $bdd->prepare("SELECT * FROM vStagiaire WHERE CourrielScolaire = '$_SESSION['Username']'");
+	$query->execute(array());
+	$result = $query->fetchAll();
+
 
 	if($result->num_rows > 0)
 	{
@@ -13,13 +15,16 @@
 			$_SESSION['NomConnecte'] = $row['Nom'];
 			$_SESSION['idConnecte'] = $row['Id'];
 			$_SESSION['RoleConnecte'] = "Stagiaire";
+			
 			include'TableauBordStagiaire.php';
 		}
 	}
 	else
 	{
-		$query = "SELECT * FROM vEmployeEntreprise WHERE CourrielEntreprise = '$username'";
-		$result = $bdd->query($query);
+		$query =  $bdd->prepare("SELECT * FROM vEmployeEntreprise WHERE CourrielEntreprise = '$_SESSION['Username']'");
+	    $query->execute(array());
+		$result = $query->fetchAll();
+
 
 		if($result->num_rows > 0)
 		{

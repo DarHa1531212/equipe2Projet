@@ -35,6 +35,7 @@ function Login ($userEmail, $password, $bdd)
         if (password_verify($password, $MotDePasse)) {
        $_SESSION['Id'] = $Id;
        $_SESSION['IdRole'] = $IdRole;
+       $_SESSION ['PrenomConnecte']
         echo "acess granted";
         return true;
         } else {
