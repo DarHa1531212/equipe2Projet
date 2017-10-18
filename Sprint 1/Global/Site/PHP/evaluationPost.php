@@ -1,9 +1,8 @@
 <?php
-    
    
     $i=1;
 
-    include 'PHP/ConnexionBD.php';
+    include 'ConnexionBD.php';
 
 
     //$requeteInsertionEvaluation = 'insert into tblEvaluation(Statut, IdTypeEvaluation) values (:Statut,:IdTypeEvaluation)';

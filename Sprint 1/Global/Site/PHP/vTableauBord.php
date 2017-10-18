@@ -2,7 +2,11 @@
 
     $id = $_SESSION['idConnecte'];
 
+<<<<<<< HEAD
     include 'ConnexionBD.php';
+=======
+    $id = $_SESSION["idConnecte"];
+>>>>>>> Francis
 
 	$query = $bdd->prepare("SELECT * FROM vTableauBord WHERE Id = :idStagiaire");
 

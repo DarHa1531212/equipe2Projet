@@ -1,6 +1,6 @@
 <?php
 
-    include 'PHP/ConnexionBD.php';
+    include 'ConnexionBD.php';
     
     $query = $bdd->prepare("SELECT * FROM vTableauBord");
 

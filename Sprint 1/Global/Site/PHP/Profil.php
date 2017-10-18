@@ -3,7 +3,7 @@
     {
         session_start();
     }
-?>
+ ?>
 <!DOCTYPE html>
 <html>
     
@@ -14,9 +14,8 @@
         <meta name="description" content="An interactive getting started guide for Brackets.">
         <link rel="stylesheet" href="../CSS/style.css">
         <link rel="shortcut icon" href="../Images/LogoDICJ2Petit.ico">
-
         <?php include 'ConnexionBD.php'; ?>
-        <?php include 'vProfilEnseignant.php' ?>
+        <?php include 'vProfil.php' ?>
     </head>
     <body>
         <header>
@@ -45,8 +44,12 @@
                 </div>
                 
                 <div class="content">
+<<<<<<< HEAD:Sprint 1/Global/Site/PHP/ProfilEnseignant.php
                     <input class="bouton" id="retourTBL" value="Retour au tableau de bord" onClick="document.location.href='<?php if($_SESSION['roleConnecte'] == 'Stagiaire'){echo'TableauBordStagiaire.php';}else{echo'../TBEntreprise.php';} ?>';" type="button"/>
 
+=======
+                    <input class="bouton" id="retourTBL" value="Retour au tableau de bord" onClick="document.location.href='<?php if($_SESSION['RoleConnecte'] == 'Stagiaire'){echo'TableauBordStagiaire.php';}else{echo'TBEntreprise.php';} ?>';" type="button"/>
+>>>>>>> Francis:Sprint 1/Global/Site/PHP/Profil.php
                     <div class="containerInfoProfil">  
                         <div class="bordureBleu">
                         
@@ -55,18 +58,21 @@
                         <div class="contentInfo">
                             <div class="infoPerso">
                                 <p>
-                                    <?php echo $prenom . ' ' . $nom . '   '; //. $posteEmploi??><br/><br/>
-                                    Cellulaire : <?php echo $numTelPerso ?><br/><br/>
+                                    <?php echo $prenom . ' ' . $nom . '   '; //. $posteEmploi? ?><br/><br/>
+
+                                    Employé de (<?php echo $entreprise ?>)<br/><br/>
+                                    Cellulaire : <?php echo $numTel ?><br/><br/>
                                     Courriel personnel : <?php echo $courrielPerso ?><br/>
                                 </p>
                             </div>
-
+                            
                             <div class="infoPerso">
                                 <p>
                                     Informations professionnelles
                                     <br/><br/>
-                                    Code Permanent : <?php echo $codePermanent ?><br/>
-                                    Courriel : <?php echo $courrielProf ?>
+                                    Téléphone : <?php echo $numTelEntreprise ?><br/>
+                                    Poste : <?php echo $poste ?><br/><br/>
+                                    Courriel : <?php echo $courrielEntreprise ?>
                                 </p>
                             </div>
                         </div>

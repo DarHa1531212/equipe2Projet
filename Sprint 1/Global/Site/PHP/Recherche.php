@@ -1,4 +1,5 @@
 <?php //recherche de connexion dans la bd
+<<<<<<< HEAD
 
 	$query = $bdd->prepare("SELECT * FROM vUtilisateur WHERE Courriel = :username");
 	$query->execute(array('username'=>$username));
@@ -43,6 +44,24 @@
 			break;
 
 			default: echo "error unknown IdRole";
+=======
+	session_start();
+	include 'connexionBD.php';
+    
+	$query = $bdd->prepare("SELECT * FROM vStagiaire WHERE CourrielScolaire = :username");
+    $query->execute(array('username'=>$username));
+	$result = $query->fetchAll();
+
+	if($result != null)
+	{
+		foreach($result as $stagiaire)
+		{
+			$_SESSION['PrenomConnecte'] = $stagiaire['Prenom'];
+			$_SESSION['NomConnecte'] = $stagiaire['Nom'];
+			$_SESSION['idConnecte'] = $stagiaire['Id'];
+			$_SESSION['RoleConnecte'] = "Stagiaire";
+			include'TableauBordStagiaire.php';
+>>>>>>> Francis
 		}
 
 		$query->execute(array('id'=>$_SESSION['idConnecte']));
