@@ -1,17 +1,13 @@
 
 <?php
 //session_start();
+include 'ConnexionBD.php';
 
-<<<<<<< HEAD
 $_SESSION['Username'] = "Bouchard.Olga@etu.cegepjonquiere.ca";
 $_SESSION['Username'] = strtolower($_SESSION['Username']);
-=======
-include 'ConnexionBD.php';
 
 $userEmail = "Bouchard.Olga@etu.cegepjonquiere.ca";
 $userEmail = strtolower($userEmail);
-Login($userEmail, "motpasse", $bdd);
->>>>>>> Francis
 
 function SetPassword ($userEmail, $newPassword, $bdd)
 {

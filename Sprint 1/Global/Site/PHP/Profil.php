@@ -30,7 +30,7 @@
             </div>
             
             <aside class="right" id="profil">
-                <a class="zoneCliquable" href="<?php if($_SESSION['roleConnecte'] == 'Stagiaire'){echo'ProfilStagiaire.php';}else{} ?>">
+                <a class="zoneCliquable" href="<?php if($_SESSION['IdRole'] == '5'){echo'Profil.php';}else{} ?>">
                     <h3>Bonjour</h3>
                     <h3><?php echo $_SESSION['PrenomConnecte'] . ' ' . $_SESSION['NomConnecte']; ?></h3>
                 </a>
@@ -44,12 +44,8 @@
                 </div>
                 
                 <div class="content">
-<<<<<<< HEAD:Sprint 1/Global/Site/PHP/ProfilEnseignant.php
-                    <input class="bouton" id="retourTBL" value="Retour au tableau de bord" onClick="document.location.href='<?php if($_SESSION['roleConnecte'] == 'Stagiaire'){echo'TableauBordStagiaire.php';}else{echo'../TBEntreprise.php';} ?>';" type="button"/>
 
-=======
-                    <input class="bouton" id="retourTBL" value="Retour au tableau de bord" onClick="document.location.href='<?php if($_SESSION['RoleConnecte'] == 'Stagiaire'){echo'TableauBordStagiaire.php';}else{echo'TBEntreprise.php';} ?>';" type="button"/>
->>>>>>> Francis:Sprint 1/Global/Site/PHP/Profil.php
+                    <input class="bouton" id="retourTBL" value="Retour au tableau de bord" onClick="document.location.href='<?php if($_SESSION['IdRole'] == '5'){echo'TableauBordStagiaire.php';}else{echo'TBEntreprise.php';} ?>';" type="button"/>
                     <div class="containerInfoProfil">  
                         <div class="bordureBleu">
                         
