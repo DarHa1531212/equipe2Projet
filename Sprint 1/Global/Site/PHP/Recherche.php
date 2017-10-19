@@ -54,15 +54,4 @@
     header("Location: /equipe2Projet/Sprint%201/Global/Site/");
   }
  
-  function initialiseVariables()
-  {
-    $_SESSION['idEmploye'] = "";
-    $_SESSION['idStagiaire'] = "";
- 
-  }
- 
-  function addIdToSession($userId, $roleId)
-  {
- 
-  }
 ?>
