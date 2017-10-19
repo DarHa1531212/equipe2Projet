@@ -74,7 +74,7 @@
                     </div>
                     <div class="commentaireContainer">
 
-                        <?php if($_SESSION['IdRole'] == 5)
+                        <?php if($_SESSION['IdRole'] == 5 && !isset($_POST['idEmploye']))
                             {
                                 echo '<form action="ModifProfil.php" method="post">
                                         <input type="hidden" name="idStagiaire" value="<?php echo $idStagiaire; ?>"/>

@@ -215,7 +215,7 @@ Condition de mot de passe
 						
 					</form>
                     
-                    <form action="ModifProfil.php" method="post">
+                    <form action="profil.php" method="post">
                         <input type="hidden" name="idStagiaire" value="<?php echo $_SESSION['idConnecte']; ?>"/>
                         <input type="submit" class="bouton" value="Annuler"/>
                     </form>
