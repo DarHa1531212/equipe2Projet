@@ -1,83 +1,164 @@
 <?php 
-    if(session_id() == '' || !isset($_SESSION))
-    {
-        session_start();
-    }
- ?>
-<!DOCTYPE html>
-<html>
-    
-    <head>
-        <meta charset="utf-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <title>Profil</title>
-        <meta name="description" content="An interactive getting started guide for Brackets.">
-        <link rel="stylesheet" href="../CSS/style.css">
-        <link rel="shortcut icon" href="../Images/LogoDICJ2Petit.ico">
-        <?php include 'ConnexionBD.php'; ?>
-        <?php include 'vProfil.php' ?>
-    </head>
-    <body>
-        <header>
-            <aside class="left">
-                <a href="http://dicj.info">
-                    <img id="logo" src="../Images/LogoDICJ2.png"/>
-                </a>
-            </aside>
-            
-            <div class="conteneur">
-            
-            </div>
-            
-            <aside class="right" id="profil">
-                <a class="zoneCliquable" href="<?php if($_SESSION['RoleConnecte'] == 'Stagiaire'){echo'ProfilStagiaire.php';}else{} ?>">
-                    <h3>Bonjour</h3>
-                    <h3><?php echo $_SESSION['PrenomConnecte'] . ' ' . $_SESSION['NomConnecte']; ?></h3>
-                </a>
-            </aside>
-        </header>
-        
-        <content>
-            <div class="conteneur">
-                <div class="entete" >   
-                    <h1>Profil Superviseur</h1>
-                </div>
-                
-                <div class="content">
-                    <input class="bouton" id="retourTBL" value="Retour au tableau de bord" onClick="document.location.href='<?php if($_SESSION['RoleConnecte'] == 'Stagiaire'){echo'TableauBordStagiaire.php';}else{echo'TBEntreprise.php';} ?>';" type="button"/>
-                    <div class="containerInfoProfil">  
-                        <div class="bordureBleu">
-                        
-                        </div>
-                        
-                        <div class="contentInfo">
-                            <div class="infoPerso">
-                                <p>
-                                    <?php echo $prenom . ' ' . $nom . '   '; //. $posteEmploi? ?><br/><br/>
+session_start();
 
-                                    Employé de (<?php echo $entreprise ?>)<br/><br/>
-                                    Cellulaire : <?php echo $numTel ?><br/><br/>
-                                    Courriel personnel : <?php echo $courrielPerso ?><br/>
-                                </p>
-                            </div>
-                            
-                            <div class="infoPerso">
-                                <p>
-                                    Informations professionnelles
-                                    <br/><br/>
-                                    Téléphone : <?php echo $numTelEntreprise ?><br/>
-                                    Poste : <?php echo $poste ?><br/><br/>
-                                    Courriel : <?php echo $courrielEntreprise ?>
-                                </p>
-                            </div>
-                        </div>
-                    </div>
+function AfficherProfil($NomMenu){
+    
+    include 'vProfil.php';
+    $menu = "";
+    
+    if($NomMenu == "Profil"){
+        $menu = 
+        '<div class="infoStagiaire">
+            <h2>Votre profil</h2>
+            <input class="bouton" type="button" value="Modifier le profil"/>
+        </div>
+
+        <div class="separateur">
+            <h3>Informations Personnelles</h3>
+        </div>
+
+        <div class="blocInfo infoProfil">
+                <div class="champ">
+                    <p class="label">Prenom :</p>
+                    <p class="value">'.$prenom.'</p>
                 </div>
-            </div>
-        </content>
-        
-        <footer>
-        
-        </footer>
-    </body>
-</html>
+
+                <div class="champ">
+                    <p class="label">Nom :</p>
+                    <p class="value">'.$nom.'</p>
+                </div>
+
+                <div class="champ">
+                    <p class="label">No. Téléphone :</p>
+                    <p class="value">'.$numTel.'</p>
+                </div>
+
+                <div class="champ">
+                    <p class="label">Courriel :</p>
+                    <p class="value">'.$courrielPerso.'</p>
+                </div>
+        </div>
+
+        <div class="separateur">
+            <h3>Informations Professionnelles</h3>
+        </div>
+
+        <div class="blocInfo infoProfil">
+                <div class="champ">
+                    <p class="label">Entreprise :</p>
+                    <p class="value">'.$entreprise.'</p>
+                </div>
+
+                <div class="champ">
+                    <p class="label">Courriel :</p>
+                    <p class="value">'.$courrielEntreprise.'</p>
+                </div>
+
+                <div class="champ">
+                    <p class="label">No. Téléphone :</p>
+                    <p class="value">'.$numTelEntreprise.'</p>
+                </div>
+
+                <div class="champ">
+                    <p class="label">Poste :</p>
+                    <p class="value">'.$poste.'</p>
+                </div>
+        </div>
+
+        <br/><br/>
+
+        <input class="bouton" type="button" value="   Retour   ", onclick="AfficherProfil('.$id.', \'Stagiaire\', \'Main\')"/>';
+    }//Interface de la consultation des profils
+    else if($NomMenu == "Main"){
+        include 'vTableauBord.php';
+        $menu = 
+        '<div class="infoStagiaire">
+                    <h2>'.$prenomStagiaire.' '.$nomStagiaire.'</h2>
+                    <input type="hidden" value="'.$idStagiaire.'" name="idStagiaire" id="idStagiaire"/>
+                    <input class="bouton" type="button" value="Afficher le profil" onclick="AfficherProfil(idStagiaire.value, \'Stagiaire\', \'Profil\')"/>
+                    <h3>'.$telPerso.'</h3>
+                </div>
+
+                <div class="blocInfo itemHover">
+                    <a class="linkFill" onclick="AfficherProfil(idProf.value, \'Employe\', \'Profil\')">
+                        <input type="hidden" value="'.$idProf.'" name="idEmploye" id="idProf"/>
+
+                        <div class="entete">
+                            <h2>Enseignant</h2>
+                        </div>
+
+                        <div>
+                            <p>'.$prenomProf.' '.$nomProf.'</p>
+                            <p>'.$telProf.'</p>
+                        </div>
+                    </a>
+                </div>
+
+                <div class="blocInfo itemHover">
+                    <a class="linkFill" onclick="AfficherProfil(idSup.value, \'Employe\', \'Profil\')">
+                        <input type="hidden" value="'.$idSup.'" name="idEmploye" id="idSup"/>
+
+                        <div class="entete">
+                            <h2>Superviseur</h2>
+                        </div>
+
+                        <div>
+                            <p>'.$prenomSup.' '.$nomSup.'</p>
+                            <p>'.$cellSup.'</p>
+                        </div>
+                    </a>
+                </div>
+
+                <br/><br/><br/><br/>
+
+                <table>
+                    <thead>
+                        <th>Rapport</th>
+                        <th>Statut</th>
+                        <th>Date limite</th>
+                        <th>Date complétée</th>
+                    </thead>
+
+                    <tbody>
+                        <tr class="itemHover" onclick="window.document.location=\'\'\;">
+                            <td>Rapport 1</td>
+                            <td>Non complétée</td>
+                            <td>2017-02-15</td>
+                            <td></td>
+                        </tr>
+
+                        <tr class="itemHover" onclick="window.document.location=\'\'\;">
+                            <td>Rapport 2</td>
+                            <td>Complétée</td>
+                            <td>2017-03-30</td>
+                            <td>2017-03-25</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <br/><br/>
+
+                <table>
+                    <thead>
+                        <th>Autre</th>
+                    </thead>
+
+                    <tbody>
+                        <tr class="itemHover" onclick="window.document.location=\'\'\;">
+                            <td>Journal de bord</td>
+                        </tr>
+
+                        <tr class="itemHover" onclick="window.document.location=\'\'\;">
+                            <td>Auto-Évaluation</td>
+                        </tr>
+                    </tbody>
+                </table>';    
+    }//Interface du menu principal (Tableau de bord du stagiaire)
+    
+
+    echo json_encode($menu);
+}
+
+AfficherProfil($_REQUEST["nomMenu"]);
+
+?>
