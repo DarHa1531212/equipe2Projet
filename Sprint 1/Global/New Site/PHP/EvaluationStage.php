@@ -105,16 +105,7 @@
 
 
 
-                    try
-                    {
-                        $bd = new PDO('mysql:host=dicj.info;dbname=cegepjon_p2017_2_tests','cegepjon_p2017_2','madfpfadshdb',array(PDO::MYSQL_ATTR_INIT_COMMAND => 'SET NAMES utf8'));
-                    }
-                    catch(Exception $e)
-                    {
-                            die('Erreur : '.$e->getMessage());
-                    }
-
-                   // mysql_query("SET NAMES 'utf8'");
+                    include 'PHP/ConnexionBD.php';
 
 
                     $requeteReponses = $bd->prepare('select distinct(RE.Id), RE.Texte
@@ -136,8 +127,6 @@
                     $requeteCategories->execute();
 
                     $i=1;
-
-                    //$categories = $requeteCategories->fetchAll();
 
                     while (($categorie = $requeteCategories->fetch()) and ($i<=7))
                     {
@@ -200,73 +189,8 @@
                         $i++;
 
                     }
-
-                    
-
-                    /*for($i=1;$i<=7;$i++)
-                    {
-
-                        $indiceQuestion = 0;
-
-                        $indiceReponse = 0;
-
-                        $requeteReponses->execute(array('idCategorieQuestion'=> $i));
-
-                        $requeteQuestions->execute(array('idCategorieQuestion'=> $i));
-
-                                      
-
-                        $reponses = $requeteReponses->fetchAll();
-
-                        $questions = $requeteQuestions->fetchAll();
-
-                        echo '<div id="categorie'.$i.'">
-                                <table class="table tbEvaluation">
-                                    <thead>
-                                     <tr>
-                                      <th class="critere">Critères</th>';
-
-                        foreach($reponses as $reponse)
-                        {
-                            echo '<th class="critere reponse">'.$reponse['Texte'].'</th>';
-                        }
-
-                        echo '</tr>
-                        </thead>
-                        <tbody>';
-
-                        foreach($questions as $question)
-                        {
-                            $indiceQuestion++;
-
-                            $indiceReponse=0;
-
-                            echo '<tr><td class="critere">'.$question['Texte'].'</td>';
-
-                                foreach ($reponses as $reponse) 
-                                {
-                                    $indiceReponse++;
-
-                                    echo '<td><input type="radio" name="question'.$i.''.$indiceQuestion.'"></td>';
-                                }
-
-                                  echo '</tr>';
-                        }
-
-                            echo '</tbody>
-                                    </table>
-                                </div>';
-
-                    }*/
-
-                    
                 ?>
                
-
-
-
-
-                
                     <div class="btnSectionContainer">
 
                         <div class="btnNomSectionContainer">
@@ -303,57 +227,3 @@
         <script src="js/scripts.js"></script>
     </body>
 </html>
-
- <!--<div>
-                    <table class="table tbEvaluation">
-                        <thead>
-                            <tr>
-                                <th class="critere">Critères</th>
-                                <th class="critere reponse">Généralement</th>
-                                <th class="critere reponse">Souvent</th>
-                                <th class="critere reponse">Parfois</th>
-                                <th class="critere reponse">Rarement</th>
-                            </tr>
-                        </thead>
-                        
-                        <tbody>
-                            <tr>
-                                <td class="critere">Faire preuve de curiosité</td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                            </tr>
-                            
-                            <tr>
-                                <td class="critere">
-                                    Concentrer ses efforts et investir l’énergie nécessaire pour faire du bon travail, voir à se dépasser, et pour satisfaire aux normes de qualité et de rendement en vigueur dans l’entreprise. 
-                                </td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                            </tr>
-                            
-                            <tr>
-                                <td class="critere">
-                                    Porter un intérêt soutenu au travail.  Faire preuve de persévérance et de volonté. 
-                                </td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                            </tr>
-                            
-                            <tr>
-                                <td class="critere">
-                                    Être de bonne humeur.  Éprouver du plaisir à travailler 
-                                </td>
-                                <td class="reponse"></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>-->

@@ -96,6 +96,23 @@ section{
     border: solid 1px gainsboro;
 }
 
+.infoProfil{
+    width: 99.5%;
+}
+
+.champ{
+    display: inline-block;
+    width: 45%;
+}
+
+.label{
+    display: inline-block;
+}
+
+.value{
+    display: inline-block;
+}
+
 table{
     width: 99.5%;
     margin: auto;
@@ -103,15 +120,15 @@ table{
     border-collapse: collapse;
 }
 
-tr, td, th{
+table > tr, td, th{
     padding-left: 10px;
 }
 
-tbody>tr td{
+table > tbody>tr td{
     height: 40px;
 }
 
-tbody>tr{
+table > tbody>tr{
     border: solid 1px gainsboro;
 }
 
@@ -160,4 +177,8 @@ tbody>tr{
         width: 100%;
         margin-top: 2px;
     }
+    
+    .champ{
+    width: 100%;
+}
 }
