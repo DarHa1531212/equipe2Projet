@@ -44,7 +44,7 @@
                 </div>
                 
                 <div class="content">
-                    <input class="bouton" id="retourTBL" value="Retour au tableau de bord" onClick="document.location.href='<?php if($_SESSION['RoleConnecte'] == 'Stagiaire'){echo'TableauBordStagiaire.php';}else{echo'TBEntreprise.php';} ?>';" type="button"/>
+                    <input class="bouton" id="retourTBL" value="Retour au tableau de bord" onClick="document.location.href='<?php if($_SESSION['IdRole'] == 5){echo'TableauBordStagiaire.php';}else{echo'TBEntreprise.php';} ?>';" type="button"/>
                     <div class="containerInfoProfil">  
                         <div class="bordureBleu">
                         
@@ -71,6 +71,18 @@
                                 </p>
                             </div>
                         </div>
+                    </div>
+                    <div class="commentaireContainer">
+
+                        <?php if($_SESSION['IdRole'] == 5)
+                            {
+                                echo '<form action="ModifProfil.php" method="post">
+                                        <input type="hidden" name="idStagiaire" value="<?php echo $idStagiaire; ?>"/>
+                                        <input class="bouton" id="boutonProfilStagiaire" value="Modifier" type="submit"/>
+                                    </form>';
+                            } 
+                        ?>
+                      
                     </div>
                 </div>
             </div>
