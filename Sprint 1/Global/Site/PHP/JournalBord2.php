@@ -64,7 +64,6 @@
                 <div class="content">
                 
                 <?php       
-
                         include 'ConnexionBD.php';
                 
                         function dateDifference($date_1 , $date_2 , $differenceFormat = '%a' )
