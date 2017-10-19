@@ -4,14 +4,11 @@
 	$query->execute(array('username'=>$username));
 	$connecte = $query->fetchAll();
 
-	//Vérif mdp ajout d'un if LALA
-
 	foreach ($connecte as $user) 
 	{
 		$_SESSION['idConnecte'] = $user['Id'];
 	}
 
-	//switch($_SESSION[''])
 	if (Login($username, $MDP, $bdd))
 	{
 		switch ($_SESSION['IdRole'])
@@ -31,16 +28,14 @@
 			break;
 
 			case 4:
-			header("Location: TBEntreprise.php");
-			//call page using header("Location: path");
-			break;
+					$query = $bdd->prepare("SELECT * FROM vEmploye WHERE IdUtilisateur = :id");
+					header("Location: TBEntreprise.php");
+					break;
 
 			case 5:
 					$query = $bdd->prepare("SELECT * FROM vStagiaire WHERE IdUtilisateur = :id");
 					header("Location: TableauBordStagiaire.php");
-
-			//call page using header("Location: path");
-			break;
+					break;
 
 			default: echo "error unknown IdRole";
 		}
