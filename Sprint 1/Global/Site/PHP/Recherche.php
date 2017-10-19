@@ -16,15 +16,14 @@
   	{
     	switch ($_SESSION['IdRole'])
     	{
-      	case 1:
-      	   //call page using header("Location: path");
-      	   echo "I am a teacher";
-      	break;
+      		case 1:
+      		//call page using header("Location: path");
+      		echo "I am a teacher";
+      		break;
  
 		    case 2:
-            $query = $bdd->prepare("SELECT * FROM vResponsable WHERE IdUtilisateur = :id");
-            header("Location: TBEntreprise.php");
-		    break;
+			header("Location: TBEntreprise.php");
+		     break;
 		 
 		    case 3:
 		    //call page using header("Location: path");

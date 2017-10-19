@@ -30,13 +30,10 @@
             </div>
             
             <aside class="right" id="profil">
-                <form action="insertion.php" method="POST">
-                    <a class="zoneCliquable" href="<?php if($_SESSION['IdRole'] == '5'){echo'Profil.php';}else{} ?>">
-                        <input type ="hidden" value ="5" nams ="idEmploye" />
-                        <h3>Bonjour</h3>
-                        <h3><?php echo $_SESSION['PrenomConnecte'] . ' ' . $_SESSION['NomConnecte']; ?></h3>
-                    </a>
-                </form>
+                <a class="zoneCliquable" href="<?php if($_SESSION['IdRole'] == '5'){echo'Profil.php';}else{} ?>">
+                    <h3>Bonjour</h3>
+                    <h3><?php echo $_SESSION['PrenomConnecte'] . ' ' . $_SESSION['NomConnecte']; ?></h3>
+                </a>
             </aside>
         </header>
         
