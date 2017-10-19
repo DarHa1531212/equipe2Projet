@@ -1,5 +1,6 @@
 <?php //recherche de connexion dans la bd
- 
+
+
   $query = $bdd->prepare("SELECT * FROM vUtilisateur WHERE Courriel = :username");
   $query->execute(array('username'=>$username));
   $connecte = $query->fetchAll();

@@ -1,10 +1,15 @@
 <?php
-	$username = $_POST['Username'];
-	$MDP = $_POST['Password'];
+  session_start();
 
-	try
-	{
-		include 'Recherche.php';
-	}
-	catch(Exception $e){echo "HO NO " . $e;}
+  $username = $_POST['Username'];
+  $MDP = $_POST['Password'];
+  include 'ConnexionBD.php';
+  include 'hash.php';
+  
+  try
+  {
+    include 'Recherche.php';
+  }
+  catch(Exception $e){echo "HO NO " . $e;}
+  
 ?>

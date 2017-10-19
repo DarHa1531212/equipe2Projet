@@ -1,41 +1,43 @@
-
+ 
 <?php
-
-include 'ConnexionBD.php';
-
-$userEmail = "Bouchard.Olga@etu.cegepjonquiere.ca";
-$userEmail = strtolower($userEmail);
-Login($userEmail, "motpasse", $bdd);
-
-function SetPassword ($userEmail, $password)
+//session_start();
+ 
+$_SESSION['Username'] = strtolower($username);
+ 
+function SetPassword ($userEmail, $newPassword, $bdd)
 {
-    echo "Set Password function";
+    $sessionID = 3; 
+    $newPassword = password_hash("newPassword", PASSWORD_DEFAULT);
+ 
+    $query = $bdd->prepare("update cegepjon_p2017_2_dev.tblUtilisateur set MotDePasse = '$newPassword' where Id like '$sessionID';");
+    $query->execute();
 }
-
+ 
 function Login ($userEmail, $password, $bdd)
 {
     $userEmail = strtolower($userEmail);
-    $query = $bdd->prepare("SELECT Id, Courriel, MotDePasse FROM vUtilisateur where Courriel like '$userEmail' ");
-    $query->execute(array());
+    $query = $bdd->prepare("SELECT vUtilisateur.Id, vUtilisateur.Courriel, vUtilisateur.MotDePasse, vUtilisateurRole.IdRole FROM vUtilisateur join vUtilisateurRole on vUtilisateur.Id = vUtilisateurRole.IdUtilisateur  where Courriel like :userEmail");
+    $query->execute(array("userEmail"=>$userEmail));
     $result = $query->fetchall();
     foreach($result as $entree)
     {
         $Id = $entree["Id"];
         $CourrielBD = $entree["Courriel"];
         $MotDePasse = $entree["MotDePasse"];
-
-        echo gettype($CourrielBD), "\n";
+        $IdRole = $entree["IdRole"];
+ 
+ 
         $CourrielBD = mb_strtolower($CourrielBD);
-        echo $CourrielBD;   
-
-
-
+ 
         if (password_verify($password, $MotDePasse)) {
-        echo 'Password is valid!';
+       $_SESSION['idConnecte'] = $Id;
+       $_SESSION['IdRole'] = $IdRole;
+               return true;
         } else {
-        echo 'Invalid password.';
+        return false;
         }
     }
 }
-
+ 
 ?>
+ 
