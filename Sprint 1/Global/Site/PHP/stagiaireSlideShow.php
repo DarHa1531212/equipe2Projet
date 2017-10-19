@@ -4,14 +4,10 @@
     
     $query = $bdd->prepare("SELECT * FROM vTableauBord");
 
-    $query2 = $bdd->prepare("SELECT Prenom, Eval.Id, Titre, Statut, DateLimite, DateComplétée
-                            FROM vSuperviseurEvaluationStagiaireStage AS SESS
-                            JOIN vEvaluation AS Eval
-                            ON SESS.IdEvaluation = Eval.Id
+    $query2 = $bdd->prepare("SELECT Prenom, Titre, Statut, DateLimite, DateComplétée
+                            FROM vInfoEvalGlobale AS SESS
                             JOIN vStagiaire AS Stag
-                            ON Stag.Id = SESS.IdStagiaire
-                            JOIN vTypeEvaluation AS TypeEval
-                            ON TypeEval.Id = Eval.IdTypeEvaluation
+                            ON SESS.IdStagiaire = Stag.Id
                             WHERE Stag.Id = :idStagiaire");
 
     $query->execute(array());
@@ -26,7 +22,7 @@
         $idSup = $profil["Id Superviseur"];
         $nomSup = $profil["Nom Superviseur"];
         $prenomSup = $profil["Prenom Superviseur"];
-        $cellSup = $profil["Cell Superviseur"];
+        $cellSup = $profil["Tel Superviseur"];
 
         $idProf = $profil["Id Enseignant"];
         $prenomProf = $profil["Prenom Enseignant"];
