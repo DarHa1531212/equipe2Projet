@@ -2,13 +2,13 @@
 
 include 'ConnexionBD.php';
 
-$aNumTelPersonnel = $_POST['NumTelPersonnel'];
-$aNumTelMaison = $_POST['NumTelMaison'];
-$aNumTelEntreprise = $_POST['NumTelEntreprise'];
-$aPoste = $_POST['Poste'];
-$aCourrielEntreprise = $_POST['CourrielEntreprise'];
-$aCourrielPersonnel = $_POST['CourrielPersonnel'];
-$idStagiaire = $_POST['IdStagiaire'];
+$aNumTelPersonnel = $_REQUEST['NumTelPersonnel'];
+$aNumTelMaison = $_REQUEST['NumTelMaison'];
+$aNumTelEntreprise = $_REQUEST['NumTelEntreprise'];
+$aPoste = $_REQUEST['Poste'];
+$aCourrielEntreprise = $_REQUEST['CourrielEntreprise'];
+$aCourrielPersonnel = $_REQUEST['CourrielPersonnel'];
+$idStagiaire = $_REQUEST['IdStagiaire'];
 	try 
 	{
 		if($aNumTelPersonnel != "" OR $aNumTelMaison != "" OR $aNumTelEntreprise != "" OR $aPoste != "" OR $aCourrielEntreprise != "")

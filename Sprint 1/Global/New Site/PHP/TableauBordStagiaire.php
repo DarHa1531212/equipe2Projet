@@ -42,87 +42,10 @@
             </article>
             
             <article class="stagiaire">
-                <div class="infoStagiaire">
-                    <h2><?php echo "$prenomStagiaire $nomStagiaire" ?></h2>
-                    <input type="hidden" value="<?php echo $idStagiaire ?>" name="idStagiaire" id="idStagiaire"/>
-                    <input class="bouton" type="button" value="Afficher le profil" onclick="AfficherProfil(idStagiaire.value, 'Stagiaire', 'Profil')"/>
-                    <h3><?php echo "$telPerso" ?></h3>
-                </div>
-
-                <div class="blocInfo itemHover">
-                    <a class="linkFill" onclick="AfficherProfil(idProf.value, 'Employe', 'Profil')">
-                        <input type="hidden" value="<?php echo $idProf ?>" name="idEmploye" id="idProf"/>
-
-                        <div class="entete">
-                            <h2>Enseignant</h2>
-                        </div>
-
-                        <div>
-                            <p><?php echo "$prenomProf $nomProf" ?></p>
-                            <p><?php echo "$telProf" ?></p>
-                        </div>
-                    </a>
-                </div>
-
-                <div class="blocInfo itemHover">
-                    <a class="linkFill" onclick="AfficherProfil(idSup.value, 'Employe', 'Profil')">
-                        <input type="hidden" value="<?php echo $idSup ?>" name="idEmploye" id="idSup"/>
-
-                        <div class="entete">
-                            <h2>Superviseur</h2>
-                        </div>
-
-                        <div>
-                            <p><?php echo "$prenomSup $nomSup" ?></p>
-                            <p><?php echo "$cellSup" ?></p>
-                        </div>
-                    </a>
-                </div>
-
-                <br/><br/><br/><br/>
-
-                <table>
-                    <thead>
-                        <th>Rapport</th>
-                        <th>Statut</th>
-                        <th>Date limite</th>
-                        <th>Date complétée</th>
-                    </thead>
-
-                    <tbody>
-                        <tr class="itemHover" onclick="window.document.location='';">
-                            <td>Rapport 1</td>
-                            <td>Non complétée</td>
-                            <td>2017-02-15</td>
-                            <td></td>
-                        </tr>
-
-                        <tr class="itemHover" onclick="window.document.location='';">
-                            <td>Rapport 2</td>
-                            <td>Complétée</td>
-                            <td>2017-03-30</td>
-                            <td>2017-03-25</td>
-                        </tr>
-                    </tbody>
-                </table>
-
-                <br/><br/>
-
-                <table>
-                    <thead>
-                        <th>Autre</th>
-                    </thead>
-
-                    <tbody>
-                        <tr class="itemHover" onclick="window.document.location='';">
-                            <td>Journal de bord</td>
-                        </tr>
-
-                        <tr class="itemHover" onclick="window.document.location='';">
-                            <td>Auto-Évaluation</td>
-                        </tr>
-                    </tbody>
-                </table>
+                <?php 
+                    include 'TBSMain.php';
+                    echo $content;
+                ?>
             </article>
         </section>
         

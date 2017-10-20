@@ -2,21 +2,32 @@
 //j'ai mis un paramètre titre dans la fonction avec lequel je fusionne avec id.
 //Ex: id + titre = idEmploye ou idStagiaire.
 //Cela me permet d'effectuer un if et afficher les bonnes informations.
-function AfficherProfil(Id, titre, nomMenu){
+
+
+function Requete(url, callBack){
     var xhttp = new XMLHttpRequest();
     
     xhttp.onreadystatechange = function(){
         if(this.readyState == 4 && this.status == 200){
-            var profil = JSON.parse(this.responseText);
-            $(".stagiaire").empty();
-            $(".stagiaire").append(profil);
+            callBack(this);
         };
     };
 
-    xhttp.open("POST", "../PHP/Profil.php?id" + titre + "=" + Id + "&nomMenu=" + nomMenu);
+    xhttp.open("POST", url);
     xhttp.send();
 }
 
-function Retour(){
-    
+function AfficherPage(xhttp){
+    var menu = JSON.parse(xhttp.responseText);
+    $(".stagiaire").empty();
+    $(".stagiaire").append(menu);
+}
+
+function Execute(url, choix){
+    switch(choix){
+        case 1: Requete(url, AfficherPage)
+            break;
+        case 2:
+            break;
+    }
 }

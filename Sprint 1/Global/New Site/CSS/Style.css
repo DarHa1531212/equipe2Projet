@@ -109,8 +109,25 @@ section{
     display: inline-block;
 }
 
+.labelForInput{
+    width: 150px;
+}
+
 .value{
     display: inline-block;
+}
+
+input.value{
+    width: 200px;
+    height: 20px;
+    font-size: 17px;
+    vertical-align: middle;
+}
+
+.info{
+    width: 15px;
+    vertical-align: middle;
+    margin-right: -15px;
 }
 
 table{
