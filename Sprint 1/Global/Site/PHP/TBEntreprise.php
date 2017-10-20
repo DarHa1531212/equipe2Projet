@@ -26,7 +26,7 @@
             </div>
             
             <aside class="right "id="profil">
-                <a class="zoneCliquable" href="ProfilSuperviseur.php">
+                <a class="zoneCliquable" href="Profil.php">
                     <h3>Bonjour</h3>
                     <h3><?php echo $_SESSION['PrenomConnecte'] . ' ' . $_SESSION['NomConnecte']; ?></h3>
                 </a>
