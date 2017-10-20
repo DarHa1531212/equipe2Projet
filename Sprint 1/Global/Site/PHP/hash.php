@@ -1,18 +1,16 @@
-
-<?php
-//session_start();
-
-$_SESSION['Username'] = strtolower($username);
-
-function SetPassword ($userEmail, $newPassword, $bdd)
+ 
+<?php 
+ 
+function SetPassword ($newPassword, $bdd)
 {
-    $sessionID = 3; 
-    $newPassword = password_hash("newPassword", PASSWORD_DEFAULT);
-
-    $query = $bdd->prepare("update cegepjon_p2017_2_dev.tblUtilisateur set MotDePasse = '$newPassword' where Id like '$sessionID';");
+ 
+    $newPassword = password_hash($newPassword, PASSWORD_DEFAULT);
+ 
+    $query = $bdd->prepare("update cegepjon_p2017_2_dev.tblUtilisateur set MotDePasse = '$newPassword' where Id like " . $_SESSION['idConnecte']. ";");
     $query->execute();
-}
 
+}
+ 
 function Login ($userEmail, $password, $bdd)
 {
     $userEmail = strtolower($userEmail);
@@ -25,19 +23,33 @@ function Login ($userEmail, $password, $bdd)
         $CourrielBD = $entree["Courriel"];
         $MotDePasse = $entree["MotDePasse"];
         $IdRole = $entree["IdRole"];
-
-
+ 
+ 
         $CourrielBD = mb_strtolower($CourrielBD);
 
-        if (password_verify($password, $MotDePasse)) {
-       $_SESSION['idConnecte'] = $Id;
-       $_SESSION['IdRole'] = $IdRole;
-       
-        return true;
-        } else {
-        return false;
+        if (password_verify($password, $MotDePasse))
+        {
+            $_SESSION['idConnecte'] = $Id;
+            $_SESSION['IdRole'] = $IdRole;
+            if($IdRole == 2 || $IdRole == 4)
+            {
+                $query = $bdd->prepare("SELECT Id FROM vEmploye WHERE IdUtilisateur = :id");
+                $query->execute(array('id'=>$_SESSION['idConnecte']));
+                $idemp = $query->fetchAll();
+
+                foreach($idemp as $employe)
+                {
+                    $_SESSION['idEmploye'] = $employe['Id'];
+                }
+            }
+            return true;
+        } 
+        else
+        {
+            return false;
         }
     }
 }
-
+ 
 ?>
+ 

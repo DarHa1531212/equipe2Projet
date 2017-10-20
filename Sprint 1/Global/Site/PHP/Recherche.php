@@ -1,9 +1,5 @@
 <?php //recherche de connexion dans la bd
 
-	$query = $bdd->prepare("SELECT * FROM vUtilisateur WHERE Courriel = :username");
-	$query->execute(array('username'=>$username));
-	$connecte = $query->fetchAll();
-
 
 	foreach ($connecte as $user) 
 	{
@@ -27,41 +23,31 @@
 					echo "I am a teacher";
 			break;
 
-			case 4: //case 4 is a Supervisor
+			case 4:
+					$query = $bdd->prepare("SELECT * FROM vEmploye WHERE IdUtilisateur = :id");
 					header("Location: TBEntreprise.php");
-			break;
+					break;
 
 			case 5: //case 5 is an intern
 					$query = $bdd->prepare("SELECT * FROM vStagiaire WHERE IdUtilisateur = :id");
 					header("Location: TableauBordStagiaire.php");
-			break;
+					break;
 
 			default: echo "error unknown IdRole";
 		}
 
 		$query->execute(array('id'=>$_SESSION['idConnecte']));
         $connecte = $query->fetchAll();
-
+ 
         foreach ($connecte as $user)
         {
-           	$_SESSION['PrenomConnecte'] = $user['Prenom'];
-           	$_SESSION['NomConnecte'] = $user['Nom'];
+             $_SESSION['PrenomConnecte'] = $user['Prenom'];
+             $_SESSION['NomConnecte'] = $user['Nom'];
         }
-	}
-	else
-	{
-		header("Location: /equipe2Projet/Sprint%201/Global/Site/");
-	}
-
-	function initialiseVariables()
-	{
-		$_SESSION['idEmploye'] = "";
-		$_SESSION['idStagiaire'] = "";
-
-	}
-
-	function addIdToSession($userId, $roleId)
-	{
-
-	}
+  }
+  else
+  {
+    header("Location: /equipe2Projet/Sprint%201/Global/Site/");
+  }
+ 
 ?>

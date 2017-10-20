@@ -1,9 +1,9 @@
 <?php
 	session_start();
-	include 'ConnexionBD.php';
-	include 'hash.php';
 	$username = $_POST['Username'];
 	$MDP = $_POST['Password'];
+	include 'ConnexionBD.php';
+	include 'hash.php';
 	
 	try
 	{

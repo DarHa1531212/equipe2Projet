@@ -3,8 +3,15 @@
     $id = "";
     $query = "";
 
-    if(isset($_POST["idEmploye"])){
-        $id = $_POST["idEmploye"];
+    if(isset($_POST["idEmploye"]) || $_SESSION['IdRole'] == 2 || $_SESSION['IdRole'] == 4){
+        if(isset($_POST["idEmploye"]))
+        {
+            $id = $_POST["idEmploye"];
+        }
+        else
+        {
+            $id = $_SESSION['idEmploye'];
+        }
         $query = $bdd->prepare("SELECT Emp.Id, Emp.CourrielEntreprise, Prenom, Emp.Nom, Emp.NumTel, CourrielPersonnel, 
                                 Ent.Nom AS 'Nom Entreprise', Emp.CourrielEntreprise, Emp.NumTelEntreprise, Poste, CodePermanent
                                 FROM vEmploye AS Emp
@@ -12,8 +19,8 @@
                                 ON Ent.Id = Emp.IdEntreprise 
                                 WHERE Emp.Id = :id"); //Les ':' servent à mettre un paramètre dans ce cas le paramètre c'est id.
     }
-    else if(isset($_POST["idStagiaire"])){
-        $id = $_POST["idStagiaire"];
+    else if(isset($_POST["idStagiaire"]) || $_SESSION['IdRole'] == 5){
+        $id = $_SESSION['idConnecte'];
         $query = $bdd->prepare("SELECT Stagiaire.Id, Stagiaire.Prenom, Stagiaire.Nom, Stagiaire.NumTel, Stagiaire.CourrielPersonnel, Stagiaire.CodePermanent,
                                 Stagiaire.CourrielEntreprise, Stagiaire.NumTelEntreprise, Stagiaire.Poste, Ent.Nom AS 'Nom Entreprise'
                                 FROM vStage AS Stage

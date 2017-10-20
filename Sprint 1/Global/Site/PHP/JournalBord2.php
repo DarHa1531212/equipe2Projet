@@ -1,9 +1,4 @@
-<?php 
-    if(session_id() == '' || !isset($_SESSION))
-    {
-        session_start();
-    }
-?>
+<?php include 'Session.php'; ?>
 <!DOCTYPE html>
 
 <html>
