@@ -19,7 +19,7 @@
                                 ON Ent.Id = Emp.IdEntreprise 
                                 WHERE Emp.Id = :id"); //Les ':' servent à mettre un paramètre dans ce cas le paramètre c'est id.
     }
-    else if(isset($_POST["idStagiaire"]) || $_SESSION['IdRole'] == 5QQqq)){
+    else if(isset($_POST["idStagiaire"]) || $_SESSION['IdRole'] == 5){
         $id = $_SESSION['idConnecte'];
         $query = $bdd->prepare("SELECT Stagiaire.Id, Stagiaire.Prenom, Stagiaire.Nom, Stagiaire.NumTel, Stagiaire.CourrielPersonnel, Stagiaire.CodePermanent,
                                 Stagiaire.CourrielEntreprise, Stagiaire.NumTelEntreprise, Stagiaire.Poste, Ent.Nom AS 'Nom Entreprise'

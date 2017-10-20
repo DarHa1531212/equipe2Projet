@@ -1,8 +1,5 @@
 <?php //recherche de connexion dans la bd
 
-	$query = $bdd->prepare("SELECT * FROM vUtilisateur WHERE Courriel = :username");
-	$query->execute(array('username'=>$username));
-	$connecte = $query->fetchAll();
 
 	foreach ($connecte as $user) 
 	{
@@ -41,27 +38,16 @@
 
 		$query->execute(array('id'=>$_SESSION['idConnecte']));
         $connecte = $query->fetchAll();
-
+ 
         foreach ($connecte as $user)
         {
-           	$_SESSION['PrenomConnecte'] = $user['Prenom'];
-           	$_SESSION['NomConnecte'] = $user['Nom'];
+             $_SESSION['PrenomConnecte'] = $user['Prenom'];
+             $_SESSION['NomConnecte'] = $user['Nom'];
         }
-	}
-	else
-	{
-		header("Location: /equipe2Projet/Sprint%201/Global/Site/");
-	}
-
-	function initialiseVariables()
-	{
-		$_SESSION['idEmploye'] = "";
-		$_SESSION['idStagiaire'] = "";
-
-	}
-
-	function addIdToSession($userId, $roleId)
-	{
-
-	}
+  }
+  else
+  {
+    header("Location: /equipe2Projet/Sprint%201/Global/Site/");
+  }
+ 
 ?>

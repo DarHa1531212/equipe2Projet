@@ -7,6 +7,7 @@ $aNumTelEntreprise = $_POST['numTelEntreprise'];
 $aPoste = $_POST['poste'];
 $aCourrielEntreprise = $_POST['courrielEntreprise'];
 $aCourrielPersonnel = $_POST['courrielPersonnel'];
+$newPassword = $_POST['newPwd'];
 $idStagiaire = $_SESSION['idConnecte'];
 	try 
 	{
@@ -14,6 +15,10 @@ $idStagiaire = $_SESSION['idConnecte'];
 		{
 			$query = $bdd->prepare("UPDATE vStagiaire SET NumTelPersonnel = '$aNumTelPersonnel', NumTelEntreprise = '$aNumTelEntreprise', Poste = '$aPoste', CourrielEntreprise = '$aCourrielEntreprise', CourrielPersonnel = '$aCourrielPersonnel' WHERE IdUtilisateur = :idStagiaire");
 			$query->execute(array('idStagiaire'=>$idStagiaire));
+			
+			include 'hash.php';
+			SetPassword ($newPassword, $bdd);
+
 			include 'Profil.php';
 		}
 		else
