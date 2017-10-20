@@ -28,13 +28,27 @@ function Login ($userEmail, $password, $bdd)
  
  
         $CourrielBD = mb_strtolower($CourrielBD);
- 
-        if (password_verify($password, $MotDePasse)) {
-       $_SESSION['idConnecte'] = $Id;
-       $_SESSION['IdRole'] = $IdRole;
-               return true;
-        } else {
-        return false;
+
+        if (password_verify($password, $MotDePasse))
+        {
+            $_SESSION['idConnecte'] = $Id;
+            $_SESSION['IdRole'] = $IdRole;
+            if($IdRole == 2 || $IdRole == 4)
+            {
+                $query = $bdd->prepare("SELECT Id FROM vEmploye WHERE IdUtilisateur = :id");
+                $query->execute(array('id'=>$_SESSION['idConnecte']));
+                $idemp = $query->fetchAll();
+
+                foreach($idemp as $employe)
+                {
+                    $_SESSION['idEmploye'] = $employe['Id'];
+                }
+            }
+            return true;
+        } 
+        else
+        {
+            return false;
         }
     }
 }

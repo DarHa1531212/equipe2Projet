@@ -4,14 +4,10 @@
     
     $query = $bdd->prepare("SELECT * FROM vTableauBord");
 
-    $query2 = $bdd->prepare("SELECT Prenom, Eval.Id, Titre, Statut, DateLimite, DateComplétée
-                            FROM vSuperviseurEvaluationStagiaireStage AS SESS
-                            JOIN vEvaluation AS Eval
-                            ON SESS.IdEvaluation = Eval.Id
+    $query2 = $bdd->prepare("SELECT Prenom, Titre, Statut, DateLimite, DateComplétée
+                            FROM vInfoEvalGlobale AS SESS
                             JOIN vStagiaire AS Stag
-                            ON Stag.Id = SESS.IdStagiaire
-                            JOIN vTypeEvaluation AS TypeEval
-                            ON TypeEval.Id = Eval.IdTypeEvaluation
+                            ON SESS.IdStagiaire = Stag.Id
                             WHERE Stag.Id = :idStagiaire");
 
     $query->execute(array());
@@ -26,7 +22,7 @@
         $idSup = $profil["Id Superviseur"];
         $nomSup = $profil["Nom Superviseur"];
         $prenomSup = $profil["Prenom Superviseur"];
-        $cellSup = $profil["Cell Superviseur"];
+        $cellSup = $profil["Tel Superviseur"];
 
         $idProf = $profil["Id Enseignant"];
         $prenomProf = $profil["Prenom Enseignant"];
@@ -74,7 +70,7 @@
                                                 <h2>Stagiaire</h2>
                                             </div>
 
-                                            <form action="ProfilStagiaire.php" method="post">
+                                            <form action="Profil.php" method="post">
                                                 <a class="zoneCliquable" href="javascript:;" onclick="parentNode.submit();">
                                                     <input type="hidden" value="'.$idStagiaire.'" name="idStagiaire"/>
                                                     <p>'.$prenomStag." ".$nomStag.'</p>
@@ -89,7 +85,7 @@
                                             </div>
 
                                             <div class="infoProfil">
-                                                <form action="ProfilSuperviseur.php" method="post">
+                                                <form action="Profil.php" method="post">
                                                     <a class="zoneCliquable" href="javascript:;" onclick="parentNode.submit();">
                                                         <input type="hidden" value="'.$idSup.'" name="idSuperviseur"/>
                                                         <p>'.$prenomSup." ".$nomSup.'</p>
@@ -105,7 +101,7 @@
                                             </div>
 
                                             <div class="infoProfil">
-                                                <form action="ProfilEnseignant.php" method="post">
+                                                <form action="Profil.php" method="post">
                                                     <a class="zoneCliquable" href="javascript:;" onclick="parentNode.submit();">
                                                         <input type="hidden" value="'.$idProf.'" name="idProf"/>
                                                         <p>'.$prenomProf." ".$nomProf.'</p>

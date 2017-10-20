@@ -1,9 +1,4 @@
-<?php 
-    if(session_id() == '' || !isset($_SESSION))
-    {
-        session_start();
-    }
- ?>
+<?php include 'Session.php'; ?>
 <!DOCTYPE html>
 <html>
     
@@ -21,7 +16,7 @@
         <script src="../js/regexProfilStag.js"></script>
 
 		<?php include 'ConnexionBD.php'; ?>
-		<?php include'vProfilStagiaire.php'; ?>
+		<?php include'vProfil.php'; ?>
     </head>
     <body>
         <header class="bootstrap">
@@ -61,7 +56,7 @@
 										  <div class="form-group">
 											<label class="control-label col-sm-4" for="nom">Nom:</label>
 											<div class="col-sm-5">
-											  <input type="text" class="form-control" name="nom" id="nom" placeholder="Entrez votre nom" value=<?php echo'"' . $nomStagiaire . '"'; ?> disabled> 
+											  <input type="text" class="form-control" name="nom" id="nom" placeholder="Entrez votre nom" value=<?php echo'"' . $nom . '"'; ?> disabled> 
 											</div>
 										  </div>
 										  
@@ -73,14 +68,14 @@
 										  <div class="form-group">
 											<label class="control-label col-sm-4" for="numeroCellulaire">Numero de téléphone cellulaire :</label>
 											<div class="col-sm-5"> 
-											  <input type="text" class="form-control" name="numTelPersonnel" id="numeroCellulaire" onkeyup="RegexProfilStagiaire();" maxlength="14" placeholder="Entrez le numero de téléphone" value=<?php echo'"' . $numTelPersonnelStagiaire . '"'; ?>>Standard : (123) 123-1234
+											  <input type="text" class="form-control" name="numTelPersonnel" id="numeroCellulaire" onkeyup="RegexProfilStagiaire();" maxlength="14" placeholder="Entrez le numero de téléphone" value=<?php echo'"' . $numTel . '"'; ?>>Standard : (123) 123-1234
 											</div>
 										  </div>
 
 										  <div class="form-group">
 											<label class="control-label col-sm-4" for="courriel">Courriel personnel :</label>
 											<div class="col-sm-5"> 
-											  <input type="email" class="form-control" name="courrielPersonnel" id="courrielPersonnel" onkeyup="RegexProfilStagiaire();" placeholder="Entrez votre courriel" value=<?php echo'"' . $courrielPersonnelStagiaire . '"'; ?>>
+											  <input type="email" class="form-control" name="courrielPersonnel" id="courrielPersonnel" onkeyup="RegexProfilStagiaire();" placeholder="Entrez votre courriel" value=<?php echo'"' . $courrielPerso . '"'; ?>>
 											</div>
 										  </div>
 										  
@@ -92,7 +87,7 @@
 										<div class="form-group">
 											<label class="control-label col-sm-4" for="prenom">Prenom:</label>
 											<div class="col-sm-5">
-											  <input type="text" class="form-control" name="prenom" id="prenom" placeholder="Entrez votre nom" value=<?php echo'"' . $prenomStagiaire . '"'; ?> disabled>
+											  <input type="text" class="form-control" name="prenom" id="prenom" placeholder="Entrez votre nom" value=<?php echo'"' . $prenom . '"'; ?> disabled>
 											</div>
 										  </div>
 										  
@@ -101,12 +96,12 @@
 										  </div>-->
 										  
 										  
-										  <div class="form-group">
+										  <!--<div class="form-group">
 											<label class="control-label col-sm-4" for="numeroMaison">Numero de téléphone à la  maison :</label>
 											<div class="col-sm-5"> 
 											  <input type="text" class="form-control" name="numTelMaison" id="numeroMaison" onkeyup="RegexProfilStagiaire();" maxlength="14" placeholder="Entrez le numero de téléphone" value=<?php echo'"' . $numTelMaisonStagiaire . '"'; ?>>Standard : (123) 123-1234
 											</div>
-										  </div>
+										  </div>-->
 
 									</div>
 								
@@ -123,7 +118,7 @@
 										  <div class="form-group">
 											<label class="control-label col-sm-4" for="numeroEntreprise">Numero de téléphone:</label>
 											<div class="col-sm-5">
-											  <input type="text" class="form-control" name="numTelEntreprise" id="numeroEntreprise" onkeyup="RegexProfilStagiaire();" maxlength="14" placeholder="Entrez le numero de téléphone" value=<?php echo'"' . $numTelEntrepriseStagiaire . '"'; ?>>Standard : (123) 123-1234
+											  <input type="text" class="form-control" name="numTelEntreprise" id="numeroEntreprise" onkeyup="RegexProfilStagiaire();" maxlength="14" placeholder="Entrez le numero de téléphone" value=<?php echo'"' . $numTelEntreprise . '"'; ?>>Standard : (123) 123-1234
 											</div>
 										  </div>
 										  
@@ -135,7 +130,7 @@
 										  <div class="form-group">
 											<label class="control-label col-sm-4" for="courriel">Courriel :</label>
 											<div class="col-sm-5"> 
-											  <input type="email" class="form-control" name="courrielEntreprise" id="courrielEntreprise" onkeyup="RegexProfilStagiaire();" placeholder="Entrez le courriel" value=<?php echo'"' . $courrielEntrepriseStagiaire . '"'; ?>>
+											  <input type="email" class="form-control" name="courrielEntreprise" id="courrielEntreprise" onkeyup="RegexProfilStagiaire();" placeholder="Entrez le courriel" value=<?php echo'"' . $courrielEntreprise . '"'; ?>>
 											</div>
 										  </div>
 										  
@@ -147,7 +142,7 @@
 										<div class="form-group">
 											<label class="control-label col-sm-4" for="poste">Poste:</label>
 											<div class="col-sm-5">
-											  <input type="text" class="form-control" name="poste" id="poste" onkeyup="RegexProfilStagiaire();" placeholder="Entrez votre poste" maxlength="7" value=<?php echo'"' . $posteStagiaire . '"'; ?>>
+											  <input type="text" class="form-control" name="poste" id="poste" onkeyup="RegexProfilStagiaire();" placeholder="Entrez votre poste" maxlength="7" value=<?php echo'"' . $poste . '"'; ?>>
 											</div>
 										 </div>
 										  
@@ -206,7 +201,7 @@ Condition de mot de passe
 										
 							</div>	
                               
-                            <input type="hidden" name="idStagiaire" value="<?php echo $idStagiaire; ?>"/>
+                            <input type="hidden" name="idStagiaire" value="<?php echo $_SESSION['idConnecte']; ?>"/>
                             <input type="submit" id="Save" class="bouton" value="Sauvegarder"/>
 	
 						  </div>
@@ -215,8 +210,8 @@ Condition de mot de passe
 						
 					</form>
                     
-                    <form action="ModifProfil.php" method="post">
-                        <input type="hidden" name="idStagiaire" value="<?php echo $idStagiaire; ?>"/>
+                    <form action="profil.php" method="post">
+                        <input type="hidden" name="idStagiaire" value="<?php echo $_SESSION['idConnecte']; ?>"/>
                         <input type="submit" class="bouton" value="Annuler"/>
                     </form>
                     
