@@ -17,7 +17,7 @@
         $idStagiaire = $profil["Id"];
         $prenomStagiaire = $profil["Prenom"];
         $nomStagiaire = $profil["Nom"];
-        $telPerso = $profil["NumTelPersonnel"];
+        $telPerso = $profil["NumTel"];
 
         $idSup = $profil["Id Superviseur"];
         $nomSup = $profil["Nom Superviseur"];
@@ -73,6 +73,7 @@
                                             <form action="Profil.php" method="post">
                                                 <a class="zoneCliquable" href="javascript:;" onclick="parentNode.submit();">
                                                     <input type="hidden" value="'.$idStagiaire.'" name="idStagiaire"/>
+                                                    <input type="hidden" value="Stag" name="PStag"/>
                                                     <p>'.$prenomStag." ".$nomStag.'</p>
                                                     <p>'.$numTelStag.'</p>
                                                 </a>
@@ -88,6 +89,7 @@
                                                 <form action="Profil.php" method="post">
                                                     <a class="zoneCliquable" href="javascript:;" onclick="parentNode.submit();">
                                                         <input type="hidden" value="'.$idSup.'" name="idSuperviseur"/>
+                                                        <input type="hidden" value="Sup" name="PSup"/>
                                                         <p>'.$prenomSup." ".$nomSup.'</p>
                                                         <p>'.$numSup.'</p>
                                                     </a>
@@ -104,6 +106,7 @@
                                                 <form action="Profil.php" method="post">
                                                     <a class="zoneCliquable" href="javascript:;" onclick="parentNode.submit();">
                                                         <input type="hidden" value="'.$idProf.'" name="idProf"/>
+                                                        <input type="hidden" value="Prof" name="PProf"/>
                                                         <p>'.$prenomProf." ".$nomProf.'</p>
                                                         <p>'.$telProf.'</p>
                                                     </a>
