@@ -1,16 +1,14 @@
  
-<?php
-//session_start();
+<?php 
  
-$_SESSION['Username'] = strtolower($username);
- 
-function SetPassword ($userEmail, $newPassword, $bdd)
+function SetPassword ($newPassword, $bdd)
 {
-    $sessionID = 3; 
-    $newPassword = password_hash("newPassword", PASSWORD_DEFAULT);
  
-    $query = $bdd->prepare("update cegepjon_p2017_2_dev.tblUtilisateur set MotDePasse = '$newPassword' where Id like '$sessionID';");
+    $newPassword = password_hash($newPassword, PASSWORD_DEFAULT);
+ 
+    $query = $bdd->prepare("update cegepjon_p2017_2_dev.tblUtilisateur set MotDePasse = '$newPassword' where Id like " . $_SESSION['idConnecte']. ";");
     $query->execute();
+
 }
  
 function Login ($userEmail, $password, $bdd)

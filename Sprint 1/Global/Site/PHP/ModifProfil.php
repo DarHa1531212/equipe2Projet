@@ -200,9 +200,8 @@ Condition de mot de passe
 								</textarea>
 										
 							</div>	
-                              
-                            <input type="hidden" name="idStagiaire" value="<?php echo $_SESSION['idConnecte']; ?>"/>
-                            <input type="submit" id="Save" class="bouton" value="Sauvegarder"/>
+                            	<input type="submit" id="Save" class="bouton" value="Sauvegarder"/>
+                            
 	
 						  </div>
 						  
@@ -211,7 +210,6 @@ Condition de mot de passe
 					</form>
                     
                     <form action="profil.php" method="post">
-                        <input type="hidden" name="idStagiaire" value="<?php echo $_SESSION['idConnecte']; ?>"/>
                         <input type="submit" class="bouton" value="Annuler"/>
                     </form>
                     
