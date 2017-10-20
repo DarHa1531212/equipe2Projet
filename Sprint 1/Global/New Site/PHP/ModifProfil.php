@@ -75,7 +75,7 @@ avoir ce format - (xxx) xxx-xxxx"/>
 - Au moins une majuscule
 - Au moins un chiffre(0-9)"/>
                         </div>
-                    
+
                         <div class="champ">
                             <p class="label labelForInput">Confirmer le mot de passe :</p>
                             <input type="password" id="confirmationNewPwd" class="value"/>
@@ -85,7 +85,7 @@ avoir ce format - (xxx) xxx-xxxx"/>
                 <br/><br/>
                 
                 <input class="bouton" type="button" style="width: 100px;" value="   Annuler   " onclick="Execute(\'../PHP/TBNavigation.php?idStagiaire='.$id.'&nomMenu=Main\', 1)"/>
-                <input class="bouton" type="button" style="width: 100px;" value="Sauvegarder"/>';
+                <input class="bouton" type="button" style="width: 100px;" value="Sauvegarder" onclick="Execute(\'../PHP/ModifBDStagiaire.php?idStagiaire='.$id.'&nomMenu=Main\', 2)"/>';
 
 return $content;
 
