@@ -1,17 +1,14 @@
 <?php
-	$stagiaire = $_POST['Username'];
+	session_start();
+	$username = $_POST['Username'];
 	$MDP = $_POST['Password'];
-
+	include 'ConnexionBD.php';
+	include 'hash.php';
+	
 	try
 	{
-		if($stagiaire == 'Tremblay.Olimpia@etu.cegepjonquiere.ca' && $MDP == 'Timartin')
-		{
-			include 'TableauBordStagiaire.php';
-		}
-		else
-		{
-			echo 'Roger pas content!';
-		}
+		include 'Recherche.php';
 	}
-	catch(Exception $e){}
+	catch(Exception $e){echo "HO NO " . $e;}
+	
 ?>

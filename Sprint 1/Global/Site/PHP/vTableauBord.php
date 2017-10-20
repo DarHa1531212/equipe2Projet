@@ -1,15 +1,8 @@
 <?php
-    
-    try
-	{
-        $bdd = new PDO('mysql:host=dicj.info;dbname=cegepjon_p2017_2_tests', 'cegepjon_p2017_2', 'madfpfadshdb',array(PDO::MYSQL_ATTR_INIT_COMMAND => 'SET NAMES utf8'));
-	}
-	catch(Exception $e)
-	{
-		die('Erreur : ' .$e->getMessage());
-	}
 
-    $id = $_GET["idStagiaire"];
+    include 'ConnexionBD.php';
+
+    $id = $_SESSION["idConnecte"];
 
 	$query = $bdd->prepare("SELECT * FROM vTableauBord WHERE Id = :idStagiaire");
 
@@ -20,12 +13,12 @@
         $idStagiaire = $profil["Id"];
         $prenomStagiaire = $profil["Prenom"];
         $nomStagiaire = $profil["Nom"];
-        $telPerso = $profil["NumTelPersonnel"];
+        $telPerso = $profil["NumTel"];
 
         $idSup = $profil["Id Superviseur"];
         $nomSup = $profil["Nom Superviseur"];
         $prenomSup = $profil["Prenom Superviseur"];
-        $cellSup = $profil["Cell Superviseur"];
+        $cellSup = $profil["Tel Superviseur"];
 
         $idProf = $profil["Id Enseignant"];
         $prenomProf = $profil["Prenom Enseignant"];

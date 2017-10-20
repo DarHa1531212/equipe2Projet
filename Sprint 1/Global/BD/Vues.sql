@@ -1,5 +1,5 @@
--- USE BDProjet_equipe2V2;
- USE cegepjon_p2017_2_dev;
+ USE BDProjet_equipe2V2;
+-- USE cegepjon_p2017_2_dev;
 -- USE cegepjon_p2017_2_prod;
 -- USE cegepjon_p2017_2_tests;
 -- ------------------------------------------------
@@ -33,7 +33,7 @@ WHERE IdStagiaire = 2 AND TypeEval.Id = 1;
 -- ------------------------------------------------
 DROP VIEW IF EXISTS vEnseignant;
 CREATE VIEW vEnseignant AS 
-SELECT Util.Id AS IdUtilisateur, Emp.Id AS IdEnseignant, Prenom, Nom, NumTelCell, CourrielPersonnel, IdEntreprise, NumTelEntreprise, Poste, CourrielEntreprise, CodePermanent
+SELECT Util.Id AS IdUtilisateur, Emp.Id AS IdEnseignant, Prenom, Nom, NumTel, CourrielPersonnel, IdEntreprise, NumTelEntreprise, Poste, CourrielEntreprise, CodePermanent
 FROM vEmploye AS Emp
 JOIN vUtilisateur AS Util
 ON Util.Id = Emp.IdUtilisateur
@@ -48,7 +48,7 @@ WHERE Role.Titre = 'Enseignant';
 -- ------------------------------------------------
 DROP VIEW IF EXISTS vGestionnaire;
 CREATE VIEW vGestionnaire AS 
-SELECT Util.Id AS IdUtilisateur, Emp.Id AS IdGestionnaire, Prenom, Nom, NumTelCell, CourrielPersonnel, IdEntreprise, NumTelEntreprise, Poste, CourrielEntreprise, CodePermanent
+SELECT Util.Id AS IdUtilisateur, Emp.Id AS IdGestionnaire, Prenom, Nom, NumTel, CourrielPersonnel, IdEntreprise, NumTelEntreprise, Poste, CourrielEntreprise, CodePermanent
 FROM vEmploye AS Emp
 JOIN vUtilisateur AS Util
 ON Util.Id = Emp.IdUtilisateur
@@ -63,7 +63,7 @@ WHERE Role.Titre = 'Gestionnaire';
 -- ------------------------------------------------
 DROP VIEW IF EXISTS vResponsable;
 CREATE VIEW vResponsable AS 
-SELECT Util.Id AS IdUtilisateur, Emp.Id AS IdResponsable, Prenom, Nom, NumTelCell, CourrielPersonnel, IdEntreprise, NumTelEntreprise, Poste, CourrielEntreprise
+SELECT Util.Id AS IdUtilisateur, Emp.Id AS IdResponsable, Prenom, Nom, NumTel, CourrielPersonnel, IdEntreprise, NumTelEntreprise, Poste, CourrielEntreprise
 FROM vEmploye AS Emp
 JOIN vUtilisateur AS Util
 ON Util.Id = Emp.IdUtilisateur
@@ -78,7 +78,7 @@ WHERE Role.Titre = 'Responsable';
 -- ------------------------------------------------
 DROP VIEW IF EXISTS vSuperviseur;
 CREATE VIEW vSuperviseur AS 
-SELECT Util.Id AS IdUtilisateur, Emp.Id AS IdSuperviseur, Prenom, Nom, NumTelCell, CourrielPersonnel, IdEntreprise, NumTelEntreprise, Poste, CourrielEntreprise
+SELECT Util.Id AS IdUtilisateur, Emp.Id AS IdSuperviseur, Prenom, Nom, NumTel, CourrielPersonnel, IdEntreprise, NumTelEntreprise, Poste, CourrielEntreprise
 FROM vEmploye AS Emp
 JOIN vUtilisateur AS Util
 ON Util.Id = Emp.IdUtilisateur
@@ -94,8 +94,8 @@ WHERE Role.Titre = 'Superviseur';
 DROP VIEW IF EXISTS vTableauBord;
 CREATE VIEW vTableauBord AS 
 SELECT 	Stagiaire.Id, Stagiaire.Prenom, Stagiaire.Nom, Stagiaire.NumTelPersonnel,
-		Enseignant.IdEnseignant AS 'Id Enseignant', Enseignant.Prenom AS 'Prenom Enseignant', Enseignant.Nom AS 'Nom Enseignant', Enseignant.NumTelCell AS 'Tel Enseignant',
-        Sup.IdSuperviseur AS 'Id Superviseur', Sup.Prenom AS 'Prenom Superviseur', Sup.Nom AS 'Nom Superviseur', Sup.NumTelCell AS 'Tel Superviseur'
+		Enseignant.IdEnseignant AS 'Id Enseignant', Enseignant.Prenom AS 'Prenom Enseignant', Enseignant.Nom AS 'Nom Enseignant', Enseignant.NumTel AS 'Tel Enseignant',
+        Sup.IdSuperviseur AS 'Id Superviseur', Sup.Prenom AS 'Prenom Superviseur', Sup.Nom AS 'Nom Superviseur', Sup.NumTel AS 'Tel Superviseur'
 FROM vStage AS Stage
 JOIN vStagiaire AS Stagiaire
 ON Stagiaire.IdUtilisateur = Stage.IdStagiaire

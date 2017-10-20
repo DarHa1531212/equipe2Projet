@@ -1,3 +1,4 @@
+<?php include 'Session.php'; ?>
 <!DOCTYPE html>
 <html>
     
@@ -15,20 +16,20 @@
     </head>
     <body>
         <header>
-            <aside class="left" id="dicj">
-                <a href="http://dicj.info">
-                    <img id="logo" src="../Images/LogoDICJ2.png"/>
-                </a>
-            </aside>
+                <aside class="left" id="dicj">
+                    <a href="http://dicj.info">
+                        <img id="logo" src="../Images/LogoDICJ2.png"/>
+                    </a>
+                </aside>
             
             <div class="conteneur">
             
             </div>
             
             <aside class="right "id="profil">
-                <a class="zoneCliquable" href="ProfilStagiaire.php">
+                <a class="zoneCliquable" href="Profil.php">
                     <h3>Bonjour</h3>
-                    <h3>Martin Mystère</h3>
+                    <h3><?php echo $_SESSION['PrenomConnecte'] . ' ' . $_SESSION['NomConnecte']; ?></h3>
                 </a>
             </aside>
         </header>
@@ -57,7 +58,7 @@
                                     <h2>Stagiaire</h2>
                                 </div>
 
-                                <form action="ProfilStagiaire.php" method="post">
+                                <form action="Profil.php" method="post">
                                     <a class="zoneCliquable" href="javascript:;" onclick="parentNode.submit();">
                                         <input type="hidden" value="<?php echo $idStagiaire; ?>" name="idStagiaire"/>
                                         <p><?php echo $prenomStagiaire." ".$nomStagiaire; ?></p>
@@ -72,9 +73,9 @@
                                 </div>
 
                                 <div class="infoProfil">
-                                    <form action="ProfilSuperviseur.php" method="post">
+                                    <form action="Profil.php" method="post">
                                         <a class="zoneCliquable" href="javascript:;" onclick="parentNode.submit();">
-                                            <input type="hidden" value="<?php echo $idSup; ?>" name="idSuperviseur"/>
+                                            <input type="hidden" value="<?php echo $idSup; ?>" name="idEmploye"/>
                                             <p><?php echo $prenomSup." ".$nomSup; ?></p>
                                             <p><?php echo $cellSup; ?></p>
                                         </a>
@@ -88,9 +89,9 @@
                                 </div>
 
                                 <div class="infoProfil">
-                                    <form action="ProfilEnseignant.php" method="post">
+                                    <form action="Profil.php" method="post">
                                         <a class="zoneCliquable" href="javascript:;" onclick="parentNode.submit();">
-                                            <input type="hidden" value="<?php echo $idProf; ?>" name="idProf"/>
+                                            <input type="hidden" value="<?php echo $idProf; ?>" name="idEmploye"/>
                                             <p><?php echo $prenomProf." ".$nomProf; ?></p>
                                             <p><?php echo $telProf; ?></p>
                                         </a>
