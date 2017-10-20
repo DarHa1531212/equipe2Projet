@@ -1,13 +1,13 @@
 function RegexProfilStagiaire(){
 
-	var idNumTel = ['numeroCellulaire', 'numeroMaison', 'numeroEntreprise'];
+	var idNumTel = ['numeroCellulaire', 'numeroEntreprise'];
 	var regexNumTel = /^[(]{1}[0-9]{3}[)]{1}[\s]{1}[0-9]{3}[-]{1}[0-9]{4}$/;
 	var confirmSaveNum = [true, true, true];
 	var confirmSaveCourriel = [true, true];
 	var confirmSavePoste = true;
 	var confirmSaveMDP = [true, true];
 
-	for(var i = 0; i < 3; i++) //boucle rentre 3 fois pour verifier les 3 nums
+	for(var i = 0; i < 2; i++) //boucle rentre 3 fois pour verifier les 3 nums
 	{
 		var id = idNumTel[i];
 		var text = document.getElementById(id);

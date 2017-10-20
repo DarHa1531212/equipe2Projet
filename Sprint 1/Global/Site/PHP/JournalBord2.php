@@ -1,9 +1,4 @@
-<?php 
-    if(session_id() == '' || !isset($_SESSION))
-    {
-        session_start();
-    }
-?>
+<?php include 'Session.php'; ?>
 <!DOCTYPE html>
 
 <html>
@@ -64,7 +59,6 @@
                 <div class="content">
                 
                 <?php       
-
                         include 'ConnexionBD.php';
                 
                         function dateDifference($date_1 , $date_2 , $differenceFormat = '%a' )

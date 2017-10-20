@@ -1,46 +1,53 @@
 <?php //recherche de connexion dans la bd
-	session_start();
-	include 'ConnexionBD.php';
 
-	$query = $bdd->prepare("SELECT * FROM vUtilisateur WHERE Courriel = :username");
-	$query->execute(array('username'=>$username));
-	$connecte = $query->fetchAll();
 
 	foreach ($connecte as $user) 
 	{
 		$_SESSION['idConnecte'] = $user['Id'];
 	}
 
-	$query = $bdd->prepare("SELECT *
-							FROM vRole AS Role 
-							LEFT JOIN vUtilisateurRole AS utilRole 
-								ON utilRole.IdRole = Role.Id 
-							WHERE utilRole.IdUtilisateur = :idConnecte");
-	$query->execute(array('idConnecte'=>$_SESSION['idConnecte']));
-	$connecte = $query->fetchAll();
-
-	foreach ($connecte as $user) 
+	if (Login($username, $MDP, $bdd))
 	{
-		$_SESSION['roleConnecte'] = $user['Titre'];
-	}
-
-	//switch($_SESSION[''])
-	if($_SESSION['roleConnecte'] == "Stagiaire")
-	{
-		$query = $bdd->prepare("SELECT * FROM vStagiaire WHERE IdUtilisateur = :id");
-		$query->execute(array('id'=>$_SESSION['idConnecte']));
-		$connecte = $query->fetchAll();
-
-		foreach ($connecte as $user)
+		switch ($_SESSION['IdRole'])
 		{
-			$_SESSION['PrenomConnecte'] = $user['Prenom'];
-			$_SESSION['NomConnecte'] = $user['Nom'];
+			case 1: //case 1 is an administrator
+					echo "I am a teacher";
+			break;
+
+			case 2: //case 2 is a Responsible
+					//add employeID to session variable
+					header("Location: TBEntreprise.php");
+			break;
+
+			case 3: //case 3 is a Teacher
+					echo "I am a teacher";
+			break;
+
+			case 4:
+					$query = $bdd->prepare("SELECT * FROM vEmploye WHERE IdUtilisateur = :id");
+					header("Location: TBEntreprise.php");
+					break;
+
+			case 5: //case 5 is an intern
+					$query = $bdd->prepare("SELECT * FROM vStagiaire WHERE IdUtilisateur = :id");
+					header("Location: TableauBordStagiaire.php");
+					break;
+
+			default: echo "error unknown IdRole";
 		}
 
-		include 'TableauBordStagiaire.php';
-	}
-	else
-	{
-		
-	}
+		$query->execute(array('id'=>$_SESSION['idConnecte']));
+        $connecte = $query->fetchAll();
+ 
+        foreach ($connecte as $user)
+        {
+             $_SESSION['PrenomConnecte'] = $user['Prenom'];
+             $_SESSION['NomConnecte'] = $user['Nom'];
+        }
+  }
+  else
+  {
+    header("Location: /equipe2Projet/Sprint%201/Global/Site/");
+  }
+ 
 ?>

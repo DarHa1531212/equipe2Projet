@@ -1,8 +1,8 @@
 <?php
 
-    $id = $_SESSION['idConnecte'];
-
     include 'ConnexionBD.php';
+
+    $id = $_SESSION["idConnecte"];
 
 	$query = $bdd->prepare("SELECT * FROM vTableauBord WHERE Id = :idStagiaire");
 
@@ -13,7 +13,7 @@
         $idStagiaire = $profil["Id"];
         $prenomStagiaire = $profil["Prenom"];
         $nomStagiaire = $profil["Nom"];
-        $telPerso = $profil["NumTelPersonnel"];
+        $telPerso = $profil["NumTel"];
 
         $idSup = $profil["Id Superviseur"];
         $nomSup = $profil["Nom Superviseur"];

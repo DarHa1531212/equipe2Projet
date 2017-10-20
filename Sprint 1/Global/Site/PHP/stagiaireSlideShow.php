@@ -1,17 +1,13 @@
 <?php
 
-    include 'PHP/ConnexionBD.php';
+    include 'ConnexionBD.php';
     
     $query = $bdd->prepare("SELECT * FROM vTableauBord");
 
-    $query2 = $bdd->prepare("SELECT Prenom, Eval.Id, Titre, Statut, DateLimite, DateComplétée
-                            FROM vSuperviseurEvaluationStagiaireStage AS SESS
-                            JOIN vEvaluation AS Eval
-                            ON SESS.IdEvaluation = Eval.Id
+    $query2 = $bdd->prepare("SELECT Prenom, Titre, Statut, DateLimite, DateComplétée
+                            FROM vInfoEvalGlobale AS SESS
                             JOIN vStagiaire AS Stag
-                            ON Stag.Id = SESS.IdStagiaire
-                            JOIN vTypeEvaluation AS TypeEval
-                            ON TypeEval.Id = Eval.IdTypeEvaluation
+                            ON SESS.IdStagiaire = Stag.Id
                             WHERE Stag.Id = :idStagiaire");
 
     $query->execute(array());
@@ -21,12 +17,12 @@
         $idStagiaire = $profil["Id"];
         $prenomStagiaire = $profil["Prenom"];
         $nomStagiaire = $profil["Nom"];
-        $telPerso = $profil["NumTelPersonnel"];
+        $telPerso = $profil["NumTel"];
 
         $idSup = $profil["Id Superviseur"];
         $nomSup = $profil["Nom Superviseur"];
         $prenomSup = $profil["Prenom Superviseur"];
-        $cellSup = $profil["Cell Superviseur"];
+        $cellSup = $profil["Tel Superviseur"];
 
         $idProf = $profil["Id Enseignant"];
         $prenomProf = $profil["Prenom Enseignant"];
@@ -74,9 +70,10 @@
                                                 <h2>Stagiaire</h2>
                                             </div>
 
-                                            <form action="ProfilStagiaire.php" method="post">
+                                            <form action="Profil.php" method="post">
                                                 <a class="zoneCliquable" href="javascript:;" onclick="parentNode.submit();">
                                                     <input type="hidden" value="'.$idStagiaire.'" name="idStagiaire"/>
+                                                    <input type="hidden" value="Stag" name="PStag"/>
                                                     <p>'.$prenomStag." ".$nomStag.'</p>
                                                     <p>'.$numTelStag.'</p>
                                                 </a>
@@ -89,9 +86,10 @@
                                             </div>
 
                                             <div class="infoProfil">
-                                                <form action="ProfilSuperviseur.php" method="post">
+                                                <form action="Profil.php" method="post">
                                                     <a class="zoneCliquable" href="javascript:;" onclick="parentNode.submit();">
                                                         <input type="hidden" value="'.$idSup.'" name="idSuperviseur"/>
+                                                        <input type="hidden" value="Sup" name="PSup"/>
                                                         <p>'.$prenomSup." ".$nomSup.'</p>
                                                         <p>'.$numSup.'</p>
                                                     </a>
@@ -105,9 +103,10 @@
                                             </div>
 
                                             <div class="infoProfil">
-                                                <form action="ProfilEnseignant.php" method="post">
+                                                <form action="Profil.php" method="post">
                                                     <a class="zoneCliquable" href="javascript:;" onclick="parentNode.submit();">
                                                         <input type="hidden" value="'.$idProf.'" name="idProf"/>
+                                                        <input type="hidden" value="Prof" name="PProf"/>
                                                         <p>'.$prenomProf." ".$nomProf.'</p>
                                                         <p>'.$telProf.'</p>
                                                     </a>

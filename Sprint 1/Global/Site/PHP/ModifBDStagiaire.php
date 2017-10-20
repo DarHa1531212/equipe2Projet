@@ -1,22 +1,25 @@
 <?php
-
+session_start();
 include 'ConnexionBD.php';
 
 $aNumTelPersonnel = $_POST['numTelPersonnel'];
-$aNumTelMaison = $_POST['numTelMaison'];
 $aNumTelEntreprise = $_POST['numTelEntreprise'];
 $aPoste = $_POST['poste'];
 $aCourrielEntreprise = $_POST['courrielEntreprise'];
 $aCourrielPersonnel = $_POST['courrielPersonnel'];
-$idStagiaire = $_POST['idStagiaire'];
+$newPassword = $_POST['newPwd'];
+$idStagiaire = $_SESSION['idConnecte'];
 	try 
 	{
-		if($aNumTelPersonnel != "" OR $aNumTelMaison != "" OR $aNumTelEntreprise != "" OR $aPoste != "" OR $aCourrielEntreprise != "")
+		if($aNumTelPersonnel != "" OR $aNumTelEntreprise != "" OR $aPoste != "" OR $aCourrielEntreprise != "")
 		{
-			$sql = "UPDATE vStagiaire SET NumTelPersonnel = '$aNumTelPersonnel', NumTelMaison = '$aNumTelMaison', NumTelEntreprise = '$aNumTelEntreprise', Poste = '$aPoste', CourrielEntreprise = '$aCourrielEntreprise', CourrielPersonnel = '$aCourrielPersonnel' WHERE id = $idStagiaire";
+			$query = $bdd->prepare("UPDATE vStagiaire SET NumTelPersonnel = '$aNumTelPersonnel', NumTelEntreprise = '$aNumTelEntreprise', Poste = '$aPoste', CourrielEntreprise = '$aCourrielEntreprise', CourrielPersonnel = '$aCourrielPersonnel' WHERE IdUtilisateur = :idStagiaire");
+			$query->execute(array('idStagiaire'=>$idStagiaire));
+			
+			include 'hash.php';
+			SetPassword ($newPassword, $bdd);
 
-			$bdd->query($sql);
-			include 'ProfilStagiaire.php';
+			include 'Profil.php';
 		}
 		else
 		{
