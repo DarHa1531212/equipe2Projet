@@ -93,7 +93,7 @@ WHERE Role.Titre = 'Superviseur';
 -- ------------------------------------------------
 DROP VIEW IF EXISTS vTableauBord;
 CREATE VIEW vTableauBord AS 
-SELECT 	Stagiaire.Id, Stagiaire.Prenom, Stagiaire.Nom, Stagiaire.NumTelPersonnel,
+SELECT 	Stagiaire.Id, Stagiaire.Prenom, Stagiaire.Nom, Stagiaire.NumTel,
 		Enseignant.IdEnseignant AS 'Id Enseignant', Enseignant.Prenom AS 'Prenom Enseignant', Enseignant.Nom AS 'Nom Enseignant', Enseignant.NumTel AS 'Tel Enseignant',
         Sup.IdSuperviseur AS 'Id Superviseur', Sup.Prenom AS 'Prenom Superviseur', Sup.Nom AS 'Nom Superviseur', Sup.NumTel AS 'Tel Superviseur'
 FROM vStage AS Stage
