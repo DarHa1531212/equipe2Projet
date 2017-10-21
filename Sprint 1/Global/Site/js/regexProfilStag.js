@@ -119,10 +119,18 @@ function RegexProfilStagiaire(){
 	if(document.getElementById(idMDP[0]).value != document.getElementById(idMDP[1]).value)
 	{
 		confirmSaveMDP[0] = false;
+		text = document.getElementById(idMDP[0]);
+		changerCouleur(text, false);
+		text = document.getElementById(idMDP[1]);
+		changerCouleur(text, false);
 	}
 	else
 	{
 		confirmSaveMDP[0] = true;
+		text = document.getElementById(idMDP[0]);
+		changerCouleur(text, true);
+		text = document.getElementById(idMDP[1]);
+		changerCouleur(text, true);
 	}
 
 	if(!confirmSaveNum[0] || !confirmSaveNum[1] || !confirmSaveNum[2] || !confirmSaveCourriel[0] || !confirmSaveCourriel[1] || !confirmSavePoste || !confirmSaveMDP[0] || !confirmSaveMDP[1])
