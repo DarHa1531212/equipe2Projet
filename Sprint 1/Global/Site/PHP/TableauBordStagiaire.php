@@ -121,30 +121,30 @@
 							<tbody>
 								<tr>
 									<td>
-										Rapport 1
+										<?php echo EvaluationCliquable('Rapport 1'); ?>
 									</td>
 									<td>
-										Complétée
+										<?php echo EvaluationCliquable('Complétée'); ?>
 									</td>
 									<td>
-								        2017-09-07
+								        <?php echo EvaluationCliquable('2017-09-07'); ?>
 									</td>
 									<td>
-										2017-12-07
+										<?php echo EvaluationCliquable('2017-12-07'); ?>
 									</td>
 								</tr>
 								<tr>
 									<td>
-										Rapport 2
+										<?php echo EvaluationCliquable('Rapport 2'); ?>
 									</td>
 									<td>
-										Non complétée
+										<?php echo EvaluationCliquable('Non complétée'); ?>
 									</td>
 									<td>
-										2018-01-15
+										<?php echo EvaluationCliquable('2018-01-15'); ?>
 									</td>
 									<td>
-										2018-03-15
+										<?php echo EvaluationCliquable('2018-03-15'); ?>
 									</td>
 								</tr>
 							</tbody>
@@ -193,3 +193,17 @@
         </footer>
     </body>
 </html>
+
+<?php
+    function EvaluationCliquable($info)
+    {
+        $string =  '<form action="AVenir.php" method="POST">
+                <a class="zoneCliquable" href="javascript:;" onclick="parentNode.submit();">
+                    <input type="hidden" value="' . $_SESSION["idConnecte"] . '" name="idTest"/>
+                    ' . $info . '
+                </a>
+            </form>';
+
+        return $string;
+    }
+?>
