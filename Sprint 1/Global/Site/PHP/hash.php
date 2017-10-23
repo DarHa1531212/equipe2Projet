@@ -4,10 +4,13 @@
 function SetPassword ($newPassword, $bdd)
 {
  
-    $newPassword = password_hash($newPassword, PASSWORD_DEFAULT);
+    if($newPassword != "")
+    {
+        $newPassword = password_hash($newPassword, PASSWORD_DEFAULT);
  
-    $query = $bdd->prepare("update tblUtilisateur set MotDePasse = '$newPassword' where Id like " . $_SESSION['idConnecte']. ";");
-    $query->execute();
+        $query = $bdd->prepare("update tblUtilisateur set MotDePasse = '$newPassword' where Id like " . $_SESSION['idConnecte']. ";");
+        $query->execute();
+    }
 
 }
  
