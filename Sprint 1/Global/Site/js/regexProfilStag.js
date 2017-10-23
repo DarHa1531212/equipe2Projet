@@ -120,17 +120,17 @@ function RegexProfilStagiaire(){
 	{
 		confirmSaveMDP[0] = false;
 		text = document.getElementById(idMDP[0]);
-		changerCouleur(text, false);
+		changerCouleur(text, confirmSaveMDP[0]);
 		text = document.getElementById(idMDP[1]);
-		changerCouleur(text, false);
+		changerCouleur(text, confirmSaveMDP[0]);
 	}
 	else
 	{
 		confirmSaveMDP[0] = true;
 		text = document.getElementById(idMDP[0]);
-		changerCouleur(text, true);
+		changerCouleur(text, confirmSaveMDP[1]);
 		text = document.getElementById(idMDP[1]);
-		changerCouleur(text, true);
+		changerCouleur(text, confirmSaveMDP[1]);
 	}
 
 	if(!confirmSaveNum[0] || !confirmSaveNum[1] || !confirmSaveNum[2] || !confirmSaveCourriel[0] || !confirmSaveCourriel[1] || !confirmSavePoste || !confirmSaveMDP[0] || !confirmSaveMDP[1])
