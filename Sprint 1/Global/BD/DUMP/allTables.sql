@@ -1,8 +1,8 @@
  USE BDProjet_equipe2V2;
 -- USE cegepjon_p2017_2_dev;
 -- USE cegepjon_p2017_2_prod;
- USE cegepjon_p2017_2_tests;
-
+-- USE cegepjon_p2017_2_tests;
+USE bdprojet_equipe2v2;
 
 INSERT IGNORE INTO `tblRole` (`Id`,`Titre`) VALUES (1,'Gestionnaire');
 INSERT IGNORE INTO `tblRole` (`Id`,`Titre`) VALUES (2,'Responsable');
