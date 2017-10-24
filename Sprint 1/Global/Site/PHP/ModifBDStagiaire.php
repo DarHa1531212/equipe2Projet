@@ -13,7 +13,7 @@ $idStagiaire = $_SESSION['idConnecte'];
 	{
 		if($aNumTelPersonnel != "" OR $aNumTelEntreprise != "" OR $aPoste != "" OR $aCourrielEntreprise != "")
 		{
-			$query = $bdd->prepare("UPDATE vStagiaire SET NumTelPersonnel = '$aNumTelPersonnel', NumTelEntreprise = '$aNumTelEntreprise', Poste = '$aPoste', CourrielEntreprise = '$aCourrielEntreprise', CourrielPersonnel = '$aCourrielPersonnel' WHERE IdUtilisateur = :idStagiaire");
+			$query = $bdd->prepare("UPDATE vStagiaire SET NumTel = '$aNumTelPersonnel', NumTelEntreprise = '$aNumTelEntreprise', Poste = '$aPoste', CourrielEntreprise = '$aCourrielEntreprise', CourrielPersonnel = '$aCourrielPersonnel' WHERE IdUtilisateur = :idStagiaire");
 			$query->execute(array('idStagiaire'=>$idStagiaire));
 			
 			include 'hash.php';

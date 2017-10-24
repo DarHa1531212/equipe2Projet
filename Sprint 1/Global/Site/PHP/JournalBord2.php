@@ -25,7 +25,7 @@
             </div>
             
             <aside class="right" id="profil">
-                <a class="zoneCliquable" href="ProfilStagiaire.php">
+                <a class="zoneCliquable" href="Profil.php">
                     <h3>Bonjour</h3>
                     <h3><?php echo $_SESSION['PrenomConnecte'] . ' ' . $_SESSION['NomConnecte']; ?></h3>
                 </a>
@@ -46,8 +46,12 @@
                     <div class="commentaireContainer">
                         <input class="bouton" type="submit" name ="submit" value = "Confirmer"/>
                         <input type="hidden" name="idStagiaire" value="<?php echo $idStagiaire; ?>"/>
-                        <input class="bouton" type="button" value = "Joindre un fichier"/>
                     </div> 
+                </form>
+                <form>
+                    <div class = "commentaireContainer">
+                        <input class="bouton" type="button" value = "Joindre un fichier"/>
+                    </div>
                 </form>
             </div>
             

@@ -136,30 +136,30 @@
                                         <tbody>
                                             <tr>
                                                 <td>
-                                                    '.$titreEval1.'
+                                                    ' . EvaluationCliquable($titreEval1) .'
                                                 </td>
                                                 <td>
-                                                    '.$statutEval1.'
+                                                    '. EvaluationCliquable($statutEval1) .'
                                                 </td>
                                                 <td>
-                                                    '.$dateLimiteEval1.'
+                                                    '.EvaluationCliquable($dateLimiteEval1).'
                                                 </td>
                                                 <td>
-                                                    '.$dateCompleteeEval1.'
+                                                    '.EvaluationCliquable($dateCompleteeEval1).'
                                                 </td>
                                             </tr>
                                             <tr>
                                                 <td>
-                                                    '.$titreEval2.'
+                                                    ' . EvaluationCliquable($titreEval2) .'
                                                 </td>
                                                 <td>
-                                                    '.$statutEval2.'
+                                                    '. EvaluationCliquable($statutEval2) .'
                                                 </td>
                                                 <td>
-                                                    '.$dateLimiteEval2.'
+                                                    '.EvaluationCliquable($dateLimiteEval2).'
                                                 </td>
                                                 <td>
-                                                    '.$dateCompleteeEval2.'
+                                                    '.EvaluationCliquable($dateCompleteeEval2).'
                                                 </td>
                                             </tr>
                                         </tbody>
@@ -170,5 +170,17 @@
                                     <input class="bouton" id="boutonCommentaire" value="Écrire un commentaire" type="button"/>
                                 </div>
                 </div>';
+    }
+
+    function EvaluationCliquable($info)
+    {
+        $string =  '<form action="AVenir.php" method="POST">
+                <a class="zoneCliquable" href="javascript:;" onclick="parentNode.submit();">
+                    <input type="hidden" value="' . $_SESSION["idConnecte"] . '" name="idTest"/>
+                    ' . $info . '
+                </a>
+            </form>';
+
+        return $string;
     }
 ?>
