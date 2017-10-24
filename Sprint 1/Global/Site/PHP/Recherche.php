@@ -11,7 +11,7 @@
 		switch ($_SESSION['IdRole'])
 		{
 			case 1: //case 1 is an administrator
-					echo "I am a teacher";
+					echo "I am a teacher" . 1;
 			break;
 
 			case 2: //case 2 is a Responsible
@@ -20,8 +20,9 @@
 			break;
 
 			case 3: //case 3 is a Teacher
-					echo "I am a teacher";
-			break;
+					$query = $bdd->prepare("SELECT * FROM vEmploye WHERE IdUtilisateur = :id");
+					header("Location: AVenir.php");
+					break;
 
 			case 4:
 					$query = $bdd->prepare("SELECT * FROM vEmploye WHERE IdUtilisateur = :id");

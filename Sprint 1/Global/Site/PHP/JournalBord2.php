@@ -38,7 +38,7 @@
                     <h1>Journal de bord</h1>
                 </div>
                 
-                <form action = "JournalBord.php" method = "post">
+                <form action = "JournalBord.php" method = "post" enctype="multipart/form-data">
                     <div class = "nouvelleEntree">                   
                         <textarea rows="5" cols="100" maxlength="500" name = "contenu"></textarea>
                     </div>  
@@ -46,12 +46,9 @@
                     <div class="commentaireContainer">
                         <input class="bouton" type="submit" name ="submit" value = "Confirmer"/>
                         <input type="hidden" name="idStagiaire" value="<?php echo $idStagiaire; ?>"/>
+                        <input type="hidden" name="maxFileSize" value="2000000">
+                        <input type="file" name="fichier">
                     </div> 
-                </form>
-                <form>
-                    <div class = "commentaireContainer">
-                        <input class="bouton" type="button" value = "Joindre un fichier"/>
-                    </div>
                 </form>
             </div>
             
