@@ -10,15 +10,15 @@
     //$requeteInsertionEvaluationQuestionGrille = $bd->prepare('insert into tblQuestionGrilleEvaluation(IdEvaluation, IdQuestionGrille, IdReponse) values (:IdEvaluation,:IdQuestionGrille,:IdReponse)');
 
     
-    $requeteModificationEvaluationQuestionGrille = $bd->prepare('update tblQuestionGrilleEvaluation SET IdReponse = :IdReponse
+    $requeteModificationEvaluationQuestionGrille = $bdd->prepare('update tblQuestionGrilleEvaluation SET IdReponse = :IdReponse
     WHERE IdEvaluation = :IdEvaluation AND IdQuestionGrille = :IdQuestionGrille;');
     
 
-    $requeteQuestions = $bd->prepare('select QG.Id,QG.Texte
+    $requeteQuestions = $bdd->prepare('select QG.Id,QG.Texte
                                         FROM tblQuestionGrille AS QG
                                         WHERE QG.idCategorieQuestion = :idCategorieQuestion');
 
-     $requeteCategories = $bd->prepare('select * from tblCategorieQuestion');
+     $requeteCategories = $bdd->prepare('select * from tblCategorieQuestion');
 
      //$requeteInsertionEvaluation->execute(array('Statut'=>0,'IdTypeEvaluation'=>1));
 

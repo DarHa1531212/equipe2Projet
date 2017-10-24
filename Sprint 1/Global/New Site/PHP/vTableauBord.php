@@ -13,7 +13,7 @@
         $idStagiaire = $profil["Id"];
         $prenomStagiaire = $profil["Prenom"];
         $nomStagiaire = $profil["Nom"];
-        $telPerso = $profil["NumTelPersonnel"];
+        $telPerso = $profil["NumTel"];
 
         $idSup = $profil["Id Superviseur"];
         $nomSup = $profil["Nom Superviseur"];
