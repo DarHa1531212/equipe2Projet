@@ -2,16 +2,10 @@
 
     $id = "";
     $query = "";
-
-    
-    if(isset($_POST['PSup'])) //TBEntreprise.php pour les profils.
-    {
-        $id = $_POST['idSuperviseur'];
-        $query = getEmploye($bdd);
-    }
-    else
-    {
-        if(isset($_POST['PProf']))
+if(verifyTimeout())
+{
+    if(isset($_POST["idEmploye"]) || $_SESSION['IdRole'] == 2 || $_SESSION['IdRole'] == 4){
+        if(isset($_POST["idEmploye"]))
         {
             $id = $_POST['idProf'];
             $query = getEmploye($bdd);
@@ -61,6 +55,8 @@
         $entreprise = $profil['Nom Entreprise'];
         $codePermanent = $profil['CodePermanent'];    
     }
+}
+    
 
     function getStagiaire($bdd)
     {
