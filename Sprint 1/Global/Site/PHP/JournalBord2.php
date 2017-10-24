@@ -60,7 +60,7 @@
                 <div class="content">
                 
                 <?php       
-                        include 'ConnexionBD.php';
+                        
                 
                         function dateDifference($date_1 , $date_2 , $differenceFormat = '%a' )
                         {
@@ -71,7 +71,7 @@
                         }
                 
                         $query = $bdd->prepare("SELECT Dates AS DateComplete FROM vJournalDeBord WHERE IdStagiaire LIKE $idStagiaire ORDER BY datecomplete DESC LIMIT 1;");
-                        $query2 = $bdd->prepare("SELECT Entree, Date_Format (Dates, '%d/%m/%Y') AS Dates, Dates AS DateComplete FROM vJournalDeBord WHERE IdStagiaire LIKE $idStagiaire ORDER BY datecomplete desc LIMIT 5;");
+                        $query2 = $bdd->prepare("SELECT Entree, Date_Format (Dates, '%d/%m/%Y') AS Dates, Dates AS DateComplete, Documents AS Fichier FROM vJournalDeBord WHERE IdStagiaire LIKE $idStagiaire ORDER BY datecomplete desc LIMIT 5;");
                         
                         $query->execute(array());
                         $result = $query->fetchall();
@@ -91,8 +91,9 @@
                             $texte = $entree["Entree"];
                             $dates = $entree["Dates"];
                             $dateComplete = $entree["DateComplete"];
+                            $document = $entree["Fichier"];
 
-                            echo   '<div class = "entree"><h2>' .  $dates . '</h2><p class = "entreeValeur">' . nl2br($texte) . '</p></div>'; 
+                            echo   '<div class = "entree"><h2>' .  $dates . '</h2><p class = "entreeValeur">' . nl2br($texte) . '</p><p><a href="../Upload/' . $document . '">Pièce jointe</a></p></div>'; 
                         }
                     ?>
                 </div>

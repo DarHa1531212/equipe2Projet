@@ -21,7 +21,9 @@
 			//Le fichier est trop volumineux...
 		}
 
-		if(!isset($erreur) && verificationDoublon($bdd, $fichier, $extension)) //S'il n'y a pas d'erreur
+		$verif = verificationDoublon($bdd, $fichier);
+
+		if(!isset($erreur) && $verif) //S'il n'y a pas d'erreur
 		{
 			$fichier = strtr($fichier, 'ÀÁÂÃÄÅÇÈÉÊËÌÍÎÏÒÓÔÕÖÙÚÛÜÝàáâãäåçèéêëìíîïðòóôõöùúûüýÿ', 'AAAAAACEEEEIIIIOOOOOUUUUYaaaaaaceeeeiiiioooooouuuuyy');
 			$fichier = preg_replace('/([^.a-z0-9]+)/i','-', $fichier);
@@ -36,7 +38,7 @@
 		}
 	}
 
-	function verificationDoublon($bdd, $fichier, $extension)
+	function verificationDoublon($bdd, $fichier)
 	{
 		$query = $bdd->prepare("SELECT Documents FROM vJournalDeBord");
 		$query->execute();

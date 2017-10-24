@@ -16,23 +16,31 @@ if ( !empty($_POST['contenu']) )
         $entree = array(htmlspecialchars($_POST['contenu']));
         $text = $entree[0];
 
-        if ($text != "" && isset($_FILES['fichier']))
+        if($verif)
         {
-            $query = $bdd->prepare("INSERT INTO tblJournalDeBord (Entree, idStagiaire, Dates, Documents) VALUES (:text, :id,'$date', :file);");
-            $query->bindValue( 'text', $text, PDO::PARAM_STR );
-            $query->bindValue( 'id', $idStagiaire, PDO::PARAM_INT);
-            $query->bindValue( 'file', $fichier, PDO::PARAM_STR);
-            $query->execute();
+            if ($text != "" && isset($_FILES['fichier']))
+            {
+                $query = $bdd->prepare("INSERT INTO tblJournalDeBord (Entree, idStagiaire, Dates, Documents) VALUES (:text, :id,'$date', :file);");
+                $query->bindValue( 'text', $text, PDO::PARAM_STR );
+                $query->bindValue( 'id', $idStagiaire, PDO::PARAM_INT);
+                $query->bindValue( 'file', $fichier, PDO::PARAM_STR);
+                $query->execute();
+            }
+            else
+            {
+                if($text != "")
+                {
+                    $query = $bdd->prepare("INSERT INTO tblJournalDeBord (Entree, idStagiaire, Dates) VALUES (:text, :id,'$date');");
+                    $query->bindValue( 'text', $text, PDO::PARAM_STR );
+                    $query->bindValue( 'id', $idStagiaire, PDO::PARAM_INT);
+                    $query->execute();
+                }
+            }
         }
         else
         {
-            if($text != "")
-            {
-                $query = $bdd->prepare("INSERT INTO tblJournalDeBord (Entree, idStagiaire, Dates) VALUES (:text, :id,'$date');");
-                $query->bindValue( 'text', $text, PDO::PARAM_STR );
-                $query->bindValue( 'id', $idStagiaire, PDO::PARAM_INT);
-                $query->execute();
-            }
+            $_SESSION['textJournal'] = $text;
+            ?><script>alert("Test concluant");</script><?php
         }
     }
 //si la page a été appelée pour afficher toutes les entrées
