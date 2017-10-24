@@ -1,4 +1,9 @@
-<?php include 'Session.php'; ?>
+<?php include 'Session.php';
+$authosiredId = array(2,4);
+if (verifyAuthorisations($authosiredId) == false)
+{    header("Location: /equipe2Projet/Sprint%201/Global/Site/"); /* opens the login page */ }
+
+?>
 <!DOCTYPE html>
 <html>
     
@@ -28,7 +33,7 @@
             <aside class="right "id="profil">
                 <a class="zoneCliquable" href="Profil.php">
                     <h3>Bonjour</h3>
-                    <h3><?php echo $_SESSION['PrenomConnecte'] . ' ' . $_SESSION['NomConnecte']; ?></h3>
+                    <h3><?php if (verifyTimeout()){ echo $_SESSION['PrenomConnecte'] . ' ' . $_SESSION['NomConnecte'];} ?></h3>
                 </a>
             </aside>
         </header>

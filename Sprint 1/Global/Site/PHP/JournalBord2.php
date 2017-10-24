@@ -1,4 +1,10 @@
-<?php include 'Session.php'; ?>
+<?php 
+    include 'Session.php'; 
+    $authosiredId = array(5);
+    if (verifyAuthorisations($authosiredId) == false)
+    {    header("Location: /equipe2Projet/Sprint%201/Global/Site/"); /* opens the login page */ }
+?>
+
 <!DOCTYPE html>
 
 <html>
@@ -27,7 +33,7 @@
             <aside class="right" id="profil">
                 <a class="zoneCliquable" href="Profil.php">
                     <h3>Bonjour</h3>
-                    <h3><?php echo $_SESSION['PrenomConnecte'] . ' ' . $_SESSION['NomConnecte']; ?></h3>
+                    <h3><?php if(VerifyTimeout()) {echo $_SESSION['PrenomConnecte'] . ' ' . $_SESSION['NomConnecte']; } ?></h3>
                 </a>
             </aside>
         </header>
@@ -38,7 +44,7 @@
                     <h1>Journal de bord</h1>
                 </div>
                 
-                <form action = "JournalBord.php" method = "post">
+                <form action = "JournalBord.php" method = "post" enctype="multipart/form-data">
                     <div class = "nouvelleEntree">                   
                         <textarea rows="5" cols="100" maxlength="500" name = "contenu"></textarea>
                     </div>  
@@ -46,12 +52,9 @@
                     <div class="commentaireContainer">
                         <input class="bouton" type="submit" name ="submit" value = "Confirmer"/>
                         <input type="hidden" name="idStagiaire" value="<?php echo $idStagiaire; ?>"/>
+                        <input type="hidden" name="maxFileSize" value="2000000">
+                        <input type="file" name="fichier">
                     </div> 
-                </form>
-                <form>
-                    <div class = "commentaireContainer">
-                        <input class="bouton" type="button" value = "Joindre un fichier"/>
-                    </div>
                 </form>
             </div>
             
