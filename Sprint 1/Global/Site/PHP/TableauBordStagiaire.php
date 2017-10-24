@@ -163,7 +163,12 @@
 							<tbody>
 								<tr>
 									<td>
-										Auto-Évaluation
+                                        <form action="AutoEvaluation.php" method="post">
+                                            <a class="zoneCliquable" href="javascript:;" onclick="parentNode.submit();">
+                                                <input type="hidden" value="<?php echo $idStagiaire; ?>" name="idStagiaire"/>
+                                                Auto-Évaluation
+                                            </a>
+                                        </form>
 									</td>
 								</tr>
 								<tr>
