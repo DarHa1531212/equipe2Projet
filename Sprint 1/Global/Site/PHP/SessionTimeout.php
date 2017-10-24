@@ -23,9 +23,9 @@ function verifyTimeout()
 function verifyAuthorisations($expectedId)
 {
   $acessGranted = false; 
-  $sizeOfArray = sizeof($expectedId);
+  $sizeOfArray = count($expectedId);;
 
-  for ($i = 0; $i < $$sizeOfArray; $i ++)
+  for ($i = 0; $i < $sizeOfArray; $i ++)
   {
     if($expectedId[$i] == $_SESSION['IdRole'])
       {
@@ -36,6 +36,7 @@ function verifyAuthorisations($expectedId)
 
   if ($acessGranted == false)
   {
+    return false;   
     echo "You do not have access to this page"; //if acess is still not granted at the end of the loop, return an error message
   }
 }

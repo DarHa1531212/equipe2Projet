@@ -1,4 +1,9 @@
-<?php include 'Session.php'; ?>
+<?php include 'Session.php';
+$authosiredId = array(2,4);
+if (verifyAuthorisations($authosiredId) == false)
+{    header("Location: /equipe2Projet/Sprint%201/Global/Site/"); /* opens the login page */ }
+
+?>
 <!DOCTYPE html>
 <html>
     
