@@ -1,10 +1,12 @@
 <?php
 
     include 'ConnexionBD.php';
+if (verifyTimeout())
 
+{
     $id = $_SESSION["idConnecte"];
 
-	$query = $bdd->prepare("SELECT * FROM vTableauBord WHERE Id = :idStagiaire");
+    $query = $bdd->prepare("SELECT * FROM vTableauBord WHERE Id = :idStagiaire");
 
     $query->execute(array('idStagiaire'=>$id));
     $profils = $query->fetchAll();
@@ -25,5 +27,8 @@
         $nomProf = $profil["Nom Enseignant"];
         $telProf = $profil["Tel Enseignant"];
     }
+    
+}
+    
 
 ?>

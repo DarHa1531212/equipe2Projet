@@ -11,23 +11,25 @@ function verifyTimeout()
     session_unset();     // unset $_SESSION variable for the run-time 
     session_destroy();   // destroy session data in storage
     header("Location: /equipe2Projet/Sprint%201/Global/Site/"); // opens the login page
+    return false; // the user is no longer authenticated
 
   }
   else
     $_SESSION['LAST_ACTIVITY'] = time(); // update last activity time stamp
+    return true; //indicates that the user is still authenticated
 
 }
 
-function verifyAuthorisations($expectedId[])
+function verifyAuthorisations($expectedId)
 {
   $acessGranted = false; 
   $sizeOfArray = sizeof($expectedId);
 
   for ($i = 0; $i < $$sizeOfArray; $i ++)
   {
-    if($expectedId[] == $_SESSION['IdRole'])
+    if($expectedId[$i] == $_SESSION['IdRole'])
       {
-          $acessGranted = true // if the current session is the same as one of the autorised sessions, acess is granted
+          $acessGranted = true; // if the current session is the same as one of the autorised sessions, acess is granted
           return true;
       }
   }

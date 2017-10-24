@@ -2,7 +2,8 @@
 
     $id = "";
     $query = "";
-
+if(verifyTimeout())
+{
     if(isset($_POST["idEmploye"]) || $_SESSION['IdRole'] == 2 || $_SESSION['IdRole'] == 4){
         if(isset($_POST["idEmploye"]))
         {
@@ -32,7 +33,7 @@
                                 ON Ent.Id = Emp.IdEntreprise 
                                 WHERE Stagiaire.Id = :id");
     }
-	
+    
     $query->execute(array('id'=>$id)); //Lorsqu'on éxecute le query ont peut préciser la valeur des paramètres à l'aide d'un tableau associatif. idStagiaire = à la valeur de la variable $id.
     $profils = $query->fetchAll(); //la fonction fetchAll() met les valeurs du query dans une liste d'objets. J'ai donc fait une liste $stagiaires.
     
@@ -48,5 +49,7 @@
         $entreprise = $profil['Nom Entreprise'];
         $codePermanent = $profil['CodePermanent'];    
     }
+}
+    
 
 ?>
