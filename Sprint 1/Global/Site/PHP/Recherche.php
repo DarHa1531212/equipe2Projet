@@ -9,22 +9,23 @@
         $_SESSION['idConnecte'] = $user['Id'];
       }
 
-      if (Login($username, $MDP, $bdd))
-      {
-        switch ($_SESSION['IdRole'])
-        {
-          case 1: //case 1 is an administrator
-              echo "I am a teacher";
-          break;
+	if (Login($username, $MDP, $bdd))
+	{
+		switch ($_SESSION['IdRole'])
+		{
+			case 1: //case 1 is an administrator
+					echo "I am a teacher" . 1;
+			break;
 
           case 2: //case 2 is a Responsible
               //add employeID to session variable
               header("Location: TBEntreprise.php");
           break;
 
-          case 3: //case 3 is a Teacher
-              echo "I am a teacher";
-          break;
+			case 3: //case 3 is a Teacher
+					$query = $bdd->prepare("SELECT * FROM vEmploye WHERE IdUtilisateur = :id");
+					header("Location: AVenir.php");
+					break;
 
           case 4:
               $query = $bdd->prepare("SELECT * FROM vEmploye WHERE IdUtilisateur = :id");

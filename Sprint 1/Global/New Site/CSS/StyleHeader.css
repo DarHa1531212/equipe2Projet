@@ -30,3 +30,8 @@ header{
     text-align: center;
     vertical-align: middle;
 }
+
+.userHeader:hover{
+    cursor: pointer;
+    background-color: #144486;
+}
