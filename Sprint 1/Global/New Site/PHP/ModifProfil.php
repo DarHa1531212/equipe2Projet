@@ -22,14 +22,14 @@ $content =
                         
                         <div class="champ">
                             <p class="label labelForInput">No. Téléphone :</p>
-                            <input type="text" value="'.$numTel.'" id="numeroCellulaire" class="value"/>
+                            <input type="text" value="'.$numTel.'" id="numTel" name="numTel" class="value"/>
                             <img class="info" src="../Images/info.png" title="Le numéro de téléphone doit
 avoir ce format - (xxx) xxx-xxxx"/>
                         </div>
                     
                         <div class="champ">
                             <p class="label labelForInput">Courriel :</p>
-                            <input type="email" value="'.$courrielPerso.'" id="courrielPersonnel" class="value"/>
+                            <input type="email" value="'.$courrielPerso.'" id="courrielPersonnel" name="courrielPersonnel" class="value"/>
                         </div>
                 </div>
                 
@@ -45,13 +45,13 @@ avoir ce format - (xxx) xxx-xxxx"/>
                         
                         <div class="champ">
                             <p class="label labelForInput">Courriel :</p>
-                            <input type="email" value="'.$courrielEntreprise.'" id="courrielEntreprise" class="value"/>
+                            <input type="email" value="'.$courrielEntreprise.'" id="courrielEntreprise" name="courrielEntreprise" class="value"/>
                             
                         </div>
                         
                         <div class="champ">
                             <p class="label labelForInput">No. Téléphone :</p>
-                            <input type="text" value="'.$numTelEntreprise.'" id="numeroEntreprise" class="value"/>
+                            <input type="text" value="'.$numTelEntreprise.'" id="numEntreprise" name="numEntreprise" class="value"/>
                             <img class="info" src="../Images/info.png" title="Le numéro de téléphone doit
 avoir ce format - (xxx) xxx-xxxx"/>
                         </div>
@@ -84,8 +84,8 @@ avoir ce format - (xxx) xxx-xxxx"/>
                 
                 <br/><br/>
                 
-                <input class="bouton" type="button" style="width: 100px;" value="   Annuler   " onclick="Execute(\'../PHP/TBNavigation.php?idStagiaire='.$id.'&nomMenu=Main\', 1)"/>
-                <input class="bouton" type="button" style="width: 100px;" value="Sauvegarder" onclick="Execute(\'../PHP/ModifBDStagiaire.php?idStagiaire='.$id.'&nomMenu=Main\', 2)"/>';
+                <input class="bouton" type="button" style="width: 100px;" value="   Annuler   " onclick="Execute(\'../PHP/TBNavigation.php?idStagiaire='.$id.'&nomMenu=Main\', 1, null)"/>
+                <input class="bouton" type="button" style="width: 100px;" value="Sauvegarder" onclick="test(\'../PHP/TBNavigation.php?idStagiaire='.$id.'&nomMenu=Main\', \'&Poste=\', poste.value, \'&NumTel=\', numTel.value, \'&NumTelEntreprise=\', numEntreprise.value, \'&CourrielEntreprise=\', courrielEntreprise.value, \'&CourrielPersonnel=\', courrielPersonnel.value)"/>';
 
 return $content;
 

@@ -16,6 +16,9 @@
                 break;
             case "Modif":   $menu = include 'ModifProfil.php';
                 break;
+            case "ModifBD": $menu = include 'ModifBDStagiaire.php';
+                break;
+                            
         }
 
         echo json_encode($menu);

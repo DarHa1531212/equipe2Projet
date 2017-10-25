@@ -3,7 +3,7 @@
     $content = 
     '<div class="infoStagiaire">
         <h2>'.$prenomStagiaire.' '.$nomStagiaire.'</h2>
-        <input class="bouton" type="button" value="Afficher le profil" onclick="Execute(\'../PHP/TBNavigation.php?idStagiaire='.$idStagiaire.'&nomMenu=Profil\', 1)"/>
+        <input class="bouton" type="button" value="Afficher le profil" onclick="Execute(\'../PHP/TBNavigation.php?idStagiaire='.$idStagiaire.'&nomMenu=Profil\', 1, \'test\')"/>
         <h3>'.$telPerso.'</h3>
     </div>
 
