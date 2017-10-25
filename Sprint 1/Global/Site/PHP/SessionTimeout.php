@@ -7,17 +7,18 @@
 *********************************************************************/
 function verifyTimeout()
 {
-  if (isset($_SESSION['LAST_ACTIVITY']) && (time() - $_SESSION['LAST_ACTIVITY'] > 600)) {
+  if (isset($_SESSION['LAST_ACTIVITY']) && (time() - $_SESSION['LAST_ACTIVITY'] > 600)) 
+  {
     session_unset();     // unset $_SESSION variable for the run-time 
     session_destroy();   // destroy session data in storage
     header("Location: /equipe2Projet/Sprint%201/Global/Site/"); // opens the login page
     return false; // the user is no longer authenticated
-
   }
   else
-    $_SESSION['LAST_ACTIVITY'] = time(); // update last activity time stamp
-    return true; //indicates that the user is still authenticated
-
+  {
+      $_SESSION['LAST_ACTIVITY'] = time(); // update last activity time stamp
+      return true; //indicates that the user is still authenticated
+  }      
 }
 
 function verifyAuthorisations($expectedId)
