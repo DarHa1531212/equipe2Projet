@@ -1,4 +1,3 @@
-<?php include 'Session.php'; ?>
 <!DOCTYPE html>
 
 <html>
@@ -59,9 +58,7 @@
                 
                 <div class="content">
                 
-                <?php       
-                        
-                
+                <?php
                         function dateDifference($date_1 , $date_2 , $differenceFormat = '%a' )
                         {
                             $datetime1 = date_create($date_1);
@@ -93,7 +90,20 @@
                             $dateComplete = $entree["DateComplete"];
                             $document = $entree["Fichier"];
 
-                            echo   '<div class = "entree"><h2>' .  $dates . '</h2><p class = "entreeValeur">' . nl2br($texte) . '</p><p><a href="../Upload/' . $document . '">Pièce jointe</a></p></div>'; 
+                            echo   '<div class = "entree"><h2>' .  $dates . '</h2><p class = "entreeValeur">' . nl2br($texte) . '</p>' . pieceJointe($document) . '</div>'; 
+                        }
+
+                        function pieceJointe($doc)
+                        {
+                            if($doc != null && $doc != "")
+                            {
+                                return '<p><a href="../Upload/' . $doc . '">Pièce jointe</a></p>';
+                            }
+                            else
+                            {
+                                $vide = "";
+                                return $vide;
+                            }
                         }
                     ?>
                 </div>

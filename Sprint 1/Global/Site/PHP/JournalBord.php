@@ -1,9 +1,16 @@
 <?php
 
 include 'ConnexionBD.php';
+include 'Session.php';
 
-if(isset($_POST["idStagiaire"]))
-    $idStagiaire = $_POST["idStagiaire"];
+if($_SESSION['IdRole'] == '5')
+{
+    $idStagiaire = $_SESSION['idConnecte'];
+}
+else
+{
+    //mettre ici la personne qui s'occupera de consulter le journal de bord stagiaire mais ne pourra en aucun cas le modifier.
+}
 
 $date = date('Y-m-d h:i:s', time());
 $stringShowAll = "false";
@@ -18,7 +25,7 @@ if ( !empty($_POST['contenu']) )
 
         if($verif)
         {
-            if ($text != "" && isset($_FILES['fichier']))
+            if ($text != "" && isset($_FILES['fichier']) && $_FILES['fichier']['name'] != "")
             {
                 $query = $bdd->prepare("INSERT INTO tblJournalDeBord (Entree, idStagiaire, Dates, Documents) VALUES (:text, :id,'$date', :file);");
                 $query->bindValue( 'text', $text, PDO::PARAM_STR );
@@ -39,7 +46,7 @@ if ( !empty($_POST['contenu']) )
         }
         else
         {
-            $_SESSION['textJournal'] = $text;
+            //$_SESSION['textJournal'] = $text;
             ?><script>alert("Test concluant");</script><?php
         }
     }
