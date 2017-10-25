@@ -33,6 +33,7 @@
         </header>
         
         <content>
+            <p id="imageJointe"></p>  
             <div class="conteneur">
                 <div class="entete" >   
                     <h1>Journal de bord</h1>
@@ -116,8 +117,7 @@
                         <input  type="submit" class="bouton" value="Afficher tout">
                     </form>      
                 </div>
-
-                <div id="idImage"></div>    
+  
             </div>                   
            
         </content>

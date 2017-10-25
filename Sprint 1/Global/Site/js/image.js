@@ -6,7 +6,7 @@ function AfficherImage(doc, ext)
 	{
 		var contenu= "<img src='../Upload/" + doc + "' class='imageJointe' onclick='EnleverImage()'>";
 		affichage=!affichage;
-	    document.getElementById('idImage').innerHTML = contenu;
+	    document.getElementById('imageJointe').innerHTML = contenu;
 	}
 }
 
@@ -17,6 +17,6 @@ function EnleverImage()
 	{
 		var contenu= "";
 		affichage=!affichage;
-	    document.getElementById('idImage').innerHTML = contenu;
+	    document.getElementById('imageJointe').innerHTML = contenu;
 	}
 }
