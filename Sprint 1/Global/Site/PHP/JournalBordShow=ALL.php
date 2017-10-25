@@ -97,7 +97,7 @@
                         {
                             if($doc != null && $doc != "")
                             {
-                                return '<p><a href="../Upload/' . $doc . '">Pièce jointe</a></p>';
+                                return '<p><a href="../Upload/' . $doc . '">Pièce jointe</a><label>' . $doc . '</label></p>';
                             }
                             else
                             {

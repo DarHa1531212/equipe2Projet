@@ -8,6 +8,7 @@
         <title>Journal de bord - Étudiant</title>
         <link rel="stylesheet" href="../CSS/styleJournal.css">
         <link rel="shortcut icon" href="../Images/LogoDICJ2Petit.ico">
+        <script src="../js/image.js"></script>
 
     </head>
     
@@ -56,7 +57,7 @@
                     <h1>Entrées précédentes</h1>
                 </div>
                 
-                <div class="content">
+                <div class="content"">
                 
                 <?php
                         function dateDifference($date_1 , $date_2 , $differenceFormat = '%a' )
@@ -79,7 +80,6 @@
                             echo   '<div class = "entree"><h2>' .dateDifference(date('Y-m-d h:i:s'), $dateComplete).' jour(s) depuis la dernière entrée au journal de bord</h2></div>';
                         }
 
-                        
                         $query2->execute(array());
                         $result = $query2->fetchAll();
 
@@ -97,7 +97,8 @@
                         {
                             if($doc != null && $doc != "")
                             {
-                                return '<p><a href="../Upload/' . $doc . '">Pièce jointe</a></p>';
+                                $method = "AfficherImage('". $doc . "','" . pathinfo($doc)['extension'] ."')";
+                                return '<p><span id="divBouton" onclick="' . $method . '">Pièce jointe</span></p>'; //faire ici l'affichage en absolute
                             }
                             else
                             {
@@ -114,7 +115,9 @@
                         <input type="hidden" name="idStagiaire" value="<?php echo $idStagiaire; ?>"/>
                         <input  type="submit" class="bouton" value="Afficher tout">
                     </form>      
-                </div>    
+                </div>
+
+                <div id="idImage"></div>    
             </div>                   
            
         </content>
