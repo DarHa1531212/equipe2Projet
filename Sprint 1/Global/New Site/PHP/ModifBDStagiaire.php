@@ -1,29 +1,21 @@
 <?php
 
-include 'ConnexionBD.php';
+$Id = $_REQUEST['idStagiaire'];
+$NumTel = $_REQUEST['NumTel'];
+//$NumTelEntreprise = $_REQUEST['NumTelEntreprise'];
+//$Poste = $_REQUEST['Poste'];
+//$CourrielEntreprise = $_REQUEST['CourrielEntreprise'];
+//$CourrielPersonnel = $_REQUEST['CourrielPersonnel'];
 
-$aNumTelMaison = $_REQUEST['NumTel'];
-$aNumTelEntreprise = $_REQUEST['NumTelEntreprise'];
-$aPoste = $_REQUEST['Poste'];
-$aCourrielEntreprise = $_REQUEST['CourrielEntreprise'];
-$aCourrielPersonnel = $_REQUEST['CourrielPersonnel'];
-	try 
-	{
-		if($aNumTelPersonnel != "" OR $aNumTelMaison != "" OR $aNumTelEntreprise != "" OR $aPoste != "" OR $aCourrielEntreprise != "")
-		{
-			$sql = "UPDATE vStagiaire SET NumTelPersonnel = '$aNumTelPersonnel', NumTelMaison = '$aNumTelMaison', NumTelEntreprise = '$aNumTelEntreprise', Poste = '$aPoste', CourrielEntreprise = '$aCourrielEntreprise', CourrielPersonnel = '$aCourrielPersonnel' WHERE id = $idStagiaire";
 
-			$bdd->query($sql);
-			include 'ProfilStagiaire.php';
-		}
-		else
-		{
-			?><script>alert("Les informations ne correspondent pas aux critères demandées...")</script><?php
-		}
-	} 
-	catch (Exception $e) 
-	{
-		die('Erreur : ' .$e->getMessage());
-	}
+
+function Execute($bdd, $NumTel){
+    $query = $bdd->prepare("UPDATE tblStagiaire SET NumTel = '$NumTel' WHERE Id = 1");
+
+    return $query->execute();
+}
+
+$content = Execute($bdd, $NumTel);
+return $content.' '.$NumTel.'';
 
 ?> 
