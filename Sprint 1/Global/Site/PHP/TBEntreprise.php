@@ -1,9 +1,3 @@
-<?php 
-    if(session_id() == '' || !isset($_SESSION))
-    {
-        session_start();
-    }
-?>
 <!DOCTYPE html>
 <html>
     
@@ -12,10 +6,7 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <title>Tableau de bord - Entreprise</title>
         <meta name="description" content="An interactive getting started guide for Brackets.">
-        <link rel="stylesheet" href="../CSS/style.css">
-        <link rel="stylesheet" media="screen and (max-width: 1240px)" href="../CSS/style-1240px.css" />
-        <link rel="stylesheet" media="screen and (max-width: 1040px)" href="../CSS/style-1040px.css" />
-        <link rel="stylesheet" media="screen and (max-width: 735px)" href="../CSS/style-735px.css" />
+        <link rel="stylesheet" href="../CSS/Style.css">
     </head>
     <body>
         <script src="../js/scripts.js"></script>
