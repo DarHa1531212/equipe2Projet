@@ -1,10 +1,9 @@
 <?php 
-
     if (session_status() == PHP_SESSION_NONE) {
-        session_start();
+            session_start();
     }
 
-    function AfficherProfil($NomMenu){
+    function AfficherPage($NomMenu){
         include 'vProfil.php';
         include 'vTableauBord.php';
         $menu = "";
@@ -17,13 +16,13 @@
             case "Modif":   $menu = include 'ModifProfil.php';
                 break;
             case "ModifBD": $menu = include 'ModifBDStagiaire.php';
-                break;
-                            
+                break;    
+            case "Journal": $menu = include 'JournalBord.php';
         }
 
         echo json_encode($menu);
     }
 
-    AfficherProfil($_REQUEST["nomMenu"]);
+    AfficherPage($_REQUEST["nomMenu"]);
 
 ?>

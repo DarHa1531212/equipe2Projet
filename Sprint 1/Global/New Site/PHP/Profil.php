@@ -1,9 +1,9 @@
 <?php
-
+    
     $content = 
     '<div class="infoStagiaire">
-        <h2>Votre profil</h2>
-        <input class="bouton" type="button" value="Modifier le profil" onclick="Execute(\'../PHP/TBNavigation.php?idStagiaire='.$id.'&nomMenu=Modif\', 1)"/>
+        <h2>Votre Profil</h2>
+        <input class="bouton" type="button" value="Modifier le profil" onclick="Execute(1, \'../PHP/TBNavigation.php?idStagiaire='.$id.'&nomMenu=Modif\')"/>
     </div>
 
     <div class="separateur">
@@ -60,7 +60,7 @@
 
     <br/><br/>
 
-    <input class="bouton" type="button" value="   Retour   ", onclick="Execute(\'../PHP/TBNavigation.php?idEmploye='.$id.'&nomMenu=Main\', 1)"/>';
+    <input class="bouton" type="button" value="   Retour   ", onclick="Execute(1, \'../PHP/TBNavigation.php?idEmploye='.$id.'&nomMenu=Main\')"/>';
     
     return $content;
 

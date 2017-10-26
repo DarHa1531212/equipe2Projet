@@ -1,21 +1,18 @@
 <?php
 
-$Id = $_REQUEST['idStagiaire'];
+$Id = $_SESSION['idConnecte'];
 $NumTel = $_REQUEST['NumTel'];
-//$NumTelEntreprise = $_REQUEST['NumTelEntreprise'];
-//$Poste = $_REQUEST['Poste'];
-//$CourrielEntreprise = $_REQUEST['CourrielEntreprise'];
-//$CourrielPersonnel = $_REQUEST['CourrielPersonnel'];
+$NumTelEntreprise = $_REQUEST['NumTelEntreprise'];
+$Poste = $_REQUEST['Poste'];
+$CourrielEntreprise = $_REQUEST['CourrielEntreprise'];
+$CourrielPersonnel = $_REQUEST['CourrielPersonnel'];
 
+function Execute($bdd, $NumTel, $NumTelEntreprise, $Poste, $CourrielEntreprise, $CourrielPersonnel, $Id){
+    $query = $bdd->prepare("UPDATE tblStagiaire SET NumTel = '$NumTel', NumTelEntreprise = '$NumTelEntreprise', Poste = '$Poste', CourrielEntreprise = '$CourrielEntreprise', CourrielPersonnel = '$CourrielPersonnel' WHERE Id = '$Id'");
 
-
-function Execute($bdd, $NumTel){
-    $query = $bdd->prepare("UPDATE tblStagiaire SET NumTel = '$NumTel' WHERE Id = 1");
-
-    return $query->execute();
+    $query->execute();
 }
 
-$content = Execute($bdd, $NumTel);
-return $content.' '.$NumTel.'';
+Execute($bdd, $NumTel, $NumTelEntreprise, $Poste, $CourrielEntreprise, $CourrielPersonnel, $Id);
 
 ?> 

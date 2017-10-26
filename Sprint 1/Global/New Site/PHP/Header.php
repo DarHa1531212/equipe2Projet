@@ -5,7 +5,7 @@
                 <img class="logoHeader" src="../Images/LogoDICJ2.png"/>
             </a>
             
-            <div class="userHeader" onclick="AfficherMenu('.$stagiaire['Id'].', \'Stagiaire\', \'Profil\')">
+            <div class="userHeader" onclick="Execute(1, \'../PHP/TBNavigation.php?idStagiaire='.$idStagiaire.'&nomMenu=Profil\')">
                 <p>
                     Bonjour
                     <br/>

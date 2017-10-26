@@ -3,12 +3,12 @@
     $content = 
     '<div class="infoStagiaire">
         <h2>'.$prenomStagiaire.' '.$nomStagiaire.'</h2>
-        <input class="bouton" type="button" value="Afficher le profil" onclick="Execute(\'../PHP/TBNavigation.php?idStagiaire='.$idStagiaire.'&nomMenu=Profil\', 1, \'test\')"/>
+        <input class="bouton" type="button" value="Afficher le profil" onclick="Execute(1, \'../PHP/TBNavigation.php?idStagiaire='.$idStagiaire.'&nomMenu=Profil\')"/>
         <h3>'.$telPerso.'</h3>
     </div>
 
     <div class="blocInfo itemHover">
-        <a class="linkFill" onclick="Execute(\'../PHP/TBNavigation.php?idEmploye='.$idProf.'&nomMenu=Profil\', 1)">
+        <a class="linkFill" onclick="Execute(1, \'../PHP/TBNavigation.php?idEmploye='.$idProf.'&nomMenu=Profil\')">
             <div class="entete">
                 <h2>Enseignant</h2>
             </div>
@@ -21,7 +21,7 @@
     </div>
 
     <div class="blocInfo itemHover">
-        <a class="linkFill" onclick="Execute(\'../PHP/TBNavigation.php?idEmploye='.$idSup.'&nomMenu=Profil\', 1)">
+        <a class="linkFill" onclick="Execute(1, \'../PHP/TBNavigation.php?idEmploye='.$idSup.'&nomMenu=Profil\')">
             <div class="entete">
                 <h2>Superviseur</h2>
             </div>
@@ -68,7 +68,7 @@
         </thead>
 
         <tbody>
-            <tr class="itemHover" onclick="window.document.location=\'\'\;">
+            <tr class="itemHover" onclick="Execute(1, \'../PHP/TBNavigation.php?idStagiaire='.$idStagiaire.'&nomMenu=Journal\')">
                 <td>Journal de bord</td>
             </tr>
 

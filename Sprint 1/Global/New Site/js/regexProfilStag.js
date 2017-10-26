@@ -1,13 +1,13 @@
 function RegexProfilStagiaire(){
 
-	var idNumTel = ['numeroCellulaire', 'numeroMaison', 'numeroEntreprise'];
+	var idNumTel = ['numTel', 'numEntreprise'];
 	var regexNumTel = /^[(]{1}[0-9]{3}[)]{1}[\s]{1}[0-9]{3}[-]{1}[0-9]{4}$/;
 	var confirmSaveNum = [true, true, true];
 	var confirmSaveCourriel = [true, true];
 	var confirmSavePoste = true;
 	var confirmSaveMDP = [true, true];
 
-	for(var i = 0; i < 3; i++) //boucle rentre 3 fois pour verifier les 3 nums
+	for(var i = 0; i < 2; i++) //boucle rentre 3 fois pour verifier les 3 nums
 	{
 		var id = idNumTel[i];
 		var text = document.getElementById(id);
@@ -27,7 +27,7 @@ function RegexProfilStagiaire(){
 		}
 		else
 		{
-			if(text.id == 'numeroEntreprise')
+			if(text.id == 'numEntreprise')
 			{
 				changerCouleur(text, true);
 				confirmSaveNum[i] = true;
@@ -128,10 +128,12 @@ function RegexProfilStagiaire(){
 	if(!confirmSaveNum[0] || !confirmSaveNum[1] || !confirmSaveNum[2] || !confirmSaveCourriel[0] || !confirmSaveCourriel[1] || !confirmSavePoste || !confirmSaveMDP[0] || !confirmSaveMDP[1])
 	{
 		document.getElementById('Save').disabled = true;
+        $("#Save").css("background-color", "#011f45");
 	}
 	else
 	{
 		document.getElementById('Save').disabled = false;
+        $("#Save").css('background-color', '');
 	}
 }
 
