@@ -2,6 +2,7 @@
 
     $id = "";
     $query = "";
+    include 'connexionBD.php';
 if(verifyTimeout())
 {
     if(isset($_POST["idEmploye"]) || $_SESSION['IdRole'] == 2 || $_SESSION['IdRole'] == 4){
@@ -12,32 +13,32 @@ if(verifyTimeout())
         }
         else
         {
-            if(isset($_POST['PStag']))
-            {
-                $id = $_POST['idStagiaire'];
-                $query = getStagiaire($bdd);
-            }
-            else
-            {
-                if(isset($_POST["idEmploye"]) || $_SESSION['IdRole'] == 2 || $_SESSION['IdRole'] == 4) //TableauBordStagiaire.php pour les profils.
-                {
-                    if(isset($_POST["idEmploye"]))
-                    {
-                        $id = $_POST["idEmploye"];
-                    }
-                    else
-                    {
-                        $id = $_SESSION['idEmploye'];
-                    }
-                    $query = getEmploye($bdd);
-                }
-                else if(isset($_POST["idStagiaire"]) || $_SESSION['IdRole'] == 5)
-                {
-                    $id = $_SESSION['idConnecte'];
-                    $query = getStagiaire($bdd);
-                }
-            }
-        }
+	            if(isset($_POST['PStag']))
+	            {
+	                $id = $_POST['idStagiaire'];
+	                $query = getStagiaire($bdd);
+	            }
+	            else
+	            {
+	                if(isset($_POST["idEmploye"]) || $_SESSION['IdRole'] == 2 || $_SESSION['IdRole'] == 4) //TableauBordStagiaire.php pour les profils.
+	                {
+	                    if(isset($_POST["idEmploye"]))
+	                    {
+	                        $id = $_POST["idEmploye"];
+	                    }
+	                    else
+	                    {
+	                        $id = $_SESSION['idEmploye'];
+	                    }
+	                    $query = getEmploye($bdd);
+	                }
+	                else if(isset($_POST["idStagiaire"]) || $_SESSION['IdRole'] == 5)
+	                {
+	                    $id = $_SESSION['idConnecte'];
+	                    $query = getStagiaire($bdd);
+	                }
+	            }
+	    }
     }
 
     $query->execute(array('id'=>$id)); //Lorsqu'on éxecute le query ont peut préciser la valeur des paramètres à l'aide d'un tableau associatif. idStagiaire = à la valeur de la variable $id.
