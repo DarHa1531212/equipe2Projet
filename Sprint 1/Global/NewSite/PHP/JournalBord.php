@@ -32,7 +32,7 @@
         if($nbEntree != null)
             $limit = "LIMIT ".$nbEntree;
         
-        $query = $bdd->prepare("SELECT Entree, Date_Format (Dates, '%d/%m/%Y') AS Dates, Dates AS DateComplete FROM vJournalDeBord WHERE IdStagiaire LIKE $idStagiaire ORDER BY datecomplete desc $limit;");
+        $query = $bdd->prepare("SELECT Entree, Date_Format (Dates, '%d/%m/%Y') AS Dates, Dates AS DateComplete, Documents AS Fichier FROM vJournalDeBord WHERE IdStagiaire LIKE $idStagiaire ORDER BY datecomplete desc $limit;");
         $query->execute(array());
         
         $entrees = $query->fetchAll();
@@ -41,8 +41,9 @@
             $texte = $entree["Entree"];
             $dates = $entree["Dates"];
             $dateComplete = $entree["DateComplete"];
+            $document = $entree['Fichier'];
 
-            $div = $div.'<div class="entree"><h2>'.$dates.'</h2><p>' . nl2br($texte) . '</p></div>';
+            $div = $div.'<div class="entree"><h2>'.$dates.'</h2><p>' . nl2br($texte) . '</p><p>' . PieceJointe($document) . '</p></div>';
         }
         
         return nl2br($div);
@@ -66,6 +67,20 @@
             }
         }
     }
+
+    function PieceJointe($doc)
+    {
+        if($doc != null && $doc != "")
+        {
+            $method = "AfficherImage('". $doc . "','" . pathinfo($doc)['extension'] ."')";
+            return '<p><span id="divBouton" onclick="' . $method . '">Pièce jointe</span></p>'; //faire ici l'affichage en absolute
+        }
+        else
+        {
+            $vide = "";
+            return $vide;
+        }
+    }
     
     if(isset($_REQUEST['contenu'])){
         NouvelleEntree($bdd, $idStagiaire);
@@ -76,6 +91,7 @@
             <h2>Journal de bord</h2>
             <h3>Dernière entrée il y a : '.DerniereEntree($bdd, $idStagiaire).' jour(s)</h3>
         </div>
+        <p id="imageJointe"></p>
 
         <div class="separateur">
             <h3>Nouvelle Entrée</h3>

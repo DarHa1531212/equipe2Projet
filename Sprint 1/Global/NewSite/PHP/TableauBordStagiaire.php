@@ -15,6 +15,7 @@
         <script src="../js/jquery.min.js"></script>
         <script src="../js/profils.js"></script>
         <script src="../js/regexProfilStag.js"></script>
+        <script src="../js/image.js"></script>
         
         <?php include('Header.php'); ?>
         
