@@ -5,7 +5,7 @@
     {
       //foreach ($connecte as $user) 
       //{
-      //  $_SESSION['idConnecte'] = $user['Id'];
+      // $_SESSION['idConnecte'] = $user['Id'];
       //}
 
 	if (Login($username, $MDP, $bdd))
@@ -18,22 +18,22 @@
 
           case 2: //case 2 is a Responsible
               //add employeID to session variable
-              header("Location: TBEntreprise.php");
+              header("TBEntreprise.php");
           break;
 
 			case 3: //case 3 is a Teacher
 					$query = $bdd->prepare("SELECT * FROM vEmploye WHERE IdUtilisateur = :id");
-					include "Location: AVenir.php";
+					include "AVenir.php";
 					break;
 
           case 4:
               $query = $bdd->prepare("SELECT * FROM vEmploye WHERE IdUtilisateur = :id");
-              include "Location: TBEntreprise.php";
+              include "TBEntreprise.php";
               break;
 
           case 5: //case 5 is an intern
               $query = $bdd->prepare("SELECT * FROM vStagiaire WHERE IdUtilisateur = :id");
-              include "Location: TableauBordStagiaire.php";
+              include "TableauBordStagiaire.php";
               break;
 
           default: echo "error unknown IdRole";
