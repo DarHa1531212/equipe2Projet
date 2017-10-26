@@ -22,14 +22,14 @@ $content =
                         
                         <div class="champ">
                             <p class="label labelForInput">No. Téléphone :</p>
-                            <input type="text" value="'.$numTel.'" id="numTel" name="numTel" class="value"/>
+                            <input type="text" value="'.$numTel.'" id="numTel" name="numTel" class="value" onkeyup="RegexProfilStagiaire()"/>
                             <img class="info" src="../Images/info.png" title="Le numéro de téléphone doit
 avoir ce format - (xxx) xxx-xxxx"/>
                         </div>
                     
                         <div class="champ">
                             <p class="label labelForInput">Courriel :</p>
-                            <input type="email" value="'.$courrielPerso.'" id="courrielPersonnel" name="courrielPersonnel" class="value"/>
+                            <input type="email" value="'.$courrielPerso.'" id="courrielPersonnel" name="courrielPersonnel" class="value" onkeyup="RegexProfilStagiaire()"/>
                         </div>
                 </div>
                 
@@ -40,25 +40,25 @@ avoir ce format - (xxx) xxx-xxxx"/>
                 <div class="blocInfo infoProfil">
                         <div class="champ">
                             <p class="label labelForInput">Entreprise :</p>
-                            <input type="text" value="'.$entreprise.'" class="value"/>
+                            <input type="text" value="'.$entreprise.'" class="value" disabled/>
                         </div>
                         
                         <div class="champ">
                             <p class="label labelForInput">Courriel :</p>
-                            <input type="email" value="'.$courrielEntreprise.'" id="courrielEntreprise" name="courrielEntreprise" class="value"/>
+                            <input type="email" value="'.$courrielEntreprise.'" id="courrielEntreprise" name="courrielEntreprise" class="value" onkeyup="RegexProfilStagiaire()"/>
                             
                         </div>
                         
                         <div class="champ">
                             <p class="label labelForInput">No. Téléphone :</p>
-                            <input type="text" value="'.$numTelEntreprise.'" id="numEntreprise" name="numEntreprise" class="value"/>
+                            <input type="text" value="'.$numTelEntreprise.'" id="numEntreprise" name="numEntreprise" class="value" onkeyup="RegexProfilStagiaire()"/>
                             <img class="info" src="../Images/info.png" title="Le numéro de téléphone doit
 avoir ce format - (xxx) xxx-xxxx"/>
                         </div>
                     
                         <div class="champ">
                             <p class="label labelForInput">Poste :</p>
-                            <input type="text" value="'.$poste.'" id="poste" class="value"/>
+                            <input type="text" value="'.$poste.'" id="poste" class="value" onkeyup="RegexProfilStagiaire()"/>
                         </div>
                 </div>
                 
@@ -84,8 +84,8 @@ avoir ce format - (xxx) xxx-xxxx"/>
                 
                 <br/><br/>
                 
-                <input class="bouton" type="button" style="width: 100px;" value="   Annuler   " onclick="Execute(\'../PHP/TBNavigation.php?idStagiaire='.$id.'&nomMenu=Main\', 1, null)"/>
-                <input class="bouton" type="button" style="width: 100px;" value="Sauvegarder" onclick="test(\'../PHP/TBNavigation.php?idStagiaire='.$id.'&nomMenu=Main\', \'&Poste=\', poste.value, \'&NumTel=\', numTel.value, \'&NumTelEntreprise=\', numEntreprise.value, \'&CourrielEntreprise=\', courrielEntreprise.value, \'&CourrielPersonnel=\', courrielPersonnel.value)"/>';
+                <input class="bouton" type="button" style="width: 100px;" value="   Annuler   " onclick="Execute(1, \'../PHP/TBNavigation.php?idStagiaire='.$id.'&nomMenu=Main\')"/>
+                <input class="bouton" type="button" id="Save" style="width: 100px;" value="Sauvegarder" onclick="Execute(2, \'../PHP/TBNavigation.php?idStagiaire='.$id.'&nomMenu=ModifBD\', \'&Poste=\', poste.value, \'&NumTel=\', numTel.value, \'&NumTelEntreprise=\', numEntreprise.value, \'&CourrielEntreprise=\', courrielEntreprise.value, \'&CourrielPersonnel=\', courrielPersonnel.value); Execute(1, \'../PHP/TBNavigation.php?idStagiaire='.$id.'&nomMenu=Main\')"/>';
 
 return $content;
 
