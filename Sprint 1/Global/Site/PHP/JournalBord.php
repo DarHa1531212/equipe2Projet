@@ -53,17 +53,37 @@
         $date = date('Y-m-d h:i:s', time());
         
         if(isset($_REQUEST['contenu'])){
+            include 'UploadFile.php';
             $entree = array();
             $entree = array(htmlspecialchars($_REQUEST['contenu']));
         
             $text = $entree[0];
 
-            if ($text != "")
+            if($verif)
             {
-                $query = $bdd->prepare("INSERT INTO tblJournalDeBord (Entree, idStagiaire, Dates) VALUES (:text, :id,'$date');");
-                $query->bindValue( 'text', $text, PDO::PARAM_STR );
-                $query->bindValue( 'id', $idStagiaire, PDO::PARAM_INT);
-                $query->execute();
+                if ($text != "" && isset($_FILES['fichier']) && $_FILES['fichier']['name'] != "")
+                {
+                    $query = $bdd->prepare("INSERT INTO tblJournalDeBord (Entree, idStagiaire, Dates, Documents) VALUES (:text, :id,'$date', :file);");
+                    $query->bindValue( 'text', $text, PDO::PARAM_STR );
+                    $query->bindValue( 'id', $idStagiaire, PDO::PARAM_INT);
+                    $query->bindValue( 'file', $fichier, PDO::PARAM_STR);
+                    $query->execute();
+                }
+                else
+                {
+                    if($text != "")
+                    {
+                        $query = $bdd->prepare("INSERT INTO tblJournalDeBord (Entree, idStagiaire, Dates) VALUES (:text, :id,'$date');");
+                        $query->bindValue( 'text', $text, PDO::PARAM_STR );
+                        $query->bindValue( 'id', $idStagiaire, PDO::PARAM_INT);
+                        $query->execute();
+                    }
+                }
+            }
+            else
+            {
+                //$_SESSION['textJournal'] = $text;
+                ?><script>alert("Test concluant");</script><?php
             }
         }
     }
@@ -98,10 +118,11 @@
         </div>
 
         <textarea id="contenu" rows="5" cols="100" maxlength="500" name="contenu" wrap="hard"></textarea>
-        <input class="inputFile" id="file" type="file" value="Envoyer"/>
+        <input type="hidden" name="maxFileSize" value="2000000">
+        <input class="inputFile" id="file" type="file" value="Envoyer" name="fichier"/>
 
         <br/>                                                                             
-        <input style="width: 120px;" class="bouton" type="button" value="Envoyer" onclick="Execute(2, \'../PHP/TBNavigation.php?idStagiaire='.$idStagiaire.'&nomMenu=Journal\', \'&contenu=\', contenu.value); Execute(1, \'../PHP/TBNavigation.php?idStagiaire='.$idStagiaire.'&nomMenu=Journal\')"/>
+        <input style="width: 120px;" class="bouton" type="button" value="Envoyer" onclick="Execute(2, \'../PHP/TBNavigation.php?idStagiaire='.$idStagiaire.'&nomMenu=Journal\', \'&contenu=\', contenu.value, \'&fichier=\', file); Execute(1, \'../PHP/TBNavigation.php?idStagiaire='.$idStagiaire.'&nomMenu=Journal\')"/>
         <label class="bouton labelFile" for="file">Pièce Jointe</label>
 
         <div class="separateur">
