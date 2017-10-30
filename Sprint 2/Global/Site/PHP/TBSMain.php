@@ -1,7 +1,31 @@
 <?php
     
     $content = 
-    '<div class="infoStagiaire">
+    '
+    <article class="ressources">
+        <div class="ressourceItem">
+            <a class="linkFill" href="../PDF/Cahier%20stagiaire%202017.pdf">
+                <div class="divImage imgPDF"></div>
+                <p>Cahier Stagiaire</p>
+            </a>
+        </div>
+
+        <div class="ressourceItem">
+            <a class="linkFill" href="../PDF/Offre%20de%20stage%202017.docx">
+                <div class="divImage imgDOC"></div>
+                <p>Offre de stage</p>
+            </a>
+        </div>
+
+        <div class="ressourceItem">
+            <a class="linkFill" href="../PDF/Lettre%20d\'entente%202017.docx">
+                <div class="divImage imgDOC"></div>
+                <p>Lettre d\'entente</p>
+            </a>
+        </div>          
+    </article>
+    
+    <div class="infoStagiaire">
         <h2>'.$prenomStagiaire.' '.$nomStagiaire.'</h2>
         <input class="bouton" type="button" value="Afficher le profil" onclick="Execute(1, \'../PHP/TBNavigation.php?idStagiaire='.$idStagiaire.'&nomMenu=Profil\')"/>
         <h3>'.$telPerso.'</h3>
@@ -68,7 +92,7 @@
         </thead>
 
         <tbody>
-            <tr class="itemHover" onclick="Execute(1, \'../PHP/TBNavigation.php?idStagiaire='.$idStagiaire.'&nomMenu=Journal\')">
+            <tr class="itemHover" onclick="Execute(1, \'../PHP/TBNavigation.php?idStagiaire='.$idStagiaire.'&nomMenu=Journal\', \'&nbEntree=\', 5)">
                 <td>Journal de bord</td>
             </tr>
 

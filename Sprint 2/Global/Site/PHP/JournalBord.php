@@ -25,12 +25,12 @@
         return $derniereEntree;
     }
 
-    function SelectEntrees($bdd, $idStagiaire, $nbEntree){
+    function SelectEntrees($bdd, $idStagiaire){
         $limit = "";
         $div = "";
         
-        if($nbEntree != null)
-            $limit = "LIMIT ".$nbEntree;
+        if(isset($_REQUEST['nbEntree']))
+            $limit = "LIMIT ".$_REQUEST['nbEntree'];
         
         $query = $bdd->prepare("SELECT Entree, Date_Format (Dates, '%d/%m/%Y') AS Dates, Dates AS DateComplete, Documents AS Fichier FROM vJournalDeBord WHERE IdStagiaire LIKE $idStagiaire ORDER BY datecomplete desc $limit;");
         $query->execute(array());
@@ -42,11 +42,15 @@
             $dates = $entree["Dates"];
             $dateComplete = $entree["DateComplete"];
             $document = $entree['Fichier'];
+            $texte = $texte;
 
-            $div = $div.'<div class="entree"><h2>'.$dates.'</h2><p>' . nl2br($texte) . '</p><p>' . PieceJointe($document) . '</p></div>';
+            $div = $div.'<div class="entree"><h2>'.$dates.'</h2><p>' .$texte. '</p><p>' . PieceJointe($document) . '</p></div>';
         }
         
-        return nl2br($div);
+        if(isset($_REQUEST['nbEntree']))
+            $div = $div.'<input class="bouton" type="button" value="Voir toutes les entrées" onclick="Execute(1, \'../PHP/TBNavigation.php?idStagiaire='.$idStagiaire.'&nomMenu=Journal\')"/>';
+
+        return $div;
     }
 
     function NouvelleEntree($bdd, $idStagiaire){
@@ -54,27 +58,24 @@
         
         if(isset($_REQUEST['contenu'])){
             include 'UploadFile.php';
-            $entree = array();
             $entree = array(htmlspecialchars($_REQUEST['contenu']));
-        
-            $text = $entree[0];
 
             if($verif)
             {
-                if ($text != "" && isset($_FILES['fichier']) && $_FILES['fichier']['name'] != "")
+                if ($entree[0] != "" && isset($_FILES['fichier']) && $_FILES['fichier']['name'] != "")
                 {
                     $query = $bdd->prepare("INSERT INTO tblJournalDeBord (Entree, idStagiaire, Dates, Documents) VALUES (:text, :id,'$date', :file);");
-                    $query->bindValue( 'text', $text, PDO::PARAM_STR );
+                    $query->bindValue( 'text', $entree[0], PDO::PARAM_STR );
                     $query->bindValue( 'id', $idStagiaire, PDO::PARAM_INT);
                     $query->bindValue( 'file', $fichier, PDO::PARAM_STR);
                     $query->execute();
                 }
                 else
                 {
-                    if($text != "")
+                    if($entree[0] != "")
                     {
                         $query = $bdd->prepare("INSERT INTO tblJournalDeBord (Entree, idStagiaire, Dates) VALUES (:text, :id,'$date');");
-                        $query->bindValue( 'text', $text, PDO::PARAM_STR );
+                        $query->bindValue( 'text', $entree[0], PDO::PARAM_STR );
                         $query->bindValue( 'id', $idStagiaire, PDO::PARAM_INT);
                         $query->execute();
                     }
@@ -129,9 +130,7 @@
             <h3>Toutes les entrées</h3>
         </div>
 
-        '.SelectEntrees($bdd, $idStagiaire, 5).'
-
-        <input class="bouton" type="button" value="Voir toutes les entrées"/>
+        '.SelectEntrees($bdd, $idStagiaire).'
 
         <br/><br/>
 
