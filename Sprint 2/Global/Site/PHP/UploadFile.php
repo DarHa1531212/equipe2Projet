@@ -1,13 +1,13 @@
 <?php
 
-	if(isset($_REQUEST['fichier']))
+	if(isset($_FILES['fichier']))
 	{
 		$dossier = '../Upload/';
-		$fichier = basename($_REQUEST['fichier']['name']);
+		$fichier = basename($_FILES['fichier']['name']);
 		$tailleMax = 2000000;
-		$taille = filesize($_REQUEST['fichier']['tmp_name']);
+		$taille = filesize($_FILES['fichier']['tmp_name']);
 		$extensions = array('.png','.jpg','.jpeg','.docx','.pdf');
-		$extension = strchr($_REQUEST['fichier']['name'],'.');
+		$extension = strchr($_FILES['fichier']['name'],'.');
 
 
 
@@ -29,7 +29,7 @@
 			{
 				$fichier = strtr($fichier, 'ÀÁÂÃÄÅÇÈÉÊËÌÍÎÏÒÓÔÕÖÙÚÛÜÝàáâãäåçèéêëìíîïðòóôõöùúûüýÿ', 'AAAAAACEEEEIIIIOOOOOUUUUYaaaaaaceeeeiiiioooooouuuuyy');
 				$fichier = preg_replace('/([^.a-z0-9]+)/i','-', $fichier);
-				if(move_uploaded_file($_REQUEST['fichier']['tmp_name'], $dossier . $fichier))
+				if(move_uploaded_file($_FILES['fichier']['tmp_name'], $dossier . $fichier))
 				{
 					//echo'Upload Success';
 				}

@@ -1,7 +1,7 @@
 <?php //recherche de connexion dans la bd
 
     include 'Session.php';
-    if (Login($username, $MDP, $bdd))
+    if (Login($_SESSION['Username'], $_SESSION['MDP'], $bdd))
     {
         switch ($_SESSION['IdRole'])
         {
