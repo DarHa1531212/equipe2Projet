@@ -94,15 +94,18 @@ WHERE Role.Titre = 'Superviseur';
 DROP VIEW IF EXISTS vTableauBord;
 CREATE VIEW vTableauBord AS 
 SELECT 	Stagiaire.Id, Stagiaire.Prenom, Stagiaire.Nom, Stagiaire.NumTel,
-		Enseignant.IdEnseignant AS 'Id Enseignant', Enseignant.Prenom AS 'Prenom Enseignant', Enseignant.Nom AS 'Nom Enseignant', Enseignant.NumTel AS 'Tel Enseignant',
-        Sup.IdSuperviseur AS 'Id Superviseur', Sup.Prenom AS 'Prenom Superviseur', Sup.Nom AS 'Nom Superviseur', Sup.NumTel AS 'Tel Superviseur'
+		Enseignant.IdUtilisateur AS 'IdEnseignant', Enseignant.Prenom AS 'PrenomEnseignant', Enseignant.Nom AS 'NomEnseignant', Enseignant.NumTel AS 'TelEnseignant',
+        Sup.IdUtilisateur AS 'IdSuperviseur', Sup.Prenom AS 'PrenomSuperviseur', Sup.Nom AS 'NomSuperviseur', Sup.NumTel AS 'TelSuperviseur',
+        Resp.IdUtilisateur AS 'IdResponsable'
 FROM vStage AS Stage
 JOIN vStagiaire AS Stagiaire
 ON Stagiaire.IdUtilisateur = Stage.IdStagiaire
 JOIN vEnseignant AS Enseignant
 ON Enseignant.IdUtilisateur = Stage.IdEnseignant
 JOIN vSuperviseur AS Sup
-ON Sup.IdUtilisateur = Stage.IdSuperviseur;
+ON Sup.IdUtilisateur = Stage.IdSuperviseur
+JOIN vResponsable AS Resp
+ON Resp.IdUtilisateur = Stage.IdResponsable;
 
 -- ------------------------------------------------
 -- Sélectionne les informations globales sur les évaluations de chaque stagiaire
