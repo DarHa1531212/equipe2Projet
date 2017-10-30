@@ -20,6 +20,7 @@
                 break;    
             case "Journal": $menu = include 'JournalBord.php';
                 break;
+            case "Avenir":  $menu = include 'AVenir.php';
         }
 
         echo json_encode($menu);

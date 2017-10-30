@@ -45,14 +45,14 @@
             </thead>
 
             <tbody>
-                <tr class="itemHover" onclick="window.document.location=\'\'\;">
+                <tr class="itemHover" onclick="Execute(1, \'../PHP/TBNavigation.php?idStagiaire='.$idStagiaire.'&nomMenu=Avenir\')">
                     <td>Rapport 1</td>
                     <td>Non complétée</td>
                     <td>2017-02-15</td>
                     <td></td>
                 </tr>
 
-                <tr class="itemHover" onclick="window.document.location=\'\'\;">
+                <tr class="itemHover" onclick="Execute(1, \'../PHP/TBNavigation.php?idStagiaire='.$idStagiaire.'&nomMenu=Avenir\')">
                     <td>Rapport 2</td>
                     <td>Complétée</td>
                     <td>2017-03-30</td>
@@ -73,7 +73,7 @@
                     <td>Journal de bord</td>
                 </tr>
 
-                <tr class="itemHover" onclick="window.document.location=\'\'\;">
+                <tr class="itemHover" onclick="Execute(1, \'../PHP/TBNavigation.php?idStagiaire='.$idStagiaire.'&nomMenu=Avenir\')">
                     <td>Auto-Évaluation</td>
                 </tr>
             </tbody>
