@@ -7,13 +7,13 @@
 
 -- USE cegepjon_p2017_2_dev;
 -- USE cegepjon_p2017_2_prod;
- USE cegepjon_p2017_2_tests;
--- USE bdprojet_equipe2v2;
+-- USE cegepjon_p2017_2_tests;
+ USE bdprojet_equipe2v2;
 -- Table Reponsesss
 DROP TABLE IF EXISTS tblReponse;
 CREATE TABLE tblReponse(
 	Id						INT				AUTO_INCREMENT,
-	Texte 					VARCHAR(250) 	NOT NULL,
+	Texte 					VARCHAR(3000) 	NOT NULL,
 	PRIMARY KEY(Id)
 );
 
@@ -59,6 +59,7 @@ DROP TABLE IF EXISTS tblQuestion;
 CREATE TABLE tblQuestion(
 	Id						INT				AUTO_INCREMENT,
 	Texte					VARCHAR(250) 	NOT NULL,
+	Competence				VARCHAR(50) 	NOT NULL,
 	PRIMARY KEY(Id),
 	IdTypeQuestion			INT				NOT NULL,
 	IdCategorieQuestion		INT				NOT NULL
@@ -66,7 +67,7 @@ CREATE TABLE tblQuestion(
 
 
 DROP VIEW IF EXISTS vQuestion;
-CREATE VIEW vQuestion AS SELECT Id,Texte,CONCAT(Texte) AS tag, IdTypeQuestion,IdCategorieQuestion FROM tblQuestion;
+CREATE VIEW vQuestion AS SELECT Id,Texte,Competence ,CONCAT(Texte,Competence) AS tag, IdTypeQuestion,IdCategorieQuestion FROM tblQuestion;
 
 
 
@@ -93,14 +94,16 @@ DROP TABLE IF EXISTS tblEvaluation;
 CREATE TABLE tblEvaluation(
 	Id						INT				AUTO_INCREMENT,
 	Statut					CHAR(1)			NOT	NULL,
+	DateDébut				DATE			NULL,
+	DateFin					DATE			NULL,
 	DateComplétée			DATE			NULL,
 	PRIMARY KEY(Id),
 	IdTypeEvaluation		INT				NOT NULL
 );
 
 DROP VIEW IF EXISTS vEvaluation;
-CREATE VIEW vEvaluation AS SELECT Id,Statut,DateComplétée,
-CONCAT(Id,Statut,DateComplétée,IdTypeEvaluation,IdTypeEvaluation,Statut,IFNULL(DateComplétée,'')) AS tag,IdTypeEvaluation FROM tblEvaluation;
+CREATE VIEW vEvaluation AS SELECT Id,Statut,DateComplétée,DateDébut,DateFin,
+CONCAT(Id,Statut,DateComplétée,DateDébut,DateFin,IdTypeEvaluation,IdTypeEvaluation,Statut,IFNULL(DateComplétée,'')) AS tag,IdTypeEvaluation FROM tblEvaluation;
 
 
 -- Table tblTypeEvaluation
@@ -280,13 +283,14 @@ DROP TABLE IF EXISTS tblCategorieQuestion;
 CREATE TABLE tblCategorieQuestion 
 (
 	Id 						INT 			AUTO_INCREMENT,
-	DescriptionCategorie	VARCHAR(500) 	NOT NULL,
+	TitreCategorie			VARCHAR(500)	NOT NULL,
+	DescriptionCategorie	VARCHAR(500) 	NULL,
 	Lettre					CHAR(1) 		NOT NULL,
 	PRIMARY KEY(Id)
 );
 
 DROP VIEW IF EXISTS vCategorieQuestion;
-CREATE VIEW vCategorieQuestion AS SELECT Id,descriptionCategorie,CONCAT(descriptionCategorie) AS tag FROM tblCategorieQuestion;
+CREATE VIEW vCategorieQuestion AS SELECT Id,TitreCategorie,descriptionCategorie,Lettre,CONCAT(Id,TitreCategorie,descriptionCategorie,Lettre) AS tag FROM tblCategorieQuestion;
 
 
 /*
