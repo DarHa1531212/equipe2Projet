@@ -429,3 +429,12 @@ footer{
 .lolipop{
     margin: 8px;
 }
+
+/* Style évaluations Hans */
+
+h2.question{
+background-color: blue;
+text-align: center;
+color: white;
+width: 50%;
+}
