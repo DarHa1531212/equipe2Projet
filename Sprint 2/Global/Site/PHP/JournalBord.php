@@ -108,33 +108,36 @@
     }
     else{
         $content=
-        '<div class="infoStagiaire">
-            <h2>Journal de bord</h2>
-            <h3>Dernière entrée il y a : '.DerniereEntree($bdd, $idStagiaire).' jour(s)</h3>
-        </div>
-        <p id="imageJointe"></p>
+        '
+        <article class="stagiaire">
+            <div class="infoStagiaire">
+                <h2>Journal de bord</h2>
+                <h3>Dernière entrée il y a : '.DerniereEntree($bdd, $idStagiaire).' jour(s)</h3>
+            </div>
+            <p id="imageJointe"></p>
 
-        <div class="separateur">
-            <h3>Nouvelle Entrée</h3>
-        </div>
+            <div class="separateur">
+                <h3>Nouvelle Entrée</h3>
+            </div>
 
-        <textarea id="contenu" rows="5" cols="100" maxlength="500" name="contenu" wrap="hard"></textarea>
-        <input type="hidden" name="maxFileSize" value="2000000">
-        <input class="inputFile" id="file" type="file" value="Envoyer" name="fichier"/>
+            <textarea id="contenu" rows="5" cols="100" maxlength="500" name="contenu" wrap="hard"></textarea>
+            <input type="hidden" name="maxFileSize" value="2000000">
+            <input class="inputFile" id="file" type="file" value="Envoyer" name="fichier"/>
 
-        <br/>                                                                             
-        <input style="width: 120px;" class="bouton" type="button" value="Envoyer" onclick="Execute(2, \'../PHP/TBNavigation.php?idStagiaire='.$idStagiaire.'&nomMenu=Journal\', \'&contenu=\', contenu.value, \'&fichier=\', file); Execute(1, \'../PHP/TBNavigation.php?idStagiaire='.$idStagiaire.'&nomMenu=Journal\')"/>
-        <label class="bouton labelFile" for="file">Pièce Jointe</label>
+            <br/>                                                                             
+            <input style="width: 120px;" class="bouton" type="button" value="Envoyer" onclick="Execute(2, \'../PHP/TBNavigation.php?idStagiaire='.$idStagiaire.'&nomMenu=Journal\', \'&contenu=\', contenu.value, \'&fichier=\', file); Execute(1, \'../PHP/TBNavigation.php?idStagiaire='.$idStagiaire.'&nomMenu=Journal\', \'&nbEntree=\', 5)"/>
+            <label class="bouton labelFile" for="file">Pièce Jointe</label>
 
-        <div class="separateur">
-            <h3>Toutes les entrées</h3>
-        </div>
+            <div class="separateur">
+                <h3>Toutes les entrées</h3>
+            </div>
 
-        '.SelectEntrees($bdd, $idStagiaire).'
+            '.SelectEntrees($bdd, $idStagiaire).'
 
-        <br/><br/>
+            <br/><br/>
 
-        <input class="bouton" type="button" value="   Retour   " onclick="Execute(1, \'../PHP/TBNavigation.php?idStagiaire='.$id.'&nomMenu=Main\')"/>';
+            <input class="bouton" type="button" value="   Retour   " onclick="Execute(1, \'../PHP/TBNavigation.php?idStagiaire='.$id.'&nomMenu=Main\')"/>
+        </article>';
 
         return $content;
     }

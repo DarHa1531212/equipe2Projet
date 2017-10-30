@@ -1,8 +1,10 @@
 <?php
 
 $content =
-'<div class="infoStagiaire">
-                    <h2>Votre profil</h2>
+'
+<article class="stagiaire">
+<div class="infoStagiaire">
+                    <h2>Votre Profil</h2>
                 </div>
                 
                 <div class="separateur">
@@ -85,7 +87,8 @@ avoir ce format - (xxx) xxx-xxxx"/>
                 <br/><br/>
                 
                 <input class="bouton" type="button" style="width: 100px;" value="   Annuler   " onclick="Execute(1, \'../PHP/TBNavigation.php?idStagiaire='.$id.'&nomMenu=Main\')"/>
-                <input class="bouton" type="button" id="Save" style="width: 100px;" value="Sauvegarder" onclick="Execute(2, \'../PHP/TBNavigation.php?idStagiaire='.$id.'&nomMenu=ModifBD\', \'&Poste=\', poste.value, \'&NumTel=\', numTel.value, \'&NumTelEntreprise=\', numEntreprise.value, \'&CourrielEntreprise=\', courrielEntreprise.value, \'&CourrielPersonnel=\', courrielPersonnel.value, \'&NewPassword=\', newPwd.value); Execute(1, \'../PHP/TBNavigation.php?idStagiaire='.$id.'&nomMenu=Main\')"/>';
+                <input class="bouton" type="button" id="Save" style="width: 100px;" value="Sauvegarder" onclick="Execute(2, \'../PHP/TBNavigation.php?idStagiaire='.$id.'&nomMenu=ModifBD\', \'&Poste=\', poste.value, \'&NumTel=\', numTel.value, \'&NumTelEntreprise=\', numEntreprise.value, \'&CourrielEntreprise=\', courrielEntreprise.value, \'&CourrielPersonnel=\', courrielPersonnel.value, \'&NewPassword=\', newPwd.value); Execute(1, \'../PHP/TBNavigation.php?idStagiaire='.$id.'&nomMenu=Main\')"/>
+</article>';
 
 return $content;
 

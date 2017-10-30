@@ -7,16 +7,16 @@
 
     if(isset($_REQUEST["idEmploye"])){
         $id = $_REQUEST["idEmploye"];
-        $query = $bdd->prepare("SELECT Emp.Id, Emp.CourrielEntreprise, Prenom, Emp.Nom, Emp.NumTel, CourrielPersonnel, 
+        $query = $bdd->prepare("SELECT Emp.IdUtilisateur, Emp.CourrielEntreprise, Prenom, Emp.Nom, Emp.NumTel, CourrielPersonnel, 
                                 Ent.Nom AS 'Nom Entreprise', Emp.CourrielEntreprise, Emp.NumTelEntreprise, Poste, CodePermanent
                                 FROM vEmploye AS Emp
                                 JOIN vEntreprise AS Ent
                                 ON Ent.Id = Emp.IdEntreprise 
-                                WHERE Emp.Id = :id"); //Les ':' servent à mettre un paramètre dans ce cas le paramètre c'est id.
+                                WHERE Emp.IdUtilisateur = :id"); //Les ':' servent à mettre un paramètre dans ce cas le paramètre c'est id.
     }
     else if(isset($_REQUEST["idStagiaire"])){
         $id = $_REQUEST["idStagiaire"];
-        $query = $bdd->prepare("SELECT Stagiaire.Id, Stagiaire.Prenom, Stagiaire.Nom, Stagiaire.NumTel, Stagiaire.CourrielPersonnel, Stagiaire.CodePermanent,
+        $query = $bdd->prepare("SELECT Stagiaire.IdUtilisateur, Stagiaire.Prenom, Stagiaire.Nom, Stagiaire.NumTel, Stagiaire.CourrielPersonnel, Stagiaire.CodePermanent,
                                 Stagiaire.CourrielEntreprise, Stagiaire.NumTelEntreprise, Stagiaire.Poste, Ent.Nom AS 'Nom Entreprise'
                                 FROM vStage AS Stage
                                 JOIN vStagiaire AS Stagiaire
@@ -25,14 +25,14 @@
                                 ON Emp.IdUtilisateur = Stage.IdSuperviseur
                                 JOIN vEntreprise AS Ent
                                 ON Ent.Id = Emp.IdEntreprise 
-                                WHERE Stagiaire.Id = :id");
+                                WHERE Stagiaire.IdUtilisateur = :id");
     }
 	
     $query->execute(array('id'=>$id)); //Lorsqu'on éxecute le query ont peut préciser la valeur des paramètres à l'aide d'un tableau associatif. idStagiaire = à la valeur de la variable $id.
     $profils = $query->fetchAll(); //la fonction fetchAll() met les valeurs du query dans une liste d'objets. J'ai donc fait une liste $stagiaires.
     
     foreach($profils as $profil){ //Puisque $employe est une liste je peux faire une boucle foreach pour récupérer les données.
-        $id = $profil['Id'];
+        $idProfil = $profil['IdUtilisateur'];
         $courrielEntreprise = $profil['CourrielEntreprise'];
         $nom = $profil['Nom'];
         $prenom = $profil['Prenom'];

@@ -1,11 +1,18 @@
 <?php
 
+    $idConnecte = "";
+
+    if($_SESSION['IdRole'] == 5)
+        $idConnecte = "idStagiaire=";
+    else
+        $idConnecte = "idEmploye=";
+
     echo '<header>
             <a href="http://dicj.info/">
                 <img class="logoHeader" src="../Images/LogoDICJ2.png"/>
             </a>
             
-            <div class="userHeader" onclick="Execute(1, \'../PHP/TBNavigation.php?idStagiaire='.$idStagiaire.'&nomMenu=Profil\')">
+            <div class="userHeader" onclick="Execute(1, \'../PHP/TBNavigation.php?'.$idConnecte.$_SESSION['idConnecte'].'&nomMenu=Profil\')">
                 <p>
                     Bonjour
                     <br/>

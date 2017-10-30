@@ -25,8 +25,9 @@ function Url(){
 //Affiche la page selon l'url demandé.
 function AfficherPage(xhttp){
     var page = $.parseJSON(xhttp);
-    $(".stagiaire").empty();
-    $(".stagiaire").append(page);
+    $(".stagiaireContainer").empty();
+    $(".stagiaireContainer").append(page);
+    CacherDiv();
 }
 
 //Éxecute une page PHP sans l'afficher.
