@@ -21,22 +21,31 @@
 			//Le fichier est trop volumineux...
 		}
 
-		if(!isset($erreur) && verificationDoublon($bdd, $fichier, $extension)) //S'il n'y a pas d'erreur
+		if($fichier != "")
 		{
-			$fichier = strtr($fichier, 'ÀÁÂÃÄÅÇÈÉÊËÌÍÎÏÒÓÔÕÖÙÚÛÜÝàáâãäåçèéêëìíîïðòóôõöùúûüýÿ', 'AAAAAACEEEEIIIIOOOOOUUUUYaaaaaaceeeeiiiioooooouuuuyy');
-			$fichier = preg_replace('/([^.a-z0-9]+)/i','-', $fichier);
-			if(move_uploaded_file($_FILES['fichier']['tmp_name'], $dossier . $fichier))
+			$verif = verificationDoublon($bdd, $fichier);
+
+			if(!isset($erreur) && $verif) //S'il n'y a pas d'erreur
 			{
-				echo'Upload Success';
+				$fichier = strtr($fichier, 'ÀÁÂÃÄÅÇÈÉÊËÌÍÎÏÒÓÔÕÖÙÚÛÜÝàáâãäåçèéêëìíîïðòóôõöùúûüýÿ', 'AAAAAACEEEEIIIIOOOOOUUUUYaaaaaaceeeeiiiioooooouuuuyy');
+				$fichier = preg_replace('/([^.a-z0-9]+)/i','-', $fichier);
+				if(move_uploaded_file($_FILES['fichier']['tmp_name'], $dossier . $fichier))
+				{
+					//echo'Upload Success';
+				}
+				else
+				{
+					//echo'Roger pas content';
+				}
 			}
-			else
-			{
-				echo'Roger pas content';
-			}
+		}
+		else
+		{
+			$verif = true;
 		}
 	}
 
-	function verificationDoublon($bdd, $fichier, $extension)
+	function verificationDoublon($bdd, $fichier)
 	{
 		$query = $bdd->prepare("SELECT Documents FROM vJournalDeBord");
 		$query->execute();
@@ -47,23 +56,13 @@
 			$doc = $file['Documents'];
 			if($doc == $fichier)
 			{
-				$doublon = true;
+				return false;
 				break;
 			}
 			else
 			{
-				$doublon = false;
+				return true;
 			}
-		}
-
-		if(!$doublon)
-		{
-			return true;
-		}
-		else
-		{
-			?><script>alert('GROSSE MARDE DE DOUBLEUR');</script><?php
-			return false;
 		}
 	}
 ?>

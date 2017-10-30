@@ -2,60 +2,62 @@
 
     $id = "";
     $query = "";
-if(verifyTimeout())
-{
-    if(isset($_POST["idEmploye"]) || $_SESSION['IdRole'] == 2 || $_SESSION['IdRole'] == 4){
-        if(isset($_POST["idEmploye"]))
+    if(verifyTimeout())
+    {
+        if(isset($_POST["idEmploye"]) || isset($_POST['idStagiaire']) || $_SESSION['IdRole'])
         {
-            $id = $_POST['idProf'];
-            $query = getEmploye($bdd);
-        }
-        else
-        {
-            if(isset($_POST['PStag']))
+            if(isset($_POST["idProf"]))
             {
-                $id = $_POST['idStagiaire'];
-                $query = getStagiaire($bdd);
+                $id = $_POST['idProf'];
+                $query = getEmploye($bdd);
             }
             else
             {
-                if(isset($_POST["idEmploye"]) || $_SESSION['IdRole'] == 2 || $_SESSION['IdRole'] == 4) //TableauBordStagiaire.php pour les profils.
+                if(isset($_POST['PStag']))
                 {
-                    if(isset($_POST["idEmploye"]))
-                    {
-                        $id = $_POST["idEmploye"];
-                    }
-                    else
-                    {
-                        $id = $_SESSION['idEmploye'];
-                    }
-                    $query = getEmploye($bdd);
-                }
-                else if(isset($_POST["idStagiaire"]) || $_SESSION['IdRole'] == 5)
-                {
-                    $id = $_SESSION['idConnecte'];
+                    $id = $_POST['idStagiaire'];
                     $query = getStagiaire($bdd);
+                }
+                else
+                {
+                    if(isset($_POST["idEmploye"]) || $_SESSION['IdRole'] == 2 || $_SESSION['IdRole'] == 4) //TableauBordStagiaire.php pour les profils.
+                    {
+                        if(isset($_POST["idEmploye"]))
+                        {
+                            $id = $_POST["idEmploye"];
+                        }
+                        else
+                        {
+                            $id = $_SESSION['idEmploye'];
+                        }
+                        $query = getEmploye($bdd);
+                    }
+                    else if(isset($_POST["idStagiaire"]) || $_SESSION['IdRole'] == 5)
+                    {
+                        $id = $_SESSION['idConnecte'];
+                        $query = getStagiaire($bdd);
+                    }
                 }
             }
         }
-    }
 
-    $query->execute(array('id'=>$id)); //Lorsqu'on éxecute le query ont peut préciser la valeur des paramètres à l'aide d'un tableau associatif. idStagiaire = à la valeur de la variable $id.
-    $profils = $query->fetchAll(); //la fonction fetchAll() met les valeurs du query dans une liste d'objets. J'ai donc fait une liste $stagiaires.
-    
-    foreach($profils as $profil){ //Puisque $employe est une liste je peux faire une boucle foreach pour récupérer les données.
-        $id = $profil['Id'];
-        $courrielEntreprise = $profil['CourrielEntreprise'];
-        $nom = $profil['Nom'];
-        $prenom = $profil['Prenom'];
-        $numTel = $profil['NumTel'];
-        $courrielPerso = $profil['CourrielPersonnel'];
-        $numTelEntreprise = $profil['NumTelEntreprise'];
-        $poste = $profil['Poste'];
-        $entreprise = $profil['Nom Entreprise'];
-        $codePermanent = $profil['CodePermanent'];    
+        $query->execute(array('id'=>$id)); //Lorsqu'on éxecute le query ont peut préciser la valeur des paramètres à l'aide d'un tableau associatif. idStagiaire = à la valeur de la variable $id.
+        $profils = $query->fetchAll(); //la fonction fetchAll() met les valeurs du query dans une liste d'objets. J'ai donc fait une liste $stagiaires.
+        
+        foreach($profils as $profil)
+        { //Puisque $employe est une liste je peux faire une boucle foreach pour récupérer les données.
+            $id = $profil['Id'];
+            $courrielEntreprise = $profil['CourrielEntreprise'];
+            $nom = $profil['Nom'];
+            $prenom = $profil['Prenom'];
+            $numTel = $profil['NumTel'];
+            $courrielPerso = $profil['CourrielPersonnel'];
+            $numTelEntreprise = $profil['NumTelEntreprise'];
+            $poste = $profil['Poste'];
+            $entreprise = $profil['Nom Entreprise'];
+            $codePermanent = $profil['CodePermanent'];    
+        }
     }
-}
     
 
     function getStagiaire($bdd)

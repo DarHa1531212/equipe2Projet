@@ -1,7 +1,6 @@
 <?php
 include 'Session.php';
 include 'ConnexionBD.php';
-	
 	if (VerifyTimeout())
 
 	{

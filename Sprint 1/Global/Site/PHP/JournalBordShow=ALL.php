@@ -1,10 +1,3 @@
-<?php 
-    include 'Session.php';
-
-    $authosiredId = array(5);
-    if (verifyAuthorisations($authosiredId) == false)
-    {    header("Location: /equipe2Projet/Sprint%201/Global/Site/"); /* opens the login page */ }
-?>
 <!DOCTYPE html>
 
 <html>
@@ -52,8 +45,9 @@
                     <div class="commentaireContainer">
                         <input class="bouton" type="submit" name ="submit" value = "Confirmer"/>
                         <input type="hidden" name="idStagiaire" value="<?php echo $idStagiaire; ?>"/>
-                        <input class="bouton" type="button" value = 'Joindre un fichier'/>
-                    </div> 
+                        <input type="hidden" name="maxFileSize" value="2000000">
+                        <input type="file" name="fichier">
+                    </div>
                 </form>
             </div>
             
@@ -64,9 +58,7 @@
                 
                 <div class="content">
                 
-                <?php       
-                        include 'ConnexionBD.php';
-                
+                <?php
                         function dateDifference($date_1 , $date_2 , $differenceFormat = '%a' )
                         {
                             $datetime1 = date_create($date_1);
@@ -76,7 +68,7 @@
                         }
                 
                         $query = $bdd->prepare("SELECT Dates AS DateComplete FROM vJournalDeBord WHERE IdStagiaire LIKE $idStagiaire ORDER BY datecomplete DESC LIMIT 1;");
-                        $query2 = $bdd->prepare("SELECT  Entree, Date_Format (Dates, '%d/%m/%Y') AS Dates, Dates AS DateComplete FROM vJournalDeBord WHERE IdStagiaire LIKE $idStagiaire ORDER BY  datecomplete DESC;");
+                        $query2 = $bdd->prepare("SELECT Entree, Date_Format (Dates, '%d/%m/%Y') AS Dates, Dates AS DateComplete, Documents AS Fichier FROM vJournalDeBord WHERE IdStagiaire LIKE $idStagiaire ORDER BY datecomplete desc;");
                         
                         $query->execute(array());
                         $result = $query->fetchall();
@@ -96,8 +88,21 @@
                             $texte = $entree["Entree"];
                             $dates = $entree["Dates"];
                             $dateComplete = $entree["DateComplete"];
+                            $document = $entree["Fichier"];
 
-                            echo   '<div class = "entree"><h2>' .  $dates . '</h2><p class = "entreeValeur">' . nl2br($texte) . '</p></div>'; 
+                            echo   '<div class = "entree"><h2>' .  $dates . '</h2><p class = "entreeValeur">' . nl2br($texte) . '</p>' . pieceJointe($document) . '</div>'; 
+                        }
+
+                        function pieceJointe($doc)
+                        {
+                            if($doc != null && $doc != "")
+                            {
+                                return '<p><a href="../Upload/' . $doc . '">Pièce jointe</a><label>' . $doc . '</label></p>';
+                            }
+                            else
+                            {
+                                return '';
+                            }
                         }
                     ?>
                 </div>

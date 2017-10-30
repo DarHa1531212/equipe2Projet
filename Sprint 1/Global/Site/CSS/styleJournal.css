@@ -434,11 +434,17 @@ footer{
     height: 120px;
 }
 
-.groupboxFormulaire
-{
+.groupboxFormulaire{
 	margin:1% 2%;
 }
 
 .lolipop{
     margin: 8px;
+}
+
+/* --------------------------------------------------------------- */
+
+.imageJointe{
+    position:sticky;
+    z-index: 2;
 }

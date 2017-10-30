@@ -1,10 +1,3 @@
-<?php 
-    include 'Session.php'; 
-    $authosiredId = array(5);
-    if (verifyAuthorisations($authosiredId) == false)
-    {    header("Location: /equipe2Projet/Sprint%201/Global/Site/"); /* opens the login page */ }
-?>
-
 <!DOCTYPE html>
 
 <html>
@@ -15,6 +8,7 @@
         <title>Journal de bord - Étudiant</title>
         <link rel="stylesheet" href="../CSS/styleJournal.css">
         <link rel="shortcut icon" href="../Images/LogoDICJ2Petit.ico">
+        <script src="../js/image.js"></script>
 
     </head>
     
@@ -39,6 +33,7 @@
         </header>
         
         <content>
+            <p id="imageJointe"></p>  
             <div class="conteneur">
                 <div class="entete" >   
                     <h1>Journal de bord</h1>
@@ -63,11 +58,9 @@
                     <h1>Entrées précédentes</h1>
                 </div>
                 
-                <div class="content">
+                <div class="content"">
                 
-                <?php       
-                        include 'ConnexionBD.php';
-                
+                <?php
                         function dateDifference($date_1 , $date_2 , $differenceFormat = '%a' )
                         {
                             $datetime1 = date_create($date_1);
@@ -77,7 +70,7 @@
                         }
                 
                         $query = $bdd->prepare("SELECT Dates AS DateComplete FROM vJournalDeBord WHERE IdStagiaire LIKE $idStagiaire ORDER BY datecomplete DESC LIMIT 1;");
-                        $query2 = $bdd->prepare("SELECT Entree, Date_Format (Dates, '%d/%m/%Y') AS Dates, Dates AS DateComplete FROM vJournalDeBord WHERE IdStagiaire LIKE $idStagiaire ORDER BY datecomplete desc LIMIT 5;");
+                        $query2 = $bdd->prepare("SELECT Entree, Date_Format (Dates, '%d/%m/%Y') AS Dates, Dates AS DateComplete, Documents AS Fichier FROM vJournalDeBord WHERE IdStagiaire LIKE $idStagiaire ORDER BY datecomplete desc LIMIT 5;");
                         
                         $query->execute(array());
                         $result = $query->fetchall();
@@ -88,7 +81,6 @@
                             echo   '<div class = "entree"><h2>' .dateDifference(date('Y-m-d h:i:s'), $dateComplete).' jour(s) depuis la dernière entrée au journal de bord</h2></div>';
                         }
 
-                        
                         $query2->execute(array());
                         $result = $query2->fetchAll();
 
@@ -97,8 +89,23 @@
                             $texte = $entree["Entree"];
                             $dates = $entree["Dates"];
                             $dateComplete = $entree["DateComplete"];
+                            $document = $entree["Fichier"];
 
-                            echo   '<div class = "entree"><h2>' .  $dates . '</h2><p class = "entreeValeur">' . nl2br($texte) . '</p></div>'; 
+                            echo   '<div class = "entree"><h2>' .  $dates . '</h2><p class = "entreeValeur">' . nl2br($texte) . '</p>' . pieceJointe($document) . '</div>'; 
+                        }
+
+                        function pieceJointe($doc)
+                        {
+                            if($doc != null && $doc != "")
+                            {
+                                $method = "AfficherImage('". $doc . "','" . pathinfo($doc)['extension'] ."')";
+                                return '<p><span id="divBouton" onclick="' . $method . '">Pièce jointe</span></p>'; //faire ici l'affichage en absolute
+                            }
+                            else
+                            {
+                                $vide = "";
+                                return $vide;
+                            }
                         }
                     ?>
                 </div>
@@ -109,7 +116,8 @@
                         <input type="hidden" name="idStagiaire" value="<?php echo $idStagiaire; ?>"/>
                         <input  type="submit" class="bouton" value="Afficher tout">
                     </form>      
-                </div>    
+                </div>
+  
             </div>                   
            
         </content>

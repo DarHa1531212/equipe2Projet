@@ -1,28 +1,31 @@
 <?php
 
-    include 'ConnexionBD.php';
-    include 'Session.php';
+include 'ConnexionBD.php';
+include 'Session.php';
 
-    $authosiredId = array(5);
-    if (verifyAuthorisations($authosiredId) == false)
-    {    header("Location: /equipe2Projet/Sprint%201/Global/Site/"); /* opens the login page */ }
+if($_SESSION['IdRole'] == '5')
+{
+    $idStagiaire = $_SESSION['idConnecte'];
+}
+else
+{
+    //mettre ici la personne qui s'occupera de consulter le journal de bord stagiaire mais ne pourra en aucun cas le modifier.
+}
 
+$date = date('Y-m-d h:i:s', time());
+$stringShowAll = "false";
+	
+//si la page a été appelée pour insérer une entrée 
+if ( !empty($_POST['contenu']) )  
+    {
+        include 'UploadFile.php';
+       	$entree = array();
+        $entree = array(htmlspecialchars($_POST['contenu']));
+        $text = $entree[0];
 
-    if(isset($_POST["idStagiaire"]))
-        $idStagiaire = $_POST["idStagiaire"];
-
-    $date = date('Y-m-d h:i:s', time());
-    $stringShowAll = "false";
-    	
-    //si la page a été appelée pour insérer une entrée 
-    if ( !empty($_POST['contenu']) )  
+        if($verif)
         {
-            include 'UploadFile.php';
-           	$entree = array();
-            $entree = array(htmlspecialchars($_POST['contenu']));
-            $text = $entree[0];
-
-            if ($text != "" && isset($_FILES['fichier']))
+            if ($text != "" && isset($_FILES['fichier']) && $_FILES['fichier']['name'] != "")
             {
                 $query = $bdd->prepare("INSERT INTO tblJournalDeBord (Entree, idStagiaire, Dates, Documents) VALUES (:text, :id,'$date', :file);");
                 $query->bindValue( 'text', $text, PDO::PARAM_STR );
@@ -41,17 +44,23 @@
                 }
             }
         }
-    //si la page a été appelée pour afficher toutes les entrées
-    if ( !empty($_POST['afficher']))
+        else
         {
-           	$showAll = array();
-            $showAll = array($_POST['afficher']);
-            $stringShowAll = $showAll[0];
+            //$_SESSION['textJournal'] = $text;
+            ?><script>alert("Test concluant");</script><?php
         }
-                 	
-    if ($stringShowAll == "true")
-        include ('JournalBordShow=ALL.php');
-    else
-        include ('JournalBord2.php');
+    }
+//si la page a été appelée pour afficher toutes les entrées
+if ( !empty($_POST['afficher']))
+    {
+       	$showAll = array();
+        $showAll = array($_POST['afficher']);
+        $stringShowAll = $showAll[0];
+    }
+             	
+if ($stringShowAll == "true")
+    include ('JournalBordShow=ALL.php');
+else
+    include ('JournalBord2.php');
 
 ?>
