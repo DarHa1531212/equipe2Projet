@@ -1,5 +1,5 @@
- USE BDProjet_equipe2V2;
--- USE cegepjon_p2017_2_dev;
+-- USE BDProjet_equipe2V2;
+ USE cegepjon_p2017_2_dev;
 -- USE cegepjon_p2017_2_prod;
 -- USE cegepjon_p2017_2_tests;
 
@@ -71,11 +71,7 @@ CREATE VIEW vTableauBord AS
 SELECT 	Stagiaire.Id, Stagiaire.Prenom, Stagiaire.Nom, Stagiaire.NumTel,
 		Enseignant.IdUtilisateur AS 'IdEnseignant', Enseignant.Prenom AS 'PrenomEnseignant', Enseignant.Nom AS 'NomEnseignant', Enseignant.NumTel AS 'TelEnseignant',
         Sup.IdUtilisateur AS 'IdSuperviseur', Sup.Prenom AS 'PrenomSuperviseur', Sup.Nom AS 'NomSuperviseur', Sup.NumTel AS 'TelSuperviseur',
-<<<<<<< HEAD
-        Resp.IdUtilisateur AS 'IdResponsable'
-=======
 		res.IdUtilisateur AS 'IdResponsable'
->>>>>>> Marc-Antoine
 FROM vStage AS Stage
 JOIN vStagiaire AS Stagiaire
 ON Stagiaire.IdUtilisateur = Stage.IdStagiaire
@@ -83,14 +79,9 @@ JOIN vEnseignant AS Enseignant
 ON Enseignant.IdUtilisateur = Stage.IdEnseignant
 JOIN vSuperviseur AS Sup
 ON Sup.IdUtilisateur = Stage.IdSuperviseur
-<<<<<<< HEAD
-JOIN vResponsable AS Resp
-ON Resp.IdUtilisateur = Stage.IdResponsable;
-=======
 JOIN vResponsable AS res
 ON res.IdUtilisateur = Stage.IdResponsable;
 
->>>>>>> Marc-Antoine
 
 -- ------------------------------------------------
 -- Sélectionne les informations globales sur les évaluations de chaque stagiaire
