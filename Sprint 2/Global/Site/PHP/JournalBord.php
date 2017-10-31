@@ -25,6 +25,17 @@
         return $derniereEntree;
     }
 
+    function LineBreak($texte){
+        $split = explode("\\n", $texte);
+        $texte = "";
+        
+        for($i = 0; $i < count($split); $i++){
+            $texte = $texte.$split[$i] . "<br/>";
+        }
+        
+        return $texte;
+    }
+
     function SelectEntrees($bdd, $idStagiaire){
         $limit = "";
         $div = "";
@@ -42,9 +53,8 @@
             $dates = $entree["Dates"];
             $dateComplete = $entree["DateComplete"];
             $document = $entree['Fichier'];
-            $texte = $texte;
 
-            $div = $div.'<div class="entree"><h2>'.$dates.'</h2><p>' .$texte. '</p><p>' . PieceJointe($document) . '</p></div>';
+            $div = $div."<div class=\"entree\"><h2>".$dates."</h2><p>" .LineBreak($texte). "</p><p>" . PieceJointe($document) . "</p></div>";
         }
         
         if(isset($_REQUEST['nbEntree']))
@@ -84,7 +94,6 @@
             else
             {
                 //$_SESSION['textJournal'] = $text;
-                ?><script>alert("Test concluant");</script><?php
             }
         }
     }

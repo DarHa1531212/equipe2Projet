@@ -39,7 +39,7 @@
                 <div class="ressourceItem">
                     <a class="linkFill" href="../PDF/Lettre%20d\'entente%202017.docx">
                         <div class="divImage imgDOC"></div>
-                        <p>Lettre d\'entente</p>
+                        <p>Lettre d'entente</p>
                     </a>
                 </div>          
             </article>
