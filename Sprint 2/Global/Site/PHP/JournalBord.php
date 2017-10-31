@@ -56,9 +56,9 @@
     function NouvelleEntree($bdd, $idStagiaire){
         $date = date('Y-m-d h:i:s', time());
         
-        if(isset($_REQUEST['contenu'])){
+        if(isset($_POST['contenu'])){
             include 'UploadFile.php';
-            $entree = array(htmlspecialchars($_REQUEST['contenu']));
+            $entree = array(htmlspecialchars($_POST['contenu']));
 
             if($verif)
             {
@@ -87,6 +87,10 @@
                 ?><script>alert("Test concluant");</script><?php
             }
         }
+        else
+        {
+            ?><script>alert("il ne rentre pas super....");</script><?php
+        }
     }
 
     function PieceJointe($doc)
@@ -103,7 +107,7 @@
         }
     }
     
-    if(isset($_REQUEST['contenu'])){
+    if(isset($_POST['contenu'])){
         NouvelleEntree($bdd, $idStagiaire);
     }
     else{
@@ -119,15 +123,14 @@
             <div class="separateur">
                 <h3>Nouvelle Entrée</h3>
             </div>
-
-            <textarea id="contenu" rows="5" cols="100" maxlength="500" name="contenu" wrap="hard"></textarea>
-            <input type="hidden" name="maxFileSize" value="2000000">
-            <input class="inputFile" id="file" type="file" value="Envoyer" name="fichier"/>
-
-            <br/>                                                                             
-            <input style="width: 120px;" class="bouton" type="button" value="Envoyer" onclick="Execute(2, \'../PHP/TBNavigation.php?idStagiaire='.$idStagiaire.'&nomMenu=Journal\', \'&contenu=\', contenu.value, \'&fichier=\', file); Execute(1, \'../PHP/TBNavigation.php?idStagiaire='.$idStagiaire.'&nomMenu=Journal\', \'&nbEntree=\', 5)"/>
-            <label class="bouton labelFile" for="file">Pièce Jointe</label>
-
+            <form action="#" method="POST" name="Donnee">
+                <textarea id="contenu" rows="5" cols="100" maxlength="500" name="contenu" wrap="hard"></textarea>
+                <input type="hidden" name="maxFileSize" value="2000000">
+                <input class="inputFile" id="fichier" type="file" value="Envoyer" name="fichier"/>
+                <br/>                                                                             
+                <input style="width: 120px;" class="bouton" type="button" value="Envoyer" onclick="Execute(2, \'../PHP/TBNavigation.php?idStagiaire='.$idStagiaire.'&nomMenu=Journal\', \'&contenu=\', contenu.value); Execute(1, \'../PHP/TBNavigation.php?idStagiaire='.$idStagiaire.'&nomMenu=Journal\', \'&nbEntree=\', 5); Donnee.submit();"/>
+                <label class="bouton labelFile" for="file">Pièce Jointe</label
+            </form>
             <div class="separateur">
                 <h3>Toutes les entrées</h3>
             </div>
