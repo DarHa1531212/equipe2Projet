@@ -87,6 +87,10 @@
                 ?><script>alert("Test concluant");</script><?php
             }
         }
+        else
+        {
+            ?><script>alert("il ne rentre pas super....");</script><?php
+        }
     }
 
     function PieceJointe($doc)
