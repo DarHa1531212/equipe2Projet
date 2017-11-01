@@ -1,5 +1,5 @@
 <?php
-    
+
     include 'ConnexionBD.php';
 
     function DateDifference($date_1 , $date_2 , $differenceFormat = '%a' ){
@@ -70,30 +70,23 @@
             include 'UploadFile.php';
             $entree = array(htmlspecialchars($_REQUEST['contenu']));
 
-            if($verif)
+            if ($entree[0] != "" && isset($_FILES['file']) && $_FILES['file']['name'] != "")
             {
-                if ($entree[0] != "" && isset($_FILES['fichier']) && $_FILES['fichier']['name'] != "")
-                {
-                    $query = $bdd->prepare("INSERT INTO tblJournalDeBord (Entree, idStagiaire, Dates, Documents) VALUES (:text, :id,'$date', :file);");
-                    $query->bindValue( 'text', $entree[0], PDO::PARAM_STR );
-                    $query->bindValue( 'id', $idStagiaire, PDO::PARAM_INT);
-                    $query->bindValue( 'file', $fichier, PDO::PARAM_STR);
-                    $query->execute();
-                }
-                else
-                {
-                    if($entree[0] != "")
-                    {
-                        $query = $bdd->prepare("INSERT INTO tblJournalDeBord (Entree, idStagiaire, Dates) VALUES (:text, :id,'$date');");
-                        $query->bindValue( 'text', $entree[0], PDO::PARAM_STR );
-                        $query->bindValue( 'id', $idStagiaire, PDO::PARAM_INT);
-                        $query->execute();
-                    }
-                }
+                $query = $bdd->prepare("INSERT INTO tblJournalDeBord (Entree, idStagiaire, Dates, Documents) VALUES (:text, :id,'$date', :file);");
+                $query->bindValue( 'text', $entree[0], PDO::PARAM_STR );
+                $query->bindValue( 'id', $idStagiaire, PDO::PARAM_INT);
+                $query->bindValue( 'file', $fichier, PDO::PARAM_STR);
+                $query->execute();
             }
             else
             {
-                //$_SESSION['textJournal'] = $text;
+                if($entree[0] != "")
+                {
+                    $query = $bdd->prepare("INSERT INTO tblJournalDeBord (Entree, idStagiaire, Dates) VALUES (:text, :id,'$date');");
+                    $query->bindValue( 'text', $entree[0], PDO::PARAM_STR );
+                    $query->bindValue( 'id', $idStagiaire, PDO::PARAM_INT);
+                    $query->execute();
+                }
             }
         }
     }
@@ -134,7 +127,7 @@
             <input class="inputFile" id="file" type="file" value="Envoyer" name="fichier"/>
 
             <br/>                                                                             
-            <input style="width: 120px;" class="bouton" type="button" value="Envoyer" onclick="Execute(2, \'../PHP/TBNavigation.php?idStagiaire='.$idStagiaire.'&nomMenu=Journal\', \'&contenu=\', contenu.value, \'&fichier=\', file); Execute(1, \'../PHP/TBNavigation.php?idStagiaire='.$idStagiaire.'&nomMenu=Journal\', \'&nbEntree=\', 5)"/>
+            <input style="width: 120px;" class="bouton" type="button" value="Envoyer" onclick="Execute(3, \'../PHP/TBNavigation.php?idStagiaire='.$idStagiaire.'&nomMenu=Journal\', \'&contenu=\', contenu.value); Execute(1, \'../PHP/TBNavigation.php?idStagiaire='.$idStagiaire.'&nomMenu=Journal\', \'&nbEntree=\', 5)"/>
             <label class="bouton labelFile" for="file">Pièce Jointe</label>
 
             <div class="separateur">

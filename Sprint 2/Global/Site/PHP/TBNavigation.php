@@ -10,9 +10,9 @@
                 break;
             case "Main":    
                 if($_SESSION['IdRole'] == 5)
-                    $menu = include 'TBSMain.php';
+                            $menu = include 'TBSMain.php';
                 else
-                    $menu = include 'TBEMain.php';
+                            $menu = include 'TBEMain.php';
                 break;
             case "Modif":   $menu = include 'ModifProfil.php';
                 break;
@@ -21,6 +21,8 @@
             case "Journal": $menu = include 'JournalBord.php';
                 break;
             case "Avenir":  $menu = include 'AVenir.php';
+                break;
+            case "Eval":    $menu = include 'Evaluation.php';
         }
 
         echo json_encode($menu);
