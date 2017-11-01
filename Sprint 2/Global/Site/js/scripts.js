@@ -3,6 +3,10 @@
 //////////////////////////////////////////////////////////////////////////////////////////////////
 var indiceCategorie = 1;
 
+function ReponseChoisie(item){
+    $(item).css("background-color", "green");
+}
+
 function chargementPage()
 {
 	var i;

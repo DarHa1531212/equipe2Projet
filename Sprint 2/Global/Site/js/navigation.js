@@ -9,6 +9,25 @@ function Requete(callback){
     });
 }
 
+function UploadFile(callback){
+    var file_data = $('#file').prop('files')[0];   
+    var form_data = new FormData();                  
+    form_data.append('file', file_data);
+    
+    $.ajax({
+        url: Url(arguments), 
+        dataType: 'text',  
+        cache: false,
+        contentType: false,
+        processData: false,
+        data: form_data,                         
+        type: 'post',
+        success: function(data){
+            callback(data);
+        }
+    });
+}
+
 //Construit l'URL selon les derniers paramètre de la fonction Execute.
 function Url(){
     var url = "";
@@ -16,7 +35,7 @@ function Url(){
     
     for(var i = 1; i < parametre.length; i++){
         url += parametre[i];
-        url = url.replace('\n', '<br/>');
+        url = url.replace('\n', '\\n');
     }
     
     return url;
@@ -44,5 +63,6 @@ function Execute(choix){
             break;
         case 2: Requete(ExecuteQuery, arguments);
             break;
+        case 3: UploadFile(ExecuteQuery, arguments);
     }
 }
