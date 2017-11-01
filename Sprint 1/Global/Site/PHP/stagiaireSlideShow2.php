@@ -38,7 +38,7 @@
 
                                                 );");
 
-    $requeteEvaluationsStage = $bdd->prepare("SELECT St.Id as 'IdStage', Eva.Id as 'IdEvaluation',Eva.DateComplétée as 'DateComplétée',Eva.Statut as 'Statut',Eva.DateDébut as 'DateDébut',Eva.DateFin as 'DateFin', TE.Titre as 'TitreTypeEvaluation'
+    $requeteEvaluationsStage = $bdd->prepare("SELECT St.Id as 'IdStage', Eva.Id as 'IdEvaluation',Eva.DateComplétée as 'DateComplétée',Eva.Statut as 'Statut',Eva.DateDébut as 'DateDébut',Eva.DateFin as 'DateFin',TE.Id as 'IdTypeEvaluation', TE.Titre as 'TitreTypeEvaluation'
                                                 FROM vEvaluation as Eva
                                                 join vTypeEvaluation as TE
                                                 on TE.Id = Eva.IdTypeEvaluation
@@ -47,6 +47,7 @@
                                                 join vStage as St
                                                 on St.Id = ES.IdStage
                                                 where IdStage = :IdStage;");
+
 
     $requeteStagesResponsable->execute(array('IdResponsable'=> $_SESSION['idConnecte']));
 
@@ -156,15 +157,15 @@
                                         {
                                             //accéssible
                                              echo '<tr>
-                                                                <td>'.EvaluationCliquable($evaluationsStage[0]['TitreTypeEvaluation'], $evaluationsStage[0]['IdEvaluation'],$stage['Id']).'</td>
+                                                                <td>'.EvaluationCliquable($evaluationsStage[0]['TitreTypeEvaluation'], $evaluationsStage[0],$stage['Id']).'</td>
 
-                                                                <td>'.EvaluationCliquable($listeStatut[$evaluationsStage[0]['Statut']], $evaluationsStage[0]['IdEvaluation'],$stage['Id']).'</td>
+                                                                <td>'.EvaluationCliquable($listeStatut[$evaluationsStage[0]['Statut']], $evaluationsStage[0],$stage['Id']).'</td>
 
-                                                                <td>'.EvaluationCliquable($evaluationsStage[0]['DateDébut'], $evaluationsStage[0]['IdEvaluation'],$stage['Id']).'</td>
+                                                                <td>'.EvaluationCliquable($evaluationsStage[0]['DateDébut'], $evaluationsStage[0],$stage['Id']).'</td>
 
-                                                                <td>'.EvaluationCliquable($evaluationsStage[0]['DateFin'], $evaluationsStage[0]['IdEvaluation'],$stage['Id']).'</td>
+                                                                <td>'.EvaluationCliquable($evaluationsStage[0]['DateFin'], $evaluationsStage[0],$stage['Id']).'</td>
 
-                                                                <td>'.EvaluationCliquable($evaluationsStage[0]['DateComplétée'], $evaluationsStage[0]['IdEvaluation'],$stage['Id']).'</td>
+                                                                <td>'.EvaluationCliquable($evaluationsStage[0]['DateComplétée'], $evaluationsStage[0],$stage['Id']).'</td>
 
                                                     </tr>'; 
                                         }
@@ -188,15 +189,15 @@
                                         {
                                             //accéssible
                                              echo '<tr>
-                                                                <td>'.EvaluationCliquable($evaluationsStage[1]['TitreTypeEvaluation'], $evaluationsStage[1]['IdEvaluation'],$stage['Id']).'</td>
+                                                                <td>'.EvaluationCliquable($evaluationsStage[1]['TitreTypeEvaluation'], $evaluationsStage[1],$stage['Id']).'</td>
 
-                                                                <td>'.EvaluationCliquable($listeStatut[$evaluationsStage[1]['Statut']], $evaluationsStage[1]['IdEvaluation'],$stage['Id']).'</td>
+                                                                <td>'.EvaluationCliquable($listeStatut[$evaluationsStage[1]['Statut']], $evaluationsStage[1],$stage['Id']).'</td>
 
-                                                                <td>'.EvaluationCliquable($evaluationsStage[1]['DateDébut'], $evaluationsStage[1]['IdEvaluation'],$stage['Id']).'</td>
+                                                                <td>'.EvaluationCliquable($evaluationsStage[1]['DateDébut'], $evaluationsStage[1],$stage['Id']).'</td>
 
-                                                                <td>'.EvaluationCliquable($evaluationsStage[1]['DateFin'], $evaluationsStage[1]['IdEvaluation'],$stage['Id']).'</td>
+                                                                <td>'.EvaluationCliquable($evaluationsStage[1]['DateFin'], $evaluationsStage[1],$stage['Id']).'</td>
 
-                                                                <td>'.EvaluationCliquable($evaluationsStage[1]['DateComplétée'],$evaluationsStage[1]['IdEvaluation'],$stage['Id']).'</td>
+                                                                <td>'.EvaluationCliquable($evaluationsStage[1]['DateComplétée'],$evaluationsStage[1],$stage['Id']).'</td>
 
                                                     </tr>'; 
                                         }
@@ -221,15 +222,15 @@
                                         {
                                             //accéssible
                                              echo '<tr>
-                                                                <td>'.EvaluationCliquable($evaluationsStage[2]['TitreTypeEvaluation'], $evaluationsStage[2]['IdEvaluation'],$stage['Id']).'</td>
+                                                                <td>'.EvaluationCliquable($evaluationsStage[2]['TitreTypeEvaluation'], $evaluationsStage[2],$stage['Id']).'</td>
 
-                                                                <td>'.EvaluationCliquable($listeStatut[$evaluationsStage[2]['Statut']], $evaluationsStage[2]['IdEvaluation'],$stage['Id']).'</td>
+                                                                <td>'.EvaluationCliquable($listeStatut[$evaluationsStage[2]['Statut']], $evaluationsStage[2],$stage['Id']).'</td>
 
-                                                                <td>'.EvaluationCliquable($evaluationsStage[2]['DateDébut'], $evaluationsStage[2]['IdEvaluation'],$stage['Id']).'</td>
+                                                                <td>'.EvaluationCliquable($evaluationsStage[2]['DateDébut'], $evaluationsStage[2],$stage['Id']).'</td>
 
-                                                                <td>'.EvaluationCliquable($evaluationsStage[2]['DateFin'], $evaluationsStage[2]['IdEvaluation'],$stage['Id']).'</td>
+                                                                <td>'.EvaluationCliquable($evaluationsStage[2]['DateFin'], $evaluationsStage[2],$stage['Id']).'</td>
 
-                                                                <td>'.EvaluationCliquable($evaluationsStage[2]['DateComplétée'], $evaluationsStage[2]['IdEvaluation'],$stage['Id']).'</td>
+                                                                <td>'.EvaluationCliquable($evaluationsStage[2]['DateComplétée'], $evaluationsStage[2],$stage['Id']).'</td>
 
                                                     </tr>'; 
                                         }
@@ -248,10 +249,6 @@
 
                                                     </tr>'; 
                                         }
-
-
-
-
                                       
                                            
                                 echo '</tbody>
@@ -270,15 +267,35 @@
             //aucun stage n'est associé a ce responsable
     }
 
-    function EvaluationCliquable($info, $IdEvaluation,$IdStage)
+    function EvaluationCliquable($info, $evaluation,$IdStage)
     {
-        $string =  '<form action="EvaluationStage.php" method="POST">
-                <a class="zoneCliquable" href="javascript:;" onclick="parentNode.submit();">
-                    <input type="hidden" value="' . $IdEvaluation . '" name="IdEvaluation"/>
-                    <input type="hidden" value="' . $IdStage . '" name="IdStage"/>
-                    ' . $info . '
-                </a>
-            </form>';
+        if($evaluation['IdTypeEvaluation'] == 1)//evaluation mi-stage
+        {
+             $string =  '<form action="EvaluationMiStage.php" method="POST">
+                        <a class="zoneCliquable" href="javascript:;" onclick="parentNode.submit();">
+                            <input type="hidden" value="' . $evaluation['IdEvaluation'] . '" name="IdEvaluation"/>
+                            <input type="hidden" value="' . $IdStage . '" name="IdStage"/>
+                            ' . $info . '
+                        </a>
+                    </form>';
+        }
+        else if ($evaluation['IdTypeEvaluation'] == 2)//evaluation finale
+        {
+                 $string =  '<form action="EvaluationFinale.php" method="POST">
+                        <a class="zoneCliquable" href="javascript:;" onclick="parentNode.submit();">
+                            <input type="hidden" value="' . $evaluation['IdEvaluation'] . '" name="IdEvaluation"/>
+                            <input type="hidden" value="' . $IdStage . '" name="IdStage"/>
+                            ' . $info . '
+                        </a>
+                    </form>';
+        }
+        else if ($evaluation['IdTypeEvaluation'] == 3)//evaluation formation
+        {
+                 $string =  $info;
+        }
+
+
+       
 
         return $string;
     }

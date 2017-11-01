@@ -1,4 +1,6 @@
 <?php
+
+    include 'Session.php'; 
     
     try
     {
@@ -10,11 +12,10 @@
     }
 
 
-    
     $requeteModificationEvaluationQuestionReponse = $bd->prepare('update tblEvaluationQuestionReponse SET IdReponse = :IdReponse
     WHERE IdEvaluation = :IdEvaluation AND IdQuestion = :IdQuestion;');
 
-    $requeteModifierStatutEvaluation = $bd->prepare(' update tblEvaluation set Statut = \'3\',DateComplétée = :DateCompletee where Id = :IdEvaluation;');
+    $requeteModifierStatutEvaluation = $bd->prepare('update tblEvaluation set Statut= \'3\', DateComplétée=:DateCompletee where Id=:IdEvaluation;');
     
 
      $requeteQuestions = $bd->prepare('select distinct(IdQuestion), DescriptionQuestion
@@ -27,20 +28,17 @@
                                         where IdEvaluation = :IdEvaluation
                                         order by IdCategorieQuestion ASC;');
 
-     //$requeteInsertionEvaluation->execute(array('Statut'=>0,'IdTypeEvaluation'=>1));
+      //$requeteInsertionEvaluation->execute(array('Statut'=>0,'IdTypeEvaluation'=>1));
 
-      $requeteCategories->execute(array('IdEvaluation'=>$_POST['IdEvaluation']));
+      $requeteCategories->execute(array('IdEvaluation'=>$_SESSION['IdEvaluation']));
 
-      $requeteModifierStatutEvaluation->execute(array('IdEvaluation'=>$_POST['IdEvaluation'],'DateCompletee'=>date("Y-m-d")));
-
-
+      $requeteModifierStatutEvaluation->execute(array('IdEvaluation'=>$_SESSION['IdEvaluation'],'DateCompletee'=>date("Y-m-d")));
 
       $categoriesQuestion = $requeteCategories->fetchAll();
 
       foreach($categoriesQuestion as $categorie)
       {
-
-               $requeteQuestions->execute(array('IdEvaluation'=>$_POST['IdEvaluation'],'IdCategorieQuestion'=> $categorie['IdCategorieQuestion']));
+              $requeteQuestions->execute(array('IdEvaluation'=>$_SESSION['IdEvaluation'],'IdCategorieQuestion'=> $categorie['IdCategorieQuestion']));
 
               $questions = $requeteQuestions->fetchAll();
 
@@ -48,17 +46,11 @@
               {
                   $idReponse = htmlspecialchars($_POST['question'.$question['IdQuestion']]);   
 
-                  $requeteModificationEvaluationQuestionReponse->execute(array('IdEvaluation'=>$_POST['IdEvaluation'],'IdQuestion'=>$question['IdQuestion'],'IdReponse'=>$idReponse));
+                  $requeteModificationEvaluationQuestionReponse->execute(array('IdEvaluation'=>$_SESSION['IdEvaluation'],'IdQuestion'=>$question['IdQuestion'],'IdReponse'=>$idReponse));
               }
 
       }
 
-      
+      header('Location:TBEntreprise.php'); 
 
-     header('Location:TBEntreprise.php'); 
-
-    //Script pour updater les evaluations
-
-    //UPDATE tblQuestionGrilleEvaluation SET IdReponse = 2
-    //WHERE IdEvaluation = 1 AND IdQuestionGrille = 2;
 ?>
