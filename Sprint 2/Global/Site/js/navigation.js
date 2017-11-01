@@ -35,7 +35,7 @@ function Url(){
     
     for(var i = 1; i < parametre.length; i++){
         url += parametre[i];
-        url = url.replace('\n', '\\n');
+        url = url.replace(/(?:\r\n|\r|\n)/g, '\\n');
     }
     
     return url;
