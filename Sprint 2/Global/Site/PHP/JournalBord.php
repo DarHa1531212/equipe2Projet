@@ -96,7 +96,7 @@
         if($doc != null && $doc != "")
         {
             $method = "AfficherImage('". $doc . "','" . pathinfo($doc)['extension'] ."')";
-            return '<p><span id="divBouton" onclick="' . $method . '">Pièce jointe</span></p>'; //faire ici l'affichage en absolute
+            return '<div><span id="divBouton" onclick="' . $method . '">Pièce jointe</span></div>'; //faire ici l'affichage en absolute
         }
         else
         {
@@ -116,7 +116,7 @@
                 <h2>Journal de bord</h2>
                 <h3>Dernière entrée il y a : '.DerniereEntree($bdd, $idStagiaire).' jour(s)</h3>
             </div>
-            <p id="imageJointe"></p>
+            <div id="imageJointe"></div>
 
             <div class="separateur">
                 <h3>Nouvelle Entrée</h3>

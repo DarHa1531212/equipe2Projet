@@ -4,7 +4,7 @@ function AfficherImage(doc, ext)
 {
 	if(!affichage)
 	{
-		var contenu= "<img src='../Upload/" + doc + "' class='imageJointe' onclick='EnleverImage()'>";
+		var contenu= "<div class='pieceJointe' onclick='EnleverImage()'><img class='centerImage' src='../Upload/" + doc + "' class='imageJointe'></div>";
 		affichage=!affichage;
 	    document.getElementById('imageJointe').innerHTML = contenu;
 	}

@@ -249,3 +249,20 @@ input[type=file]{
     
     .champ{width: 100%;}
 }
+
+/* ---------------------------------------------------*/
+
+.pieceJointe{
+    width: 300%;
+    position: fixed;
+    height: 200%;
+    left: 50%;
+    margin-left: -57.5%;
+    margin-top: -25%;
+    background: rgba(0,0,0,0.5);
+}
+
+.centerImage{
+    margin-right:65%;
+    margin-top:7%;
+}
