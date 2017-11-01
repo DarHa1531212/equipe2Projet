@@ -1,5 +1,5 @@
 <?php
-    
+
     include 'ConnexionBD.php';
 
     function DateDifference($date_1 , $date_2 , $differenceFormat = '%a' ){
@@ -25,6 +25,17 @@
         return $derniereEntree;
     }
 
+    function LineBreak($texte){
+        $split = explode("\\n", $texte);
+        $texte = "";
+        
+        for($i = 0; $i < count($split); $i++){
+            $texte = $texte.$split[$i] . "<br/>";
+        }
+        
+        return $texte;
+    }
+
     function SelectEntrees($bdd, $idStagiaire){
         $limit = "";
         $div = "";
@@ -42,9 +53,8 @@
             $dates = $entree["Dates"];
             $dateComplete = $entree["DateComplete"];
             $document = $entree['Fichier'];
-            $texte = $texte;
 
-            $div = $div.'<div class="entree"><h2>'.$dates.'</h2><p>' .$texte. '</p><p>' . PieceJointe($document) . '</p></div>';
+            $div = $div."<div class=\"entree\"><h2>".$dates."</h2><p>" .LineBreak($texte). "</p><p>" . PieceJointe($document) . "</p></div>";
         }
         
         if(isset($_REQUEST['nbEntree']))
@@ -60,31 +70,23 @@
             include 'UploadFile.php';
             $entree = array(htmlspecialchars($_POST['contenu']));
 
-            if($verif)
+            if ($entree[0] != "" && isset($_FILES['file']) && $_FILES['file']['name'] != "")
             {
-                if ($entree[0] != "" && isset($_FILES['fichier']) && $_FILES['fichier']['name'] != "")
-                {
-                    $query = $bdd->prepare("INSERT INTO tblJournalDeBord (Entree, idStagiaire, Dates, Documents) VALUES (:text, :id,'$date', :file);");
-                    $query->bindValue( 'text', $entree[0], PDO::PARAM_STR );
-                    $query->bindValue( 'id', $idStagiaire, PDO::PARAM_INT);
-                    $query->bindValue( 'file', $fichier, PDO::PARAM_STR);
-                    $query->execute();
-                }
-                else
-                {
-                    if($entree[0] != "")
-                    {
-                        $query = $bdd->prepare("INSERT INTO tblJournalDeBord (Entree, idStagiaire, Dates) VALUES (:text, :id,'$date');");
-                        $query->bindValue( 'text', $entree[0], PDO::PARAM_STR );
-                        $query->bindValue( 'id', $idStagiaire, PDO::PARAM_INT);
-                        $query->execute();
-                    }
-                }
+                $query = $bdd->prepare("INSERT INTO tblJournalDeBord (Entree, idStagiaire, Dates, Documents) VALUES (:text, :id,'$date', :file);");
+                $query->bindValue( 'text', $entree[0], PDO::PARAM_STR );
+                $query->bindValue( 'id', $idStagiaire, PDO::PARAM_INT);
+                $query->bindValue( 'file', $fichier, PDO::PARAM_STR);
+                $query->execute();
             }
             else
             {
-                //$_SESSION['textJournal'] = $text;
-                ?><script>alert("Test concluant");</script><?php
+                if($entree[0] != "")
+                {
+                    $query = $bdd->prepare("INSERT INTO tblJournalDeBord (Entree, idStagiaire, Dates) VALUES (:text, :id,'$date');");
+                    $query->bindValue( 'text', $entree[0], PDO::PARAM_STR );
+                    $query->bindValue( 'id', $idStagiaire, PDO::PARAM_INT);
+                    $query->execute();
+                }
             }
         }
         else
@@ -123,14 +125,15 @@
             <div class="separateur">
                 <h3>Nouvelle Entrée</h3>
             </div>
-            <form action="#" method="POST" name="Donnee">
-                <textarea id="contenu" rows="5" cols="100" maxlength="500" name="contenu" wrap="hard"></textarea>
-                <input type="hidden" name="maxFileSize" value="2000000">
-                <input class="inputFile" id="fichier" type="file" value="Envoyer" name="fichier"/>
-                <br/>                                                                             
-                <input style="width: 120px;" class="bouton" type="button" value="Envoyer" onclick="Execute(2, \'../PHP/TBNavigation.php?idStagiaire='.$idStagiaire.'&nomMenu=Journal\', \'&contenu=\', contenu.value); Execute(1, \'../PHP/TBNavigation.php?idStagiaire='.$idStagiaire.'&nomMenu=Journal\', \'&nbEntree=\', 5); Donnee.submit();"/>
-                <label class="bouton labelFile" for="file">Pièce Jointe</label
-            </form>
+
+            <textarea id="contenu" rows="5" cols="100" maxlength="500" name="contenu" wrap="hard"></textarea>
+            <input type="hidden" name="maxFileSize" value="2000000">
+            <input class="inputFile" id="file" type="file" value="Envoyer" name="fichier"/>
+
+            <br/>                                                                             
+            <input style="width: 120px;" class="bouton" type="button" value="Envoyer" onclick="Execute(3, \'../PHP/TBNavigation.php?idStagiaire='.$idStagiaire.'&nomMenu=Journal\', \'&contenu=\', contenu.value); Execute(1, \'../PHP/TBNavigation.php?idStagiaire='.$idStagiaire.'&nomMenu=Journal\', \'&nbEntree=\', 5)"/>
+            <label class="bouton labelFile" for="file">Pièce Jointe</label>
+
             <div class="separateur">
                 <h3>Toutes les entrées</h3>
             </div>

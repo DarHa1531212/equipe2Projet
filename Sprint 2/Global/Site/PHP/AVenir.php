@@ -1,1 +1,4 @@
-<?php?>
+<?php
+    $content = "";
+    return $content;
+?>

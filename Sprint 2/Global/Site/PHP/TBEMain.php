@@ -53,14 +53,14 @@
             </thead>
 
             <tbody>
-                <tr class="itemHover">
+                <tr class="itemHover" onclick="Execute(1, \'../PHP/TBNavigation.php?idEmploye='.$profil["IdSuperviseur"].'&nomMenu=Eval\')">
                     <td>Évaluation mi-stage</td>
                     <td>Non complétée</td>
                     <td>2017-02-15</td>
                     <td></td>
                 </tr>
 
-                <tr class="itemHover">
+                <tr class="itemHover" onclick="Execute(1, \'../PHP/TBNavigation.php?idEmploye='.$profil["IdSuperviseur"].'&nomMenu=Eval\')">
                     <td>Évaluation finale</td>
                     <td>Complétée</td>
                     <td>2017-03-30</td>
@@ -73,7 +73,7 @@
         
         if(count($profils) > 1){
             $content = $content.
-            '<input class="bouton" type="button" value="Écrire un commentaire"/>
+            '<input class="bouton" type="button" value="Écrire un commentaire" onclick="Execute(1, \'../PHP/TBNavigation.php?idEmploye='.$profil["IdSuperviseur"].'&nomMenu=Avenir\')"/>
 
             <div class="navigateur">
                 <div class="fleche flecheGauche" onclick="ChangerStagiaire(this)"></div>
