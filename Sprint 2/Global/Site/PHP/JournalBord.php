@@ -30,7 +30,7 @@
         $texte = "";
         
         for($i = 0; $i < count($split); $i++){
-            $texte = $texte.$split[$i] . "<br/>";
+            $texte = $texte.$split[$i] . "\n";
         }
         
         return $texte;
@@ -66,9 +66,9 @@
     function NouvelleEntree($bdd, $idStagiaire){
         $date = date('Y-m-d h:i:s', time());
         
-        if(isset($_POST['contenu'])){
+        if(isset($_REQUEST['contenu'])){
             include 'UploadFile.php';
-            $entree = array(htmlspecialchars($_POST['contenu']));
+            $entree = array(htmlspecialchars($_REQUEST['contenu']));
 
             if ($entree[0] != "" && isset($_FILES['file']) && $_FILES['file']['name'] != "")
             {
@@ -89,10 +89,6 @@
                 }
             }
         }
-        else
-        {
-            ?><script>alert("il ne rentre pas super....");</script><?php
-        }
     }
 
     function PieceJointe($doc)
@@ -109,7 +105,7 @@
         }
     }
     
-    if(isset($_POST['contenu'])){
+    if(isset($_REQUEST['contenu'])){
         NouvelleEntree($bdd, $idStagiaire);
     }
     else{
