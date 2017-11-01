@@ -9,6 +9,8 @@ var lettreCategories = document.getElementsByClassName("lettreCategories");
 
 var enteteCategories = document.getElementsByClassName("enteteCategorieQuestion");
 
+var indiceQuestion = document.getElementById("indiceQuestion");
+
 var indiceBlocCategorie = 0;
 
 var boutonSuivant = document.getElementById("boutonSuivant");
@@ -33,11 +35,31 @@ function chargementPage()
 {
 	cacheTousLesBlocCategories();
 
+	//indiceQuestion.innerHTML = indiceBlocCategorie+1;
+
 	blocCategories[0].style.display = 'block';
 	enteteCategories[0].style.display = 'block';
 	//boutonPrecedent.style.display = 'none';
 	boutonPrecedent.disabled=true;
 	lettreCategories[0].style.borderColor = 'blue';
+
+	
+	//cocheReponse();
+}
+
+function chargementPageEvalFinale()
+{
+	cacheTousLesBlocCategories();
+
+	indiceQuestion.innerHTML = indiceBlocCategorie+1;
+
+	blocCategories[0].style.display = 'block';
+	enteteCategories[0].style.display = 'block';
+	//boutonPrecedent.style.display = 'none';
+	boutonPrecedent.disabled=true;
+	//lettreCategories[0].style.borderColor = 'blue';
+
+	
 	//cocheReponse();
 }
 
@@ -66,6 +88,33 @@ function afficheCategorieSuivante()
 	
 }
 
+function afficheCategorieSuivanteEvalFinale()
+{
+
+	boutonPrecedent.disabled=false;
+	boutonSuivant.disabled = false;
+
+	indiceBlocCategorie++;
+
+	cacheTousLesBlocCategories();
+
+	blocCategories[indiceBlocCategorie].style.display = 'block';
+	enteteCategories[indiceBlocCategorie].style.display = 'block';
+
+	initialiseLettreAlphabet()
+	//lettreCategories[indiceBlocCategorie].style.borderColor = 'Blue';
+
+	if(indiceBlocCategorie == blocCategories.length - 1)
+	{
+		boutonPrecedent.disabled=false;
+		boutonSuivant.disabled = true;
+	}
+
+	indiceQuestion.innerHTML = indiceBlocCategorie+1;
+	
+}
+
+
 function afficheCategoriePrecedente()
 {
 	boutonPrecedent.disabled=false;
@@ -86,6 +135,31 @@ function afficheCategoriePrecedente()
 		boutonPrecedent.disabled = true;
 		boutonSuivant.disabled = false;
 	}
+
+}
+
+function afficheCategoriePrecedenteEvalFinale()
+{
+	boutonPrecedent.disabled=false;
+	boutonSuivant.disabled = false;
+	
+	indiceBlocCategorie--;
+
+	cacheTousLesBlocCategories();
+
+	blocCategories[indiceBlocCategorie].style.display = 'block';
+	enteteCategories[indiceBlocCategorie].style.display = 'block';
+
+	initialiseLettreAlphabet();
+	//lettreCategories[indiceBlocCategorie].style.borderColor = 'Blue';
+
+	if(indiceBlocCategorie == 0)
+	{
+		boutonPrecedent.disabled = true;
+		boutonSuivant.disabled = false;
+	}
+
+	indiceQuestion.innerHTML = indiceBlocCategorie+1;
 
 }
 

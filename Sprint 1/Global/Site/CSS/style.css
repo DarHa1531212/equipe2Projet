@@ -424,17 +424,34 @@ footer{
 .enteteCategorieQuestion
 {
      text-align: center;
+     padding-bottom:0%;
 }
 
 .lolipop{
     margin: 8px;
 }
 
-/* Style évaluations Hans */
+/* questions evaluation finale */
 
-h2.question{
-background-color: blue;
-text-align: center;
-color: white;
-width: 50%;
+p.question
+{
+    background-color: #083A7C;
+    color: white;
+    width: 100%;
+    height:auto;
+    padding: 1%;
+}
+
+.blocQuestion
+{
+    width: 90%;
+    height:auto;
+    background-color: none;
+    margin:auto;
+    padding:0.5%;
+}
+
+.blocQuestion p
+{
+    text-align: left;
 }
