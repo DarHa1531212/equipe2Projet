@@ -1,9 +1,3 @@
-<?php 
-      include 'Session.php'; 
-      include 'ConnexionBD.php';
-?>
-
-
 <!DOCTYPE html>
 <html>
     
@@ -12,12 +6,12 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <title>Évaluation des stages</title>
         <meta name="description" content="An interactive getting started guide for Brackets.">
-        <link rel="stylesheet" href="../CSS/style.css">
-        <link rel="stylesheet" media="screen and (max-width: 1240px)" href="../CSS/style-1240px.css" />
-        <link rel="stylesheet" media="screen and (max-width: 1040px)" href="../CSS/style-1040px.css" />
-        <link rel="stylesheet" media="screen and (max-width: 735px)" href="../CSS/style-735px.css" />
+        <link rel="stylesheet" href="CSS/style.css">
+        <link rel="stylesheet" media="screen and (max-width: 1240px)" href="CSS/style-1240px.css" />
+        <link rel="stylesheet" media="screen and (max-width: 1040px)" href="CSS/style-1040px.css" />
+        <link rel="stylesheet" media="screen and (max-width: 735px)" href="CSS/style-735px.css" />
     </head>
-
+    
     <body onload="chargementPage()">
         <header>
             <aside class="left">
@@ -29,9 +23,9 @@
             </div>
             
             <aside class="right "id="profil">
-                <a class="zoneCliquable" href="Profil.php">
+                <a class="zoneCliquable" href="ProfilEntreprise.html">
                     <h3>Bonjour</h3>
-                    <h3><?php echo $_SESSION['PrenomConnecte'] . ' ' . $_SESSION['NomConnecte']; ?></h3>
+                    <h3>Martin Mystère</h3>
                 </a>
             </aside>
         </header>
@@ -48,83 +42,53 @@
             </div>
             
             <div class="conteneur">
-
                 <div class="entete">
                     <h1>Identification</h1>
                 </div>
-                <?php
-
-                    $requeteInfosEntreprise = $bdd->prepare('select En.Id, En.Nom
-                                                                FROM vEntreprise as En
-                                                                WHERE En.Id = 
-                                                                ( 
-                                                                    SELECT IdEntreprise
-                                                                    FROM vEmploye
-                                                                    WHERE IdUtilisateur = :IdUtilisateur
-                                                                );');
-
-                     $requeteEnseignantStage = $bdd->prepare("select Id, Nom, Prenom, NumTel
-                                                from vEmploye
-                                                where IdUtilisateur = (
-
-                                                select IdEnseignant
-                                                from vStage
-                                                where Id = :IdStage
-
-                                                );");
-
-                    $requeteStagiaireStage = $bdd->prepare("select Id, Nom, Prenom, NumTel
-                                                from vStagiaire
-                                                where IdUtilisateur = (
-
-                                                select IdStagiaire
-                                                from vStage
-                                                where Id = :IdStage
-
-                                                );");
-
-                    $requeteInfosEntreprise->execute(array('IdUtilisateur'=>$_SESSION['idConnecte']));
-
-                    $requeteStagiaireStage->execute(array('IdStage'=>$_POST['IdStage']));
-                    //$requeteInfosResponsableEntreprise->execute(array('idStagiaire'=>1));
-                    $requeteEnseignantStage->execute(array('IdStage'=>$_POST['IdStage']));
-
-                    $entreprises = $requeteInfosEntreprise->fetchAll();
-                    $stagiaires = $requeteStagiaireStage->fetchAll();
-                    //$responsablesEntreprise = $requeteInfosResponsableEntreprise->fetchAll();
-                    $enseignants = $requeteEnseignantStage->fetchAll();
-
-                    echo '<table cla/ss="table tableIdentification">
+                
+                <table class="table tableIdentification">
                     <tbody>
                         <tr>
                             <td class="rowTitle">
                                 Organisation
-                            </td>';
-
-                    echo '<td>'.$entreprises[0]['Nom'].'</td><tr>
-                            <td class="rowTitle">
-                                Responsable en entreprise
-                            </td><td>'.$_SESSION['PrenomConnecte'].' '.$_SESSION['NomConnecte'].'</td></tr>
+                            </td>
+                            
+                            <td>
+                                Test
+                            </td>
+                        </tr>
                         
                         <tr>
                             <td class="rowTitle">
-                                Enseignant
+                                Responsable technique
                             </td>
                             
-                            <td>'.$enseignants[0]['Prenom'].' '.$enseignants[0]['Nom'].'</td></tr>
+                            <td>
+                                Test
+                            </td>
+                        </tr>
+                        
+                        <tr>
+                            <td class="rowTitle">
+                                Responsable pédagogique
+                            </td>
+                            
+                            <td>
+                                Test
+                            </td>
+                        </tr>
                         
                         <tr>
                             <td class="rowTitle">
                                 Élève stagiaire
                             </td>
                             
-                            <td>'.$stagiaires[0]['Prenom'].' '.$stagiaires[0]['Nom'].'</td></tr>
-                            </tbody>
-                        </table>';
-                ?>
-                
-
-               
+                            <td>
+                                Test
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
             </div>
 
            
@@ -135,33 +99,122 @@
                     <h1>Évaluation</h1>
                 </div>
 
-              
+                <form onsubmit="return valider();" method="post" action="evaluationPost.php">
 
-                <?php
+                 <?php
 
-                     $_SESSION['IdEvaluation'] = $_POST['IdEvaluation'];
 
-                    $requeteTypeEvaluation = $bdd->prepare('select distinct(IdTypeEvaluation)
-                                                                from vEvaluations
-                                                                where IdEvaluation = :IdEvaluation;');
 
-                    $requeteTypeEvaluation->execute(array('IdEvaluation'=>$_SESSION['IdEvaluation']));
+                    include 'PHP/ConnexionBD.php';
 
-                    $typeEvaluation =  $requeteTypeEvaluation->fetchAll();
 
-                    if($typeEvaluation[0]['IdTypeEvaluation'] == 1)//evaluation mi-stage
+                    $requeteReponses = $bd->prepare('select distinct(RE.Id), RE.Texte
+                                                    FROM tblQuestionGrille AS QG
+                                                    JOIN tblReponseQuestionGrille AS RQG
+                                                    ON QG.Id = RQG.IdQuestionGrille
+                                                    JOIN tblReponse AS RE
+                                                    ON RE.Id = RQG.IdReponse
+                                                    WHERE QG.idCategorieQuestion = :idCategorieQuestion');
+
+                    $requeteQuestions = $bd->prepare('select QG.Id,QG.Texte
+                                                    FROM tblQuestionGrille AS QG
+                                                    WHERE QG.idCategorieQuestion = :idCategorieQuestion');
+
+
+                    $requeteCategories = $bd->prepare('select * from tblCategorieQuestion');
+
+
+                    $requeteCategories->execute();
+
+                    $i=1;
+
+                    while (($categorie = $requeteCategories->fetch()) and ($i<=7))
                     {
-                        include 'EvaluationMiStage.php';
-                    }
-                    else if($typeEvaluation[0]['IdTypeEvaluation'] == 2)//evaluation finale
-                    {
-                        include 'EvaluationFinale.php';
-                    }
-                    else
-                    {
-                        echo 'aucun type';
+
+                        $indiceQuestion = 0;
+
+                        $indiceReponse = 0;
+
+                        $requeteReponses->execute(array('idCategorieQuestion'=> $categorie['Id']));
+
+                        $requeteQuestions->execute(array('idCategorieQuestion'=> $categorie['Id']));
+
+                                                
+                        $reponses = $requeteReponses->fetchAll();
+
+                        $questions = $requeteQuestions->fetchAll();
+                        
+
+                            echo '  <div class="enteteCategorieQuestion" id="descriptionCategorie'.$i.'">
+                                        <h3>'.$categorie['descriptionCategorie'].'</h3>
+                                    </div>
+
+                                    <div id="categorie'.$i.'">
+                                    <table class="table tbEvaluation">
+                                        <thead>
+                                         <tr>
+                                          <th class="critere">Critères</th>';
+
+                        foreach($reponses as $reponse)
+                        {
+                            echo '<th class="critere reponse">'.$reponse['Texte'].'</th>';
+                        }
+
+                        echo '</tr>
+                        </thead>
+                        <tbody>';
+
+                        foreach($questions as $question)
+                        {
+                            $indiceQuestion++;
+
+                            $indiceReponse=0;
+
+                            echo '<tr><td class="critere">'.$question['Texte'].'</td>';
+
+                                foreach ($reponses as $reponse) 
+                                {
+                                    $indiceReponse++;
+
+                                    echo '<td><input type="radio" name="question'.$question['Id'].'" value="'.$reponse['Id'].'"></td>';
+                                }
+
+                                  echo '</tr>';
+                        }
+
+                            echo '</tbody>
+                                    </table>
+                                </div>';
+
+                        $i++;
+
                     }
                 ?>
+               
+                    <div class="btnSectionContainer">
+
+                        <div class="btnNomSectionContainer">
+
+                            <?php
+
+                                $listeAlphabet = array('A','B','C','D','E','F','G','H','I','J','K','L','M','N');
+
+                                for($i=0;$i<=6;$i++)
+                                {
+                                    echo '<input type="button" onclick="afficheCategorie('.($i+1).')" class="btnSectionEval" value="'.$listeAlphabet[$i].'"/>';
+                                }
+
+                            ?>
+
+                        </div>
+                         
+                        <div  class="btnContainer">
+                            <input type="submit" class="btnSectionEval btnNextSection" value="Valider" id="boutonValider"/>
+                        </div>
+
+                    </div>
+
+               </form>
 
             </div>
 
@@ -171,10 +224,6 @@
         
         </footer>
 
-        <script src="../js/scripts.js">
-
-        </script>
-
+        <script src="js/scripts.js"></script>
     </body>
 </html>
-

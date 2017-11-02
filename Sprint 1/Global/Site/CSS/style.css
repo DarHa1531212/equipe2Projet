@@ -1,457 +1,248 @@
-.bootstrap{
-    padding: 8px;
-    height: 109px;
+body{
+    font-family: 'Roboto', sans-serif;
+    color: #4b4b4b;
+    background-color: #fafafa;
 }
 
-header {
-    background-color: #083A7C;
-    height: 100px;
-    width: calc(100% + 15px);
-    margin-left: -10px;
-    margin-top: -10px;
-    border-bottom: 1px solid black;
-}
-
-header>.left{
-    width: 200px;
-    height: 100px;
-    display: inline-block;
-    vertical-align: top;
-}
-
-#logo{
+section{
+    text-align: center;
     height: 100%;
-    width: 100%;
 }
 
-header>.conteneur{
-    width: calc(100% - 400px);
-    height: 100px;
-    margin-left: -5px;
-    margin-right: -5px;
+.ressources{
+    margin-top: 40px;
     display: inline-block;
-}
-
-header>.right{ 
-    border-left: 2px solid white;
-    width: 200px;
-    height: 100px;
-    display: inline-block;
-    vertical-align: top;
-    text-align: center;
-}
-
-header>.right>a{
-    color: white;
-}
-
-header>.right>a:hover{
-    background-color: #0a499b;
-}
-
-/* --------------------------------------------------------------- */
-
-content>.conteneur{
-    margin-top: 20px;
-    background-color: #CBD4E0;
-    height: auto;
-    border-radius: 5px;
-    box-shadow: 2px 2px 5px #e1e1e1;
-    border-bottom: 1px solid #b7c6cf;
-    border-right: 1px solid #b7c6cf;
-}
-
-content>.ressource>.item{
-    list-style: none;
-    margin-top: 5px;
-    line-height: 20px;
-    margin-left: -25px;
-}
-
-content .entete{
-    height: 40px;
-    background-color: #083A7C;
-    color: white;
-    text-align: center;
-    border-radius: 5px 5px 0px 0px;
-    width: calc(100% + 1px);
-}
-
-/* --------------------------------------------------------------- */
-
-#btnPrecedent{
-    background-image: url(../Images/fleche._gauche.png);
-}
-
-#btnSuivant{
-    background-image: url(../Images/fleche._gauche.png);
-    transform: scale(-1);
-}
-
-.asideButtons{
-    width: 70px;
-    height: 70px;
-    margin-top: auto;
-    margin-bottom: auto;
-    background-color: #083A7C;
-    background-size: 60%;
-    background-repeat: no-repeat;
-    background-position: center;
-    border: outset 1px #CBD4E0;
-    transition: 0.1s;
-}
-
-.asideButtons:hover{
-    background-size: 70%;
-}
-
-.asideButtons:active{
-    border: inset 2px white;
-}
-
-.slideContainerAsides{
-    width: 80%;
-    margin: auto;
-    display: flex;
-}
-
-.slideContainerAsides>#slideContainer{
-    width: 90%;
-    margin-left: 10px;
-    margin-right: 10px;
-    overflow-x: hidden;
-    white-space: nowrap;
-    font-size: 0px;
-}
-
-content>.conteneur>.slideContainerAsides>#slideContainer>.infoStagiaire{
-    height: auto;
-    width: 100%;
+    border-bottom: solid grey 1px;
     margin-bottom: 20px;
-    margin-top: 20px;
-    padding-top: 20px;
-    padding-bottom: 30px;
-    background-color: rgba(255,255,255,0.6);
-    display: inline-block;
-    font-size: 16px;
-    white-space:normal;
 }
 
-.infoStagiaire>.zoneProfil{
-    width: 100%;
+.ressourceItem{
     display: inline-block;
     text-align: center;
+    width: 150px;
 }
 
-.infoStagiaire>.zoneProfil>.element{
-    margin: 10px;
-    width: 300px;
-    background-color: #f5f5f5;/*rgb(255,255,255)*/;
-    border: solid 1px #CBD4E0;
-    height: auto;
-    text-align: center;
+.divImage{
     display: inline-block;
-    white-space: nowrap;
+    height: 75px;
+    width: 75px;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    transition: 0.120s;
 }
 
-.element>.entete{
+.imgPDF{
+    background-image: url(../Images/pdfIcon.png);
+}
+
+.imgPDF:hover{
+    background-image: url(../Images/pdfIconR.png);
+}
+
+.imgDOC{
+    background-image: url(../Images/docIcon.png);
+}
+
+.imgDOC:hover{
+    background-image: url(../Images/docIconB.png);
+}
+
+.stagiaire{
     height: auto;
-    border-radius: 0px;
-}
-
-.element>.entete>h2{
-    margin: 0px;
-}
-
-/* --------------------------------------------------------------- */
-
-th{
-    border-bottom: solid 1px #CBD4E0;
-    text-align: left;
-    height: 20px;
-    padding-left: 10px;
-    background-color: #eaeef3;
-}
-
-td{
-    border-bottom: solid 1px #CBD4E0;
-    height: 40px;
-    padding-left: 10px;
-}
-
-tr:hover{
+    width: 65%;
+    margin: auto;
+    padding: 15px;
+    margin-bottom: 60px;
     background-color: white;
+    box-shadow: 0px 1px 2px 1px #f0f0f0;
 }
 
-tbody{
-    border: solid 1px #CBD4E0;
+.infoStagiaire{
+    text-align: left;
+    line-height: 5px;
 }
 
-table{
-    width: 90%;
-    margin: auto;
-    margin-top: 20px;
-    border-collapse: collapse;   
-    background-color: #f5f5f5;
+.infoStagiaire > *{
+    display: inline-block;
+    width: calc(100% - 144px);
 }
 
-/* --------------------------------------------------------------- */
-
-.commentaireContainer{
-    width: 90%;
-    margin: auto;
-    margin-top: 20px;
-    text-align: right;
-}
-
-#boutonCommentaire{
-    width: 100%;
-    font-size: 25px;
-    transition: 0.15s;
-}
-
-.bouton:hover{
-    background-color: #f9a11d;
-}
-
-.bouton:active{
-    transition: 0s;
-    background-color: #ffb74d;
-    border: inset 2px #f9a11d;
+.infoStagiaire > input{
+    width: 140px;
 }
 
 .bouton{
-    width: 220px;
-    height: auto;
-    font-size: 20px;
-    background-color: #083A7C;
+    height: 35px;
     color: white;
-    padding: 5px;
-    transition: 0.15s;
-    border: outset 2px #083A7C;
+    background-color: #0a3a7c;
+    border-color: #0a3a7c;
+    font-family : inherit;
+    font-size: 15px;
 }
 
-#boutonProfilStagiaire{
-    margin-bottom: 15px;
+.bouton:hover{
+    border-color: #4580c1;
+    background-color: #1e4e90;
 }
 
-/* --------------------------------------------------------------- */
+.bouton:active{
+    background-color: #3262a4;
+}
 
-.conteneur>.content{
-    width: 80%;
+.blocInfo{
+    width: 49.5%;
     margin: auto;
-    background-color: rgba(255,255,255,0.6);
-    padding-top: 20px;
-    margin-top: 20px;
-    margin-bottom: 20px;
+    display:inline-block;
+    border: solid 1px gainsboro;
 }
 
-.entree{
-    background-color: #f5f5f5;
-    width: 90%;
-    margin: auto;
-    border: solid 1px #CBD4E0;
-    margin-top: 10px;
-    margin-bottom: 20px;
-    padding-left: 15px;
+.infoProfil{
+    width: 99.5%;
 }
 
-.nouvelleEntree{
-    width: 100%;
-    text-align: center;
-}
-
-textarea{
-    width: 70%;
-    height: 150px;
+.champ{
     display: inline-block;
-    resize: none;
+    width: 45%;
 }
 
-/* --------------------------------------------------------------- */
-
-.containerInfoProfil{
-    margin: auto;
-    height: 350px;
-    width: 70%;
-    background-color: #f5f5f5;
-    border: solid 1px #CBD4E0;
-}
-
-.bordureBleu{
-    width: 20%;
-    height: 350px;
-    background-color: #083A7C;
+.label{
     display: inline-block;
 }
 
-.infoPerso{
+.labelForInput{
+    width: 150px;
+}
+
+.value{
+    display: inline-block;
+}
+
+input.value{
+    width: 200px;
+    height: 20px;
+    font-size: 17px;
+    vertical-align: middle;
+}
+
+.info{
+    width: 15px;
+    vertical-align: middle;
+    margin-right: -15px;
+}
+
+table{
+    width: 99.5%;
+    margin: auto;
     text-align: left;
-    display: inline-block;
-    border-bottom: solid 1px #CBD4E0;
-    width: 100%;
-    height: 174px;
+    border-collapse: collapse;
 }
 
-.containerInfoProfil>.contentInfo{
-    width: calc(80% - 10px);
-    vertical-align: top;
-    display: inline-block;
-    margin-left: -4px;
+table > tr, td, th{
     padding-left: 10px;
 }
 
-/* --------------------------------------------------------------- */
+table > tbody>tr td{
+    height: 40px;
+}
 
-.zoneCliquable{
-    height: 100%;
-    width: 100%;
+table > tbody>tr{
+    border: solid 1px gainsboro;
+}
+
+.itemHover:hover{
+    background-color: #f5f5f5;
+    cursor: pointer;
+}
+
+.linkFill{
     display: inline-block;
+    width: 100%;
+    height: 100%;
     text-decoration: none;
-    color: black;
+    color: #4b4b4b;
 }
 
-td>.zoneCliquable{
-    padding-top: 10px;
+.navigateur{
+    height: 40px;
 }
 
-.zoneCliquable:hover{
-    background-color: white;
+.fleche{
+    background-image: url(../Images/flecheVide.png);
+    background-position: center;
+    background-size: 100% 100%;
+    height: 40px;
+    width: 40px;
+    transition: 0.2s;
 }
 
-.rowTitle{
-    background-color: #083A7C;
-    width: 250px;
-    color: white;
+.fleche:hover{
+    background-image: url(../Images/flechePleine.png);
+    cursor: pointer;
 }
 
-.tableIdentification{
-    width: 60%;
-    margin-bottom: 20px;
+.flecheGauche{
+    transform: rotate(180deg);
+    float: left;
 }
 
-/* --------------------------------------------------------------- */
-
-.description{
-    width: 60%;
-    margin: auto;
-    margin-bottom: 20px;
-    margin-top: 20px;
-}
-
-.critere{
-    width: 50%;
-    background-color: #083A7C;
-    color: white;
-}
-
-.reponse{
-    width: 12.5%;
-    text-align: center;
-}
-
-.tbEvaluation{
-    width: 70%;
-    margin-bottom: 20px;
-}
-
-.btnSectionEval{
-    background-color: white;
-    border: 1px solid #f9a11d;
-    color: #f9a11d;
-    font-weight: bold;
-}
-
-.btnNextSection{
-    width: 200px;
-    height: 30px;
-    background-color: #f9a11d;
-    border: 1px solid white;
-    color: white;
-}
-
-.btnSectionContainer{
-    width: 70%;
-    margin: auto;
-    text-align: center;
-}
-
-.btnSuivantContainer{
-    width: 100%;
-    text-align: right;
-}
-
-.btnContainer
-{
-    width: 100%;
-    height: auto;
-    padding-top:1%;
-}
-
-.btnContainer #boutonValider
-{
+.flecheDroite{
     float: right;
 }
 
-.btnContainer button
-{
+textarea{
+    display: inline-block;
+    width: 80%;
+    height: 180px;
+    resize: none;
+    padding: 10px;
+    white-space: pre-line;
+}
+
+.entree{
+    width: 80%;
+    border: solid 1px #a9a9a9;
     margin: auto;
-}
-
-#retourTBL {
-    margin-left: 15px;
-    margin-bottom: 15px;
-    width: 300px;
-}
-
-.poste{
-    margin-left:30px;
-}
-
-/* --------------------------------------------------------------- */
-
-footer{
-    border-top: 1px solid #cbd4e0;
-    margin-top: 20px;
-    height: 120px;
-}
-
-.groupboxFormulaire
-{
-	margin:1% 2%;
-}
-
-.enteteCategorieQuestion
-{
-     text-align: center;
-     padding-bottom:0%;
-}
-
-.lolipop{
-    margin: 8px;
-}
-
-/* questions evaluation finale */
-
-p.question
-{
-    background-color: #083A7C;
-    color: white;
-    width: 100%;
-    height:auto;
-    padding: 1%;
-}
-
-.blocQuestion
-{
-    width: 90%;
-    height:auto;
-    background-color: none;
-    margin:auto;
-    padding:0.5%;
-}
-
-.blocQuestion p
-{
+    margin-bottom: 20px;
     text-align: left;
+    padding-left: 20px;
+    padding-right: 20px;
+    background-color: #f5f5f5;
+    word-wrap: break-word;
+    word-break: break-word;
+}
+
+.entree > p{
+    white-space:pre-wrap;
+}
+
+input[type=file]{
+    width: 0.1px;
+	height: 0.1px;
+	opacity: 0;
+	overflow: hidden;
+	position: absolute;
+	z-index: -1;
+    display: inline-block;
+}
+
+.labelFile{
+    display: inline-block;
+    padding-top: 10px;
+    padding-left: 10px;
+    padding-right: 10px;
+    height: 25px;
+    vertical-align: middle;
+    width: 100px;
+}
+
+@media screen and (max-width: 1240px){
+    .blocInfo{
+        width: 100%;
+        margin-top: 2px;
+    }
+    
+    .champ{
+    width: 100%;
+}
 }

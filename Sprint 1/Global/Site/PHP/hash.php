@@ -3,15 +3,16 @@
  
 function SetPassword ($newPassword, $bdd)
 {
- 
-    if($newPassword != "")
+ if(verifyTimeout())
     {
-        $newPassword = password_hash($newPassword, PASSWORD_DEFAULT);
- 
-        $query = $bdd->prepare("update tblUtilisateur set MotDePasse = '$newPassword' where Id like " . $_SESSION['idConnecte']. ";");
-        $query->execute();
-    }
-
+        if($newPassword != "")
+        {
+            $newPassword = password_hash($newPassword, PASSWORD_DEFAULT);
+     
+            $query = $bdd->prepare("update tblUtilisateur set MotDePasse = '$newPassword' where Id like " . $_SESSION['idConnecte']. ";");
+            $query->execute();
+        }
+    } 
 }
  
 function Login ($userEmail, $password, $bdd)

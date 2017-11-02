@@ -5,7 +5,7 @@
 -- DROP DATABASE IF EXISTS BDProjet_equipe2V2;
 -- CREATE DATABASE BDProjet_equipe2V2;
 
-USE cegepjon_p2017_2_dev;
+ USE cegepjon_p2017_2_dev;
 -- USE cegepjon_p2017_2_prod;
 -- USE cegepjon_p2017_2_tests;
 -- USE bdprojet_equipe2v2;
@@ -13,7 +13,7 @@ USE cegepjon_p2017_2_dev;
 DROP TABLE IF EXISTS tblReponse;
 CREATE TABLE tblReponse(
 	Id						INT				AUTO_INCREMENT,
-	Texte 					VARCHAR(250) 	NOT NULL,
+	Texte 					VARCHAR(3000) 	NOT NULL,
 	PRIMARY KEY(Id)
 );
 
@@ -59,6 +59,7 @@ DROP TABLE IF EXISTS tblQuestion;
 CREATE TABLE tblQuestion(
 	Id						INT				AUTO_INCREMENT,
 	Texte					VARCHAR(250) 	NOT NULL,
+	Competence				VARCHAR(50) 	NOT NULL,
 	PRIMARY KEY(Id),
 	IdTypeQuestion			INT				NOT NULL,
 	IdCategorieQuestion		INT				NOT NULL
@@ -66,7 +67,7 @@ CREATE TABLE tblQuestion(
 
 
 DROP VIEW IF EXISTS vQuestion;
-CREATE VIEW vQuestion AS SELECT Id,Texte,CONCAT(Texte) AS tag, IdTypeQuestion,IdCategorieQuestion FROM tblQuestion;
+CREATE VIEW vQuestion AS SELECT Id,Texte,Competence ,CONCAT(Texte,Competence) AS tag, IdTypeQuestion,IdCategorieQuestion FROM tblQuestion;
 
 
 
@@ -93,14 +94,16 @@ DROP TABLE IF EXISTS tblEvaluation;
 CREATE TABLE tblEvaluation(
 	Id						INT				AUTO_INCREMENT,
 	Statut					CHAR(1)			NOT	NULL,
+	DateDébut				DATE			NULL,
+	DateFin					DATE			NULL,
 	DateComplétée			DATE			NULL,
 	PRIMARY KEY(Id),
 	IdTypeEvaluation		INT				NOT NULL
 );
 
 DROP VIEW IF EXISTS vEvaluation;
-CREATE VIEW vEvaluation AS SELECT Id,Statut,DateComplétée,
-CONCAT(Id,Statut,DateComplétée,IdTypeEvaluation,IdTypeEvaluation,Statut,IFNULL(DateComplétée,'')) AS tag,IdTypeEvaluation FROM tblEvaluation;
+CREATE VIEW vEvaluation AS SELECT Id,Statut,DateComplétée,DateDébut,DateFin,
+CONCAT(Id,Statut,DateComplétée,DateDébut,DateFin,IdTypeEvaluation,IdTypeEvaluation,Statut,IFNULL(DateComplétée,'')) AS tag,IdTypeEvaluation FROM tblEvaluation;
 
 
 -- Table tblTypeEvaluation
@@ -136,12 +139,12 @@ CREATE TABLE tblStagiaire(
 	CourrielScolaire 		VARCHAR(320)	NOT NULL,
 	Nom 					VARCHAR(50)		NOT NULL,
 	Prenom 					VARCHAR(50)		NOT NULL,
-	NumTelPersonnel 		CHAR(14)		NOT NULL,
-	NumTelMaison 			CHAR(14)		NOT NULL,
+	NumTel		 			CHAR(14)		NOT NULL,
 	CourrielPersonnel 		VARCHAR(320)	NOT NULL,
 	NumTelEntreprise 		CHAR(14)		NULL,
 	Poste 					VARCHAR(7)		NULL,
 	CourrielEntreprise	 	VARCHAR(320)	NULL,
+	CodePermanent			VARCHAR(12)		NULL,
 	PRIMARY KEY(Id),
 	IdStage					INT				NULL,
 	IdUtilisateur			INT				NULL,
@@ -149,10 +152,10 @@ CREATE TABLE tblStagiaire(
 );
 
 DROP VIEW IF EXISTS vStagiaire;
-CREATE VIEW vStagiaire AS SELECT Id,CourrielScolaire,Nom,Prenom,NumTelPersonnel,NumTelMaison,CourrielPersonnel
-,NumTelEntreprise,Poste,CourrielEntreprise,
-CONCAT(CourrielScolaire,Nom,Prenom,NumTelPersonnel,NumTelMaison,CourrielPersonnel
-,IFNULL(NumTelEntreprise,''),IFNULL(Poste,''),IFNULL(CourrielEntreprise,''),IFNULL(IdStage,''),IdUtilisateur) AS tag,IdStage,IdUtilisateur FROM tblStagiaire;
+CREATE VIEW vStagiaire AS SELECT Id,CourrielScolaire,Nom,Prenom,NumTel,CourrielPersonnel
+,NumTelEntreprise,Poste,CourrielEntreprise,CodePermanent,
+CONCAT(CourrielScolaire,Nom,Prenom,NumTel,CourrielPersonnel
+,IFNULL(NumTelEntreprise,''),IFNULL(Poste,''),IFNULL(CourrielEntreprise,''),IFNULL(IdStage,''),IdUtilisateur,CodePermanent) AS tag,IdStage,IdUtilisateur FROM tblStagiaire;
 
 -- Table tblUtilisateur
 
@@ -256,7 +259,7 @@ CREATE TABLE tblEmploye(
 	CourrielEntreprise 		VARCHAR(320)	NOT NULL,
 	Nom 					VARCHAR(50)		NOT NULL,
 	Prenom 					VARCHAR(50)		NOt NULL,
-	NumTelCell		 		CHAR(14)		NOT NULL,
+	NumTel			 		CHAR(14)		NOT NULL,
 	CourrielPersonnel 		VARCHAR(320)	NOT NULL,
 	NumTelEntreprise 		CHAR(14)		NOT NULL,
 	Poste 					VARCHAR(7)		NULL,
@@ -268,8 +271,8 @@ CREATE TABLE tblEmploye(
 );
 
 DROP VIEW IF EXISTS vEmploye;
-CREATE VIEW vEmploye AS SELECT Id,CourrielEntreprise,Nom,Prenom,NumTelCell,
-CourrielPersonnel,NumTelEntreprise,Poste,CodePermanent,CONCAT(CourrielEntreprise,Nom,Prenom,NumTelCell,
+CREATE VIEW vEmploye AS SELECT Id,CourrielEntreprise,Nom,Prenom,NumTel,
+CourrielPersonnel,NumTelEntreprise,Poste,CodePermanent,CONCAT(CourrielEntreprise,Nom,Prenom,NumTel,
 CourrielPersonnel,NumTelEntreprise,IFNULL(Poste, ""),CodePermanent,IdEntreprise,IdUtilisateur) AS tag,IdEntreprise,IdUtilisateur FROM tblEmploye;
 
 
@@ -280,13 +283,14 @@ DROP TABLE IF EXISTS tblCategorieQuestion;
 CREATE TABLE tblCategorieQuestion 
 (
 	Id 						INT 			AUTO_INCREMENT,
-	DescriptionCategorie	VARCHAR(500) 	NOT NULL,
+	TitreCategorie			VARCHAR(500)	NOT NULL,
+	DescriptionCategorie	VARCHAR(500) 	NULL,
 	Lettre					CHAR(1) 		NOT NULL,
 	PRIMARY KEY(Id)
 );
 
 DROP VIEW IF EXISTS vCategorieQuestion;
-CREATE VIEW vCategorieQuestion AS SELECT Id,descriptionCategorie,CONCAT(descriptionCategorie) AS tag FROM tblCategorieQuestion;
+CREATE VIEW vCategorieQuestion AS SELECT Id,TitreCategorie,descriptionCategorie,Lettre,CONCAT(Id,TitreCategorie,descriptionCategorie,Lettre) AS tag FROM tblCategorieQuestion;
 
 
 /*
@@ -310,36 +314,8 @@ JOIN vEmployeCegep AS EmpCeg
 ON EmpCeg.Id = Enseignant.IdEmployeCegep;
 */
 
---script pour mes evaluations
-
-
---vue evaluations
-
-DROP VIEW IF EXISTS vEvaluations;
-CREATE VIEW vEvaluations as
-SELECT St.Id as 'IdStage',St.IdResponsable as 'IdResponsable',Eva.Id as 'IdEvaluation',TE.Id as 'IdTypeEvaluation',TE.Titre as 'TypeEvaluation',Qu.Id as 'IdQuestion',Qu.Texte as 'DescriptionQuestion',CQ.DescriptionCategorie as 'DescriptionCategorie',TQ.Description as 'DescriptionTypeQuestion',Re.Id as 'IdReponse',Re.Texte as 'DescriptionReponse'
-from tblStage as St
-join tblEvaluationStage as Es
-on Es.IdStage = St.Id
-join tblEvaluation as Eva
-on Eva.Id = Es.IdEvaluation
-join tblEvaluationQuestionReponse as EQR
-on EQR.IdEvaluation = Eva.Id
-join tblQuestion as Qu
-on Qu.Id = EQR.IdQuestion
-join tblReponseQuestion as RQ
-on RQ.IdQuestion = Qu.Id
-join tblReponse as Re
-on RQ.IdReponse = Re.Id
-join tblCategorieQuestion as CQ
-on CQ.Id = Qu.IdCategorieQuestion
-join tblTypeQuestion as TQ
-on TQ.Id = Qu.IdTypeQuestion
-join tblTypeEvaluation AS TE
-ON TE.Id = Eva.IdTypeEvaluation
-limit 20000;
-
 -- Foreign key
+
 
 ALTER TABLE tblUtilisateurRole
 ADD FOREIGN KEY (IdUtilisateur)
@@ -497,3 +473,10 @@ ALTER TABLE tblJournalDeBord
 ADD FOREIGN KEY (IdStagiaire)
 REFERENCES
 tblStagiaire(Id);
+
+
+ALTER TABLE tblEvaluationQuestionReponse
+ADD FOREIGN KEY (IdReponse)
+REFERENCES
+tblReponse(Id);
+
