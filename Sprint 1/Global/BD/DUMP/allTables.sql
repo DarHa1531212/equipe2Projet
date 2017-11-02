@@ -1,8 +1,8 @@
 
 -- USE cegepjon_p2017_2_dev;
--- USE cegepjon_p2017_2_prod;
+ USE cegepjon_p2017_2_prod;
 -- USE cegepjon_p2017_2_tests;
- USE bdprojet_equipe2v2;
+-- USE bdprojet_equipe2v2;
 
 INSERT IGNORE INTO `tblRole` (`Id`,`Titre`) VALUES (1,'Gestionnaire');
 INSERT IGNORE INTO `tblRole` (`Id`,`Titre`) VALUES (2,'Responsable');
@@ -1037,11 +1037,11 @@ INSERT IGNORE INTO `tblReponse` (`Id`,`Texte`) VALUES (1,'Généralement');
 INSERT IGNORE INTO `tblReponse` (`Id`,`Texte`) VALUES (2,'Souvent');
 INSERT IGNORE INTO `tblReponse` (`Id`,`Texte`) VALUES (3,'Parfois');
 INSERT IGNORE INTO `tblReponse` (`Id`,`Texte`) VALUES (4,'Rarement');
-INSERT IGNORE INTO `tblReponse` (`Id`,`Texte`) VALUES (5,'est familiarisé-e rapidement à divers  services de l''organisation. ');
-INSERT IGNORE INTO `tblReponse` (`Id`,`Texte`) VALUES (6,'est intéressé-e progressivement à divers services de l''organisation.');
+INSERT IGNORE INTO `tblReponse` (`Id`,`Texte`) VALUES (5,'S''est familiarisé-e rapidement à divers  services de l''organisation. ');
+INSERT IGNORE INTO `tblReponse` (`Id`,`Texte`) VALUES (6,'S''est intéressé-e progressivement à divers services de l''organisation.');
 INSERT IGNORE INTO `tblReponse` (`Id`,`Texte`) VALUES (7,'Intégration normale à la vie du milieu de stage.');
-INSERT IGNORE INTO `tblReponse` (`Id`,`Texte`) VALUES (8,'est limité-e à l''équipe de travail.');
-INSERT IGNORE INTO `tblReponse` (`Id`,`Texte`) VALUES (9,'a fait que peu d’effort d''adaptation. ');
+INSERT IGNORE INTO `tblReponse` (`Id`,`Texte`) VALUES (8,'S''est limité-e à l''équipe de travail.');
+INSERT IGNORE INTO `tblReponse` (`Id`,`Texte`) VALUES (9,'N''a fait que peu d’effort d''adaptation. ');
 INSERT IGNORE INTO `tblReponse` (`Id`,`Texte`) VALUES (10,'Ponctualité irréprochable. ');
 INSERT IGNORE INTO `tblReponse` (`Id`,`Texte`) VALUES (11,'Arrive rarement en retard à son travail.');
 INSERT IGNORE INTO `tblReponse` (`Id`,`Texte`) VALUES (12,'Arrive parfois en retard à son travail. ');
@@ -1105,7 +1105,7 @@ INSERT IGNORE INTO `tblReponse` (`Id`,`Texte`) VALUES (69,'Refus de collaborer. 
 INSERT IGNORE INTO `tblReponse` (`Id`,`Texte`) VALUES (70,'Démontre toujours un esprit de groupe dépassant la moyenne');
 INSERT IGNORE INTO `tblReponse` (`Id`,`Texte`) VALUES (71,'Démontre habituellement un bon esprit de groupe.');
 INSERT IGNORE INTO `tblReponse` (`Id`,`Texte`) VALUES (72,'Démontre un esprit de groupe normal.');
-INSERT IGNORE INTO `tblReponse` (`Id`,`Texte`) VALUES (73,'s''adapte lentement et mal au groupe.');
+INSERT IGNORE INTO `tblReponse` (`Id`,`Texte`) VALUES (73,'S''adapte lentement et mal au groupe.');
 INSERT IGNORE INTO `tblReponse` (`Id`,`Texte`) VALUES (74,'Marginal.');
 INSERT IGNORE INTO `tblReponse` (`Id`,`Texte`) VALUES (75,'Sait écouter, analyser et répondre efficacement à la demande.');
 INSERT IGNORE INTO `tblReponse` (`Id`,`Texte`) VALUES (76,'Peut répondre à la majeure partie de la demande.');
