@@ -9,24 +9,24 @@ function Requete(callback){
     });
 }
 
-function UploadFile(callback){
-    var file_data = $('#file').prop('files')[0];   
-    var form_data = new FormData();                  
-    form_data.append('file', file_data);
-    
-    $.ajax({
-        url: Url(arguments), 
-        dataType: 'text',  
-        cache: false,
-        contentType: false,
-        processData: false,
-        data: form_data,                         
-        type: 'post',
-        success: function(data){
-            callback(data);
-        }
-    });
-}
+function UploadFile(callback){ 
+    var file_data = $('#file').prop('files')[0];    
+    var form_data = new FormData();                   
+    form_data.append('file', file_data); 
+     
+    $.ajax({ 
+        url: Url(arguments),  
+        dataType: 'text',   
+        cache: false, 
+        contentType: false, 
+        processData: false, 
+        data: form_data,                          
+        type: 'post', 
+        success: function(data){ 
+            callback(data); 
+        } 
+    }); 
+} 
 
 //Construit l'URL selon les derniers paramètre de la fonction Execute.
 function Url(){
@@ -35,7 +35,7 @@ function Url(){
     
     for(var i = 1; i < parametre.length; i++){
         url += parametre[i];
-        url = url.replace('\n', '\\n');
+        url = url.replace(/(?:\r\n|\r|\n)/g, '\\n');
     }
     
     return url;

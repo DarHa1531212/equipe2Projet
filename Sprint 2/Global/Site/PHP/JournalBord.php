@@ -30,7 +30,7 @@
         $texte = "";
         
         for($i = 0; $i < count($split); $i++){
-            $texte = $texte.$split[$i] . "<br/>";
+            $texte = $texte.$split[$i] . "\n";
         }
         
         return $texte;
@@ -66,9 +66,9 @@
     function NouvelleEntree($bdd, $idStagiaire){
         $date = date('Y-m-d h:i:s', time());
         
-        if(isset($_POST['contenu'])){
+        if(isset($_REQUEST['contenu'])){
             include 'UploadFile.php';
-            $entree = array(htmlspecialchars($_POST['contenu']));
+            $entree = array(htmlspecialchars($_REQUEST['contenu']));
 
             if ($entree[0] != "" && isset($_FILES['file']) && $_FILES['file']['name'] != "")
             {
@@ -89,18 +89,15 @@
                 }
             }
         }
-        else
-        {
-            ?><script>alert("il ne rentre pas super....");</script><?php
-        }
     }
 
     function PieceJointe($doc)
     {
         if($doc != null && $doc != "")
         {
-            $method = "AfficherImage('". $doc . "','" . pathinfo($doc)['extension'] ."')";
-            return '<p><span id="divBouton" onclick="' . $method . '">Pièce jointe</span></p>'; //faire ici l'affichage en absolute
+            $ext = strtolower(pathinfo($doc)['extension']);
+            $method = "AfficherImage('". $doc . "','" . $ext ."')";
+            return '<div><span id="divBouton" onclick="' . $method . '">Pièce jointe</span></div>'; //faire ici l'affichage en absolute
         }
         else
         {
@@ -109,7 +106,7 @@
         }
     }
     
-    if(isset($_POST['contenu'])){
+    if(isset($_REQUEST['contenu'])){
         NouvelleEntree($bdd, $idStagiaire);
     }
     else{
@@ -120,7 +117,7 @@
                 <h2>Journal de bord</h2>
                 <h3>Dernière entrée il y a : '.DerniereEntree($bdd, $idStagiaire).' jour(s)</h3>
             </div>
-            <p id="imageJointe"></p>
+            <div id="imageJointe"></div>
 
             <div class="separateur">
                 <h3>Nouvelle Entrée</h3>

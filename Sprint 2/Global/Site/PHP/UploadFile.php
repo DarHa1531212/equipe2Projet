@@ -9,6 +9,8 @@
 		$extensions = array('.png','.jpg','.jpeg','.docx','.pdf');
 		$extension = strchr($_FILES['file']['name'],'.');
 
+
+
 		if(!in_array($extension, $extensions))
 		{
 			//Ne prend pas ce type de fichier
@@ -27,9 +29,7 @@
 			{
 				$fichier = strtr($fichier, 'ÀÁÂÃÄÅÇÈÉÊËÌÍÎÏÒÓÔÕÖÙÚÛÜÝàáâãäåçèéêëìíîïðòóôõöùúûüýÿ', 'AAAAAACEEEEIIIIOOOOOUUUUYaaaaaaceeeeiiiioooooouuuuyy');
 				$fichier = preg_replace('/([^.a-z0-9]+)/i','-', $fichier);
-
 				if(move_uploaded_file($_FILES['file']['tmp_name'], $dossier . $fichier))
-
 				{
 					//echo'Upload Success';
 				}
