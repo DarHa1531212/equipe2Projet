@@ -95,7 +95,8 @@
     {
         if($doc != null && $doc != "")
         {
-            $method = "AfficherImage('". $doc . "','" . pathinfo($doc)['extension'] ."')";
+            $ext = strtolower(pathinfo($doc)['extension']);
+            $method = "AfficherImage('". $doc . "','" . $ext ."')";
             return '<div><span id="divBouton" onclick="' . $method . '">Pièce jointe</span></div>'; //faire ici l'affichage en absolute
         }
         else
