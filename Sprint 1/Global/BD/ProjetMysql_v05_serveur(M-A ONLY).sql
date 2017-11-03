@@ -365,6 +365,7 @@ REFERENCES
 tblUtilisateur(Id);
 
 
+
 ALTER TABLE tblStage
 ADD FOREIGN KEY (IdStagiaire)
 REFERENCES
@@ -454,12 +455,6 @@ ALTER TABLE tblStage
 ADD FOREIGN KEY (IdStagiaire)
 REFERENCES
 tblStagiaire(Id);
-
-
-ALTER TABLE tblStage
-ADD FOREIGN KEY (IdGestionnaire)
-REFERENCES
-tblGestionnaire(Id);
 
 
 ALTER TABLE tblStage
