@@ -129,8 +129,8 @@ But: Un écran de CRUD qui permet de gérer des stages
     Date de début:  <input id="dateDebut" type="date" name="dateDebut"> <br>
     Date de fin:  <input  id="dateFin" type="date" name="dateFin"> <br>
 
-    <!-- paramètre à passer: idResponsable, idSuperviseur, idStagiaire, idEntreprise, , idSuperviseur, idEnseignant, descStage, competencesRecherchees, horaireTravail, heuresTravail, tauxHoraire, dateDebut, dateFin -->
-    <input type="submit" id="Save" class="bouton" value="Sauvegarder" onclick="Execute(2, \'../PHP/TBNavigation.php?idResponsable=responsableStage.value \'\&nomMenu=CreationStage\', \'&contenu=\', contenu.value, \'&fichier=\', file); Execute(1, \'../PHP/TBNavigation.php?idStagiaire='.$idStagiaire.'&nomMenu=CreationStage\', \'&nbEntree=\', 5)"/>
+    <!-- paramètre à passer: -idResponsable, -idSuperviseur, -idStagiaire, idEntreprise, , idSuperviseur, idEnseignant, descStage, competencesRecherchees, horaireTravail, heuresTravail, tauxHoraire, dateDebut, dateFin -->
+    <input type="submit" id="Save" class="bouton" value="Sauvegarder" onclick="Execute(2, \'../PHP/TBNavigation.php?\'idStagiaire=\' , stagiaire.value , \' &idResponsable=\', responsableStage.value , \' &idSuperviseur= \' , superviseurStage.value \' &entreprise= \' ,entreprise.value  \'&nomMenu=CreationStage\', \'&responsableStage=\', responsableStage.value, \'&fichier=\', file); Execute(1, \'../PHP/TBNavigation.php?idStagiaire='.$idStagiaire.'&nomMenu=CreationStage\', \'&nbEntree=\', 5)"/>
     /> <br>
 
   <BR>
