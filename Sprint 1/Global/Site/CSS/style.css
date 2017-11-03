@@ -32,13 +32,21 @@ section{
     transition: 0.120s;
 }
 
-.imgPDF{background-image: url(../Images/pdfIcon.png);}
+.imgPDF{
+    background-image: url(../Images/pdfIcon.png);
+}
 
-.imgPDF:hover{background-image: url(../Images/pdfIconR.png);}
+.imgPDF:hover{
+    background-image: url(../Images/pdfIconR.png);
+}
 
-.imgDOC{background-image: url(../Images/docIcon.png);}
+.imgDOC{
+    background-image: url(../Images/docIcon.png);
+}
 
-.imgDOC:hover{background-image: url(../Images/docIconB.png);}
+.imgDOC:hover{
+    background-image: url(../Images/docIconB.png);
+}
 
 .stagiaire{
     height: auto;
@@ -60,7 +68,9 @@ section{
     width: calc(100% - 144px);
 }
 
-.infoStagiaire > input{width: 140px;}
+.infoStagiaire > input{
+    width: 140px;
+}
 
 .bouton{
     height: 35px;
@@ -76,7 +86,9 @@ section{
     background-color: #1e4e90;
 }
 
-.bouton:active{background-color: #3262a4;}
+.bouton:active{
+    background-color: #3262a4;
+}
 
 .blocInfo{
     width: 49.5%;
@@ -85,18 +97,26 @@ section{
     border: solid 1px gainsboro;
 }
 
-.infoProfil{width: 99.5%;}
+.infoProfil{
+    width: 99.5%;
+}
 
 .champ{
     display: inline-block;
     width: 45%;
 }
 
-.label{display: inline-block;}
+.label{
+    display: inline-block;
+}
 
-.labelForInput{width: 150px;}
+.labelForInput{
+    width: 150px;
+}
 
-.value{display: inline-block;}
+.value{
+    display: inline-block;
+}
 
 input.value{
     width: 200px;
@@ -118,11 +138,17 @@ table{
     border-collapse: collapse;
 }
 
-table > tr, td, th{padding-left: 10px;}
+table > tr, td, th{
+    padding-left: 10px;
+}
 
-table > tbody>tr td{height: 40px;}
+table > tbody>tr td{
+    height: 40px;
+}
 
-table > tbody>tr{border: solid 1px gainsboro;}
+table > tbody>tr{
+    border: solid 1px gainsboro;
+}
 
 .itemHover:hover{
     background-color: #f5f5f5;
@@ -137,7 +163,9 @@ table > tbody>tr{border: solid 1px gainsboro;}
     color: #4b4b4b;
 }
 
-.navigateur{height: 40px;}
+.navigateur{
+    height: 40px;
+}
 
 .fleche{
     background-image: url(../Images/flecheVide.png);
@@ -158,7 +186,9 @@ table > tbody>tr{border: solid 1px gainsboro;}
     float: left;
 }
 
-.flecheDroite{float: right;}
+.flecheDroite{
+    float: right;
+}
 
 textarea{
     display: inline-block;
@@ -166,7 +196,7 @@ textarea{
     height: 180px;
     resize: none;
     padding: 10px;
-    white-space: pre-wrap;
+    white-space: pre-line;
 }
 
 .entree{
@@ -180,13 +210,11 @@ textarea{
     background-color: #f5f5f5;
     word-wrap: break-word;
     word-break: break-word;
-    white-space:pre-wrap;
 }
 
-.entree > p{white-space:pre-wrap;}
-
-#divBouton{text-decoration: underline; 
-    color: blue;}
+.entree > p{
+    white-space:pre-wrap;
+}
 
 input[type=file]{
     width: 0.1px;
@@ -208,68 +236,13 @@ input[type=file]{
     width: 100px;
 }
 
-.identification{width: 70%;}
-
-.identification > tbody > tr > td:nth-child(odd){
-    background-color: #0a3a7c;
-    color: white;
-    width: 300px;
-}
-
-.evaluation{
-    width: 90%;
-    text-align: center;
-    border: solid 1px gainsboro;
-}
-
-.evaluation > tbody > tr > td:first-child, .evaluation > thead{
-    background-color: #0a3a7c;
-    color: white;
-    text-align: left;
-}
-
-.evaluation > thead{text-align: center;}
-
-.evaluation > tbody > tr > td:not(:first-child){width: 100px;   }
-
-.navigateurEval{
-    margin: auto;
-    margin-top: 10px;
-    width: 90%;
-}
-
 @media screen and (max-width: 1240px){
-    .evaluation{width: 100%;}
-    
-    .navigateurEval{width: 100%;}
-    
-    .identification{width: 100%;}
-    
     .blocInfo{
         width: 100%;
         margin-top: 2px;
     }
     
-    .champ{width: 100%;}
-}
-
-/* ---------------------------------------------------*/
-
-.pieceJointe{
-    position: fixed;
+    .champ{
     width: 100%;
-    height: 100%;
-    left: 0;
-    top:0;
-    background: rgba(0,0,0,0.5);
 }
-
-.centerImage{
-    position:absolute;
-    top:0;
-    left:0;
-    right:0;
-    bottom:0;
-    width: 80%;
-    margin:auto;
 }
