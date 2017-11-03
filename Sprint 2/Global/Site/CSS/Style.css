@@ -185,6 +185,9 @@ textarea{
 
 .entree > p{white-space:pre-wrap;}
 
+#divBouton{text-decoration: underline; 
+    color: blue;}
+
 input[type=file]{
     width: 0.1px;
 	height: 0.1px;
