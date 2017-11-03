@@ -1,12 +1,13 @@
 
 -- USE cegepjon_p2017_2_dev;
- USE cegepjon_p2017_2_prod;
+-- USE cegepjon_p2017_2_prod;
 -- USE cegepjon_p2017_2_tests;
--- USE bdprojet_equipe2v2;
+ USE bdprojet_equipe2v2;
 
 INSERT IGNORE INTO `tblRole` (`Id`,`Titre`) VALUES (1,'Gestionnaire');
 INSERT IGNORE INTO `tblRole` (`Id`,`Titre`) VALUES (2,'Responsable');
 INSERT IGNORE INTO `tblRole` (`Id`,`Titre`) VALUES (3,'Enseignant');
+INSERT IGNORE INTO `tblRole` (`Id`,`Titre`) VALUES (4,'Superviseur');
 INSERT IGNORE INTO `tblRole` (`Id`,`Titre`) VALUES (4,'Superviseur');
 INSERT IGNORE INTO `tblRole` (`Id`,`Titre`) VALUES (5,'Stagiaire');
 

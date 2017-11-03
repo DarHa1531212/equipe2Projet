@@ -21,7 +21,7 @@ WHERE Role.Titre = 'Enseignant';
 -- ------------------------------------------------
 -- Sélectionne tous les gestionnaires.
 -- ------------------------------------------------
-DROP VIEW IF EXISTS vGestionnaire;
+/*DROP VIEW IF EXISTS vGestionnaire;
 CREATE VIEW vGestionnaire AS 
 SELECT Util.Id AS IdUtilisateur, Emp.Id AS IdGestionnaire, Prenom, Nom, NumTel, CourrielPersonnel, IdEntreprise, NumTelEntreprise, Poste, CourrielEntreprise, CodePermanent
 FROM vEmploye AS Emp
@@ -31,7 +31,7 @@ JOIN vUtilisateurRole AS UR
 ON UR.IdUtilisateur = Util.Id
 JOIN vRole AS Role
 ON UR.IdRole = Role.Id
-WHERE Role.Titre = 'Gestionnaire';
+WHERE Role.Titre = 'Gestionnaire';*/
 
 -- ------------------------------------------------
 -- Sélectionne tous les responsables.
@@ -106,7 +106,7 @@ CREATE VIEW vEvaluationCompletee AS
 SELECT Stagiaire.Id AS IdStagiaire, Stagiaire.Prenom, Stagiaire.Nom, Eval.Id AS IdEvaluation, 
 TypeEval.Titre AS Evaluation, Question.Texte AS Question,Lettre,TitreCategorie,DescriptionCategorie, EQR.IdReponse, Reponse.Texte AS Reponse,
 CONCAT(Enseignant.Prenom,' ',Enseignant.Nom) AS Enseignant,
-CONCAT(Gestionnaire.Prenom,' ',Gestionnaire.Nom) AS Gestionnaire,
+-- CONCAT(Gestionnaire.Prenom,' ',Gestionnaire.Nom) AS Gestionnaire,
 CONCAT(Responsable.Prenom,' ',Responsable.Nom) AS Responsable,
 CONCAT(Superviseur.Prenom,' ',Superviseur.Nom) AS Superviseur,
 Entreprise.Nom AS Entreprise,TypeEval.Id AS TypeEvaluation, Competence
@@ -131,8 +131,8 @@ JOIN vReponse AS Reponse
 ON Reponse.Id = EQR.IdReponse
 JOIN vEnseignant AS Enseignant
 ON Enseignant.IdUtilisateur = Stage.IdEnseignant
-JOIN vGestionnaire AS Gestionnaire
-ON Gestionnaire.IdUtilisateur = Stage.IdGestionnaire
+/*JOIN vGestionnaire AS Gestionnaire
+ON Gestionnaire.IdUtilisateur = Stage.IdGestionnaire*/
 JOIN vResponsable AS Responsable
 ON Responsable.IdUtilisateur = Stage.IdResponsable
 JOIN vSuperviseur AS Superviseur
