@@ -167,3 +167,39 @@ ON TQ.Id = Qu.IdTypeQuestion
 JOIN tblTypeEvaluation AS TE
 ON TE.Id = Eva.IdTypeEvaluation
 LIMIT 20000;
+
+-- ------------------------------------------------
+-- Récupère les noms des différents noms des utilisateurs lié au stage
+-- ------------------------------------------------
+DROP VIEW IF EXISTS vIdentification;
+CREATE VIEW vIdentification AS
+SELECT	Sup.Prenom AS 'PrenomSup', Sup.Nom AS 'NomSup',
+		Ens.Prenom AS 'PrenomEns', Ens.Nom AS 'NomEns',
+        Resp.Prenom AS 'PrenomResp', Resp.Nom AS 'NomResp',
+        Sta.Prenom AS 'PrenomSta', Sta.Nom AS 'NomSta',
+        Ent.Nom AS 'NomEnt', Sta.IdUtilisateur AS 'IdStagiaire'
+FROM vStage AS Stage
+JOIN vSuperviseur AS Sup
+ON Sup.IdUtilisateur = Stage.IdSuperviseur
+JOIN vEnseignant AS Ens
+ON Ens.IdUtilisateur = Stage.IdEnseignant
+JOIN vResponsable AS Resp
+ON Resp.IdUtilisateur = Stage.IdResponsable
+JOIN vStagiaire AS Sta
+ON Sta.IdUtilisateur = Stage.IdStagiaire
+JOIN vEmploye AS Emp
+ON Emp.IdUtilisateur = Sup.IdUtilisateur
+JOIN vEntreprise AS Ent
+ON Ent.Id = Emp.IdEntreprise;
+
+
+
+
+
+
+
+
+
+
+
+
