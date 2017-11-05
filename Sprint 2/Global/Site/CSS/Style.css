@@ -238,6 +238,17 @@ input[type=file]{
     width: 90%;
 }
 
+.lettreNav{
+    background-color: white;
+    color: #0a3a7c;
+    width: 40px;
+    font-weight: bold;
+}
+
+.lettreNav:hover{
+    color: white;
+}
+
 @media screen and (max-width: 1240px){
     .evaluation{width: 100%;}
     

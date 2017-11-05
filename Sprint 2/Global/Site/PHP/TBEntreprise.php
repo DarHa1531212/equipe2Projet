@@ -12,7 +12,7 @@
         <?php include 'vTableauBord.php' ?>
     </head>
     
-    <body onload="CacherDiv()">
+    <body onload="CacherDiv('stagiaire')">
         <script src="../js/jquery.min.js"></script>
         <script src="../js/navigation.js"></script>
         <script src="../js/regexProfilStag.js"></script>

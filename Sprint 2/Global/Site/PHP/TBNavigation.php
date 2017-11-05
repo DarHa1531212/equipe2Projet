@@ -23,6 +23,7 @@
             case "Avenir":  $menu = include 'AVenir.php';
                 break;
             case "Eval":    $menu = include 'Evaluation.php';
+                break;
         }
 
         echo json_encode($menu);

@@ -14,7 +14,7 @@
         
         if($tblEvaluation[0]->statut != '0')//le statut est different de pas accéssible
         {
-            $div = '<tr class="itemHover" onclick="Execute(1, \'../PHP/TBNavigation.php?idStagiaire='.$profil["Id"].'&nomMenu=Eval\', \'&idStage=\', '.$tblEvaluation[0]->idStage.'); chargementPage()">';
+            $div = '<tr class="itemHover" onclick="Execute(1, \'../PHP/TBNavigation.php?idStagiaire='.$profil["Id"].'&nomMenu=Eval\', \'&idStage=\', '.$tblEvaluation[0]->idStage.', \'&idEvaluation=\', '.$tblEvaluation[0]->id.');">';
         }
         else
         {
@@ -31,7 +31,7 @@
         
         if(($tblEvaluation[1]->statut != '0')&&(($tblEvaluation[0]->statut == '3')||($tblEvaluation[0]->statut == '4')))
         {
-            $div = '<tr class="itemHover" onclick="Execute(1, \'../PHP/TBNavigation.php?idEmploye='.$profil["IdSuperviseur"].'&nomMenu=Eval\', \'idEvaluation\'); chargementPage()">';
+            $div = '<tr class="itemHover" onclick="Execute(1, \'../PHP/TBNavigation.php?idStagiaire='.$profil["Id"].'&nomMenu=Eval\', \'&idStage=\', '.$tblEvaluation[0]->idStage.', \'&idEvaluation=\', '.$tblEvaluation[1]->id.'); chargementPage()">';
         }
         else
         {
@@ -132,8 +132,8 @@
             '<input class="bouton" type="button" value="Écrire un commentaire" onclick="Execute(1, \'../PHP/TBNavigation.php?idEmploye='.$profil["IdSuperviseur"].'&nomMenu=Avenir\')"/>
 
             <div class="navigateur">
-                <div class="fleche flecheGauche" onclick="ChangerStagiaire(this)"></div>
-                <div class="fleche flecheDroite" onclick="ChangerStagiaire(this)"></div>
+                <div id="gauche" class="fleche flecheGauche" onclick="ChangerItem(this)"></div>
+                <div id="droite" class="fleche flecheDroite" onclick="ChangerItem(this)"></div>
             </div>';
         }
         
