@@ -2,16 +2,8 @@
     
     $content = "";
 
-    $query2 = $bdd->prepare("SELECT St.Id as 'IdStage', Eva.Id as 'IdEvaluation',Eva.DateComplétée as 'DateComplétée',Eva.Statut as 'Statut',
-                            Eva.DateDébut as 'DateDébut',Eva.DateFin as 'DateFin',TE.Id as 'IdTypeEvaluation', TE.Titre as 'TitreTypeEvaluation'
-                            FROM vEvaluation as Eva
-                            join vTypeEvaluation as TE
-                            on TE.Id = Eva.IdTypeEvaluation
-                            JOIN vEvaluationStage as ES
-                            on Eva.Id = ES.IdEvaluation
-                            join vStage as St
-                            on St.Id = ES.IdStage
-                            where St.IdStagiaire = :idStagiaire;");
+    $query2 = $bdd->prepare("SELECT * FROM vInfoEvalGlobale
+                            WHERE IdStagiaire = :idStagiaire;");
 
     //Vérifie si les évaluations précédentes sont complétées pour pouvoir appuyer sur la suivante.
     function VerifEvaluation($tblEvaluation, $profil){
