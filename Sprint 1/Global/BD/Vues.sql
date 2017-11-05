@@ -21,7 +21,7 @@ WHERE Role.Titre = 'Enseignant';
 -- ------------------------------------------------
 -- Sélectionne tous les gestionnaires.
 -- ------------------------------------------------
-DROP VIEW IF EXISTS vGestionnaire;
+/*DROP VIEW IF EXISTS vGestionnaire;
 CREATE VIEW vGestionnaire AS 
 SELECT Util.Id AS IdUtilisateur, Emp.Id AS IdGestionnaire, Prenom, Nom, NumTel, CourrielPersonnel, IdEntreprise, NumTelEntreprise, Poste, CourrielEntreprise, CodePermanent
 FROM vEmploye AS Emp
@@ -31,7 +31,7 @@ JOIN vUtilisateurRole AS UR
 ON UR.IdUtilisateur = Util.Id
 JOIN vRole AS Role
 ON UR.IdRole = Role.Id
-WHERE Role.Titre = 'Gestionnaire';
+WHERE Role.Titre = 'Gestionnaire';*/
 
 -- ------------------------------------------------
 -- Sélectionne tous les responsables.
@@ -106,7 +106,7 @@ CREATE VIEW vEvaluationCompletee AS
 SELECT Stagiaire.Id AS IdStagiaire, Stagiaire.Prenom, Stagiaire.Nom, Eval.Id AS IdEvaluation, 
 TypeEval.Titre AS Evaluation, Question.Texte AS Question,Lettre,TitreCategorie,DescriptionCategorie, EQR.IdReponse, Reponse.Texte AS Reponse,
 CONCAT(Enseignant.Prenom,' ',Enseignant.Nom) AS Enseignant,
-CONCAT(Gestionnaire.Prenom,' ',Gestionnaire.Nom) AS Gestionnaire,
+-- CONCAT(Gestionnaire.Prenom,' ',Gestionnaire.Nom) AS Gestionnaire,
 CONCAT(Responsable.Prenom,' ',Responsable.Nom) AS Responsable,
 CONCAT(Superviseur.Prenom,' ',Superviseur.Nom) AS Superviseur,
 Entreprise.Nom AS Entreprise,TypeEval.Id AS TypeEvaluation, Competence
@@ -131,8 +131,8 @@ JOIN vReponse AS Reponse
 ON Reponse.Id = EQR.IdReponse
 JOIN vEnseignant AS Enseignant
 ON Enseignant.IdUtilisateur = Stage.IdEnseignant
-JOIN vGestionnaire AS Gestionnaire
-ON Gestionnaire.IdUtilisateur = Stage.IdGestionnaire
+/*JOIN vGestionnaire AS Gestionnaire
+ON Gestionnaire.IdUtilisateur = Stage.IdGestionnaire*/
 JOIN vResponsable AS Responsable
 ON Responsable.IdUtilisateur = Stage.IdResponsable
 JOIN vSuperviseur AS Superviseur
@@ -143,27 +143,26 @@ ON Entreprise.Id = Superviseur.IdEntreprise;
 -- ------------------------------------------------
 -- Récupère toutes les évaluations des stagiaires selon leur ID et le type d'évaluation avec leurs réponses choisies.
 -- ------------------------------------------------
-
 DROP VIEW IF EXISTS vEvaluations;
-CREATE VIEW vEvaluations AS
-SELECT St.Id AS 'IdStage',St.IdResponsable AS 'IdResponsable',Eva.Id AS 'IdEvaluation',TE.Id AS 'IdTypeEvaluation',TE.Titre AS 'TypeEvaluation',Qu.Id AS 'IdQuestion',Qu.Texte AS 'DescriptionQuestion',CQ.DescriptionCategorie AS 'DescriptionCategorie',TQ.Description AS 'DescriptionTypeQuestion',Re.Id AS 'IdReponse',Re.Texte AS 'DescriptionReponse'
-FROM tblStage AS St
-JOIN tblEvaluationStage AS Es
-ON Es.IdStage = St.Id
-JOIN tblEvaluation AS Eva
-ON Eva.Id = Es.IdEvaluation
-JOIN tblEvaluationQuestionReponse AS EQR
-ON EQR.IdEvaluation = Eva.Id
-JOIN tblQuestion AS Qu
-ON Qu.Id = EQR.IdQuestion
-JOIN tblReponseQuestion AS RQ
-ON RQ.IdQuestion = Qu.Id
-JOIN tblReponse AS Re
-ON RQ.IdReponse = Re.Id
-JOIN tblCategorieQuestion AS CQ
-ON CQ.Id = Qu.IdCategorieQuestion
-JOIN tblTypeQuestion AS TQ
-ON TQ.Id = Qu.IdTypeQuestion
-JOIN tblTypeEvaluation AS TE
+CREATE VIEW vEvaluations as
+SELECT St.Id as 'IdStage',St.IdResponsable as 'IdResponsable',Eva.Id as 'IdEvaluation',TE.Id as 'IdTypeEvaluation',TE.Titre as 'TypeEvaluation',Qu.Id as 'IdQuestion',Qu.Texte as 'DescriptionQuestion',CQ.Id as 'IdCategorieQuestion',CQ.DescriptionCategorie as 'DescriptionCategorie',TQ.Description as 'DescriptionTypeQuestion',Re.Id as 'IdReponse',Re.Texte as 'DescriptionReponse'
+from tblStage as St
+join tblEvaluationStage as Es
+on Es.IdStage = St.Id
+join tblEvaluation as Eva
+on Eva.Id = Es.IdEvaluation
+join tblEvaluationQuestionReponse as EQR
+on EQR.IdEvaluation = Eva.Id
+join tblQuestion as Qu
+on Qu.Id = EQR.IdQuestion
+join tblReponseQuestion as RQ
+on RQ.IdQuestion = Qu.Id
+join tblReponse as Re
+on RQ.IdReponse = Re.Id
+join tblCategorieQuestion as CQ
+on CQ.Id = Qu.IdCategorieQuestion
+join tblTypeQuestion as TQ
+on TQ.Id = Qu.IdTypeQuestion
+join tblTypeEvaluation AS TE
 ON TE.Id = Eva.IdTypeEvaluation
-LIMIT 20000;
+limit 20000;
