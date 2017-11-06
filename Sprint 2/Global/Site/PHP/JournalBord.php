@@ -1,5 +1,5 @@
 <?php
-    
+
     include 'ConnexionBD.php';
 
     function DateDifference($date_1 , $date_2 , $differenceFormat = '%a' ){
@@ -25,6 +25,17 @@
         return $derniereEntree;
     }
 
+    function LineBreak($texte){
+        $split = explode("\\n", $texte);
+        $texte = "";
+        
+        for($i = 0; $i < count($split); $i++){
+            $texte = $texte.$split[$i] . "\n";
+        }
+        
+        return $texte;
+    }
+
     function SelectEntrees($bdd, $idStagiaire){
         $limit = "";
         $div = "";
@@ -42,9 +53,8 @@
             $dates = $entree["Dates"];
             $dateComplete = $entree["DateComplete"];
             $document = $entree['Fichier'];
-            $texte = $texte;
 
-            $div = $div.'<div class="entree"><h2>'.$dates.'</h2><p>' .$texte. '</p><p>' . PieceJointe($document) . '</p></div>';
+            $div = $div."<div class=\"entree\"><h2>".$dates."</h2><p>" .LineBreak($texte). "</p><p>" . PieceJointe($document) . "</p></div>";
         }
         
         if(isset($_REQUEST['nbEntree']))
@@ -60,31 +70,23 @@
             include 'UploadFile.php';
             $entree = array(htmlspecialchars($_REQUEST['contenu']));
 
-            if($verif)
+            if ($entree[0] != "" && isset($_FILES['file']) && $_FILES['file']['name'] != "")
             {
-                if ($entree[0] != "" && isset($_FILES['fichier']) && $_FILES['fichier']['name'] != "")
-                {
-                    $query = $bdd->prepare("INSERT INTO tblJournalDeBord (Entree, idStagiaire, Dates, Documents) VALUES (:text, :id,'$date', :file);");
-                    $query->bindValue( 'text', $entree[0], PDO::PARAM_STR );
-                    $query->bindValue( 'id', $idStagiaire, PDO::PARAM_INT);
-                    $query->bindValue( 'file', $fichier, PDO::PARAM_STR);
-                    $query->execute();
-                }
-                else
-                {
-                    if($entree[0] != "")
-                    {
-                        $query = $bdd->prepare("INSERT INTO tblJournalDeBord (Entree, idStagiaire, Dates) VALUES (:text, :id,'$date');");
-                        $query->bindValue( 'text', $entree[0], PDO::PARAM_STR );
-                        $query->bindValue( 'id', $idStagiaire, PDO::PARAM_INT);
-                        $query->execute();
-                    }
-                }
+                $query = $bdd->prepare("INSERT INTO tblJournalDeBord (Entree, idStagiaire, Dates, Documents) VALUES (:text, :id,'$date', :file);");
+                $query->bindValue( 'text', $entree[0], PDO::PARAM_STR );
+                $query->bindValue( 'id', $idStagiaire, PDO::PARAM_INT);
+                $query->bindValue( 'file', $fichier, PDO::PARAM_STR);
+                $query->execute();
             }
             else
             {
-                //$_SESSION['textJournal'] = $text;
-                ?><script>alert("Test concluant");</script><?php
+                if($entree[0] != "")
+                {
+                    $query = $bdd->prepare("INSERT INTO tblJournalDeBord (Entree, idStagiaire, Dates) VALUES (:text, :id,'$date');");
+                    $query->bindValue( 'text', $entree[0], PDO::PARAM_STR );
+                    $query->bindValue( 'id', $idStagiaire, PDO::PARAM_INT);
+                    $query->execute();
+                }
             }
         }
     }
@@ -93,8 +95,9 @@
     {
         if($doc != null && $doc != "")
         {
-            $method = "AfficherImage('". $doc . "','" . pathinfo($doc)['extension'] ."')";
-            return '<p><span id="divBouton" onclick="' . $method . '">Pièce jointe</span></p>'; //faire ici l'affichage en absolute
+            $ext = strtolower(pathinfo($doc)['extension']);
+            $method = "AfficherImage('". $doc . "','" . $ext ."')";
+            return '<a cLass="lienJointe"><span id="divBouton" onclick="' . $method . '">Pièce jointe ' . ' -  ' . $ext . '</span></a>'; //faire ici l'affichage en absolute
         }
         else
         {
@@ -114,7 +117,7 @@
                 <h2>Journal de bord</h2>
                 <h3>Dernière entrée il y a : '.DerniereEntree($bdd, $idStagiaire).' jour(s)</h3>
             </div>
-            <p id="imageJointe"></p>
+            <div id="imageJointe"></div>
 
             <div class="separateur">
                 <h3>Nouvelle Entrée</h3>
@@ -125,7 +128,7 @@
             <input class="inputFile" id="file" type="file" value="Envoyer" name="fichier"/>
 
             <br/>                                                                             
-            <input style="width: 120px;" class="bouton" type="button" value="Envoyer" onclick="Execute(2, \'../PHP/TBNavigation.php?idStagiaire='.$idStagiaire.'&nomMenu=Journal\', \'&contenu=\', contenu.value, \'&fichier=\', file); Execute(1, \'../PHP/TBNavigation.php?idStagiaire='.$idStagiaire.'&nomMenu=Journal\', \'&nbEntree=\', 5)"/>
+            <input style="width: 120px;" class="bouton" type="button" value="Envoyer" onclick="Execute(3, \'../PHP/TBNavigation.php?idStagiaire='.$idStagiaire.'&nomMenu=Journal\', \'&contenu=\', contenu.value); Execute(1, \'../PHP/TBNavigation.php?idStagiaire='.$idStagiaire.'&nomMenu=Journal\', \'&nbEntree=\', 5)"/>
             <label class="bouton labelFile" for="file">Pièce Jointe</label>
 
             <div class="separateur">

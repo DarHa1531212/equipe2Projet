@@ -12,7 +12,7 @@
         <?php include 'vTableauBord.php' ?>
     </head>
     
-    <body onload="CacherDiv()">
+    <body onload="CacherDiv('stagiaire')">
         <script src="../js/jquery.min.js"></script>
         <script src="../js/navigation.js"></script>
         <script src="../js/regexProfilStag.js"></script>
@@ -23,21 +23,21 @@
         <section>
             <article class="ressources">
                 <div class="ressourceItem">
-                    <a class="linkFill" href="../PDF/Cahier%20entreprise%202017.pdf">
+                    <a target="_blank" class="linkFill" href="../PDF/Cahier%20entreprise%202017.pdf">
                         <div class="divImage imgPDF"></div>
                         <p>Cahier Entreprise</p>
                     </a>
                 </div>
                 
                 <div class="ressourceItem">
-                    <a class="linkFill" href="../PDF/Cahier%20stagiaire%202017.pdf">
+                    <a target="_blank" class="linkFill" href="../PDF/Cahier%20stagiaire%202017.pdf">
                         <div class="divImage imgPDF"></div>
                         <p>Cahier Stagiaire</p>
                     </a>
                 </div>
                 
                 <div class="ressourceItem">
-                    <a class="linkFill" href="../PDF/Offre%20de%20stage%202017.docx">
+                    <a target="_blank" class="linkFill" href="../PDF/Offre%20de%20stage%202017.docx">
                         <div class="divImage imgDOC"></div>
                         <p>Offre de stage</p>
                     </a>

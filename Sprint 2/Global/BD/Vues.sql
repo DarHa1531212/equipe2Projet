@@ -1,5 +1,5 @@
--- USE BDProjet_equipe2V2;
- USE cegepjon_p2017_2_dev;
+ USE BDProjet_equipe2V2;
+-- USE cegepjon_p2017_2_dev;
 -- USE cegepjon_p2017_2_prod;
 -- USE cegepjon_p2017_2_tests;
 
@@ -89,14 +89,16 @@ ON res.IdUtilisateur = Stage.IdResponsable;
 
 DROP VIEW IF EXISTS vInfoEvalGlobale;
 CREATE VIEW vInfoEvalGlobale AS
-SELECT IdStagiaire, Titre, Statut, DateLimite, DateComplétée
-FROM vStage AS Stage
-JOIN vEvaluationStage AS ES
-ON Stage.Id = ES.IdStage
-JOIN vEvaluation AS Eval
-ON Eval.Id = ES.IdEvaluation
-JOIN vTypeEvaluation AS TE
-ON TE.Id = Eval.IdTypeEvaluation;
+SELECT 	St.Id as 'IdStage', Eva.Id as 'IdEvaluation',Eva.DateComplétée as 'DateComplétée',Eva.Statut as 'Statut',
+		Eva.DateDébut as 'DateDébut',Eva.DateFin as 'DateFin',TE.Id as 'IdTypeEvaluation', TE.Titre as 'TitreTypeEvaluation',
+        St.IdStagiaire
+FROM vEvaluation as Eva
+join vTypeEvaluation as TE
+on TE.Id = Eva.IdTypeEvaluation
+JOIN vEvaluationStage as ES
+on Eva.Id = ES.IdEvaluation
+join vStage as St
+on St.Id = ES.IdStage;
 
 -- ------------------------------------------------
 -- Récupère toutes les évaluations des stagiaires selon leur ID et le type d'évaluation avec leurs réponses choisies.
@@ -167,3 +169,27 @@ ON TQ.Id = Qu.IdTypeQuestion
 JOIN tblTypeEvaluation AS TE
 ON TE.Id = Eva.IdTypeEvaluation
 LIMIT 20000;
+
+-- ------------------------------------------------
+-- Récupère les noms des différents noms des utilisateurs lié au stage
+-- ------------------------------------------------
+DROP VIEW IF EXISTS vIdentification;
+CREATE VIEW vIdentification AS
+SELECT	Sup.Prenom AS 'PrenomSup', Sup.Nom AS 'NomSup',
+		Ens.Prenom AS 'PrenomEns', Ens.Nom AS 'NomEns',
+        Resp.Prenom AS 'PrenomResp', Resp.Nom AS 'NomResp',
+        Sta.Prenom AS 'PrenomSta', Sta.Nom AS 'NomSta',
+        Ent.Nom AS 'NomEnt', Sta.IdUtilisateur AS 'IdStagiaire'
+FROM vStage AS Stage
+JOIN vSuperviseur AS Sup
+ON Sup.IdUtilisateur = Stage.IdSuperviseur
+JOIN vEnseignant AS Ens
+ON Ens.IdUtilisateur = Stage.IdEnseignant
+JOIN vResponsable AS Resp
+ON Resp.IdUtilisateur = Stage.IdResponsable
+JOIN vStagiaire AS Sta
+ON Sta.IdUtilisateur = Stage.IdStagiaire
+JOIN vEmploye AS Emp
+ON Emp.IdUtilisateur = Sup.IdUtilisateur
+JOIN vEntreprise AS Ent
+ON Ent.Id = Emp.IdEntreprise;
