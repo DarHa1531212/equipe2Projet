@@ -95,8 +95,14 @@
     {
         if($doc != null && $doc != "")
         {
+<<<<<<< HEAD
             $method = "AfficherImage('". $doc . "','" . pathinfo($doc)['extension'] ."')";
             return '<p><span id="divBouton" onclick="' . $method . '">Pièce jointe</span></p>'; //faire ici l'affichage en absolute
+=======
+            $ext = strtolower(pathinfo($doc)['extension']);
+            $method = "AfficherImage('". $doc . "','" . $ext ."')";
+            return '<a cLass="lienJointe"><span id="divBouton" onclick="' . $method . '">Pièce jointe ' . ' -  ' . $ext . '</span></a>'; //faire ici l'affichage en absolute
+>>>>>>> f919533d5dcf2dba0255e78eeaae3b5a83a12642
         }
         else
         {
@@ -116,7 +122,11 @@
                 <h2>Journal de bord</h2>
                 <h3>Dernière entrée il y a : '.DerniereEntree($bdd, $idStagiaire).' jour(s)</h3>
             </div>
+<<<<<<< HEAD
             <p id="imageJointe"></p>
+=======
+            <div id="imageJointe"></div>
+>>>>>>> f919533d5dcf2dba0255e78eeaae3b5a83a12642
 
             <div class="separateur">
                 <h3>Nouvelle Entrée</h3>

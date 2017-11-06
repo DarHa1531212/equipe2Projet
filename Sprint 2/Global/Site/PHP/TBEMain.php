@@ -2,6 +2,7 @@
     
     $content = "";
 
+<<<<<<< HEAD
     $query2 = $bdd->prepare("SELECT St.Id as 'IdStage', Eva.Id as 'IdEvaluation',Eva.DateComplétée as 'DateComplétée',Eva.Statut as 'Statut',
                             Eva.DateDébut as 'DateDébut',Eva.DateFin as 'DateFin',TE.Id as 'IdTypeEvaluation', TE.Titre as 'TitreTypeEvaluation'
                             FROM vEvaluation as Eva
@@ -12,6 +13,10 @@
                             join vStage as St
                             on St.Id = ES.IdStage
                             where St.IdStagiaire = :idStagiaire;");
+=======
+    $query2 = $bdd->prepare("SELECT * FROM vInfoEvalGlobale
+                            WHERE IdStagiaire = :idStagiaire;");
+>>>>>>> f919533d5dcf2dba0255e78eeaae3b5a83a12642
 
     //Vérifie si les évaluations précédentes sont complétées pour pouvoir appuyer sur la suivante.
     function VerifEvaluation($tblEvaluation, $profil){
@@ -22,7 +27,11 @@
         
         if($tblEvaluation[0]->statut != '0')//le statut est different de pas accéssible
         {
+<<<<<<< HEAD
             $div = '<tr class="itemHover" onclick="Execute(1, \'../PHP/TBNavigation.php?idStagiaire='.$profil["Id"].'&nomMenu=Eval\', \'&idStage=\', '.$tblEvaluation[0]->idStage.'); chargementPage()">';
+=======
+            $div = '<tr class="itemHover" onclick="Execute(1, \'../PHP/TBNavigation.php?idStagiaire='.$profil["Id"].'&nomMenu=Eval\', \'&idStage=\', '.$tblEvaluation[0]->idStage.', \'&idEvaluation=\', '.$tblEvaluation[0]->id.');">';
+>>>>>>> f919533d5dcf2dba0255e78eeaae3b5a83a12642
         }
         else
         {
@@ -39,7 +48,11 @@
         
         if(($tblEvaluation[1]->statut != '0')&&(($tblEvaluation[0]->statut == '3')||($tblEvaluation[0]->statut == '4')))
         {
+<<<<<<< HEAD
             $div = '<tr class="itemHover" onclick="Execute(1, \'../PHP/TBNavigation.php?idEmploye='.$profil["IdSuperviseur"].'&nomMenu=Eval\', \'idEvaluation\'); chargementPage()">';
+=======
+            $div = '<tr class="itemHover" onclick="Execute(1, \'../PHP/TBNavigation.php?idStagiaire='.$profil["Id"].'&nomMenu=Eval\', \'&idStage=\', '.$tblEvaluation[0]->idStage.', \'&idEvaluation=\', '.$tblEvaluation[1]->id.'); chargementPage()">';
+>>>>>>> f919533d5dcf2dba0255e78eeaae3b5a83a12642
         }
         else
         {
@@ -140,8 +153,13 @@
             '<input class="bouton" type="button" value="Écrire un commentaire" onclick="Execute(1, \'../PHP/TBNavigation.php?idEmploye='.$profil["IdSuperviseur"].'&nomMenu=Avenir\')"/>
 
             <div class="navigateur">
+<<<<<<< HEAD
                 <div class="fleche flecheGauche" onclick="ChangerStagiaire(this)"></div>
                 <div class="fleche flecheDroite" onclick="ChangerStagiaire(this)"></div>
+=======
+                <div id="gauche" class="fleche flecheGauche" onclick="ChangerItem(this)"></div>
+                <div id="droite" class="fleche flecheDroite" onclick="ChangerItem(this)"></div>
+>>>>>>> f919533d5dcf2dba0255e78eeaae3b5a83a12642
             </div>';
         }
         

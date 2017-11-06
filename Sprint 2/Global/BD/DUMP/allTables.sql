@@ -1,8 +1,15 @@
 
+<<<<<<< HEAD
  USE cegepjon_p2017_2_dev;
 -- USE cegepjon_p2017_2_prod;
 -- USE cegepjon_p2017_2_tests;
 -- USE bdprojet_equipe2v2;
+=======
+-- USE cegepjon_p2017_2_dev;
+-- USE cegepjon_p2017_2_prod;
+-- USE cegepjon_p2017_2_tests;
+ USE bdprojet_equipe2v2;
+>>>>>>> f919533d5dcf2dba0255e78eeaae3b5a83a12642
 
 INSERT IGNORE INTO `tblRole` (`Id`,`Titre`) VALUES (1,'Gestionnaire');
 INSERT IGNORE INTO `tblRole` (`Id`,`Titre`) VALUES (2,'Responsable');
@@ -1805,9 +1812,15 @@ INSERT IGNORE INTO `tblEvaluationQuestionReponse` (`IdQuestion`,`IdReponse`,`IdE
 INSERT IGNORE INTO `tblEvaluationQuestionReponse` (`IdQuestion`,`IdReponse`,`IdEvaluation`) VALUES (21,1,2);
 INSERT IGNORE INTO `tblEvaluationQuestionReponse` (`IdQuestion`,`IdReponse`,`IdEvaluation`) VALUES (22,1,2);
 INSERT IGNORE INTO `tblEvaluationQuestionReponse` (`IdQuestion`,`IdReponse`,`IdEvaluation`) VALUES (23,1,1);
+<<<<<<< HEAD
 INSERT IGNORE INTO `tblEvaluationQuestionReponse` (`IdQuestion`,`IdReponse`,`IdEvaluation`) VALUES (24,1,1);
 INSERT IGNORE INTO `tblEvaluationQuestionReponse` (`IdQuestion`,`IdReponse`,`IdEvaluation`) VALUES (25,1,1);
 INSERT IGNORE INTO `tblEvaluationQuestionReponse` (`IdQuestion`,`IdReponse`,`IdEvaluation`) VALUES (26,1,1);
+=======
+INSERT IGNORE INTO `tblEvaluationQuestionReponse` (`IdQuestion`,`IdReponse`,`IdEvaluation`) VALUES (24,2,1);
+INSERT IGNORE INTO `tblEvaluationQuestionReponse` (`IdQuestion`,`IdReponse`,`IdEvaluation`) VALUES (25,2,1);
+INSERT IGNORE INTO `tblEvaluationQuestionReponse` (`IdQuestion`,`IdReponse`,`IdEvaluation`) VALUES (26,2,1);
+>>>>>>> f919533d5dcf2dba0255e78eeaae3b5a83a12642
 INSERT IGNORE INTO `tblEvaluationQuestionReponse` (`IdQuestion`,`IdReponse`,`IdEvaluation`) VALUES (27,1,1);
 INSERT IGNORE INTO `tblEvaluationQuestionReponse` (`IdQuestion`,`IdReponse`,`IdEvaluation`) VALUES (28,1,1);
 INSERT IGNORE INTO `tblEvaluationQuestionReponse` (`IdQuestion`,`IdReponse`,`IdEvaluation`) VALUES (29,1,1);
