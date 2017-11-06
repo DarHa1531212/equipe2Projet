@@ -232,6 +232,10 @@ input[type=file]{
 
 .evaluation > tbody > tr > td:not(:first-child){width: 100px;   }
 
+.evaluation2 > thead{text-align: center;}
+
+.evaluation2{width: 90%;}
+
 .navigateurEval{
     margin: auto;
     margin-top: 10px;
@@ -250,6 +254,8 @@ input[type=file]{
 }
 
 @media screen and (max-width: 1240px){
+    .evaluation2{width: 100%;}
+    
     .evaluation{width: 100%;}
     
     .navigateurEval{width: 100%;}

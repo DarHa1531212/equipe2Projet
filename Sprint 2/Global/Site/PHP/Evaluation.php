@@ -14,10 +14,12 @@
                                     ON EQR.IdQuestion = Q.Id
                                     WHERE EQR.IdEvaluation = :idEvaluation AND Q.IdCategorieQuestion = :idCategorie');
 
-    $queryReponse = $bdd->prepare( 'SELECT DISTINCT(RQ.IdReponse)
+    $queryReponse = $bdd->prepare( 'SELECT DISTINCT(RQ.IdReponse), Texte
                                     FROM vReponseQuestion AS RQ
                                     JOIN vEvaluationQuestionReponse AS EQR
                                     ON RQ.IdQuestion = EQR.IdQuestion
+                                    JOIN vReponse AS R
+                                    ON R.Id = RQ.IdReponse
                                     WHERE EQR.IdEvaluation = :idEvaluation');
     
     $queryReponseChoisie = $bdd->prepare(  'select IdReponse
@@ -63,7 +65,7 @@
         ';
     }
 
-    function Questions($bdd, $queryQuestion, $queryReponse, $queryReponseChoisie, $queryCategorie){
+    function QuestionsGrille($bdd, $queryQuestion, $queryReponse, $queryReponseChoisie, $queryCategorie){
         
         $content = "";
         
@@ -113,6 +115,46 @@
                 ';
         }
         
+        return $content;
+    }
+
+    function QuestionChoixReponse($bdd, $queryQuestion, $queryReponse, $queryReponseChoisie, $queryCategorie){
+        $content = "";
+        
+        $categories = $queryCategorie->fetchAll();
+        $reponses = $queryReponse->fetchAll();
+        
+        foreach($categories as $categorie){
+            $queryQuestion->execute(array("idEvaluation"=>$_REQUEST["idEvaluation"], "idCategorie"=>$categorie["IdCategorie"]));
+            $questions = $queryQuestion->fetchAll();
+            
+            $content = $content.
+                '
+                <div class="categories">
+                    <div class="separateur" id="question">
+                        <h3>'.$categorie["Lettre"].'. '.$categorie["TitreCategorie"].'</h3>';
+                        
+            foreach($questions as $question){
+                $content = $content.
+                '
+                        <p> 
+                            '.$question["Texte"].'
+                        </p>
+                    </div>
+
+                    <table class="evaluation2">
+                        <tbody>          
+                                '.ChoixReponses($bdd, $question["Id"], $queryReponseChoisie, $reponses).'
+                ';
+            }
+            
+            $content = $content.
+                '
+                        </tbody>
+                    </table>
+                </div>
+                ';
+        }
         
         return $content;
     }
@@ -125,10 +167,20 @@
         $reponsesChoisies = $queryReponseChoisie->fetchAll();
         
         foreach($reponses as $reponse){
-            if($reponse['IdReponse'] == $reponsesChoisies[0]["IdReponse"])
-                $content = $content.'<td><input type="radio" id="question'.$idQuestion.'" name="question'.$idQuestion.'" value="'.$reponse['IdReponse'].'" checked = "checked" ></td>';
-            else
-                $content = $content.'<td><input type="radio" name="question'.$idQuestion.'" value="'.$reponse['IdReponse'].'"></td>';
+            if($_REQUEST["typeEval"] == 1){
+                if($reponse['IdReponse'] == $reponsesChoisies[0]["IdReponse"])
+                    $content = $content.'<td><input type="radio" id="question'.$idQuestion.'" name="question'.$idQuestion.'" value="'.$reponse['IdReponse'].'" checked = "checked" ></td>';
+                else
+                    $content = $content.'<td><input type="radio" name="question'.$idQuestion.'" value="'.$reponse['IdReponse'].'"></td>';
+                }
+            else if($_REQUEST["typeEval"] == 2){
+                $content = $content. 
+                '
+                    <tr class="itemHover" onclick="ReponseChoisie(this)">
+                        <td>'.$reponse["Texte"].'</td>
+                    </tr>
+                ';
+            }
         }
         
         return $content;
@@ -193,11 +245,23 @@
             <h3>Identification</h3>
         </div>
 
-        '.Identification($bdd).'
-        
-        '.Questions($bdd, $queryQuestion, $queryReponse, $queryReponseChoisie, $queryCategorie).'
+        '.Identification($bdd).'';
 
-        <div class="navigateurEval">
+        if($_REQUEST["typeEval"] == 1){
+            $content = $content.
+            '
+                '.QuestionsGrille($bdd, $queryQuestion, $queryReponse, $queryReponseChoisie, $queryCategorie).'
+            ';
+        }
+        else if($_REQUEST["typeEval"] == 2){
+            $content = $content.
+            '
+                '.QuestionChoixReponse($bdd, $queryQuestion, $queryReponse, $queryReponseChoisie, $queryCategorie).'
+            ';
+        }
+        
+        $content = $content .
+        '<div class="navigateurEval">
             <input id="gauche" class="bouton" style="width : 150px; float: left;" type="button" value="Précédent" onclick="ChangerItem(this)"/>
             '.LettreNav($bdd, $queryCategorie).'
             <input id="droite" class="bouton" style="width : 150px; float: right" type="button" value="Suivant" onclick="ChangerItem(this)"/>
