@@ -5,8 +5,36 @@
 ********************************************************************************************************************************************/
 
 
-function getValuesFromPHP()
+function getValuesFromUser(callback)
 {
-
-
+    var values = $(".infosStage");   
+    var reponse = "";
+    var tabValues = [];
+    var form_data = new FormData();                   
+    
+    for(var i = 0; i < values.length; i++){
+        reponse={
+            nom: values[i].name,
+            value: values[i].value
+        };
+        
+        tabValues.push(reponse);
+    }
+    
+    tabValues = JSON.stringify(tabValues);
+    
+    form_data.append('tabValues', tabValues); 
+    
+    $.ajax({ 
+        url: Url(arguments),  
+        dataType: 'text',   
+        cache: false, 
+        contentType: false, 
+        processData: false, 
+        data: form_data,                          
+        type: 'post', 
+        success: function(data){ 
+            callback(data); 
+        } 
+    }); 
 }

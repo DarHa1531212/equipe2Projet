@@ -24,6 +24,8 @@
                 break;
             case "Eval":    $menu = include 'Evaluation.php';
                 break;
+            case "CRUDStage":   $menu = include 'CRDStage.php';
+                break;
         }
 
         echo json_encode($menu);

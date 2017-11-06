@@ -11,6 +11,7 @@ But: Un écran de CRUD qui permet de gérer des stages
     <!--/!\SUPPRIMER CETTE LIGNE LORSQUE LA PAGE SERA LIÉE AU REST DU SITE/!\ -->
     <script src="../js/navigation.js"></script>
     <script src="../js/jquery.min.js"></script>
+    <script src="../js/creationStage.js"></script>
     <!--/!\SUPPRIMER CETTE LIGNE LORSQUE LA PAGE SERA LIÉE AU REST DU SITE/!\ -->
 
 
@@ -31,7 +32,7 @@ But: Un écran de CRUD qui permet de gérer des stages
     <h2>Créer un stage</h2>
     <br>
       <select>
-          <option id="stagiaire" value="" class = "infosStage" disabled="disabled" selected="selected">Sélectionnez un stagiaire</option>
+          <option id="stagiaire"  name="stagiaire" value="" class = "infosStage" disabled="disabled" selected="selected">Sélectionnez un stagiaire</option>
           <?php 
 
           // affiche les stagiaires dans le dropdown menu
@@ -56,7 +57,7 @@ But: Un écran de CRUD qui permet de gérer des stages
       </select>
     <br>
        <select>
-          <option id="entreprise" value="" class = "infosStage" disabled="disabled" selected="selected">Sélectionnez une entreprise</option>
+          <option id="entreprise" value="" name = "entreprise" class = "infosStage" disabled="disabled" selected="selected">Sélectionnez une entreprise</option>
           <?php 
             //affiche les entreprises dans le dropdown menu
             showEnterprises($bdd);
@@ -79,19 +80,19 @@ But: Un écran de CRUD qui permet de gérer des stages
       </select>
     <br>
        <select>
-          <option id="responsableStage" value="" class = "infosStage" disabled="disabled" selected="selected">Sélectionnez un responsable de stage</option>
+          <option id="responsableStage" value="" name = "responsableStage" class = "infosStage" disabled="disabled" selected="selected">Sélectionnez un responsable de stage</option>
           <option value="1">One</option>
           <option value="2">Two</option>
       </select>
     <br>
        <select>
-          <option id="superviseurStage" value=""class = "infosStage"  disabled="disabled" selected="selected">Sélectionnez un superviseur de stage</option>
+          <option id="superviseurStage" value="" class = "infosStage" name= "superviseurStage"  disabled="disabled" selected="selected">Sélectionnez un superviseur de stage</option>
           <option value="1">One</option>
           <option value="2">Two</option>
         </select>
     <br>
         <select>
-          <option id="enseignant" value="" class = "infosStage" disabled="disabled" selected="selected">Sélectionnez un enseignant</option>
+          <option id="enseignant" value="" name = "enseignant" class = "infosStage" disabled="disabled" selected="selected">Sélectionnez un enseignant</option>
           <?php 
                 //affiche les entreprises dans le dropdown menu
                 showProfessors($bdd);
@@ -113,20 +114,20 @@ But: Un écran de CRUD qui permet de gérer des stages
     <br>
 
     <p>Descrption de stage:</p>
-    <textarea id="descStage" rows="5" class = "infosStage" class = "infosStage"  cols="100" maxlength="500" name="descStage" wrap="hard"></textarea>
+    <textarea id="descStage" rows="5" name = "descStage" class = "infosStage"  cols="100" maxlength="500" name="descStage" wrap="hard"></textarea>
                 <br>
     <p>compétances recherchées</p>
-    <textarea  id="competencesRecherchees" class = "infosStage" rows="5" cols="100" maxlength="500" name="competancesRecherchees" wrap="hard"></textarea>
+    <textarea  id="competencesRecherchees" name = "competencesRecherchees" class = "infosStage" rows="5" cols="100" maxlength="500" name="competancesRecherchees" wrap="hard"></textarea>
                 <br>
-    Horaire de travail <input id="horaireTravail" class = "infosStage" type="text" name="horaireTravail" value="temps plein/ partiel"><br>
-    Heures par semaine <input id="heuresTravail" class = "infosStage" type="text" name="heuresTravail" value="heures par semaine"><br>
+    Horaire de travail <input id="horaireTravail" name = "horaireTravail" class = "infosStage" type="text" name="horaireTravail" value="temps plein/ partiel"><br>
+    Heures par semaine <input id="heuresTravail" name = "heuresTravail" class = "infosStage" type="text" name="heuresTravail" value="heures par semaine"><br>
     <br>
-    Taux horaire (laisser vide si stage non rémunété) <input id="tauxHoraire" type="text" class = "infosStage" name="tauxHoraire" value="Taux Horaire"><br>
-    Date de début:  <input id="dateDebut" class = "infosStage" type="date" name="dateDebut"> <br>
-    Date de fin:  <input  id="dateFin" class = "infosStage" type="date" name="dateFin"> <br>
+    Taux horaire (laisser vide si stage non rémunété) <input name = "tauxHoraire" id="tauxHoraire" type="text" class = "infosStage" name="tauxHoraire" value="Taux Horaire"><br>
+    Date de début:  <input name = "dateDebut" id="dateDebut" class = "infosStage" type="date" name="dateDebut"> <br>
+    Date de fin:  <input  name = "dateFin" id="dateFin" class = "infosStage" type="date" name="dateFin"> <br>
 
     <!-- paramètre à passer (dans l'ordre): -idStagiaire, -idResponsable, -idSuperviseur, -idEntreprise, -idEnseignant, -descStage, -competencesRecherchees, horaireTravail, heuresTravail, tauxHoraire, dateDebut, dateFin -->
-    <input type="submit" id="Save" class="bouton" value="Sauvegarder" />
+    <input type="button" id="Save" class="bouton" value="Sauvegarder" onclick="Execute(5, '../PHP/TBNavigation.php?nomMenu=CRUDStage')" />
     <br>
 
   <BR>

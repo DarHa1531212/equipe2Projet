@@ -101,5 +101,7 @@ function Execute(choix){
         case 3: UploadFile(ExecuteQuery, arguments);
             break;
         case 4: PostEval(ExecuteQuery, arguments);
+            break;
+        case 5: getValuesFromUser(AfficherPage, arguments);
     }
 }
