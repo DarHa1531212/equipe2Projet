@@ -2,8 +2,8 @@
 -- CRÉÉE LE 06/09/2017 PAR MARC-ANTOINE DUCHESNE
 
 -- Création de la bd
- DROP DATABASE IF EXISTS BDProjet_equipe2V2;
- CREATE DATABASE BDProjet_equipe2V2;
+-- DROP DATABASE IF EXISTS BDProjet_equipe2V2;
+-- CREATE DATABASE BDProjet_equipe2V2;
 
 -- USE cegepjon_p2017_2_dev;
 -- USE cegepjon_p2017_2_prod;

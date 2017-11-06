@@ -1132,7 +1132,7 @@ INSERT IGNORE INTO `tblReponse` (`Id`,`Texte`) VALUES (96,'Orthographe avec quel
 INSERT IGNORE INTO `tblReponse` (`Id`,`Texte`) VALUES (97,'Orthographe acceptable.');
 INSERT IGNORE INTO `tblReponse` (`Id`,`Texte`) VALUES (98,'Orthographe avec beaucoup de fautes.');
 INSERT IGNORE INTO `tblReponse` (`Id`,`Texte`) VALUES (99,'Orthographe inacceptable.');
-INSERT IGNORE INTO `tblReponse` (`Id`,`Texte`) VALUES (100,'L''expression écrite est s''un excellent niveau.');
+INSERT IGNORE INTO `tblReponse` (`Id`,`Texte`) VALUES (100,'L''expression écrite est d''un excellent niveau.');
 INSERT IGNORE INTO `tblReponse` (`Id`,`Texte`) VALUES (101,'L''expression écrite est claire et précise.');
 INSERT IGNORE INTO `tblReponse` (`Id`,`Texte`) VALUES (102,'L''expression écrite est acceptable.');
 INSERT IGNORE INTO `tblReponse` (`Id`,`Texte`) VALUES (103,'L''expression écrite est maladroite.');
