@@ -1,5 +1,57 @@
 <?php
     
+    class Evaluation{
+        private $lstQuestion = array();
+        
+        public function __construct($id, $bdd){
+            $this->lstQuestions = $this->selectQuestions($id, $bdd);
+        }
+        
+        private function selectQuestions($id, $bdd){
+            $lstQuestion = array();
+                
+            $queryQuestion = $bdd->prepare('SELECT *
+                                            FROM vQuestion AS Q
+                                            JOIN vEvaluationQuestionReponse AS EQR
+                                            ON EQR.IdQuestion = Q.Id
+                                            WHERE EQR.IdEvaluation = :idEvaluation');
+            
+            $queryQuestion->execute(array('idEvaluation'=>$id));
+            
+            $questions = $queryQuestion->fetchAll();
+            
+            foreach($questions as $question){
+                echo '<script>alert("test")</script>';
+                $lstQuestion[] = new Question($question["Id"], $question["Texte"]);
+            }
+            
+            return $lstQuestion;
+        }
+        
+        public function getLstQuestion(){
+            return $this->lstQuestion;
+        }
+    }
+
+    class Question{
+        
+        private $id;
+        private $texte;
+        
+        function __construct($id, $texte){
+            $this->id = $id;
+            $this->texte = $texte;
+        }
+        
+        public function getId(){
+            return $this->id;
+        }
+        
+        public function getTexte(){
+            return $this->texte;
+        }
+    }
+
     $queryCategorie = $bdd->prepare('SELECT DISTINCT(CQ.Id) AS IdCategorie, TitreCategorie, Lettre, descriptionCategorie
                                     FROM vQuestion AS Q
                                     JOIN vCategorieQuestion AS CQ
@@ -118,42 +170,55 @@
         return $content;
     }
 
-    function QuestionChoixReponse($bdd, $queryQuestion, $queryReponse, $queryReponseChoisie, $queryCategorie){
+    function QuestionChoixReponse($bdd, $queryReponse, $queryReponseChoisie, $queryCategorie){
+        $queryQuestion = $bdd->prepare('SELECT DISTINCT(Id), Q.Texte
+                                        FROM vQuestion AS Q
+                                        JOIN vEvaluationQuestionReponse AS EQR
+                                        ON EQR.IdQuestion = Q.Id
+                                        WHERE EQR.IdEvaluation = :idEvaluation');
+        
+        $queryCategorie = $bdd->prepare('SELECT DISTINCT(CQ.Id) AS IdCategorie, TitreCategorie, Lettre, descriptionCategorie
+                                        FROM vQuestion AS Q
+                                        JOIN vCategorieQuestion AS CQ
+                                        ON CQ.Id = Q.IdCategorieQuestion
+                                        JOIN vEvaluationQuestionReponse AS EQR
+                                        ON EQR.IdQuestion = Q.Id
+                                        WHERE IdEvaluation = :idEvaluation AND Q.Id = :idQuestion');
+        
+        $queryReponse = $bdd->prepare( 'SELECT DISTINCT(RQ.IdReponse), Texte
+                                    FROM vReponseQuestion AS RQ
+                                    JOIN vEvaluationQuestionReponse AS EQR
+                                    ON RQ.IdQuestion = EQR.IdQuestion
+                                    JOIN vReponse AS R
+                                    ON R.Id = RQ.IdReponse
+                                    WHERE EQR.IdEvaluation = :idEvaluation AND RQ.idQuestion = :idQuestion');
+        
+        $queryQuestion->execute(array("idEvaluation"=>$_REQUEST["idEvaluation"]));
+        
+        $questions = $queryQuestion->fetchAll();
+        
         $content = "";
         
-        $categories = $queryCategorie->fetchAll();
-        $reponses = $queryReponse->fetchAll();
-        
-        foreach($categories as $categorie){
-            $queryQuestion->execute(array("idEvaluation"=>$_REQUEST["idEvaluation"], "idCategorie"=>$categorie["IdCategorie"]));
-            $questions = $queryQuestion->fetchAll();
+        foreach($questions as $question){
+            $queryReponse->execute(array("idEvaluation"=>$_REQUEST["idEvaluation"], "idQuestion"=>$question["Id"]));
+            $queryCategorie->execute(array("idEvaluation"=>$_REQUEST["idEvaluation"], "idQuestion"=>$question["Id"]));
+            $categories = $queryCategorie->fetchAll();
+            $reponses = $queryReponse->fetchAll();
             
             $content = $content.
-                '
-                <div class="categories">
-                    <div class="separateur" id="question">
-                        <h3>'.$categorie["Lettre"].'. '.$categorie["TitreCategorie"].'</h3>';
-                        
-            foreach($questions as $question){
-                $content = $content.
-                '
-                        <p> 
-                            '.$question["Texte"].'
-                        </p>
-                    </div>
-
-                    <table class="evaluation2">
-                        <tbody>          
-                                '.ChoixReponses($bdd, $question["Id"], $queryReponseChoisie, $reponses).'
-                ';
-            }
-            
-            $content = $content.
-                '
-                        </tbody>
-                    </table>
+            '<div class="categories">
+                <div class="separateur" id="question">
+                    <h3>'.$categories[0]["Lettre"].'. '.$categories[0]["TitreCategorie"].'</h3>
+                    <p> 
+                        '.$question["Texte"].'
+                    </p>
                 </div>
-                ';
+                <table class="evaluation2">
+                    <tbody>          
+                            '.ChoixReponses($bdd, $question["Id"], $queryReponseChoisie, $reponses).'
+                    </tbody>
+                </table>
+            </div>';     
         }
         
         return $content;
@@ -224,9 +289,12 @@
 
     if(isset($_REQUEST["post"]))
         Submit($bdd, $queryCategorie, $queryQuestion);
+    
+    $test = new Evaluation(1, $bdd);
 
     $content =
-    '<article class="stagiaire">
+    ''.$test->getLstQuestion()[0].'
+    <article class="stagiaire">
         <div class="infoStagiaire">
             <h2>Évaluation de mi-stage</h2>
         </div>
@@ -256,7 +324,7 @@
         else if($_REQUEST["typeEval"] == 2){
             $content = $content.
             '
-                '.QuestionChoixReponse($bdd, $queryQuestion, $queryReponse, $queryReponseChoisie, $queryCategorie).'
+                '.QuestionChoixReponse($bdd, $queryReponse, $queryReponseChoisie, $queryCategorie).'
             ';
         }
         
