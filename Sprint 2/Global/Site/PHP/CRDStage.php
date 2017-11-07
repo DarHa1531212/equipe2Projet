@@ -14,6 +14,7 @@ function ajouterStage()
 
 
 }
+include 'connexionBD.php'; 
 
 echo "accès au CRDStage";
 

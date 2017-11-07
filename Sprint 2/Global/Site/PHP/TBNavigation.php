@@ -1,8 +1,11 @@
 <?php 
     include 'Session.php';
     function AfficherPage($NomMenu){
-        include 'vProfil.php';
-        include 'vTableauBord.php';
+        if(isset($_REQUEST["idStagiaire"]) || (isset($_REQUEST["idEmploye"]))){
+            include 'vProfil.php';
+            include 'vTableauBord.php';
+        }
+        
         $menu = "";
         
         switch($NomMenu){
