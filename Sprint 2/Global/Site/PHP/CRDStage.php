@@ -15,7 +15,7 @@ function ajouterStage()
 
 }
 
-
+echo "accès au CRDStage";
 
 	$data = $_POST ['tabValues'];
 

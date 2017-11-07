@@ -26,6 +26,10 @@
                 break;
             case "CRUDStage":   $menu = include 'CRDStage.php';
                 break;
+            case "CRUDStagiaire":   $menu = include 'CRUDstagiaire.php';
+                break;
+            case "CRUDEntreprise":  $menu = include 'CRUDEntreprise.php';
+                break;
         }
 
         echo json_encode($menu);
