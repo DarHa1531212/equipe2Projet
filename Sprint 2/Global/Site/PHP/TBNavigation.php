@@ -3,6 +3,7 @@
     function AfficherPage($NomMenu){
         include 'vProfil.php';
         include 'vTableauBord.php';
+        include 'Model.php';
         $menu = "";
         
         switch($NomMenu){

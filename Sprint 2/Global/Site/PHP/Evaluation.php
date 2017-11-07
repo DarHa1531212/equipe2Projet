@@ -1,56 +1,4 @@
 <?php
-    
-    class Evaluation{
-        private $lstQuestion = array();
-        
-        public function __construct($id, $bdd){
-            $this->lstQuestions = $this->selectQuestions($id, $bdd);
-        }
-        
-        private function selectQuestions($id, $bdd){
-            $lstQuestion = array();
-                
-            $queryQuestion = $bdd->prepare('SELECT *
-                                            FROM vQuestion AS Q
-                                            JOIN vEvaluationQuestionReponse AS EQR
-                                            ON EQR.IdQuestion = Q.Id
-                                            WHERE EQR.IdEvaluation = :idEvaluation');
-            
-            $queryQuestion->execute(array('idEvaluation'=>$id));
-            
-            $questions = $queryQuestion->fetchAll();
-            
-            foreach($questions as $question){
-                echo '<script>alert("test")</script>';
-                $lstQuestion[] = new Question($question["Id"], $question["Texte"]);
-            }
-            
-            return $lstQuestion;
-        }
-        
-        public function getLstQuestion(){
-            return $this->lstQuestion;
-        }
-    }
-
-    class Question{
-        
-        private $id;
-        private $texte;
-        
-        function __construct($id, $texte){
-            $this->id = $id;
-            $this->texte = $texte;
-        }
-        
-        public function getId(){
-            return $this->id;
-        }
-        
-        public function getTexte(){
-            return $this->texte;
-        }
-    }
 
     $queryCategorie = $bdd->prepare('SELECT DISTINCT(CQ.Id) AS IdCategorie, TitreCategorie, Lettre, descriptionCategorie
                                     FROM vQuestion AS Q
@@ -289,12 +237,9 @@
 
     if(isset($_REQUEST["post"]))
         Submit($bdd, $queryCategorie, $queryQuestion);
-    
-    $test = new Evaluation(1, $bdd);
 
     $content =
-    ''.$test->getLstQuestion()[0].'
-    <article class="stagiaire">
+    '<article class="stagiaire">
         <div class="infoStagiaire">
             <h2>Évaluation de mi-stage</h2>
         </div>
