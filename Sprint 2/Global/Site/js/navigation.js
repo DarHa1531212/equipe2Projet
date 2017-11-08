@@ -103,5 +103,8 @@ function Execute(choix){
         case 4: PostEval(ExecuteQuery, arguments);
             break;
         case 5: getValuesFromUser(AfficherPage, arguments);
+            break;
+        case 6: getValuesFromUser (ExecuteQuery, arguments);
+            break;
     }
 }

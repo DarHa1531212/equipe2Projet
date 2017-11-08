@@ -31,8 +31,8 @@ But: Un écran de CRUD qui permet de gérer des stages
   <body>
     <h2>Créer un stage</h2>
     <br>
-      <select>
-          <option id="stagiaire"  name="stagiaire" value="" class = "infosStage" disabled="disabled" selected="selected">Sélectionnez un stagiaire</option>
+      <select id="stagiaire"  name="stagiaire" value="-1" class = "infosStage"  selected="selected">
+          <option disabled="disabled" selected >Sélectionnez un stagiaire</option>
           <?php 
 
           // affiche les stagiaires dans le dropdown menu
@@ -56,21 +56,21 @@ But: Un écran de CRUD qui permet de gérer des stages
 
       </select>
     <br>
-       <select>
-          <option id="entreprise" value="" name = "entreprise" class = "infosStage" disabled="disabled" selected="selected">Sélectionnez une entreprise</option>
+       <select id="entreprise" name = "entreprise" class = "infosStage" >
+          <option value="-1"  disabled="disabled" selected >Sélectionnez une entreprise</option>
           <?php 
             //affiche les entreprises dans le dropdown menu
             showEnterprises($bdd);
             function showEnterprises($bdd)
             {
-              $query = $bdd->prepare("select Nom, id from vEntreprise;");
+              $query = $bdd->prepare("select Nom, Id from vEntreprise;");
 
                   $query->execute(array());     
                   $entrees = $query->fetchAll();
                   
                   foreach($entrees as $entree){
                       $nomEntreprise = $entree["Nom"];
-                      $idEntreprise = $entree["id"];
+                      $idEntreprise = $entree["Id"];
 
                       echo '<option value= "' . $idEntreprise . '">' . $nomEntreprise . '</option>';
                       }
@@ -79,20 +79,20 @@ But: Un écran de CRUD qui permet de gérer des stages
 
       </select>
     <br>
-       <select>
-          <option id="responsableStage" value="" name = "responsableStage" class = "infosStage" disabled="disabled" selected="selected">Sélectionnez un responsable de stage</option>
+       <select id="responsableStage" name = "responsableStage" class = "infosStage">
+          <option  value="-1"  disabled="disabled" selected >Sélectionnez un responsable de stage</option>
           <option value="1">One</option>
           <option value="2">Two</option>
       </select>
     <br>
-       <select>
-          <option id="superviseurStage" value="" class = "infosStage" name= "superviseurStage"  disabled="disabled" selected="selected">Sélectionnez un superviseur de stage</option>
+       <select id="superviseurStage" name= "superviseurStage" class = "infosStage" >
+          <option  value="-1" disabled="disabled" selected>Sélectionnez un superviseur de stage</option>
           <option value="1">One</option>
           <option value="2">Two</option>
         </select>
     <br>
-        <select>
-          <option id="enseignant" value="" name = "enseignant" class = "infosStage" disabled="disabled" selected="selected">Sélectionnez un enseignant</option>
+        <select id="enseignant" name = "enseignant" class = "infosStage">
+          <option  value="-1"  disabled="disabled" selected >Sélectionnez un enseignant</option>
           <?php 
                 //affiche les entreprises dans le dropdown menu
                 showProfessors($bdd);
@@ -127,7 +127,7 @@ But: Un écran de CRUD qui permet de gérer des stages
     Date de fin:  <input  name = "dateFin" id="dateFin" class = "infosStage" type="date" name="dateFin"> <br>
 
     <!-- paramètre à passer (dans l'ordre): -idStagiaire, -idResponsable, -idSuperviseur, -idEntreprise, -idEnseignant, -descStage, -competencesRecherchees, horaireTravail, heuresTravail, tauxHoraire, dateDebut, dateFin -->
-    <input type="button" id="Save" class="bouton" value="Sauvegarder" onclick="Execute(5, '../PHP/TBNavigation.php?nomMenu=CRUDStage')" />
+    <input type="button" id="Save" class="bouton" value="Sauvegarder" onclick="Execute(6, '../PHP/TBNavigation.php?nomMenu=CRUDStage'); Execute (5, '../PHP/TBNavigation.php?nomMenu=CRUDStage')" />
     <br>
 
   <BR>
