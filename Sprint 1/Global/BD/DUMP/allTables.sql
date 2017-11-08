@@ -817,9 +817,6 @@ INSERT IGNORE INTO `tblEvaluation` (`Id`,`IdTypeEvaluation`) VALUES (149,2);
 INSERT IGNORE INTO `tblEvaluation` (`Id`,`IdTypeEvaluation`) VALUES (150,3);*/
 
 
-INSERT INTO `tblEvaluation` (`Id`,`Statut`,`DateDébut`,`DateFin`,`DateComplétée`,`IdTypeEvaluation`) VALUES (1,'1', ' 2017-10-20 ', ' 2018-04-04 ',NULL,1);
-INSERT INTO `tblEvaluation` (`Id`,`Statut`,`DateDébut`,`DateFin`,`DateComplétée`,`IdTypeEvaluation`) VALUES (2,'1', ' 2017-10-20 ', ' 2018-04-04 ',NULL,2);
-INSERT INTO `tblEvaluation` (`Id`,`Statut`,`DateDébut`,`DateFin`,`DateComplétée`,`IdTypeEvaluation`) VALUES (3,'1', ' 2017-10-20 ', ' 2018-04-04 ',NULL,3);
 INSERT INTO `tblEvaluation` (`Id`,`Statut`,`DateDébut`,`DateFin`,`DateComplétée`,`IdTypeEvaluation`) VALUES (4,'1', ' 2017-10-20 ', ' 2018-04-04 ',NULL,1);
 INSERT INTO `tblEvaluation` (`Id`,`Statut`,`DateDébut`,`DateFin`,`DateComplétée`,`IdTypeEvaluation`) VALUES (5,'1', ' 2017-10-20 ', ' 2018-04-04 ',NULL,2);
 INSERT INTO `tblEvaluation` (`Id`,`Statut`,`DateDébut`,`DateFin`,`DateComplétée`,`IdTypeEvaluation`) VALUES (6,'1', ' 2017-10-20 ', ' 2018-04-04 ',NULL,3);
