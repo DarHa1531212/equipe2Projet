@@ -12,7 +12,7 @@
 function ajouterStage()
 {
 
-
+//DERNIÈRE VERSION
 }
 include 'connexionBD.php'; 
 	$data = $_POST ['tabValues'];
