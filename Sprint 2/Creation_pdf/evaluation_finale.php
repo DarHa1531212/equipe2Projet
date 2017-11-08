@@ -2,7 +2,7 @@
 <?php
 require('fpdf.php');// Connexion et recherche de données
 $base = new PDO('mysql:host=localhost; dbname=bdprojet_equipe2V2', 'root', '');
-$retour = $base->query("SELECT * FROM vEvaluationCompletee WHERE IdStagiaire = 10 AND TypeEvaluation = 1;");
+$retour = $base->query("SELECT * FROM vEvaluationCompletee WHERE IdStagiaire = 30 AND TypeEvaluation = 2;");
 $x = 0;
 while ($data = $retour->fetch()){
     $prenoms[$x] = $data['Prenom'];
@@ -18,6 +18,13 @@ while ($data = $retour->fetch()){
     $descriptionCategories[$x] = $data['DescriptionCategorie'];
     $titreCategories[$x] = $data['TitreCategorie'];
     $texteReponses[$x] =$data['Reponse'];
+    $competences[$x] = $data['Competence'];
+    $x++;
+} 
+$retour = $base->query("SELECT * FROM vReponse WHERE Id>4 AND Id<115;");
+$x = 0;
+while ($data = $retour->fetch()){
+    $texteToutesReponses[$x] = $data['Texte'];
     $x++;
 } 
 // class pdf
@@ -40,28 +47,6 @@ class PDF extends FPDF
         }
     }
         public $angle = 0; 
-
-    function Rotate($angle,$x=-1,$y=-1) { 
-
-        if($x==-1) 
-            $x=$this->x; 
-        if($y==-1) 
-            $y=$this->y; 
-        if($this->angle!=0) 
-            $this->_out('Q'); 
-        $this->angle=$angle; 
-        if($angle!=0) 
-
-        { 
-            $angle*=M_PI/180; 
-            $c=cos($angle); 
-            $s=sin($angle); 
-            $cx=$x*$this->k; 
-            $cy=($this->h-$y)*$this->k; 
-             
-            $this->_out(sprintf('q %.5f %.5f %.5f %.5f %.2f %.2f cm 1 0 0 1 %.2f %.2f cm',$c,$s,-$s,$c,$cx,$cy,-$cx,-$cy)); 
-        } 
-    } 
 
     // En-tête
     function Header()
@@ -100,101 +85,112 @@ class PDF extends FPDF
     {
         $this->SetY(-15);
         $this->SetFont('Times','',8);
-
         $this->Cell(0,10,'Page '.$this->PageNo().'/{nb}',0,0,'C');
     }
 
-    function TableauQuestion($xfor = 0,$xmax =3,$lettre = 0){
+    function TableauQuestion($lettrefor=0,$lettreMax=0,$xfor = 0,$xmax =4,$lettre = 0){
         global $reponses;
         global $questions;
         global $lettres;
         global $descriptionCategories;
         global $titreCategories;
         global $texteReponses;
-        
+        global $competences;
+        global $texteToutesReponses;        
         
         $this->SetFont('Times','B',15);
         $this->Cell(0,5,$lettres[$lettre].'.   '.$titreCategories[$lettre],0,1);
         $this->SetFont('Times','',12);
-        $this->MultiCell(0,5,$descriptionCategories[$lettre],0,'L');
-        $this->SetFont('Times','',12);
-        
-        
-        $this->Cell(110,5,'',0,1,'C');
-        $this->Cell(110,20,utf8_decode('Critères :'),1,0,'C',true);
-        $this->SetFont('Times','',8);
-        $this->Cell(15,15,utf8_decode($this->TexteRotation('Généralement')),0,0);
-        $this->Rotate(0);
-        $this->SetX($this->GetX()+15);
-        $this->Cell(15,15,$this->TexteRotation('Souvent'),0,0);
-        $this->Rotate(0);
-        $this->SetX($this->GetX()+15);
-        $this->Cell(15,15,$this->TexteRotation('Parfois'),0,0);
-        $this->Rotate(0);
-        $this->SetX($this->GetX()+15);
-        $this->Cell(15,15,$this->TexteRotation('Rarement'),0,0);
-        $this->Rotate(0);
-        $this->SetX($this->GetX()+15);
-        $this->Cell(15,15,'',0,1);
-        $this->SetFont('Times','',12);
-        for($x = $xfor;$x<=$xmax;$x++){    
-            $this->Cell(110,20,'',1,0,'C',true);
-            $this->SetX($this->GetX()-110);
-            $this->MultiAlignCell(110,5,$questions[$x],0,0,'L');
-            $this->Cell(15,20,$this->ReponseStagiaire($reponses[$x],1),1,0,'C');
-            $this->Cell(15,20,$this->ReponseStagiaire($reponses[$x],2),1,0,'C');
-            $this->Cell(15,20,$this->ReponseStagiaire($reponses[$x],3),1,0,'C');
-            $this->Cell(15,20,$this->ReponseStagiaire($reponses[$x],4),1,1,'C');
-        }
+        $x=$xfor;   
+        for($y=$lettrefor;$y<=$lettreMax;$y++){
+            $texte = $questions[$y];
+            $this->Cell(10,10,'',0,0);
+            $this->SetFillColor(221,217,195);
+            $this->SetFont('Times','B',12);
+            if ($competences[$y] != $questions[$y]){
+                $texte = $competences[$y].'. '.$questions[$y];
+                if($competences[$y] == '')
+                    $texte = $questions[$y];
+            }
+            $this->MultiCell(0,5,($y+1).'. '.$texte  ,1,1,'L',true);
+            $this->SetFont('Times','',12);
+            $posLettre = 0;
+            $xmax = ($y*5)+4;
+            for($x = $y*5;$x <= $xmax ;$x++){
+                    $posLettre++;
+                    $this->Cell(10,5,'',0,0);
+                    $this->Cell(0,5,$this->DetermineLettre($posLettre).$texteToutesReponses[$x] ,0,1,'L',$this->VerifierReponse($texteToutesReponses[$x],$texteReponses[$y]));            
+                }
+            
+            $this->Cell(10,10,'',0,1);
+            
+            }
+            
         
         switch($lettre){
             case 0:
-                $this->Cell(10,10,'',0,1);
-                $this->TableauQuestion(4,7,5);
+                $this->TableauQuestion(1,5,5,9,1);
+                break;
+            case 1:
+                $this->TableauQuestion(6,14,10,14,6);
+                break;
+            case 6:
+                $this->TableauQuestion(15,20,15,19,15);
+                break;
+            case 15:
+                $this->TableauQuestion(21,21,21,26,21);
+                $this->Cell(10,60,'',0,1);
+                $this->SetFont('Times','B',15);
+                $this->Cell(0,5,utf8_decode('Commentaires:'),0,1);
+                $this->SetFont('Times','',12);
+                $this->Cell(0,5,utf8_decode('Veuillez donner ici vos commentaires sur :'),0,1);
+                $this->Cell(10,10,'',0,0);
+                $this->SetTextColor(0);
+                $this->Cell(0,5,utf8_decode('l\'élève stagiaire;'),0,1);
+                $this->Cell(10,10,'',0,0);
+                $this->Cell(0,5,utf8_decode('l\'organisation des stages;'),0,1);
+                $this->Cell(10,10,'',0,0);
+                $this->Cell(0,5,utf8_decode('la formation collégiale en informatique;'),0,1);
+                $this->Cell(10,10,'',0,0);
+                $this->Cell(0,5,utf8_decode('tout autre point qui vous apparaît pertinent.'),0,1);
+                $this->SetTextColor(0);
+                $this->SetFillColor(221,217,195);
+                $this->MultiCell(0,5,$texteReponses[22],1,1,true);
+                break;
+        }
+
+    }
+    function DetermineLettre($lettre){
+        
+        switch($lettre){
+            case 1:
+                $lettre = 'a) ';
+                break;
+            case 2:
+                $lettre = 'b) ';
+                break;
+            case 3:
+                $lettre = 'c) ';
+                break;
+            case 4:
+                $lettre = 'd) ';
                 break;
             case 5:
-                $this->Cell(100,10,'',0,1);
-                $this->TableauQuestion(8,11,8);
-                break;
-            case 8:
-                $this->Cell(100,10,'',0,1);
-                $this->TableauQuestion(12,15,12);
-                break;
-            case 12:
-                $this->Cell(100,115,'',0,1);
-                $this->TableauQuestion(16,20,16);
-                break;
-            case 16:
-                $this->Cell(100,10,'',0,1);
-                $this->TableauQuestion(21,29,21);
-                break;
-            case 21:
-                $this->Cell(100,115,'',0,1);
-                $this->TableauQuestion(30,33,30);
-                $this->Cell(100,125,'',0,1);
-                $this->SetFont('Times','B',15);
-                $this->Cell(0,5,utf8_decode('Évaluation Globale de l\'élève stagiaire.'),0,1);
-                $this->SetFont('Times','',12);
-                $this->Cell(0,5,utf8_decode('Donnez vos commentaires généraux.'),0,1);
-                $this->MultiCell(0,5,$texteReponses[34],1,1,true);
+                $lettre = 'e) ';
                 break;
         }
-
+        return $lettre;
     }
-    function TexteRotation($texte){
-        $this->Rotate(90);
-        $this->SetX($this->GetX()-15);
-        return $texte;
-    }
-    
-    function ReponseStagiaire($reponse='1',$position='1'){
-        $retour = '';
-
-        if($reponse == $position){
-            $retour = 'X';
+    function VerifierReponse($question, $reponse){
+        $this->SetFillColor(255,255,100);
+        $retour = false;
+        if($question == $reponse){
+            $retour = true;
         }
         return $retour;
-    }   
+        
+    }
+     
 }
 //contenu du pdf
 $pdf = new PDF();
