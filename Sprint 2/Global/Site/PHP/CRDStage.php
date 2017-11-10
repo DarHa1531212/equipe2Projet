@@ -25,15 +25,16 @@ include 'connexionBD.php';
 	$horaireTravail = $dataArray[7]->value;
 	$nbreHeuresSemaine = intval ($dataArray[8]->value);
 	$salaireHoraire = intval ($dataArray[9]->value);
-	$dateDebut = date ('d-m-Y', strtotime($dataArray[10]->value));
-	$dateFin = date ('d-m-Y', strtotime($dataArray[11]->value));
+	$dateDebut = date ('Y-m-d', strtotime($dataArray[10]->value));
+	$dateFin = date ('Y-m-d', strtotime($dataArray[11]->value));
 
-//   CompetencesRecherchees - HoraireTravail -      NbreHeuresSemaine -            SalaireHoraire -                dateDebut -                                    dateFin
-	$query = $bdd->prepare("INSERT INTO tblStage 	(	idStagiaire	, 	idResponsable	,	idSuperviseur	,  	idEnseignant	, 	descriptionStage	, 	CompetenceRecherche	, 	horaireTravail	, 	NbHeureSemaine	, 	salaireHoraire	,	 	dateDebut		, 	dateFin 		) 
-	Values	(	'$idStagiaire','$idResponsable','$idSuperviseur','$idEnseignant','$descriptionStage','$competencesRecherche','$horaireTravail','$nbreHeuresSemaine','$salaireHoraire','$dateDebut','$dateFin'); ");
+function ajouterStage($bdd, $idResponsable, $idSuperviseur, $idStagiaire, $idEnseignant, $descriptionStage, $competencesRecherche, $horaireTravail, $nbreHeuresSemaine, $salaireHoraire, $dateDebut, $dateFin)
+{
+    $query = $bdd->prepare("INSERT INTO tblStage (IdResponsable, IdSuperviseur, IdStagiaire, IdEnseignant, DescriptionStage, CompetenceRecherche, HoraireTravail, NbHeureSemaine, SalaireHoraire, DateDebut, DateFin ) VALUES ($idResponsable, $idSuperviseur, $idStagiaire, $idEnseignant, '$descriptionStage', '$competencesRecherche', '$horaireTravail', '$nbreHeuresSemaine', '$salaireHoraire', '$dateDebut', '$dateFin');;");
+    $query->execute();
+}
 
-	$query->execute();
-	
+ajouterStage($bdd, $idResponsable, $idSuperviseur, $idStagiaire, $idEnseignant, $descriptionStage, $competencesRecherche, $horaireTravail, $nbreHeuresSemaine, $salaireHoraire, $dateDebut, $dateFin);
 
 
 ?>
