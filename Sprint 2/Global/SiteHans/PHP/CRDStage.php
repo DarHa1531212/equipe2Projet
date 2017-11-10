@@ -9,7 +9,11 @@
 	idEntreprise, idResponsable, idSuperviseur, idStagiaire, idEnseignant, 
 	descriptionStage, competencesRecherche, horaireTravail, nbreHeuresSemaine, 
 	Remunere, salaireHoraire, dateDebut, dateFin*/
+function ajouterStage()
+{
 
+//DERNIÈRE VERSION
+}
 include 'connexionBD.php'; 
 	$data = $_POST ['tabValues'];
 	$dataArray = (json_decode($data, false));
@@ -32,8 +36,7 @@ include 'connexionBD.php';
 	$query = $bdd->prepare("INSERT INTO tblStage 	(	idStagiaire	, 	idResponsable	,	idSuperviseur	,  	idEnseignant	, 	descriptionStage	, 	CompetenceRecherche	, 	horaireTravail	, 	NbHeureSemaine	, 	salaireHoraire	,	 	dateDebut		, 	dateFin 		) 
 	Values	(	'$idStagiaire','$idResponsable','$idSuperviseur','$idEnseignant','$descriptionStage','$competencesRecherche','$horaireTravail','$nbreHeuresSemaine','$salaireHoraire','$dateDebut','$dateFin'); ");
 
-	$query->execute();
-	
+    $query->execute();
 
 
 ?>

@@ -7,7 +7,7 @@
 
 function getValuesFromUser(callback)
 {
-    var values = $(".infosStage");   
+    var values = $(".data");   
     var reponse = "";
     var tabValues = [];
     var form_data = new FormData();                   
@@ -22,7 +22,6 @@ function getValuesFromUser(callback)
     }
     
     tabValues = JSON.stringify(tabValues);
-    alert(tabValues);
     
     form_data.append('tabValues', tabValues); 
     

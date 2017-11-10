@@ -29,8 +29,6 @@ But: Un écran de CRUD qui permet de gérer des stages
           <link rel="shortcut icon" href="../Images/LogoDICJ2Petit.ico">
   </head>
   <body>
-
-  <form  action="insertion.php" method="POST">
     <h2>Créer un stage</h2>
     <br>
       <select id="stagiaire"  name="stagiaire" value="-1" class = "infosStage"  selected="selected">
@@ -128,10 +126,8 @@ But: Un écran de CRUD qui permet de gérer des stages
     Date de début:  <input name = "dateDebut" id="dateDebut" class = "infosStage" type="date" name="dateDebut"> <br>
     Date de fin:  <input  name = "dateFin" id="dateFin" class = "infosStage" type="date" name="dateFin"> <br>
 
-
-    <input type="button" id="Save" class="bouton" value="Sauvegarder" onclick="Execute(6, '../PHP/TBNavigation.php?nomMenu=CRUDStage')" />
-    <input id="Rechercher" type="submit" value="insertion statique">
- 	 </form>
+    <!-- paramètre à passer (dans l'ordre): -idStagiaire, -idResponsable, -idSuperviseur, -idEntreprise, -idEnseignant, -descStage, -competencesRecherchees, horaireTravail, heuresTravail, tauxHoraire, dateDebut, dateFin -->
+    <input type="button" id="Save" class="bouton" value="Sauvegarder" onclick="Execute(6, '../PHP/TBNavigation.php?nomMenu=CRUDStage'); Execute (5, '../PHP/TBNavigation.php?nomMenu=CRUDStage')" />
     <br>
 
   <BR>
