@@ -35,7 +35,7 @@ But: Un écran de CRUD qui permet de gérer des stagiaires
 
     
     <!-- paramètre à passer (dans l'ordre): prenomStagiaire, nomStagiaire, courrielStagiaire-->
-    <input type="button" id="Save" class="bouton" value="Sauvegarder" onclick="Execute(6, '../PHP/TBNavigation.php?nomMenu=CRUDStagiaire'); Execute(5, '../PHP/TBNavigation.php?nomMenu=CRUDStagiaire')" />
+    <input type="button" id="Save" class="bouton" value="Sauvegarder1" onclick="Execute(6, '../PHP/TBNavigation.php?nomMenu=CRUDStagiaire'); Execute(5, '../PHP/TBNavigation.php?nomMenu=CRUDStagiaire')" />
     <br>
 
   <BR>
@@ -58,20 +58,24 @@ But: Un écran de CRUD qui permet de gérer des stagiaires
     function showInternships($bdd)
     {
 
-      $query = $bdd->prepare("Select concat (Prenom, ' ' , Nom) as 'nomStagiaire', CourrielScolaire from vStagiaire;");
+      $query = $bdd->prepare("Select concat (Prenom, ' ' , Nom) as 'nomStagiaire', courrielScolaire from vstagiaire;");
       $i = 0;
       $query->execute(array());     
       $entrees = $query->fetchAll();
       
       foreach($entrees as $entree){
           $nomStagiaire = $entree["nomStagiaire"];
-          $courrielScolaire = $entree["CourrielScolaire"];
-          echo  '<tr>
+          $courrielScolaire = $entree["courrielScolaire"];
+          echo $i . '<tr>
                   <th>' . $nomStagiaire . '</th>
                   <th>' . $courrielScolaire . '</th>
                 </tr>';
 
-      }      
+      }    
+      if ($i ==0)
+      {
+      	echo 'aucune entrée trouvée';
+      }  
     }
   ?>
     </table>

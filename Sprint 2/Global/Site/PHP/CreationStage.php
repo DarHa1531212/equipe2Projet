@@ -58,7 +58,7 @@ But: Un écran de CRUD qui permet de gérer des stages
 
       </select>
     <br>
-       <select id="entreprise" name = "entreprise" class = "infosStage" onchange="Execute(7,'../PHP/TBNavigation.php?nomMenu=CRUDStage')" >
+       <select id="entreprise" name = "entreprise" class = "infosStage" >
           <option value="-1"  disabled="disabled" selected >Sélectionnez une entreprise</option>
           <?php 
             //affiche les entreprises dans le dropdown menu
@@ -81,7 +81,7 @@ But: Un écran de CRUD qui permet de gérer des stages
 
       </select>
     <br>
-       <select id="responsableStage" name = "responsableStage" class = "infosStage" value = "test">
+       <select id="responsableStage" name = "responsableStage" class = "infosStage">
           <option  value="-1"  disabled="disabled" selected >Sélectionnez un responsable de stage</option>
           <option value="1">One</option>
           <option value="2">Two</option>
@@ -155,7 +155,7 @@ But: Un écran de CRUD qui permet de gérer des stages
     //récupère les stages dans la BD et les affiche dans le tableau
     function showInternships($bdd)
     {
-       $query = $bdd->prepare("Select concat (vStagiaire.Prenom, ' ' , vStagiaire.Nom ) as 'Stagiaire',  vEntreprise.Nom, vStage.Id from vStage
+       $query = $bdd->prepare("Select concat (vStagiaire.Prenom, ' ' , vStagiaire.Nom ) as 'Stagiaire',  vEntreprise.Nom from vStage
     join vStagiaire on vStagiaire.IdUtilisateur = vStage.IdStagiaire
     join vResponsable on vResponsable.IdUtilisateur = vStage.IdResponsable
     join vEntreprise on vEntreprise.id = vResponsable.IdEntreprise
@@ -168,9 +168,8 @@ But: Un écran de CRUD qui permet de gérer des stages
       foreach($entrees as $entree){
           $nomStagiaire = $entree["Stagiaire"];
           $entreprise = $entree["Nom"];
-          $idStage = $entree["Id"];
           echo '<tr>
-                  <th id="' . $idStage .'" onClick="readStage(8,\'../PHP/TBNavigation.php?nomMenu=CRUDStage\', this.id)">' . $entreprise . '</th>
+                  <th>' . $entreprise . '</th>
                   <th>' . $nomStagiaire . '</th>
                   <th>Lettre dentente</th>
                   <th>Offre de stage</th>
