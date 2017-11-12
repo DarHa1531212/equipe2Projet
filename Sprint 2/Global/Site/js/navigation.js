@@ -106,5 +106,10 @@ function Execute(choix){
             break;
         case 6: getValuesFromUser (ExecuteQuery, arguments);
             break;
+        case 7: afficherResponsableEtSuperviseur(ExecuteQuery, arguments);
+            break;
+        case 8: readStage (clickedId, ExecuteQuery, arguments);
+            break;
+
     }
 }

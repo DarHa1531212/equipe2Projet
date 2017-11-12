@@ -29,7 +29,7 @@
                 break;
             case "CRUDStage":   $menu = include 'CRDStage.php';
                 break;
-            case "CRUDStagiaire":   $menu = include 'CRUDStatiaire.php';
+            case "CRUDStagiaire":   $menu = include 'CRUDStagiaire.php';
                 break;
             case "CRUDEntreprise":  $menu = include 'CRUDEntreprise.php';
                 break;

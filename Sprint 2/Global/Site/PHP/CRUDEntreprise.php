@@ -12,12 +12,21 @@
 	$data = $_POST ['tabValues'];
 	$dataArray = (json_decode($data, false));
 	
-	$prenom = $dataArray[0]->value;
-	$nom = $dataArray[1]->value;
-	$courrielScolaire = $dataArray[2]->value;
+	$nomEntreprise = $dataArray[0]->value;
+	$numCiviqueEntreprise = $dataArray[1]->value;
+	$rueEntreprise = $dataArray[2]->value;
+	$villeEntreprise = $dataArray[3]->value;
+	$provinceEntreprise = $dataArray[4]->value;
+	$codePostalEntreprise = $dataArray[5]->value;
+	$noTelEntreprise = $dataArray[6]->value;
+	$descEntreprise = $dataArray[7]->value;	
+	$courrielEtreprise = $dataArray[8]->value;	
+	
+	/* /!\AJOUTER LA DescriptionEntreprise DANS L'INSERTION /!\, DescriptionEntreprise  , '$descEntreprise' */
 
-	$query = $bdd->prepare("insert into tblStagiaire (Prenom, Nom, CourrielScolaire) Values  ('$prenom' , '$nom' , '$dcourrielScolaire');");
+	$query = $bdd->prepare("insert into tblEntreprise (Nom, NumCivique, Rue, Ville, Province, CodePostal, NumTel, CourrielEntreprise) Values  ('$nomEntreprise' , '$numCiviqueEntreprise' , '$rueEntreprise', '$villeEntreprise', '$provinceEntreprise', '$codePostalEntreprise', '$noTelEntreprise', '$courrielEtreprise');");
     $query->execute();
+
 
 
 ?>

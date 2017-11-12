@@ -8,6 +8,7 @@
 	/* Données à recevoir pour la création d'un stage: 
 	prenomStagiaire, nomStagiaire, courrielScholaire*/
 
+	include 'connexionBD.php';
 
 
 	$data = $_POST ['tabValues'];
@@ -18,7 +19,7 @@
 
 
 
-	$query = $bdd->prepare("insert into tblStagiaire (Prenom, Nom, CourrielScolaire) Values  ('$prenom' , '$nom' , '$dcourrielScolaire');");
+	$query = $bdd->prepare("insert into tblStagiaire (Prenom, Nom, CourrielScolaire) Values  ('$prenom' , '$nom' , '$courrielScolaire');");
     $query->execute();
 
 

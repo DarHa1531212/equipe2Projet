@@ -22,7 +22,7 @@ function getValuesFromUser(callback)
     }
     
     tabValues = JSON.stringify(tabValues);
-    
+    alert(tabValues);
     form_data.append('tabValues', tabValues); 
     
     $.ajax({ 
