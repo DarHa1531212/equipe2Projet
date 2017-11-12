@@ -2,14 +2,6 @@ var affichage = false;
 
 function AfficherImage(doc, ext)
 {
-<<<<<<< HEAD
-	if(!affichage)
-	{
-		var contenu= "<img src='../Upload/" + doc + "' class='imageJointe' onclick='EnleverImage()'>";
-		affichage=!affichage;
-	    document.getElementById('imageJointe').innerHTML = contenu;
-	}
-=======
 	if(!affichage && (ext == 'png' || ext == 'jpg' || ext == 'jpeg'))
 	{
 		var contenu= "<div class='pieceJointe' onclick='EnleverImage()'><img class='centerImage' src='../Upload/" + doc + "' class='imageJointe'></div>";
@@ -30,7 +22,6 @@ function AfficherImage(doc, ext)
 			}
 		}
 	}
->>>>>>> f919533d5dcf2dba0255e78eeaae3b5a83a12642
 }
 
 

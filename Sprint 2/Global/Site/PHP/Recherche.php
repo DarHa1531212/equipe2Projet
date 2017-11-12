@@ -1,11 +1,7 @@
 <?php //recherche de connexion dans la bd
 
     include 'Session.php';
-<<<<<<< HEAD
-    if (Login($username, $MDP, $bdd))
-=======
     if (Login($username, $MDP, $bdd) && verifyTimeout())
->>>>>>> f919533d5dcf2dba0255e78eeaae3b5a83a12642
     {
         switch ($_SESSION['IdRole'])
         {

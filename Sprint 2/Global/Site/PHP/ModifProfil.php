@@ -24,7 +24,7 @@ $content =
                         
                         <div class="champ">
                             <p class="label labelForInput">No. Téléphone :</p>
-                            <input type="text" value="'.$numTel.'" id="numTel" name="numTel" class="value" maxlength="14" onkeyup="RegexProfilStagiaire()"/>
+                            <input type="text" value="'.$numTel.'" id="numTel" name="numTel" class="value" onkeyup="RegexProfilStagiaire()"/>
                             <img class="info" src="../Images/info.png" title="Le numéro de téléphone doit
 avoir ce format - (xxx) xxx-xxxx"/>
                         </div>
@@ -53,14 +53,14 @@ avoir ce format - (xxx) xxx-xxxx"/>
                         
                         <div class="champ">
                             <p class="label labelForInput">No. Téléphone :</p>
-                            <input type="text" value="'.$numTelEntreprise.'" id="numEntreprise" name="numEntreprise" class="value" maxlength="14" onkeyup="RegexProfilStagiaire()"/>
+                            <input type="text" value="'.$numTelEntreprise.'" id="numEntreprise" name="numEntreprise" class="value" onkeyup="RegexProfilStagiaire()"/>
                             <img class="info" src="../Images/info.png" title="Le numéro de téléphone doit
 avoir ce format - (xxx) xxx-xxxx"/>
                         </div>
                     
                         <div class="champ">
                             <p class="label labelForInput">Poste :</p>
-                            <input type="text" value="'.$poste.'" id="poste" class="value" maxlength="7" onkeyup="RegexProfilStagiaire()"/>
+                            <input type="text" value="'.$poste.'" id="poste" class="value" onkeyup="RegexProfilStagiaire()"/>
                         </div>
                 </div>
                 

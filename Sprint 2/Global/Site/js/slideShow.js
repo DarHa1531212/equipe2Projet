@@ -1,26 +1,4 @@
 var listStagiaire = document.getElementsByClassName("stagiaire");
-<<<<<<< HEAD
-var stagiaireActu = 0;
-
-function CacherDiv(){
-    for(var i = 1; i < listStagiaire.length; i++){
-        $(listStagiaire[i]).hide();
-    }
-    stagiaireActu = 0;
-}
-
-function ChangerStagiaire(direction){
-    if((direction.className == "fleche flecheGauche") && ((stagiaireActu - 1) >= 0)){
-        $(listStagiaire[stagiaireActu]).fadeOut(200);
-        stagiaireActu--;
-    }
-    else if((direction.className == "fleche flecheDroite") && ((stagiaireActu + 1) < listStagiaire.length)){
-        $(listStagiaire[stagiaireActu]).fadeOut(200);
-        stagiaireActu++;
-    } 
-
-    $(listStagiaire[stagiaireActu]).delay(200).fadeIn(200);  
-=======
 var listQuestion = document.getElementsByClassName("categories");
 var liste;
 var itemActu = 0;
@@ -92,5 +70,4 @@ function ActualiseBtnEval(element){
             $("#confirmer").hide();
         }
     }
->>>>>>> f919533d5dcf2dba0255e78eeaae3b5a83a12642
 }

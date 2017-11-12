@@ -1,4 +1,3 @@
-//Petit refactoring a faire ici!!! Pour la modification du mot de passe a franck
 function RegexProfilStagiaire(){
 
 	var idNumTel = ['numTel', 'numEntreprise'];
@@ -136,21 +135,6 @@ function RegexProfilStagiaire(){
 		document.getElementById('Save').disabled = false;
         $("#Save").css('background-color', '');
 	}
-}
-
-function regexCreationStage() 
-{
-	// body...
-}
-
-function regexCreationStagiaire()
-{
-
-}
-
-function regexCreationEntreprise()
-{
-
 }
 
 function changerCouleur(text, etat)

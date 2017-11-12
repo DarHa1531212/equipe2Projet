@@ -1,89 +1,5 @@
 <?php
     
-<<<<<<< HEAD
-<<<<<<< HEAD
-    $query = $bdd->prepare( 'SELECT * FROM vIdentification
-                            WHERE IdStagiaire = :idStagiaire');
-
-    $query->execute(array('idStagiaire'=>$_REQUEST["idStagiaire"]));
-
-    $identification = $query->fetchAll();
-
-    $content =
-    '<article class="stagiaire">
-        <div class="infoStagiaire">
-            <h2>Évaluation de mi-stage</h2>
-        </div>
-
-        <div class="blocInfo infoProfil">
-            <p>
-                La première évaluation servira à noter de façon générale l’élève stagiaire en vue
-                d\'un réajustement possible. Il serait grandement souhaitable que cette évaluation
-                se fasse conjointement avec l’élève stagiaire et que la démarche s\'effectue de
-                façon formative. Une fois complété, le formulaire devra être remis à votre
-                stagiaire qui se chargera de nous l\'expédier.
-            </p>
-        </div>
-
-        <div class="separateur">
-            <h3>Identification</h3>
-        </div>
-
-=======
-=======
-    class Evaluation{
-        private $lstQuestion = array();
-        
-        public function __construct($id, $bdd){
-            $this->lstQuestions = $this->selectQuestions($id, $bdd);
-        }
-        
-        private function selectQuestions($id, $bdd){
-            $lstQuestion = array();
-                
-            $queryQuestion = $bdd->prepare('SELECT *
-                                            FROM vQuestion AS Q
-                                            JOIN vEvaluationQuestionReponse AS EQR
-                                            ON EQR.IdQuestion = Q.Id
-                                            WHERE EQR.IdEvaluation = :idEvaluation');
-            
-            $queryQuestion->execute(array('idEvaluation'=>$id));
-            
-            $questions = $queryQuestion->fetchAll();
-            
-            foreach($questions as $question){
-                echo '<script>alert("test")</script>';
-                $lstQuestion[] = new Question($question["Id"], $question["Texte"]);
-            }
-            
-            return $lstQuestion;
-        }
-        
-        public function getLstQuestion(){
-            return $this->lstQuestion;
-        }
-    }
-
-    class Question{
-        
-        private $id;
-        private $texte;
-        
-        function __construct($id, $texte){
-            $this->id = $id;
-            $this->texte = $texte;
-        }
-        
-        public function getId(){
-            return $this->id;
-        }
-        
-        public function getTexte(){
-            return $this->texte;
-        }
-    }
-
->>>>>>> af51a68850a049dcdfe890cd90fbb0113005b979
     $queryCategorie = $bdd->prepare('SELECT DISTINCT(CQ.Id) AS IdCategorie, TitreCategorie, Lettre, descriptionCategorie
                                     FROM vQuestion AS Q
                                     JOIN vCategorieQuestion AS CQ
@@ -123,7 +39,6 @@
         
         return 
         '
->>>>>>> f919533d5dcf2dba0255e78eeaae3b5a83a12642
         <table class="identification">
             <tbody>
                 <tr>
@@ -147,72 +62,6 @@
                 </tr>
             </tbody>
         </table>
-<<<<<<< HEAD
-
-        <div class="separateur">
-            <h3>A. Motivation</h3>
-            <p> 
-                Capacité qui se manifeste par le désir d’apprendre, le désir de réussir, l’enthousiasme
-                et la persévérance.
-            </p>
-        </div>
-        
-        <div class="categories">
-            <table class="evaluation">
-                <thead>
-                    <th>Critères</th>
-                    <th>Généralement</th>
-                    <th>Souvent</th>
-                    <th>Parfois</th>
-                    <th>Rarement</th>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>Faire preuve de curiosité.</td>
-                        <td><input type="radio" name="Q1"/></td>
-                        <td><input type="radio" name="Q1"/></td>
-                        <td><input type="radio" name="Q1"/></td>
-                        <td><input type="radio" name="Q1"/></td>
-                    </tr>
-
-                    <tr>
-                        <td>
-                            Concentrer ses efforts et investir l’énergie nécessaire pour faire
-                            du bon travail, voir à se dépasser, et pour satisfaire aux normes
-                            de qualité et de rendement en vigueur dans l’entreprise.
-                        </td>
-                        <td><input type="radio" name="Q2"/></td>
-                        <td><input type="radio" name="Q2"/></td>
-                        <td><input type="radio" name="Q2"/></td>
-                        <td><input type="radio" name="Q2"/></td>
-                    </tr>
-
-                    <tr>
-                        <td>
-                            Porter un intérêt soutenu au travail. Faire preuve de
-                            persévérance et de volonté.
-                        </td>
-                        <td><input type="radio" name="Q3"/></td>
-                        <td><input type="radio" name="Q3"/></td>
-                        <td><input type="radio" name="Q3"/></td>
-                        <td><input type="radio" name="Q3"/></td>
-                    </tr>
-
-                    <tr>
-                        <td>Être de bonne humeur. Éprouver du plaisir à travailler</td>
-                        <td><input type="radio" name="Q4"/></td>
-                        <td><input type="radio" name="Q4"/></td>
-                        <td><input type="radio" name="Q4"/></td>
-                        <td><input type="radio" name="Q4"/></td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
-
-        <div class="navigateurEval">
-            <input class="bouton" style="width : 150px; float: left;" type="button" value="Précédent"/>
-            <input class="bouton" style="width : 150px; float: right" type="button" value="Suivant"/>
-=======
         ';
     }
 
@@ -269,55 +118,42 @@
         return $content;
     }
 
-    function QuestionChoixReponse($bdd, $queryReponse, $queryReponseChoisie, $queryCategorie){
-        $queryQuestion = $bdd->prepare('SELECT DISTINCT(Id), Q.Texte
-                                        FROM vQuestion AS Q
-                                        JOIN vEvaluationQuestionReponse AS EQR
-                                        ON EQR.IdQuestion = Q.Id
-                                        WHERE EQR.IdEvaluation = :idEvaluation');
-        
-        $queryCategorie = $bdd->prepare('SELECT DISTINCT(CQ.Id) AS IdCategorie, TitreCategorie, Lettre, descriptionCategorie
-                                        FROM vQuestion AS Q
-                                        JOIN vCategorieQuestion AS CQ
-                                        ON CQ.Id = Q.IdCategorieQuestion
-                                        JOIN vEvaluationQuestionReponse AS EQR
-                                        ON EQR.IdQuestion = Q.Id
-                                        WHERE IdEvaluation = :idEvaluation AND Q.Id = :idQuestion');
-        
-        $queryReponse = $bdd->prepare( 'SELECT DISTINCT(RQ.IdReponse), Texte
-                                    FROM vReponseQuestion AS RQ
-                                    JOIN vEvaluationQuestionReponse AS EQR
-                                    ON RQ.IdQuestion = EQR.IdQuestion
-                                    JOIN vReponse AS R
-                                    ON R.Id = RQ.IdReponse
-                                    WHERE EQR.IdEvaluation = :idEvaluation AND RQ.idQuestion = :idQuestion');
-        
-        $queryQuestion->execute(array("idEvaluation"=>$_REQUEST["idEvaluation"]));
-        
-        $questions = $queryQuestion->fetchAll();
-        
+    function QuestionChoixReponse($bdd, $queryQuestion, $queryReponse, $queryReponseChoisie, $queryCategorie){
         $content = "";
         
-        foreach($questions as $question){
-            $queryReponse->execute(array("idEvaluation"=>$_REQUEST["idEvaluation"], "idQuestion"=>$question["Id"]));
-            $queryCategorie->execute(array("idEvaluation"=>$_REQUEST["idEvaluation"], "idQuestion"=>$question["Id"]));
-            $categories = $queryCategorie->fetchAll();
-            $reponses = $queryReponse->fetchAll();
+        $categories = $queryCategorie->fetchAll();
+        $reponses = $queryReponse->fetchAll();
+        
+        foreach($categories as $categorie){
+            $queryQuestion->execute(array("idEvaluation"=>$_REQUEST["idEvaluation"], "idCategorie"=>$categorie["IdCategorie"]));
+            $questions = $queryQuestion->fetchAll();
             
             $content = $content.
-            '<div class="categories">
-                <div class="separateur" id="question">
-                    <h3>'.$categories[0]["Lettre"].'. '.$categories[0]["TitreCategorie"].'</h3>
-                    <p> 
-                        '.$question["Texte"].'
-                    </p>
+                '
+                <div class="categories">
+                    <div class="separateur" id="question">
+                        <h3>'.$categorie["Lettre"].'. '.$categorie["TitreCategorie"].'</h3>';
+                        
+            foreach($questions as $question){
+                $content = $content.
+                '
+                        <p> 
+                            '.$question["Texte"].'
+                        </p>
+                    </div>
+
+                    <table class="evaluation2">
+                        <tbody>          
+                                '.ChoixReponses($bdd, $question["Id"], $queryReponseChoisie, $reponses).'
+                ';
+            }
+            
+            $content = $content.
+                '
+                        </tbody>
+                    </table>
                 </div>
-                <table class="evaluation2">
-                    <tbody>          
-                            '.ChoixReponses($bdd, $question["Id"], $queryReponseChoisie, $reponses).'
-                    </tbody>
-                </table>
-            </div>';     
+                ';
         }
         
         return $content;
@@ -388,12 +224,9 @@
 
     if(isset($_REQUEST["post"]))
         Submit($bdd, $queryCategorie, $queryQuestion);
-    
-    $test = new Evaluation(1, $bdd);
 
     $content =
-    ''.$test->getLstQuestion()[0].'
-    <article class="stagiaire">
+    '<article class="stagiaire">
         <div class="infoStagiaire">
             <h2>Évaluation de mi-stage</h2>
         </div>
@@ -423,7 +256,7 @@
         else if($_REQUEST["typeEval"] == 2){
             $content = $content.
             '
-                '.QuestionChoixReponse($bdd, $queryReponse, $queryReponseChoisie, $queryCategorie).'
+                '.QuestionChoixReponse($bdd, $queryQuestion, $queryReponse, $queryReponseChoisie, $queryCategorie).'
             ';
         }
         
@@ -433,7 +266,6 @@
             '.LettreNav($bdd, $queryCategorie).'
             <input id="droite" class="bouton" style="width : 150px; float: right" type="button" value="Suivant" onclick="ChangerItem(this)"/>
             <input id="confirmer" class="bouton" style="width : 150px; float: right" type="button" value="Confirmer" onclick="Execute(4, \'../PHP/TBNavigation.php?idEmploye='.$profil["IdSuperviseur"].'&nomMenu=Eval\', \'&post=true\', \'&idEvaluation=\', '.$_REQUEST["idEvaluation"].', \'&idStagiaire=\', '.$_REQUEST["idStagiaire"].'); Execute(1, \'../PHP/TBNavigation.php?idEmploye='.$profil["IdSuperviseur"].'&nomMenu=Main\')" hidden/>
->>>>>>> f919533d5dcf2dba0255e78eeaae3b5a83a12642
         </div>
 
         <br/><br/>

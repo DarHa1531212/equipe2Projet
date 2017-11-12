@@ -185,12 +185,9 @@ textarea{
 
 .entree > p{white-space:pre-wrap;}
 
-<<<<<<< HEAD
-=======
 #divBouton{text-decoration: underline; 
     color: blue;}
 
->>>>>>> f919533d5dcf2dba0255e78eeaae3b5a83a12642
 input[type=file]{
     width: 0.1px;
 	height: 0.1px;
@@ -245,8 +242,6 @@ input[type=file]{
     width: 90%;
 }
 
-<<<<<<< HEAD
-=======
 .lettreNav{
     background-color: white;
     color: #0a3a7c;
@@ -258,7 +253,6 @@ input[type=file]{
     color: white;
 }
 
->>>>>>> f919533d5dcf2dba0255e78eeaae3b5a83a12642
 @media screen and (max-width: 1240px){
     .evaluation2{width: 100%;}
     
@@ -274,8 +268,6 @@ input[type=file]{
     }
     
     .champ{width: 100%;}
-<<<<<<< HEAD
-=======
 }
 
 /* ---------------------------------------------------*/
@@ -296,5 +288,4 @@ input[type=file]{
     right:0;
     bottom:0;
     margin:auto;
->>>>>>> f919533d5dcf2dba0255e78eeaae3b5a83a12642
 }
