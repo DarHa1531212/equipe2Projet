@@ -2,20 +2,21 @@
  USE cegepjon_p2017_2_dev;
 -- USE cegepjon_p2017_2_prod;
 -- USE cegepjon_p2017_2_tests;
-<<<<<<< HEAD
+
 -- USE bdprojet_equipe2v2;
-=======
+
  USE bdprojet_equipe2v2;
->>>>>>> f919533d5dcf2dba0255e78eeaae3b5a83a12642
+
 
 INSERT IGNORE INTO `tblRole` (`Id`,`Titre`) VALUES (1,'Gestionnaire');
 INSERT IGNORE INTO `tblRole` (`Id`,`Titre`) VALUES (2,'Responsable');
 INSERT IGNORE INTO `tblRole` (`Id`,`Titre`) VALUES (3,'Enseignant');
 INSERT IGNORE INTO `tblRole` (`Id`,`Titre`) VALUES (4,'Superviseur');
-<<<<<<< HEAD
-=======
+
+
 INSERT IGNORE INTO `tblRole` (`Id`,`Titre`) VALUES (4,'Superviseur');
->>>>>>> f919533d5dcf2dba0255e78eeaae3b5a83a12642
+
+
 INSERT IGNORE INTO `tblRole` (`Id`,`Titre`) VALUES (5,'Stagiaire');
 
 INSERT IGNORE INTO `tblUtilisateur` (`Id`,`Courriel`,`MotDePasse`) VALUES (1,'Tremblay.Olimpia@etu.cegepjonquiere.ca','$2y$10$J/WmC4JWR42JtTeMp0yBpuTGd.Kc9D6lHlOtisNcOLZloa9ekK/Ee');
