@@ -28,10 +28,14 @@
         if($tblEvaluation[0]->statut != '0')//le statut est different de pas accéssible
         {
 <<<<<<< HEAD
+<<<<<<< HEAD
             $div = '<tr class="itemHover" onclick="Execute(1, \'../PHP/TBNavigation.php?idStagiaire='.$profil["Id"].'&nomMenu=Eval\', \'&idStage=\', '.$tblEvaluation[0]->idStage.'); chargementPage()">';
 =======
             $div = '<tr class="itemHover" onclick="Execute(1, \'../PHP/TBNavigation.php?idStagiaire='.$profil["Id"].'&nomMenu=Eval\', \'&idStage=\', '.$tblEvaluation[0]->idStage.', \'&idEvaluation=\', '.$tblEvaluation[0]->id.');">';
 >>>>>>> f919533d5dcf2dba0255e78eeaae3b5a83a12642
+=======
+            $div = '<tr class="itemHover" onclick="Execute(1, \'../PHP/TBNavigation.php?idStagiaire='.$profil["Id"].'&nomMenu=Eval\', \'&idStage=\', '.$tblEvaluation[0]->idStage.', \'&idEvaluation=\', '.$tblEvaluation[0]->id.', \'&typeEval=1\');">';
+>>>>>>> af51a68850a049dcdfe890cd90fbb0113005b979
         }
         else
         {
@@ -49,10 +53,14 @@
         if(($tblEvaluation[1]->statut != '0')&&(($tblEvaluation[0]->statut == '3')||($tblEvaluation[0]->statut == '4')))
         {
 <<<<<<< HEAD
+<<<<<<< HEAD
             $div = '<tr class="itemHover" onclick="Execute(1, \'../PHP/TBNavigation.php?idEmploye='.$profil["IdSuperviseur"].'&nomMenu=Eval\', \'idEvaluation\'); chargementPage()">';
 =======
             $div = '<tr class="itemHover" onclick="Execute(1, \'../PHP/TBNavigation.php?idStagiaire='.$profil["Id"].'&nomMenu=Eval\', \'&idStage=\', '.$tblEvaluation[0]->idStage.', \'&idEvaluation=\', '.$tblEvaluation[1]->id.'); chargementPage()">';
 >>>>>>> f919533d5dcf2dba0255e78eeaae3b5a83a12642
+=======
+            $div = '<tr class="itemHover" onclick="Execute(1, \'../PHP/TBNavigation.php?idStagiaire='.$profil["Id"].'&nomMenu=Eval\', \'&idStage=\', '.$tblEvaluation[1]->idStage.', \'&idEvaluation=\', '.$tblEvaluation[1]->id.', \'&typeEval=2\')">';
+>>>>>>> af51a68850a049dcdfe890cd90fbb0113005b979
         }
         else
         {

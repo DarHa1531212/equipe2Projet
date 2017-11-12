@@ -1,6 +1,7 @@
 <?php
     
 <<<<<<< HEAD
+<<<<<<< HEAD
     $query = $bdd->prepare( 'SELECT * FROM vIdentification
                             WHERE IdStagiaire = :idStagiaire');
 
@@ -29,6 +30,60 @@
         </div>
 
 =======
+=======
+    class Evaluation{
+        private $lstQuestion = array();
+        
+        public function __construct($id, $bdd){
+            $this->lstQuestions = $this->selectQuestions($id, $bdd);
+        }
+        
+        private function selectQuestions($id, $bdd){
+            $lstQuestion = array();
+                
+            $queryQuestion = $bdd->prepare('SELECT *
+                                            FROM vQuestion AS Q
+                                            JOIN vEvaluationQuestionReponse AS EQR
+                                            ON EQR.IdQuestion = Q.Id
+                                            WHERE EQR.IdEvaluation = :idEvaluation');
+            
+            $queryQuestion->execute(array('idEvaluation'=>$id));
+            
+            $questions = $queryQuestion->fetchAll();
+            
+            foreach($questions as $question){
+                echo '<script>alert("test")</script>';
+                $lstQuestion[] = new Question($question["Id"], $question["Texte"]);
+            }
+            
+            return $lstQuestion;
+        }
+        
+        public function getLstQuestion(){
+            return $this->lstQuestion;
+        }
+    }
+
+    class Question{
+        
+        private $id;
+        private $texte;
+        
+        function __construct($id, $texte){
+            $this->id = $id;
+            $this->texte = $texte;
+        }
+        
+        public function getId(){
+            return $this->id;
+        }
+        
+        public function getTexte(){
+            return $this->texte;
+        }
+    }
+
+>>>>>>> af51a68850a049dcdfe890cd90fbb0113005b979
     $queryCategorie = $bdd->prepare('SELECT DISTINCT(CQ.Id) AS IdCategorie, TitreCategorie, Lettre, descriptionCategorie
                                     FROM vQuestion AS Q
                                     JOIN vCategorieQuestion AS CQ
@@ -43,10 +98,12 @@
                                     ON EQR.IdQuestion = Q.Id
                                     WHERE EQR.IdEvaluation = :idEvaluation AND Q.IdCategorieQuestion = :idCategorie');
 
-    $queryReponse = $bdd->prepare( 'SELECT DISTINCT(RQ.IdReponse)
+    $queryReponse = $bdd->prepare( 'SELECT DISTINCT(RQ.IdReponse), Texte
                                     FROM vReponseQuestion AS RQ
                                     JOIN vEvaluationQuestionReponse AS EQR
                                     ON RQ.IdQuestion = EQR.IdQuestion
+                                    JOIN vReponse AS R
+                                    ON R.Id = RQ.IdReponse
                                     WHERE EQR.IdEvaluation = :idEvaluation');
     
     $queryReponseChoisie = $bdd->prepare(  'select IdReponse
@@ -159,7 +216,7 @@
         ';
     }
 
-    function Questions($bdd, $queryQuestion, $queryReponse, $queryReponseChoisie, $queryCategorie){
+    function QuestionsGrille($bdd, $queryQuestion, $queryReponse, $queryReponseChoisie, $queryCategorie){
         
         $content = "";
         
@@ -209,6 +266,59 @@
                 ';
         }
         
+        return $content;
+    }
+
+    function QuestionChoixReponse($bdd, $queryReponse, $queryReponseChoisie, $queryCategorie){
+        $queryQuestion = $bdd->prepare('SELECT DISTINCT(Id), Q.Texte
+                                        FROM vQuestion AS Q
+                                        JOIN vEvaluationQuestionReponse AS EQR
+                                        ON EQR.IdQuestion = Q.Id
+                                        WHERE EQR.IdEvaluation = :idEvaluation');
+        
+        $queryCategorie = $bdd->prepare('SELECT DISTINCT(CQ.Id) AS IdCategorie, TitreCategorie, Lettre, descriptionCategorie
+                                        FROM vQuestion AS Q
+                                        JOIN vCategorieQuestion AS CQ
+                                        ON CQ.Id = Q.IdCategorieQuestion
+                                        JOIN vEvaluationQuestionReponse AS EQR
+                                        ON EQR.IdQuestion = Q.Id
+                                        WHERE IdEvaluation = :idEvaluation AND Q.Id = :idQuestion');
+        
+        $queryReponse = $bdd->prepare( 'SELECT DISTINCT(RQ.IdReponse), Texte
+                                    FROM vReponseQuestion AS RQ
+                                    JOIN vEvaluationQuestionReponse AS EQR
+                                    ON RQ.IdQuestion = EQR.IdQuestion
+                                    JOIN vReponse AS R
+                                    ON R.Id = RQ.IdReponse
+                                    WHERE EQR.IdEvaluation = :idEvaluation AND RQ.idQuestion = :idQuestion');
+        
+        $queryQuestion->execute(array("idEvaluation"=>$_REQUEST["idEvaluation"]));
+        
+        $questions = $queryQuestion->fetchAll();
+        
+        $content = "";
+        
+        foreach($questions as $question){
+            $queryReponse->execute(array("idEvaluation"=>$_REQUEST["idEvaluation"], "idQuestion"=>$question["Id"]));
+            $queryCategorie->execute(array("idEvaluation"=>$_REQUEST["idEvaluation"], "idQuestion"=>$question["Id"]));
+            $categories = $queryCategorie->fetchAll();
+            $reponses = $queryReponse->fetchAll();
+            
+            $content = $content.
+            '<div class="categories">
+                <div class="separateur" id="question">
+                    <h3>'.$categories[0]["Lettre"].'. '.$categories[0]["TitreCategorie"].'</h3>
+                    <p> 
+                        '.$question["Texte"].'
+                    </p>
+                </div>
+                <table class="evaluation2">
+                    <tbody>          
+                            '.ChoixReponses($bdd, $question["Id"], $queryReponseChoisie, $reponses).'
+                    </tbody>
+                </table>
+            </div>';     
+        }
         
         return $content;
     }
@@ -221,10 +331,20 @@
         $reponsesChoisies = $queryReponseChoisie->fetchAll();
         
         foreach($reponses as $reponse){
-            if($reponse['IdReponse'] == $reponsesChoisies[0]["IdReponse"])
-                $content = $content.'<td><input type="radio" id="question'.$idQuestion.'" name="question'.$idQuestion.'" value="'.$reponse['IdReponse'].'" checked = "checked" ></td>';
-            else
-                $content = $content.'<td><input type="radio" name="question'.$idQuestion.'" value="'.$reponse['IdReponse'].'"></td>';
+            if($_REQUEST["typeEval"] == 1){
+                if($reponse['IdReponse'] == $reponsesChoisies[0]["IdReponse"])
+                    $content = $content.'<td><input type="radio" id="question'.$idQuestion.'" name="question'.$idQuestion.'" value="'.$reponse['IdReponse'].'" checked = "checked" ></td>';
+                else
+                    $content = $content.'<td><input type="radio" name="question'.$idQuestion.'" value="'.$reponse['IdReponse'].'"></td>';
+                }
+            else if($_REQUEST["typeEval"] == 2){
+                $content = $content. 
+                '
+                    <tr class="itemHover" onclick="ReponseChoisie(this)">
+                        <td>'.$reponse["Texte"].'</td>
+                    </tr>
+                ';
+            }
         }
         
         return $content;
@@ -268,9 +388,12 @@
 
     if(isset($_REQUEST["post"]))
         Submit($bdd, $queryCategorie, $queryQuestion);
+    
+    $test = new Evaluation(1, $bdd);
 
     $content =
-    '<article class="stagiaire">
+    ''.$test->getLstQuestion()[0].'
+    <article class="stagiaire">
         <div class="infoStagiaire">
             <h2>Évaluation de mi-stage</h2>
         </div>
@@ -289,11 +412,23 @@
             <h3>Identification</h3>
         </div>
 
-        '.Identification($bdd).'
-        
-        '.Questions($bdd, $queryQuestion, $queryReponse, $queryReponseChoisie, $queryCategorie).'
+        '.Identification($bdd).'';
 
-        <div class="navigateurEval">
+        if($_REQUEST["typeEval"] == 1){
+            $content = $content.
+            '
+                '.QuestionsGrille($bdd, $queryQuestion, $queryReponse, $queryReponseChoisie, $queryCategorie).'
+            ';
+        }
+        else if($_REQUEST["typeEval"] == 2){
+            $content = $content.
+            '
+                '.QuestionChoixReponse($bdd, $queryReponse, $queryReponseChoisie, $queryCategorie).'
+            ';
+        }
+        
+        $content = $content .
+        '<div class="navigateurEval">
             <input id="gauche" class="bouton" style="width : 150px; float: left;" type="button" value="Précédent" onclick="ChangerItem(this)"/>
             '.LettreNav($bdd, $queryCategorie).'
             <input id="droite" class="bouton" style="width : 150px; float: right" type="button" value="Suivant" onclick="ChangerItem(this)"/>
