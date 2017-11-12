@@ -17,8 +17,6 @@ function ajouterStage()
 
 }
 
-
-
 	$idResponsable = $_POST['idResponsable'];
 	$idSuperviseur = $_POST['idSuperviseur'];
 	$idStagiaire = $_POST['idStagiaire'];
