@@ -143,36 +143,28 @@ But: Un écran de CRUD qui permet de gérer des stages
   <h2>Stages actuellement dans le système</h2>
   <table>
     <tr>
-      <th>Entreprise</th>
-      <th>stagiaire</th>
-      <th>Lettre d'entente</th>
-      <th>Offre de stage</th>
+      <th>Employe</th>
+      <th>Travaille pour</th>
     </tr>
     
 
   <?php
-    showInternships($bdd);
+    showEmployees($bdd);
     //récupère les stages dans la BD et les affiche dans le tableau
-    function showInternships($bdd)
+    function showEmployees($bdd)
     {
-       $query = $bdd->prepare("Select concat (vStagiaire.Prenom, ' ' , vStagiaire.Nom ) as 'Stagiaire',  vEntreprise.Nom from vStage
-    join vStagiaire on vStagiaire.IdUtilisateur = vStage.IdStagiaire
-    join vResponsable on vResponsable.IdUtilisateur = vStage.IdResponsable
-    join vEntreprise on vEntreprise.id = vResponsable.IdEntreprise
-    ;");
+       $query = $bdd->prepare("Select concat (Prenom ,' ',vemploye.Nom ) as 'NomEmploye', ventreprise.Nom,vemploye.id from vemploye join vEntreprise on ventreprise.Id = vemploye.IdEntreprise;");
 
 
       $query->execute(array());     
       $entrees = $query->fetchAll();
       
       foreach($entrees as $entree){
-          $nomStagiaire = $entree["Stagiaire"];
-          $entreprise = $entree["Nom"];
+          $NomEmploye = $entree["NomEmploye"];
+          $entreprise = $entree["ventreprise.Nom"];
           echo '<tr>
+                  <th>' . $NomEmploye . '</th>
                   <th>' . $entreprise . '</th>
-                  <th>' . $nomStagiaire . '</th>
-                  <th>Lettre dentente</th>
-                  <th>Offre de stage</th>
                 </tr>';
       }      
     }
