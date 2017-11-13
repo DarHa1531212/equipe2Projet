@@ -10,7 +10,8 @@
 	descriptionStage, competencesRecherche, horaireTravail, nbreHeuresSemaine, 
 	Remunere, salaireHoraire, dateDebut, dateFin*/
 
-include 'connexionBD.php'; 
+
+	include 'connexionBD.php'; 
 	$data = $_POST ['tabValues'];
 	$dataArray = (json_decode($data, false));
 
@@ -28,7 +29,8 @@ include 'connexionBD.php';
 	$dateDebut = date ('Y-m-d', strtotime($dataArray[10]->value));
 	$dateFin = date ('Y-m-d', strtotime($dataArray[11]->value));
 
-function ajouterStage($bdd, $idResponsable, $idSuperviseur, $idStagiaire, $idEnseignant, $descriptionStage, $competencesRecherche, $horaireTravail, $nbreHeuresSemaine, $salaireHoraire, $dateDebut, $dateFin)
+	$functionToExecute = $dataArray[0]->value;
+switch ($functionToExecute)
 {
     $query = $bdd->prepare("INSERT INTO tblStage (IdResponsable, IdSuperviseur, IdStagiaire, IdEnseignant, DescriptionStage, CompetenceRecherche, HoraireTravail, NbHeureSemaine, SalaireHoraire, DateDebut, DateFin ) VALUES ($idResponsable, $idSuperviseur, $idStagiaire, $idEnseignant, '$descriptionStage', '$competencesRecherche', '$horaireTravail', '$nbreHeuresSemaine', '$salaireHoraire', '$dateDebut', '$dateFin');;");
     $query->execute();
@@ -36,5 +38,48 @@ function ajouterStage($bdd, $idResponsable, $idSuperviseur, $idStagiaire, $idEns
 
 ajouterStage($bdd, $idResponsable, $idSuperviseur, $idStagiaire, $idEnseignant, $descriptionStage, $competencesRecherche, $horaireTravail, $nbreHeuresSemaine, $salaireHoraire, $dateDebut, $dateFin);
 
+
+	//toutes les variables du dataArray sont converties avant d'être mises dans la BD
+	$idStagiaire = intval ($dataArray[1]->value);
+	$idEntreprise = intval ($dataArray[2]->value);
+	$idResponsable = intval ($dataArray[3]->value);
+	$idSuperviseur = intval ($dataArray[4]->value);
+	$idEnseignant = intval ($dataArray[5]->value);
+	$descriptionStage = $dataArray[6]->value;
+	$competencesRecherche = $dataArray[7]->value;
+	$horaireTravail = $dataArray[8]->value;
+	$nbreHeuresSemaine = intval ($dataArray[9]->value);
+	$salaireHoraire = intval ($dataArray[10]->value);
+	$dateDebut = date ('Y-m-d', strtotime($dataArray[11]->value));
+	$dateFin = date ('Y-m-d', strtotime($dataArray[12]->value));
+
+	$query = $bdd->prepare("INSERT INTO tblStage 	(IdStagiaire,IdResponsable,IdSuperviseur,IdEnseignant,DescriptionStage,CompetenceRecherche,HoraireTravail,NbHeureSemaine,SalaireHoraire,DateDebut,DateFin) 
+	Values	('$idStagiaire','$idResponsable','$idSuperviseur','$idEnseignant','$descriptionStage','$competencesRecherche','$horaireTravail','$nbreHeuresSemaine','$salaireHoraire','$dateDebut','$dateFin'); ");
+
+	$query->execute();
+
+}
+
+function returnSuperviseursAndResponsables($bdd, $dataArray)
+{
+	$idEntreprise = intval ($dataArray[1]->value);
+	$return = "";
+	$query = $bdd->prepare("select concat (Prenom, ' ',  Nom) as NomEmploye, IdUtilisateur from tblEmploye where IdEntreprise like '$idEntreprise'");
+
+	$query->execute(array());     
+	$entrees = $query->fetchAll();
+
+	foreach($entrees as $entree){
+		  $NomEmploye = $entree["NomEmploye"];
+		  $IdUtilisateur = $entree["IdUtilisateur"];
+
+		  $return = $return . '<option value= "' . $IdUtilisateur . '">' . $NomEmploye . '</option>';
+	}
+
+	return ($return);
+
+	//json encode $return
+
+}
 
 ?>

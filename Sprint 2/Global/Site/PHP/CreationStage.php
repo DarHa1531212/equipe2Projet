@@ -130,7 +130,6 @@ But: Un écran de CRUD qui permet de gérer des stages
 
 
     <input type="button" id="Save" class="bouton" value="Sauvegarder" onclick="Execute(6, '../PHP/TBNavigation.php?nomMenu=CRUDStage')" />
-    <input id="Rechercher" type="submit" value="insertion statique">
  	 </form>
     <br>
 

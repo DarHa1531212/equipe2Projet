@@ -9,9 +9,10 @@ function Requete(callback){
     });
 }
 
-//Crée une liste des radios boutons et les encode en JSON pour le envoyer au PHP.
-function PostEval(callback){ 
-    var questions = $('input[type="radio"]:checked');   
+
+function PostEval2 ()
+{
+     var questions = $('input[type="radio"]:checked');   
     var reponse = "";
     var tabReponse = [];
     var form_data = new FormData();                   
@@ -29,7 +30,15 @@ function PostEval(callback){
     tabReponse = JSON.stringify(tabReponse);
     
     form_data.append('tabReponse', tabReponse); 
-    
+}
+
+
+
+//Crée une liste des radios boutons et les encode en JSON pour le envoyer au PHP.
+function PostEval(callback, callback2){ 
+       
+   callback2();
+
     $.ajax({ 
         url: Url(arguments),  
         dataType: 'text',   
@@ -100,11 +109,16 @@ function Execute(choix){
             break;
         case 3: UploadFile(ExecuteQuery, arguments);
             break;
-        case 4: PostEval(ExecuteQuery, arguments);
+        case 4: PostEval(ExecuteQuery, callback2, arguments);
             break;
         case 5: getValuesFromUser(AfficherPage, arguments);
             break;
         case 6: getValuesFromUser (ExecuteQuery, arguments);
             break;
+        case 7: afficherResponsableEtSuperviseur(ExecuteQuery, arguments);
+            break;
+        case 8: readStage ( ExecuteQuery, arguments, clickedId,);
+            break;
+
     }
 }

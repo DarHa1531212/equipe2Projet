@@ -21,13 +21,13 @@ But: Un écran de CRUD qui permet de gérer des employés des entreprises
     <!-- Section création de stagiaire -->
    		<meta charset="utf-8">
           <meta http-equiv="X-UA-Compatible" content="IE=edge">
-          <title>Creation stage</title>
+          <title>Creation Employe</title>
           <meta name="description" content="An interactive getting started guide for Brackets.">
           <link rel="stylesheet" href="../CSS/style.css">
           <link rel="shortcut icon" href="../Images/LogoDICJ2Petit.ico">
   </head>
   <body>
-    <h2>Créer un stagiaire</h2>
+    <h2>Créer un employé</h2>
     <br>
     Prenom de l'employé <input id="prenomEmploye" class = "data" type="text" name="prenomEmploye" value="prenom"><br>
     Nom de l'employe <input id="nomEmploye" class = "data" type="text" name="nomEmploye" value="nom"><br>
@@ -72,8 +72,8 @@ But: Un écran de CRUD qui permet de gérer des employés des entreprises
   <h2>Employés actuellement dans le système</h2>
   <table>
     <tr>
-      <th>Nom stagiaire</th>
-      <th>Courriel scolaire</th>
+      <th>Nom employe</th>
+      <th>Employeur</th>
     </tr>
     
 
@@ -83,7 +83,7 @@ But: Un écran de CRUD qui permet de gérer des employés des entreprises
     function showInternships($bdd)
     {
 
-      $query = $bdd->prepare("Select concat (Prenom, ' ' , Nom) as 'nomStagiaire', CourrielScolaire from vStagiaire;");
+      $query = $bdd->prepare("");
       $i = 0;
       $query->execute(array());     
       $entrees = $query->fetchAll();
