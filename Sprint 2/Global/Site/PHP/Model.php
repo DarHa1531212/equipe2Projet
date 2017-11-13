@@ -185,12 +185,30 @@
     class CategorieQuestion{
         
         private $id, $titre, $lettre, $description;
+        private $questions = array();
         
         function __construct($id, $titre, $lettre, $description){
             $this->id = $id;
             $this->titre = $titre;
             $this->lettre = $lettre;
             $this->description = $description;
+        }
+        
+        //Sélectionne toutes les questions liés à la catégorie.
+        private function SelectQuestions(){
+            $query = $bdd->prepare('SELECT IdReponse, R.Texte
+                                    FROM vEvaluationQuestionReponse AS EQR
+                                    JOIN vReponse AS R
+                                    ON R.Id = EQR.IdReponse
+                                    WHERE IdEvaluation = :idEvaluation;');
+            
+            $query->execute(array('idEvaluation'=>$id));
+            
+            $questions = $query->fetchAll();
+            
+            foreach($questions as $question){
+                array_push($this->questions, new Question($question["IdReponse"], $reponse["Texte"]));
+            }
         }
         
         public function getId(){
