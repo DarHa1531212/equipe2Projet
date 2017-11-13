@@ -6,7 +6,7 @@
     '<article class="stagiaire">
         <div class="infoStagiaire">';
 
-        if($idProfil == $_SESSION['idConnecte']){
+        if($idProfil == $_SESSION['idConnecte'] && verifyTimeout()){
             $content = $content.
             '<h2>Votre Profil</h2>';
             

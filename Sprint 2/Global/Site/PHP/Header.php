@@ -19,6 +19,5 @@
                     '.$_SESSION['PrenomConnecte'] . ' ' . $_SESSION['NomConnecte'].'  
                 </p>
             </div>
-        </header>';
-
+        </header>'; 
 ?>
