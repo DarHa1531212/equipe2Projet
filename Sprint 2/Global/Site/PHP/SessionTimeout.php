@@ -7,11 +7,11 @@
 		*********************************************************************/
 		function verifyTimeout()
 		{
-				if (isset($_SESSION['LAST_ACTIVITY']) && (time() - $_SESSION['LAST_ACTIVITY'] > 10)) //de base 600
+				if (isset($_SESSION['LAST_ACTIVITY']) && (time() - $_SESSION['LAST_ACTIVITY'] > 600))
 				{
 					session_unset();     // unset $_SESSION variable for the run-time 
 					session_destroy();   // destroy session data in storage
-					?> <script> window.location.replace(window.location.hostname); </script> <?php//header("Location: /equipe2Projet/Sprint%202/Global/Site/"); // opens the login page
+					header("Location: ../index.php"); // opens the login page
 					return false; // the user is no longer authenticated
 				}
 				else
