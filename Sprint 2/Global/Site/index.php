@@ -14,8 +14,8 @@
     <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
     <link rel="sortcut icon" href="Images/LogoDICJ2Petit.ico" type="image/x-icon"/>
     <title>Connexion</title>
-    <link href="CSS/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="CSS/Site.css">
+  <!--  <link href="CSS/bootstrap.min.css" rel="stylesheet">-->
+  <!--  <link rel="stylesheet" href="CSS/Site.css"> -->
 </head>
 <body>
     <div class="container-fluid portail">

@@ -123,11 +123,26 @@
                 <h3>Nouvelle Entrée</h3>
             </div>
             
-            <script type="text/javascript" src="../js/nicEdit.js"></script>
-            <script type="text/javascript">
-                bkLib.onDomLoaded(function() { nicEditors.allTextAreas() });
-            </script>
-            <textarea id="contenu" rows="5" cols="100" maxlength="500" name="contenu" wrap="hard"></textarea>
+                <button class="bouton" onclick="addArea2();">Afficher les options RTF</button> <button class="bouton" onclick="removeArea2();">Cacher les options RTF</button>
+                  </div>
+                  <div style="clear: both;"></div><script type="text/javascript" src="http://js.nicedit.com/nicEdit-latest.js"></script> <script type="text/javascript">
+                //<![CDATA[
+                  var  area2;
+                 
+                 
+                 
+                  function addArea2() {
+                        area2 = new nicEditor({fullPanel : true}).panelInstance(\'contenu\');
+                  }
+                  function removeArea2() {
+                        area2.removeInstance(\'contenu\');
+                  }
+                 
+                  bkLib.onDomLoaded(function() { toggleArea1(); });
+                  //]]>
+                  </script>
+
+            <textarea id="contenu" rows="5" cols="100" maxlength="500" name="contenu" wrap="hard" ></textarea>
             <input type="hidden" name="maxFileSize" value="2000000">
             <input class="inputFile" id="file" type="file" value="Envoyer" name="fichier"/>
 
