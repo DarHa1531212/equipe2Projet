@@ -1,0 +1,43 @@
+html{
+    height: 95%;
+}
+
+body{
+    background-image: url(../Images/swirl.png);
+    height: 100%;
+}
+
+section{
+    display: table;
+    width: 100%;
+    height: 100%;
+}
+
+.wrapper{
+    display: table-cell;
+    vertical-align: middle;
+}
+
+.container{
+    display: table;
+    background-color: white;
+    height: 300px;
+    width: 500px;
+    margin: auto;
+    border: solid 1px gainsboro;
+    text-align: center;
+}
+
+.content{
+    display: table-cell;
+    vertical-align: middle;
+}
+
+p{
+    display: inline-block;
+    width: 100px;
+}
+
+input[type=email], input[type=password]{
+    width: 250px;
+}
