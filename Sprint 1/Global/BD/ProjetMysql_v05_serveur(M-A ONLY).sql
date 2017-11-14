@@ -2,8 +2,8 @@
 -- CRÉÉE LE 06/09/2017 PAR MARC-ANTOINE DUCHESNE
 
 -- Création de la bd
--- DROP DATABASE IF EXISTS BDProjet_equipe2V2;
--- CREATE DATABASE BDProjet_equipe2V2;
+ DROP DATABASE IF EXISTS BDProjet_equipe2V2;
+ CREATE DATABASE BDProjet_equipe2V2;
 
 -- USE cegepjon_p2017_2_dev;
 -- USE cegepjon_p2017_2_prod;
@@ -304,7 +304,16 @@ CREATE TABLE tblCategorieQuestion
 DROP VIEW IF EXISTS vCategorieQuestion;
 CREATE VIEW vCategorieQuestion AS SELECT Id,TitreCategorie,descriptionCategorie,Lettre,CONCAT(Id,TitreCategorie,descriptionCategorie,Lettre) AS tag FROM tblCategorieQuestion;
 
+-- -------------------------------------------------------------
+DROP TABLE IF EXISTS tblLogMessage;
+CREATE TABLE tblLogMessage
+(
+	Id						INT				AUTO_INCREMENT,
+	LogMessage				VARCHAR(1000)	NULL,
+	PRIMARY KEY(ID) 
+);
 
+-- -------------------------------------------------------------
 /*
 -- VUE
 DROP VIEW IF EXISTS vTableauBord;
