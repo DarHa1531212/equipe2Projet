@@ -34,7 +34,8 @@
     }
     else
     {
-        echo "crash.exe";
+        header("Location: https://" . $_SERVER["HTTP_HOST"]);
+        exit();
     }
 
   	function GetPrenomNom($queryRecherche){
