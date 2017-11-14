@@ -87,10 +87,17 @@ function Url(){
  
 //Affiche la page selon l'url demandé.
 function AfficherPage(xhttp){
-    var page = $.parseJSON(xhttp);
-    $(".stagiaireContainer").empty();
-    $(".stagiaireContainer").append(page);
-    CacherDiv();//Juste si il y a des stagiaires a afficher ou des evaluations(Fix plus tard).
+    try
+    {
+        var page = $.parseJSON(xhttp);
+        $(".stagiaireContainer").empty();
+        $(".stagiaireContainer").append(page);
+        //CacherDiv();//Juste si il y a des stagiaires a afficher ou des evaluations(Fix plus tard).
+    }
+    catch(err)
+    {
+        window.location.replace('../index.php');
+    }
 }
 
 //Éxecute une page PHP sans l'afficher.
