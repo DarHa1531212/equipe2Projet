@@ -1,7 +1,7 @@
--- USE BDProjet_equipe2V2;
+ USE BDProjet_equipe2V2;
 -- USE cegepjon_p2017_2_dev;
 -- USE cegepjon_p2017_2_prod;
- USE cegepjon_p2017_2_tests;
+-- USE cegepjon_p2017_2_tests;
 
 -- ------------------------------------------------
 -- Sélectionne tous les enseignants.
@@ -140,8 +140,7 @@ ON Responsable.IdUtilisateur = Stage.IdResponsable
 JOIN vSuperviseur AS Superviseur
 ON Superviseur.IdUtilisateur = Stage.IdSuperviseur
 JOIN vEntreprise AS Entreprise
-ON Entreprise.Id = Superviseur.IdEntreprise
-where IdStagiaire = 15 ;
+ON Entreprise.Id = Superviseur.IdEntreprise;
 
 -- ------------------------------------------------
 -- Récupère toutes les évaluations des stagiaires selon leur ID et le type d'évaluation avec leurs réponses choisies.
