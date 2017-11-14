@@ -45,7 +45,7 @@ function ajouterStage($bdd, $dataArray)
 function returnSuperviseursAndResponsables($bdd, $dataArray)
 {
 	$idEntreprise = intval ($dataArray[1]->value);
-	$return = "";
+	$valeurRetour = "";
 	$query = $bdd->prepare("select concat (Prenom, ' ',  Nom) as NomEmploye, IdUtilisateur from tblEmploye where IdEntreprise like '$idEntreprise'");
 
 	$query->execute(array());     
@@ -55,10 +55,10 @@ function returnSuperviseursAndResponsables($bdd, $dataArray)
 		  $NomEmploye = $entree["NomEmploye"];
 		  $IdUtilisateur = $entree["IdUtilisateur"];
 
-		  $return = $return . '<option value= "' . $IdUtilisateur . '">' . $NomEmploye . '</option>';
+		  $valeurRetour = $valeurRetour . '<option value= "' . $IdUtilisateur . '">' . $NomEmploye . '</option>';
 	}
 
-	return ($return);
+	return "haha";
 
 }
 

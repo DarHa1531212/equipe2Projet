@@ -122,7 +122,11 @@
             <div class="separateur">
                 <h3>Nouvelle Entrée</h3>
             </div>
-
+            
+            <script type="text/javascript" src="../js/nicEdit.js"></script>
+            <script type="text/javascript">
+                bkLib.onDomLoaded(function() { nicEditors.allTextAreas() });
+            </script>
             <textarea id="contenu" rows="5" cols="100" maxlength="500" name="contenu" wrap="hard"></textarea>
             <input type="hidden" name="maxFileSize" value="2000000">
             <input class="inputFile" id="file" type="file" value="Envoyer" name="fichier"/>

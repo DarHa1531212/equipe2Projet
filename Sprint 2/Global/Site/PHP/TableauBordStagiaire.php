@@ -17,6 +17,7 @@
         <script src="../js/navigation.js"></script>
         <script src="../js/regexProfilStag.js"></script>
         <script src="../js/image.js"></script>
+
         
         <?php include('Header.php'); ?>
         

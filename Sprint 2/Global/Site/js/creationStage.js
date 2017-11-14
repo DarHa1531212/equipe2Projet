@@ -55,6 +55,7 @@ function afficherResponsableEtSuperviseur(callback)
     var form_data = new FormData();                   
     var e = document.getElementById("entreprise");
     var idEntreprise = e.options[e.selectedIndex].value;
+
  
     $('#responsableStage').remove().not(':first');
    
@@ -72,7 +73,7 @@ function afficherResponsableEtSuperviseur(callback)
     tabValues.push(reponse);
  
     tabValues = JSON.stringify(tabValues);
- 
+    alert (tabValues);
     form_data.append('tabValues', tabValues); 
         
         $.ajax({ 
@@ -84,13 +85,17 @@ function afficherResponsableEtSuperviseur(callback)
             data: form_data,                          
             type: 'post', 
             success: function(data){ 
+    //            var myObj = JSON.parse(this.responseText);
+     //           alert (myObj);
                 callback(data); 
             } 
         }); 
- 
-    //ajouter parseJson
- 
-}
+
+
+
+
+    } 
+
  
 //afficher toutes les infos à propos d'un stage à partir de l'id en paramètre d'entrée
 function readStage(callback, clicked_id)
