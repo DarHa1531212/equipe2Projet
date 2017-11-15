@@ -3,7 +3,7 @@ html{
 }
 
 body{
-    background-image: url(../Images/cegep2.JPG);
+    background-image: url(../Images/cegep2.jpg);
     background-size: cover;
     background-repeat: no-repeat;
     height: 100%;
@@ -32,7 +32,11 @@ section{
     box-shadow: 0px 0px 2px 0.05px black;
 }
 
-div > img{
+div > a{
+    text-decoration: none;
+}
+
+div > a > img{
     width: 200px;
 }
 
@@ -81,6 +85,7 @@ input[type=email], input[type=password]{
     margin-bottom: 5px;
     background: none;
     padding-left: 5px;
+    text-align: center;
 }
 
 @media screen and (max-width: 1500px){

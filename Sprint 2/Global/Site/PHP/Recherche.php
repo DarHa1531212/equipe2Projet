@@ -34,7 +34,8 @@
     }
     else
     {
-        echo "crash.exe";
+        header();
+        exit();
     }
 
   	function GetPrenomNom($queryRecherche){

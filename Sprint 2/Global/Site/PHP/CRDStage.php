@@ -26,6 +26,7 @@ $dateFin = $_SESSION['dateFin'];
 function ajouterStage($bdd, $idResponsable, $idSuperviseur, $idStagiaire, $idEnseignant, $descriptionStage, $competencesRecherche, $horaireTravail, $nbreHeuresSemaine, $salaireHoraire, $dateDebut, $dateFin)
 {
     $query = $bdd->prepare("INSERT INTO tblStage (idResponsable, idSuperviseur, idStagiaire, idEnseignant, descriptionStage, competencesRecherche, horaireTravail, nbreHeuresSemaine, salaireHoraire, dateDebut, dateFin ) VALUES ('$idResponsable' , '$idSuperviseur' , '$idStagiaire', '$idEnseignant', '$descriptionStage', '$competencesRecherche', '$horaireTravail', '$nbreHeuresSemaine' , '$salaireHoraire', '$dateDebut', '$dateFin');");
+
     $query->execute();
 }
 
