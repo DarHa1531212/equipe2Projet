@@ -34,7 +34,7 @@
     }
     else
     {
-        header("Location: https://" . $_SERVER["HTTP_HOST"]);
+        header();
         exit();
     }
 
