@@ -75,18 +75,6 @@
             return $content;
         }
         
-        //Affiche les questions.
-        private function AfficherQuestion($bdd){
-            $content = "";
-        
-            foreach($this->questions as $question){
-                $content = $content.
-                ''.ChoixReponses($bdd, $question).'';                  
-            }
-
-            return $content;
-        }
-        
         //Affiche les réponses.
         private function AfficheReponse($bdd, $question){
             $content = "";
@@ -96,8 +84,11 @@
             foreach($this->reponses as $reponse){   
                 $content = $content. 
                 '
-                    <tr class="itemHover" onclick="ReponseChoisie(this)">
-                        <td>'.$reponse->getTexte().'</td>
+                    <tr class="itemHover" onclick="reponse'.$reponse->getId().'.checked = true;">
+                        <td>
+                            '.$reponse->getTexte().'
+                            <input type="radio" id="reponse'.$reponse->getId().'" name="question'.$question->getId().'" value="'.$reponse->getId().'"/>
+                        </td>
                     </tr>
                 ';
             }
@@ -214,7 +205,7 @@
                 $this->SelectReponsesChoisies($bdd, $this->id, $question->getId());
                 
                 if($reponse->getId() == $this->reponsesChoisies[0]->getId())
-                    $content = $content.'<td><input type="radio" id="question'.$question->getId().'" name="question'.$question->getId().'" value="'.$reponse->getid().'" checked = "checked" ></td>';
+                    $content = $content.'<td><input type="radio" id="question'.$question->getId().'" name="question'.$question->getId().'" value="'.$reponse->getId().'" checked = "checked" ></td>';
                 else
                     $content = $content.'<td><input type="radio" name="question'.$question->getId().'" value="'.$reponse->getid().'"></td>';
             }
@@ -231,6 +222,7 @@
         protected $id, $statut, $titre, $dateCompletee, $dateDebut, $dateFin, $idTypeEval;
         
         public function __construct($bdd, $id){
+            $this->id = $id;
             $this->Initialise($bdd, $id);
         }
         
@@ -247,7 +239,6 @@
             $evaluations = $query->fetchAll();
             
             foreach($evaluations as $evaluation){
-                $this->id = $evaluation["Id"];
                 $this->titre = $evaluation["Titre"];
                 $this->statut = $evaluation["Statut"];
                 $this->dateCompletee = $evaluation["DateComplétée"];
@@ -310,12 +301,9 @@
 
             $requeteModifierStatutEvaluation->execute(array('IdEvaluation'=>$_REQUEST['idEvaluation'],'DateCompletee'=>date("Y-m-d")));
 
-            foreach($this->categories as $categorie)
-            {
-                foreach($reponses as $reponse){
-                    $requeteModificationEvaluationQuestionReponse->execute(array('IdEvaluation'=>$this->id,'IdQuestion'=>$reponse["idQuestion"],'IdReponse'=>$reponse["value"]));
-                }         
-            }
+            foreach($reponses as $reponse){
+                $requeteModificationEvaluationQuestionReponse->execute(array('IdEvaluation'=>$this->id,'IdQuestion'=>$reponse["idQuestion"],'IdReponse'=>$reponse["value"]));
+            }  
         }    
         
         public function getCategories(){
