@@ -138,7 +138,8 @@ ON Responsable.IdUtilisateur = Stage.IdResponsable
 JOIN vSuperviseur AS Superviseur
 ON Superviseur.IdUtilisateur = Stage.IdSuperviseur
 JOIN vEntreprise AS Entreprise
-ON Entreprise.Id = Superviseur.IdEntreprise;
+ON Entreprise.Id = Superviseur.IdEntreprise
+where IdStagiaire = 15 ;
 
 -- ------------------------------------------------
 -- Récupère toutes les évaluations des stagiaires selon leur ID et le type d'évaluation avec leurs réponses choisies.

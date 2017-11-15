@@ -1,9 +1,16 @@
 <?php 
     include 'Session.php';
+
     function AfficherPage($NomMenu){
         include 'vProfil.php';
         include 'vTableauBord.php';
         include 'Model.php';
+
+        if(isset($_REQUEST["idStagiaire"]) || (isset($_REQUEST["idEmploye"]))){
+            include 'vProfil.php';
+            include 'vTableauBord.php';
+        }
+        
         $menu = "";
         
         switch($NomMenu){
@@ -24,6 +31,12 @@
             case "Avenir":  $menu = include 'AVenir.php';
                 break;
             case "Eval":    $menu = include 'Evaluation.php';
+                break;
+            case "CRUDStage":   $menu = include 'CRDStage.php';
+                break;
+            case "CRUDStagiaire":   $menu = include 'CRUDStatiaire.php';
+                break;
+            case "CRUDEntreprise":  $menu = include 'CRUDEntreprise.php';
                 break;
         }
 

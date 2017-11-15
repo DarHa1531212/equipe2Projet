@@ -5,11 +5,9 @@
 *	Date: 01 Novembre 2017																						*
 *	But: recevoir les données de création ou de modification d'un stage via un post et les entrer dans la BD 	*
 *****************************************************************************************************************/
-	include 'Session.php';
-	include 'ConnexionBD.php';
-
+	
 	/* Données à recevoir pour la création d'un stage: 
-	idResponsable, idSuperviseur, idStagiaire, idEnseignant, 
+	idEntreprise, idResponsable, idSuperviseur, idStagiaire, idEnseignant, 
 	descriptionStage, competencesRecherche, horaireTravail, nbreHeuresSemaine, 
 	Remunere, salaireHoraire, dateDebut, dateFin*/
 

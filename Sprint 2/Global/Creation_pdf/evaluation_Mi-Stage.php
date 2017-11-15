@@ -11,7 +11,6 @@ while ($data = $retour->fetch()){
     $questions[$x] = $data['Question'];
     $reponses[$x] = $data['IdReponse'];
     $enseignants[$x] = $data['Enseignant']; 
-    $gestionnaires[$x] = $data['Gestionnaire'];
     $responsables[$x] = $data['Responsable']; 
     $superviseurs[$x] = $data['Superviseur']; 
     $entreprises[$x] = $data['Entreprise']; 
