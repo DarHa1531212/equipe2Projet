@@ -1,33 +1,11 @@
 <?php
-    
-    $queryCategorie = $bdd->prepare('SELECT DISTINCT(CQ.Id) AS IdCategorie, TitreCategorie, Lettre, descriptionCategorie
-                                    FROM vQuestion AS Q
-                                    JOIN vCategorieQuestion AS CQ
-                                    ON CQ.Id = Q.IdCategorieQuestion
-                                    JOIN vEvaluationQuestionReponse AS EQR
-                                    ON EQR.IdQuestion = Q.Id
-                                    WHERE IdEvaluation = :idEvaluation');
 
-    $queryQuestion = $bdd->prepare('SELECT DISTINCT(Id), Q.Texte
-                                    FROM vQuestion AS Q
-                                    JOIN vEvaluationQuestionReponse AS EQR
-                                    ON EQR.IdQuestion = Q.Id
-                                    WHERE EQR.IdEvaluation = :idEvaluation AND Q.IdCategorieQuestion = :idCategorie');
+    $eval = new Evaluation($bdd, $_REQUEST["idEvaluation"]);
 
-    $queryReponse = $bdd->prepare( 'SELECT DISTINCT(RQ.IdReponse), Texte
-                                    FROM vReponseQuestion AS RQ
-                                    JOIN vEvaluationQuestionReponse AS EQR
-                                    ON RQ.IdQuestion = EQR.IdQuestion
-                                    JOIN vReponse AS R
-                                    ON R.Id = RQ.IdReponse
-                                    WHERE EQR.IdEvaluation = :idEvaluation');
-    
-    $queryReponseChoisie = $bdd->prepare(  'select IdReponse
-                                            from vEvaluationQuestionReponse
-                                            where IdEvaluation = :idEvaluation AND IdQuestion = :IdQuestion;');
-
-    $queryCategorie->execute(array('idEvaluation'=>$_REQUEST["idEvaluation"]));
-    $queryReponse->execute(array('idEvaluation'=>$_REQUEST["idEvaluation"]));
+    if($eval->getIdTypeEval() == 1)
+        $eval = new EvaluationGrille($bdd, $_REQUEST["idEvaluation"]);
+    else if($eval->getIdTypeEval() == 2)
+        $eval = new EvaluationChoixReponse($bdd, $_REQUEST["idEvaluation"]);
 
     function Identification($bdd){
         $query = $bdd->prepare( 'SELECT * FROM vIdentification
@@ -65,170 +43,25 @@
         ';
     }
 
-    function QuestionsGrille($bdd, $queryQuestion, $queryReponse, $queryReponseChoisie, $queryCategorie){
-        
-        $content = "";
-        
-        $categories = $queryCategorie->fetchAll();
-        $reponses = $queryReponse->fetchAll();
-        
-        foreach($categories as $categorie){
-            $queryQuestion->execute(array("idEvaluation"=>$_REQUEST["idEvaluation"], "idCategorie"=>$categorie["IdCategorie"]));
-            $questions = $queryQuestion->fetchAll();
-            
-            $content = $content.
-                '
-                <div class="categories">
-                    <div class="separateur" id="question">
-                        <h3>'.$categorie["Lettre"].'. '.$categorie["TitreCategorie"].'</h3>
-                        <p> 
-                            '.$categorie["descriptionCategorie"].'
-                        </p>
-                    </div>
-
-                    <table class="evaluation">
-                        <thead>
-                            <th>Critères</th>
-                            <th>Généralement</th>
-                            <th>Souvent</th>
-                            <th>Parfois</th>
-                            <th>Rarement</th>
-                        </thead>
-
-                        <tbody>';
-            
-            foreach($questions as $question){
-                $content = $content.
-                '
-                            <tr>
-                                <td>'.$question["Texte"].'</td>
-                                '.ChoixReponses($bdd, $question["Id"], $queryReponseChoisie, $reponses).'
-                            </tr>
-                ';
-            }
-            
-            $content = $content.
-                '
-                        </tbody>
-                    </table>
-                </div>
-                ';
-        }
-        
-        return $content;
-    }
-
-    function QuestionChoixReponse($bdd, $queryQuestion, $queryReponse, $queryReponseChoisie, $queryCategorie){
-        $content = "";
-        
-        $categories = $queryCategorie->fetchAll();
-        $reponses = $queryReponse->fetchAll();
-        
-        foreach($categories as $categorie){
-            $queryQuestion->execute(array("idEvaluation"=>$_REQUEST["idEvaluation"], "idCategorie"=>$categorie["IdCategorie"]));
-            $questions = $queryQuestion->fetchAll();
-            
-            $content = $content.
-                '
-                <div class="categories">
-                    <div class="separateur" id="question">
-                        <h3>'.$categorie["Lettre"].'. '.$categorie["TitreCategorie"].'</h3>';
-                        
-            foreach($questions as $question){
-                $content = $content.
-                '
-                        <p> 
-                            '.$question["Texte"].'
-                        </p>
-                    </div>
-
-                    <table class="evaluation2">
-                        <tbody>          
-                                '.ChoixReponses($bdd, $question["Id"], $queryReponseChoisie, $reponses).'
-                ';
-            }
-            
-            $content = $content.
-                '
-                        </tbody>
-                    </table>
-                </div>
-                ';
-        }
-        
-        return $content;
-    }
-
-    function ChoixReponses($bdd, $idQuestion, $queryReponseChoisie, $reponses){
-        $content = "";
-        
-        $queryReponseChoisie->execute(array("idEvaluation"=>$_REQUEST["idEvaluation"], 'IdQuestion'=>$idQuestion));
-        
-        $reponsesChoisies = $queryReponseChoisie->fetchAll();
-        
-        foreach($reponses as $reponse){
-            if($_REQUEST["typeEval"] == 1){
-                if($reponse['IdReponse'] == $reponsesChoisies[0]["IdReponse"])
-                    $content = $content.'<td><input type="radio" id="question'.$idQuestion.'" name="question'.$idQuestion.'" value="'.$reponse['IdReponse'].'" checked = "checked" ></td>';
-                else
-                    $content = $content.'<td><input type="radio" name="question'.$idQuestion.'" value="'.$reponse['IdReponse'].'"></td>';
-                }
-            else if($_REQUEST["typeEval"] == 2){
-                $content = $content. 
-                '
-                    <tr class="itemHover" onclick="ReponseChoisie(this)">
-                        <td>'.$reponse["Texte"].'</td>
-                    </tr>
-                ';
-            }
-        }
-        
-        return $content;
-    }
-
-    function LettreNav($bdd, $queryCategorie){
+    function LettreNav($bdd, $eval){
         $i = 0;
         $content = "";
-        $queryCategorie->execute(array("idEvaluation"=>$_REQUEST["idEvaluation"]));
-        $categories = $queryCategorie->fetchAll();
         
-        foreach($categories as $categorie){
+        foreach($eval->getCategories() as $categorie){
             $content = $content.
-            '<input id="Cat'.$i++.'" type="button" value="'.$categorie["Lettre"].'" class="lettreNav bouton" onclick="JumpTo('.($i-1).')"/>';
+            '<input id="Cat'.$i++.'" type="button" value="'.$categorie->getLettre().'" class="lettreNav bouton" onclick="JumpTo('.($i-1).')"/>';
         }
         
         return $content;
-    }
-
-    function Submit($bdd, $queryCategorie, $queryQuestion){
-        $reponses = json_decode($_POST["tabReponse"], true);
-        
-        $requeteModificationEvaluationQuestionReponse = $bdd->prepare(  'update tblEvaluationQuestionReponse SET IdReponse = :IdReponse
-                                                                        WHERE IdEvaluation = :IdEvaluation AND IdQuestion = :IdQuestion;');
-
-        $requeteModifierStatutEvaluation = $bdd->prepare('update tblEvaluation set Statut= \'3\', DateComplétée=:DateCompletee where Id=:IdEvaluation;');
-
-        $queryCategorie->execute(array('idEvaluation'=>$_REQUEST['idEvaluation']));
-
-        $requeteModifierStatutEvaluation->execute(array('IdEvaluation'=>$_REQUEST['idEvaluation'],'DateCompletee'=>date("Y-m-d")));
-
-        $categories = $queryCategorie->fetchAll();
-
-          foreach($categories as $categorie)
-          {
-              foreach($reponses as $reponse){
-                  $requeteModificationEvaluationQuestionReponse->execute(array('IdEvaluation'=>$_REQUEST['idEvaluation'],'IdQuestion'=>$reponse["idQuestion"],'IdReponse'=>$reponse["value"]));
-              }         
-          }
     }
 
     if(isset($_REQUEST["post"]))
-        Submit($bdd, $queryCategorie, $queryQuestion);
+        $eval->Submit($bdd);
 
     $content =
     '<article class="stagiaire">
         <div class="infoStagiaire">
-            <h2>Évaluation de mi-stage</h2>
+            <h2>'.$eval->getTitre().'</h2>
         </div>
 
         <div class="blocInfo infoProfil">
@@ -245,25 +78,13 @@
             <h3>Identification</h3>
         </div>
 
-        '.Identification($bdd).'';
-
-        if($_REQUEST["typeEval"] == 1){
-            $content = $content.
-            '
-                '.QuestionsGrille($bdd, $queryQuestion, $queryReponse, $queryReponseChoisie, $queryCategorie).'
-            ';
-        }
-        else if($_REQUEST["typeEval"] == 2){
-            $content = $content.
-            '
-                '.QuestionChoixReponse($bdd, $queryQuestion, $queryReponse, $queryReponseChoisie, $queryCategorie).'
-            ';
-        }
+        '.Identification($bdd).'
+        '.$eval->DrawEvaluation($bdd).'';
         
         $content = $content .
         '<div class="navigateurEval">
             <input id="gauche" class="bouton" style="width : 150px; float: left;" type="button" value="Précédent" onclick="ChangerItem(this)"/>
-            '.LettreNav($bdd, $queryCategorie).'
+            '.LettreNav($bdd, $eval).'
             <input id="droite" class="bouton" style="width : 150px; float: right" type="button" value="Suivant" onclick="ChangerItem(this)"/>
             <input id="confirmer" class="bouton" style="width : 150px; float: right" type="button" value="Confirmer" onclick="Execute(4, \'../PHP/TBNavigation.php?idEmploye='.$profil["IdSuperviseur"].'&nomMenu=Eval\', \'&post=true\', \'&idEvaluation=\', '.$_REQUEST["idEvaluation"].', \'&idStagiaire=\', '.$_REQUEST["idStagiaire"].'); Execute(1, \'../PHP/TBNavigation.php?idEmploye='.$profil["IdSuperviseur"].'&nomMenu=Main\')" hidden/>
         </div>

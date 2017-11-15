@@ -1,4 +1,5 @@
 <?php
+
 /****************************************************************************************************************
 *	Nom: Hans Darmstadt-Bélanger																				*
 *	Date: 01 Novembre 2017																						*
@@ -35,6 +36,5 @@ function ajouterStage($bdd, $idResponsable, $idSuperviseur, $idStagiaire, $idEns
 }
 
 ajouterStage($bdd, $idResponsable, $idSuperviseur, $idStagiaire, $idEnseignant, $descriptionStage, $competencesRecherche, $horaireTravail, $nbreHeuresSemaine, $salaireHoraire, $dateDebut, $dateFin);
-
 
 ?>

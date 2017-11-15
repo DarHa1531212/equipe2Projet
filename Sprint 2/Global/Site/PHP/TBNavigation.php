@@ -1,11 +1,9 @@
 <?php 
     include 'Session.php';
     function AfficherPage($NomMenu){
-        if(isset($_REQUEST["idStagiaire"]) || (isset($_REQUEST["idEmploye"]))){
-            include 'vProfil.php';
-            include 'vTableauBord.php';
-        }
-        
+        include 'vProfil.php';
+        include 'vTableauBord.php';
+        include 'Model.php';
         $menu = "";
         
         if(verifyTimeout())
