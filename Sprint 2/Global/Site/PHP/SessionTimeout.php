@@ -1,3 +1,4 @@
+<!DOCTYPE html>
 <?php 
 		/********************************************************************
 		* Nom: Hans Darmstadt-Bélanger                                      *
@@ -11,8 +12,9 @@
 				{
 					session_unset();     // unset $_SESSION variable for the run-time 
 					session_destroy();   // destroy session data in storage
-					header("Location: ..");
-        			exit();
+					//header("Location: ..", true, 302);
+        			//exit();
+        			?><script>window.location.replace('..');</script><?php
 					return false; // the user is no longer authenticated
 				}
 				else
