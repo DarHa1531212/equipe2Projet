@@ -60,7 +60,7 @@ section{
     width: calc(100% - 144px);
 }
 
-.infoStagiaire > input{width: 140px; margin-bottom: 30px;}
+.infoStagiaire > input{width: 140px;}
 
 .bouton{
     height: 35px;

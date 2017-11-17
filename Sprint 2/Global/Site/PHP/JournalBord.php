@@ -97,7 +97,7 @@
         {
             $ext = strtolower(pathinfo($doc)['extension']);
             $method = "AfficherImage('". $doc . "','" . $ext ."')";
-            return '<a cLass="lienJointe"><span id="divBouton" style="cursor:pointer" onclick="' . $method . '">Pièce jointe ' . ' -  ' . $ext . '</span></a>'; //faire ici l'affichage en absolute
+            return '<a cLass="lienJointe"><span id="divBouton" onclick="' . $method . '">Pièce jointe ' . ' -  ' . $ext . '</span></a>'; //faire ici l'affichage en absolute
         }
         else
         {

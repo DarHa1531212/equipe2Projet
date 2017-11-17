@@ -78,17 +78,10 @@ function Url(){
  
 //Affiche la page selon l'url demandé.
 function AfficherPage(xhttp){
-    try
-    {
-        var page = $.parseJSON(xhttp);
-        $(".stagiaireContainer").empty();
-        $(".stagiaireContainer").append(page);
-        //CacherDiv();//Juste si il y a des stagiaires a afficher ou des evaluations(Fix plus tard).
-    }
-    catch(err)
-    {
-        window.location.replace('../index.php');
-    }
+    var page = $.parseJSON(xhttp);
+    $(".stagiaireContainer").empty();
+    $(".stagiaireContainer").append(page);
+    CacherDiv();//Juste si il y a des stagiaires a afficher ou des evaluations(Fix plus tard).
 }
 
 //Éxecute une page PHP sans l'afficher.
@@ -108,10 +101,5 @@ function Execute(choix){
         case 3: UploadFile(ExecuteQuery, arguments);
             break;
         case 4: PostEval(ExecuteQuery, arguments);
-            break;
-        case 5: getValuesFromUser(AfficherPage, arguments);
-            break;
-        case 6: getValuesFromUser (ExecuteQuery, arguments);
-            break;
     }
 }

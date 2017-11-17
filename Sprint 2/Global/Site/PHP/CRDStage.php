@@ -5,9 +5,11 @@
 *	Date: 01 Novembre 2017																						*
 *	But: recevoir les données de création ou de modification d'un stage via un post et les entrer dans la BD 	*
 *****************************************************************************************************************/
-	
+	include 'Session.php';
+	include 'ConnexionBD.php';
+
 	/* Données à recevoir pour la création d'un stage: 
-	idEntreprise, idResponsable, idSuperviseur, idStagiaire, idEnseignant, 
+	idResponsable, idSuperviseur, idStagiaire, idEnseignant, 
 	descriptionStage, competencesRecherche, horaireTravail, nbreHeuresSemaine, 
 	Remunere, salaireHoraire, dateDebut, dateFin*/
 
@@ -26,7 +28,6 @@ $dateFin = $_SESSION['dateFin'];
 function ajouterStage($bdd, $idResponsable, $idSuperviseur, $idStagiaire, $idEnseignant, $descriptionStage, $competencesRecherche, $horaireTravail, $nbreHeuresSemaine, $salaireHoraire, $dateDebut, $dateFin)
 {
     $query = $bdd->prepare("INSERT INTO tblStage (idResponsable, idSuperviseur, idStagiaire, idEnseignant, descriptionStage, competencesRecherche, horaireTravail, nbreHeuresSemaine, salaireHoraire, dateDebut, dateFin ) VALUES ('$idResponsable' , '$idSuperviseur' , '$idStagiaire', '$idEnseignant', '$descriptionStage', '$competencesRecherche', '$horaireTravail', '$nbreHeuresSemaine' , '$salaireHoraire', '$dateDebut', '$dateFin');");
-
     $query->execute();
 }
 

@@ -1,10 +1,3 @@
-<?php
-    /*if($_SERVER["HTTPS"] != "on")
-    {
-        header("Location: https://" . $_SERVER["HTTP_HOST"] . $_SERVER["REQUEST_URI"]);
-        exit();
-    }*/
-?>
 <!DOCTYPE html>
 <html>
     <head>
@@ -23,12 +16,8 @@
                     <div class="content">
                         <form action="PHP/Connexion.php" method="POST">
                             <div>
-                                <a href="http://www.cegepjonquiere.ca">
-                                    <img src="Images/cj-logo.png">
-                                </a>
-                                <a href="http://www.dicj.info">
-                                    <img src="Images/dicj-logo.png">
-                                </a>
+                                <img src="Images/cj-logo.png">
+                                <img src="Images/dicj-logo.png">
                             </div>
 
                             <div>

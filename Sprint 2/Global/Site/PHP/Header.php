@@ -1,7 +1,6 @@
 <?php
 
     $idConnecte = "";
-    $href = "'../index.php'";
 
     if($_SESSION['IdRole'] == 5)
         $idConnecte = "idStagiaire=";
@@ -20,10 +19,6 @@
                     '.$_SESSION['PrenomConnecte'] . ' ' . $_SESSION['NomConnecte'].'  
                 </p>
             </div>
-            <div class="userHeader" onclick="window.location.replace(' . $href . ');">
-                <p>
-                    Déconnexion
-                </p>
-            </div>
-        </header>'; 
+        </header>';
+
 ?>
