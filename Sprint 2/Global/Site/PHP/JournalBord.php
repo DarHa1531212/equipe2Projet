@@ -129,8 +129,6 @@
                 //<![CDATA[
                   var  area2;
                  
-                 
-                 
                   function addArea2() {
                         area2 = new nicEditor({fullPanel : true}).panelInstance(\'contenu\');
                   }
@@ -139,10 +137,11 @@
                   }
                  
                   bkLib.onDomLoaded(function() { toggleArea1(); });
+                   addArea2();
                   //]]>
                   </script>
 
-            <textarea id="contenu" rows="5" cols="100" maxlength="500" name="contenu" wrap="hard" ></textarea>
+            <textarea id="contenu" rows="5" cols="100" maxlength="500" name="contenu" wrap="hard" onload= "addArea2();"></textarea>
             <input type="hidden" name="maxFileSize" value="2000000">
             <input class="inputFile" id="file" type="file" value="Envoyer" name="fichier"/>
 

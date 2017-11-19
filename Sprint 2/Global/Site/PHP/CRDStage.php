@@ -16,7 +16,9 @@
 		{
 		case "1": ajouterStage($bdd, $dataArray);
 			break;
-		case "2": returnSuperviseursAndResponsables($bdd, $dataArray);
+		case "2": return returnSuperviseursAndResponsables($bdd, $dataArray);
+			break;
+		case "3": return afficherInfos($bdd, $dataArray);
 			break;
 		}
 
@@ -45,7 +47,7 @@ function ajouterStage($bdd, $dataArray)
 function returnSuperviseursAndResponsables($bdd, $dataArray)
 {
 	$idEntreprise = intval ($dataArray[1]->value);
-	$valeurRetour = "";
+	$valeurRetour = '<select id="responsableStage" name = "responsableStage" class = "infosStage">';
 	$query = $bdd->prepare("select concat (Prenom, ' ',  Nom) as NomEmploye, IdUtilisateur from tblEmploye where IdEntreprise like '$idEntreprise'");
 
 	$query->execute(array());     
@@ -55,11 +57,59 @@ function returnSuperviseursAndResponsables($bdd, $dataArray)
 		  $NomEmploye = $entree["NomEmploye"];
 		  $IdUtilisateur = $entree["IdUtilisateur"];
 
-		  $valeurRetour = $valeurRetour . '<option value= "' . $IdUtilisateur . '">' . $NomEmploye . '</option>';
+		  $valeurRetour = $valeurRetour . "<option value='". $IdUtilisateur . "'>" . $NomEmploye . "</option>";
 	}
+$valeurRetour = $valeurRetour . '</select>';
 
-	return "haha";
+	return $valeurRetour;
+
 
 }
+
+function afficherInfos($bdd, $dataArray)
+{
+	$idStage =  intval ($dataArray[1]->value);
+	$returnData = array();
+	$query = $bdd->prepare("select vStage.DescriptionStage as 'DescriptionStage', vStage.CompetenceRecherche as 'CompetenceRecherche', vStage.HoraireTravail as 'HoraireTravail', vStage.SalaireHoraire as 'SalaireHoraire', vStage.NbHeureSemaine as 'NbHeureSemaine' , vEntreprise.Nom as 'NomEntreprise' , concat(vStagiaire.Prenom, ' ' , vStagiaire.Nom)  as 'NomStagiaire' , concat (vSuperviseur.Prenom, ' ', vSuperviseur.Nom) as 'NomSuperviseur', concat (vResponsable.Prenom, ' ', vResponsable.Nom) as'NomResponsable', concat (vEnseignant.Prenom, ' ', vEnseignant.Nom) as 'NomEnseignant' from vStage 	left join vSuperviseur on  vSuperviseur.IdUtilisateur = vStage.IdSuperviseur 	left join vEntreprise on vEntreprise.Id = vSuperviseur.IdEntreprise     left join vStagiaire on vStagiaire.IdUtilisateur = vStage.IdStagiaire     left join vResponsable on vResponsable.IdUtilisateur = vStage.IdResponsable     left join vEnseignant on vEnseignant.IdUtilisateur = vStage.IdEnseignant where vStage.Id like :idStage");
+
+
+
+
+	$query->execute(array('idStage'=> $idStage));     
+	$entrees = $query->fetchAll();
+
+	foreach($entrees as $entree){
+		$DescriptionStage = $entree["DescriptionStage"];
+		$CompetenceRecherche = $entree["CompetenceRecherche"];
+		$HoraireTravail = $entree["HoraireTravail"];
+		$SalaireHoraire = $entree["SalaireHoraire"];
+		$NbHeureSemaine = $entree["NbHeureSemaine"];
+		$NomEntreprise = $entree["NomEntreprise"];
+		$NomStagiaire = $entree["NomStagiaire"];
+		$NomSuperviseur = $entree["NomSuperviseur"];
+		$NomResponsable = $entree["NomResponsable"];
+		$NomEnseignant = $entree["NomEnseignant"];
+
+		$returnData [0] = $DescriptionStage;
+		$returnData [1] = $CompetenceRecherche;
+		$returnData [2] = $HoraireTravail;
+		$returnData [3] = $SalaireHoraire;
+		$returnData [4] = $NbHeureSemaine;
+		$returnData [5] = $NomEntreprise;
+		$returnData [6] = $NomSuperviseur;
+		$returnData [7] = $NomStagiaire;
+		$returnData [8] = $NomResponsable;
+		$returnData [9] = $NomEnseignant;  
+
+
+
+	}
+
+	return $returnData;
+
+}
+
+
+
 
 ?>

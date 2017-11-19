@@ -30,6 +30,10 @@ But: Un écran de CRUD qui permet de gérer des stages
 	</head>
 	<body>
 
+    <!--afficher les inforations détaillées d'un stage -->
+  <div id="readStage"></div>
+
+
 	<form  action="insertion.php" method="POST">
 		<h2>Créer un stage</h2>
 		<br>
@@ -58,7 +62,9 @@ But: Un écran de CRUD qui permet de gérer des stages
 
       </select>
     <br>
-       <select id="entreprise" name = "entreprise" class = "infosStage" onchange="Execute(7,'../PHP/TBNavigation.php?nomMenu=CRUDStage')" > 
+
+  <!--onchange="Execute(7,'../PHP/TBNavigation.php?nomMenu=CRUDStage')" -->
+       <select id="entreprise" name = "entreprise" class = "infosStage"  > 
           <option value="-1"  disabled="disabled" selected >Sélectionnez une entreprise</option>
           <?php 
           
@@ -139,6 +145,9 @@ But: Un écran de CRUD qui permet de gérer des stages
 <!-- Fin de section création de stage -->
 
 
+
+
+
 <!-- section affichege de stages -->
   <h2>Stages actuellement dans le système</h2>
   <table>
@@ -168,7 +177,7 @@ But: Un écran de CRUD qui permet de gérer des stages
           $entreprise = $entree["Nom"];
           $idStage = $entree["Id"];
           echo '<tr>
-                  <th id="' . $idStage .'" onClick="readStage(8,\'../PHP/TBNavigation.php?nomMenu=CRUDStage\', this.id)">' . $entreprise . '</th>
+                  <th id="' . $idStage .'" value="' . $idStage . '" onClick="Execute(8,\'../PHP/TBNavigation.php?nomMenu=CRUDStage\', this.id)">' . $entreprise . '</th>
                   <th>' . $nomStagiaire . '</th>
                   <th>Lettre dentente</th>
                   <th>Offre de stage</th>

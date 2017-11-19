@@ -28,7 +28,7 @@ function getValuesFromUser(callback)
     }
     
     tabValues = JSON.stringify(tabValues);
-    alert(tabValues);
+   // alert(tabValues);
     
     form_data.append('tabValues', tabValues); 
     $.ajax({ 
@@ -41,6 +41,7 @@ function getValuesFromUser(callback)
         type: 'post', 
         success: function(data){ 
             callback(data); 
+
         } 
     }); 
 }
@@ -55,7 +56,7 @@ function afficherResponsableEtSuperviseur(callback)
     var form_data = new FormData();                   
     var e = document.getElementById("entreprise");
     var idEntreprise = e.options[e.selectedIndex].value;
-
+    var retourResonsables = "";
  
     $('#responsableStage').remove().not(':first');
    
@@ -73,7 +74,7 @@ function afficherResponsableEtSuperviseur(callback)
     tabValues.push(reponse);
  
     tabValues = JSON.stringify(tabValues);
-    alert (tabValues);
+   //s alert (tabValues);
     form_data.append('tabValues', tabValues); 
         
         $.ajax({ 
@@ -85,20 +86,22 @@ function afficherResponsableEtSuperviseur(callback)
             data: form_data,                          
             type: 'post', 
             success: function(data){ 
-    //            var myObj = JSON.parse(this.responseText);
-     //           alert (myObj);
-                callback(data); 
+                callback(data);
+                console.log(data);
+                ajouterSuperviseur(data);
             } 
+
+
         }); 
 
 
 
 
-    } 
+} 
 
  
 //afficher toutes les infos à propos d'un stage à partir de l'id en paramètre d'entrée
-function readStage(callback, clicked_id)
+function readStage(callback, args)
 {
  
     var reponse = "";
@@ -113,11 +116,15 @@ function readStage(callback, clicked_id)
  
     reponse={
                 nom: "idStage",
-                value: clicked_id
+                value: args[2]
             };
     tabValues.push(reponse);
- 
+    args[2]="";
+
+     tabValues = JSON.stringify(tabValues);
+
  form_data.append('tabValues', tabValues); 
+   //alert(tabValues);
         
         $.ajax({ 
             url: Url(arguments),  
@@ -129,8 +136,36 @@ function readStage(callback, clicked_id)
             type: 'post', 
             success: function(data){ 
                 callback(data); 
+                console.log(data);
+                afficherInfos(data);
             } 
         }); 
  
  
+}
+
+
+function ajouterSuperviseur(callback)
+{
+
+console.log (callback);
+    $('#responsableStage').append(callback);
+    console.log ("all good");
+
+}
+
+
+function afficherInfos(data)
+{
+//échanger compétances recherchées et nom du responsable
+        /* $returnData [0] = $DescriptionStage; $returnData [1] = $CompetenceRecherche;        $returnData [2] = $HoraireTravail;        $returnData [3] = $SalaireHoraire;        $returnData [4] = $NbHeureSemaine;        $returnData [5] = $NomEntreprise;        $returnData [6] = $NomSuperviseur;        $returnData [7] = $NomStagiaire;        $returnData [8] = $NomResponsable;        $returnData [9] = $NomEnseignant;  */
+    var myObject = JSON.parse(data);
+    console.log (myObject);
+    var contenu ="<p>Nom du stagiaire:  ".concat(  myObject[7]  + "</p><br><p>Nom d'entreprise: " + myObject[5] + "</p><br><p>Nom de l'enseignant: " + myObject[9] +"</p><br><p>Nom du superviseur: " + myObject[6] + "</p><br><p>Nom du responsable: " + myObject[8] +  "</p> <br> <p>Horaire de travail: " + myObject[2] + "</p><br><p>Salaire horaire: " + myObject[3] + "</p><br><p>Nombre d'heures par semaine: " +  myObject[4] + "</p> <br><p>Compétences recherchées: " + myObject[1] +   "</p><br><p>Description du stage: " + myObject[0] + "</p><br>");
+    console.log (contenu);
+    document.getElementById('readStage').innerHTML = contenu;
+
+
+
+
 }
