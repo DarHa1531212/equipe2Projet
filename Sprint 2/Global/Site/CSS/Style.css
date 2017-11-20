@@ -170,6 +170,7 @@ textarea{
 }
 
 .entree{
+    position: relative;
     width: 80%;
     border: solid 1px #a9a9a9;
     margin: auto;
@@ -287,5 +288,34 @@ input[type=file]{
     left:0;
     right:0;
     bottom:0;
+    width: 80%;
     margin:auto;
+}
+
+.crdJournal{
+    position: absolute;
+    top: 8px;
+    right: 16px;
+    font-size: 18px;
+}
+
+.crdJournalM{
+    position: absolute;
+    top: 8px;
+    right: 110px;
+    font-size: 18px;
+}
+
+.crdJournalB{
+    position: absolute;
+    top: 8px;
+    right: 97px;
+    font-size: 18px;
+}
+
+.crdJournalD{
+    position: absolute;
+    top: 8px;
+    right: 16px;
+    font-size: 18px;
 }

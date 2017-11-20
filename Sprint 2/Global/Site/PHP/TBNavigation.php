@@ -1,6 +1,6 @@
 <?php 
-    include 'Session.php';
     function AfficherPage($NomMenu){
+        include 'Session.php';
         include 'vProfil.php';
         include 'vTableauBord.php';
         include 'Model.php';
@@ -36,7 +36,10 @@
             }
         }
         else
-            $menu = '';
+        {
+            header('Location: ..');
+            exit();
+        }
 
         echo json_encode($menu);
     }

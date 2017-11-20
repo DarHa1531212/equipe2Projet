@@ -54,7 +54,7 @@
             $dateComplete = $entree["DateComplete"];
             $document = $entree['Fichier'];
 
-            $div = $div."<div class=\"entree\"><h2>".$dates."</h2><p>" .LineBreak($texte). "</p><p>" . PieceJointe($document) . "</p></div>";
+            $div = $div."<div class=\"entree\"><h2>".$dates."</h2><div class='crdJournal'><span>Mondifier</span><span>&nbsp;|&nbsp;</span><span>Supprimer</span></div><p>" .LineBreak($texte). "</p><p>" . PieceJointe($document) . "</p></div>";
         }
         
         if(isset($_REQUEST['nbEntree']))
