@@ -273,6 +273,38 @@ input[type=file]{
 
 /* ---------------------------------------------------*/
 
+.crdJournal{
+    position: absolute;
+    top: 8px;
+    right: 16px;
+    font-size: 18px;
+    display: none;
+}
+
+.entree:hover .crdJournal{
+    display: block;
+}
+
+.crdJournalM{
+    color: blue;
+    text-decoration: underline;
+}
+
+.crdJournalM:hover{
+    cursor: pointer;
+}
+
+.crdJournalD{
+    color:blue;
+    text-decoration: underline;
+}
+
+.crdJournalD:hover{
+    cursor: pointer;
+}
+
+/*--------------------------------------------------*/
+
 .pieceJointe{
     position: fixed;
     width: 100%;
@@ -290,32 +322,4 @@ input[type=file]{
     bottom:0;
     width: 80%;
     margin:auto;
-}
-
-.crdJournal{
-    position: absolute;
-    top: 8px;
-    right: 16px;
-    font-size: 18px;
-}
-
-.crdJournalM{
-    position: absolute;
-    top: 8px;
-    right: 110px;
-    font-size: 18px;
-}
-
-.crdJournalB{
-    position: absolute;
-    top: 8px;
-    right: 97px;
-    font-size: 18px;
-}
-
-.crdJournalD{
-    position: absolute;
-    top: 8px;
-    right: 16px;
-    font-size: 18px;
 }

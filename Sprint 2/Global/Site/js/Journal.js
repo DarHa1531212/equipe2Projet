@@ -1,4 +1,5 @@
 var affichage = false;
+var modificationJournal = false;
 
 function AfficherImage(doc, ext)
 {
@@ -33,4 +34,10 @@ function EnleverImage()
 		affichage=!affichage;
 	    document.getElementById('imageJointe').innerHTML = contenu;
 	}
+}
+
+function ConfirmDelete()
+{
+	var r = confirm("Supprimer l'entrée selectionnée?");
+	return r;
 }

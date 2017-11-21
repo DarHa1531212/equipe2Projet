@@ -16,7 +16,7 @@
         <script src="../js/jquery.min.js"></script>
         <script src="../js/navigation.js"></script>
         <script src="../js/regex.js"></script>
-        <script src="../js/image.js"></script>
+        <script src="../js/Journal.js"></script>
         
         <?php include('Header.php'); ?>
         
