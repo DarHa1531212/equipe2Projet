@@ -29,9 +29,13 @@
 	{
 	$prenom = $dataArray[1]->value;
 	$nom = $dataArray[2]->value;
-	$courrielScolaire = $dataArray[3]->value;
+	$courrielEmploye = $dataArray[3]->value;
+	$telEmploye = $dataArray[4]->value;
+	$posteTelEmploye = $dataArray[5]->value;
+	$idEntreprise = $dataArray[6]->value;
 
-	$query = $bdd->prepare("insert into tblStagiaire (Prenom, Nom, CourrielScolaire) Values  ('$prenom' , '$nom' , '$courrielScolaire');");
+
+	$query = $bdd->prepare("INSERT IGNORE INTO tblEmploye (CourrielEntreprise,Nom,Prenom,NumTelEntreprise,Poste,IdEntreprise)VALUES($courrielEmploye,$nom,$prenom,$telEmploye,$posteTelEmploye,$idEntreprise);");
     $query->execute();
 	}
 

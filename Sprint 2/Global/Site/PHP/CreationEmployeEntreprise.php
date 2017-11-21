@@ -36,7 +36,7 @@ But: Un écran de CRUD qui permet de gérer des employés des entreprises
 	Poste téléphonique de l'employé<input id="posteTelEmploye" class = "data" type="text" name="posteTelEmploye" value="1234567"><br>
 
 
-<select id="entreprise" name = "entreprise" class = "infosStage" >
+<select id="entreprise" name = "entreprise" class = "data" >
           <option value="-1"  disabled="disabled" selected >Sélectionnez une entreprise</option>
           <?php 
             //affiche les entreprises dans le dropdown menu
