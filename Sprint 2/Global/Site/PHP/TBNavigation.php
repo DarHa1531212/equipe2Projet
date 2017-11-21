@@ -11,8 +11,10 @@
             case "Main":    
                 if($_SESSION['IdRole'] == 5)
                             $menu = include 'TBSMain.php';
-                else
+                else if(($_SESSION['IdRole'] == 4) || ($_SESSION['IdRole'] == 3))
                             $menu = include 'TBEMain.php';
+                else if($_SESSION['IdRole'] == 1)
+                            $menu = include 'ConsoleAdminMain.php';
                 break;
             case "Modif":   $menu = include 'ModifProfil.php';
                 break;

@@ -121,6 +121,7 @@ section{
 .valueArea{
     width: calc(50% + 155px);
     height: 75px;
+    overflow-x: hidden;
 }
 
 .info{
