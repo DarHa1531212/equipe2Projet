@@ -33,6 +33,7 @@ function ChangerItem(element){
     ActualiseBtnEval(element);
     
     $(liste[itemActu]).show();  
+    location.href = "#ancre";
 }
 
 //Va a la categorie selectionee.
@@ -43,6 +44,7 @@ function JumpTo(position){
     $(liste[itemActu]).show();
     
     ActualiseBtnEval(document.getElementById("droite"));
+    location.href = "#ancre";
 }
 
 //Modifie les propriétées des lettres de catégorie.

@@ -1,5 +1,7 @@
 <?php
 
+$profil = new ProfilStagiaire($_REQUEST["idStagiaire"], $bdd);
+
 $content =
 '
 <article class="stagiaire">
@@ -14,24 +16,24 @@ $content =
                 <div class="blocInfo infoProfil">
                         <div class="champ">
                             <p class="label labelForInput">Prenom :</p>
-                            <input type="text" value="'.$prenom.'" class="value" disabled/>
+                            <input type="text" value="'.$profil->getPrenom().'" class="value" disabled/>
                         </div>
                         
                         <div class="champ">
                             <p class="label labelForInput">Nom :</p>
-                            <input type="text" value="'.$nom.'" class="value" disabled/>
+                            <input type="text" value="'.$profil->getNom().'" class="value" disabled/>
                         </div>
                         
                         <div class="champ">
                             <p class="label labelForInput">No. Téléphone :</p>
-                            <input type="text" value="'.$numTel.'" id="numTel" name="numTel" class="value" maxlength="14" onkeyup="RegexProfilStagiaire()"/>
+                            <input type="text" value="'.$profil->getNumTelPerso().'" id="numTel" name="numTel" class="value" onkeyup="RegexProfilStagiaire()"/>
                             <img class="info" src="../Images/info.png" title="Le numéro de téléphone doit
 avoir ce format - (xxx) xxx-xxxx"/>
                         </div>
                     
                         <div class="champ">
                             <p class="label labelForInput">Courriel :</p>
-                            <input type="email" value="'.$courrielPerso.'" id="courrielPersonnel" name="courrielPersonnel" class="value" onkeyup="RegexProfilStagiaire()"/>
+                            <input type="email" value="'.$profil->getCourrielPerso().'" id="courrielPersonnel" name="courrielPersonnel" class="value" onkeyup="RegexProfilStagiaire()"/>
                         </div>
                 </div>
                 
@@ -42,25 +44,25 @@ avoir ce format - (xxx) xxx-xxxx"/>
                 <div class="blocInfo infoProfil">
                         <div class="champ">
                             <p class="label labelForInput">Entreprise :</p>
-                            <input type="text" value="'.$entreprise.'" class="value" disabled/>
+                            <input type="text" value="'.$profil->getEntreprise().'" class="value" disabled/>
                         </div>
                         
                         <div class="champ">
                             <p class="label labelForInput">Courriel :</p>
-                            <input type="email" value="'.$courrielEntreprise.'" id="courrielEntreprise" name="courrielEntreprise" class="value" onkeyup="RegexProfilStagiaire()"/>
+                            <input type="email" value="'.$profil->getCourriel().'" id="courrielEntreprise" name="courrielEntreprise" class="value" onkeyup="RegexProfilStagiaire()"/>
                             
                         </div>
                         
                         <div class="champ">
                             <p class="label labelForInput">No. Téléphone :</p>
-                            <input type="text" value="'.$numTelEntreprise.'" id="numEntreprise" name="numEntreprise" class="value" maxlength="14" onkeyup="RegexProfilStagiaire()"/>
+                            <input type="text" value="'.$profil->getNumTel().'" id="numEntreprise" name="numEntreprise" class="value" onkeyup="RegexProfilStagiaire()"/>
                             <img class="info" src="../Images/info.png" title="Le numéro de téléphone doit
 avoir ce format - (xxx) xxx-xxxx"/>
                         </div>
                     
                         <div class="champ">
                             <p class="label labelForInput">Poste :</p>
-                            <input type="text" value="'.$poste.'" id="poste" class="value" maxlength="7" onkeyup="RegexProfilStagiaire()"/>
+                            <input type="text" value="'.$profil->getPoste().'" id="poste" class="value" onkeyup="RegexProfilStagiaire()"/>
                         </div>
                 </div>
                 

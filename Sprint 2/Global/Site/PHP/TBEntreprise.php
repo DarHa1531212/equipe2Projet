@@ -17,6 +17,7 @@
         <script src="../js/navigation.js"></script>
         <script src="../js/regex.js"></script>
         <script src="../js/slideShow.js"></script>
+        <script src="../js/scripts.js"></script>
         
         <?php include('Header.php'); ?>
     

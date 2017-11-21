@@ -65,7 +65,7 @@
                         </p>
                     </div>
                     <table class="evaluation2">
-                        <tbody>          
+                        <tbody id="ancre">          
                                 '.$this->AfficheReponse($bdd, $question).'
                         </tbody>
                     </table>
@@ -161,7 +161,7 @@
                     </div>
 
                     <table class="evaluation">
-                        <thead>
+                        <thead id="ancre">
                             <th>Critères</th>
                             <th>Généralement</th>
                             <th>Souvent</th>
@@ -403,5 +403,235 @@
             return $this->texte;
         }
     }
+
+
+    class Profil{
+        
+        protected $id, $nom, $prenom, $numTel, $codePermanent, $poste, $courriel, $entreprise;
+            
+        public function __construct($id, $bdd){
+            $this->id = $id;
+        }
+        
+        public function getId(){
+            return $this->id;
+        }
+        
+        public function getNom(){
+            return $this->nom;
+        }
+        
+        public function getPrenom(){
+            return $this->prenom;
+        }
+        
+        public function getNumTel(){
+            return $this->numTel;
+        }
+        
+        public function getCodePermanent(){
+            return $this->codePermanent;
+        }
+        
+        public function getPoste(){
+            return $this->poste;
+        }
+        
+        public function getCourriel(){
+            return $this->courriel;
+        }
+        
+        public function getEntreprise(){
+            return $this->entreprise;
+        }
+    }
+
+    class ProfilEmploye extends Profil{
+        
+        private $idRole;
+        
+        public function __construct($id, $bdd){
+            parent::__construct($id, $bdd);
+            $this->Initialise($id, $bdd);
+        }
+        
+        //Initialise les données du profil.
+        private function Initialise($id, $bdd){
+            $query = $bdd->prepare("SELECT Emp.IdUtilisateur, Prenom, Emp.Nom, Emp.NumTel, CourrielPersonnel, IdRole,
+                                    Ent.Nom AS 'Nom Entreprise', Emp.CourrielEntreprise, Emp.NumTelEntreprise, Poste, CodePermanent
+                                    FROM vEmploye AS Emp
+                                    JOIN vEntreprise AS Ent
+                                    ON Ent.Id = Emp.IdEntreprise
+                                    JOIN vUtilisateurRole AS UR
+                                    ON UR.IdUtilisateur = Emp.IdUtilisateur
+                                    WHERE Emp.IdUtilisateur = :id");
+            
+            $query->execute(array("id"=>$id));
+            $profil = $query->fetchAll();
+            
+            $this->nom = $profil[0]["Nom"];
+            $this->prenom = $profil[0]["Prenom"];
+            $this->numTel = $profil[0]["NumTelEntreprise"];
+            $this->codePermanent = $profil[0]["CodePermanent"];
+            $this->poste = $profil[0]["Poste"];
+            $this->courriel = $profil[0]["CourrielEntreprise"];
+            $this->entreprise = $profil[0]["Nom Entreprise"];
+            $this->idRole = $profil[0]["IdRole"];
+        }
+        
+        //Affiche les informations du profil.
+        public function AfficherProfil(){
+            $content =
+            '
+            <div class="separateur">
+                <h3>Informations</h3>
+            </div>
+
+            <div class="blocInfo infoProfil">
+                <div class="champ">
+                    <p class="label">Prenom :</p>
+                    <p class="value">'.$this->getPrenom().'</p>
+                </div>
+
+                <div class="champ">
+                    <p class="label">Nom :</p>
+                    <p class="value">'.$this->getNom().'</p>
+                </div>
+
+                <div class="champ">
+                    <p class="label">Entreprise :</p>
+                    <p class="value">'.$this->getEntreprise().'</p>
+                </div>
+
+                <div class="champ">
+                    <p class="label">Courriel :</p>
+                    <p class="value">'.$this->getCourriel().'</p>
+                </div>
+
+                <div class="champ">
+                    <p class="label">No. Téléphone :</p>
+                    <p class="value">'.$this->getNumTel().'</p>
+                </div>
+
+                <div class="champ">
+                    <p class="label">Poste :</p>
+                    <p class="value">'.$this->getPoste().'</p>
+                </div>
+            </div>
+            ';
+            return $content;
+        }
+        
+        public function getIdRole(){
+               return $this->idRole;
+        }
+    }
+
+    class ProfilStagiaire extends Profil{
+        
+        private $numTelPerso, $courrielPerso;
+        
+        public function __construct($id, $bdd){     
+            parent::__construct($id, $bdd);
+            $this->Initialise($id, $bdd);
+        }
+        
+        //Initialise les données du profil.
+        private function Initialise($id, $bdd){
+            $query = $bdd->prepare("SELECT Stagiaire.IdUtilisateur, Stagiaire.Prenom, Stagiaire.Nom, Stagiaire.NumTel, Stagiaire.CourrielPersonnel, Stagiaire.CodePermanent,
+                                    Stagiaire.CourrielEntreprise, Stagiaire.NumTelEntreprise, Stagiaire.Poste, Ent.Nom AS 'Nom Entreprise'
+                                    FROM vStage AS Stage
+                                    JOIN vStagiaire AS Stagiaire
+                                    ON Stage.Id = Stagiaire.Id
+                                    JOIN vEmploye AS Emp
+                                    ON Emp.IdUtilisateur = Stage.IdSuperviseur
+                                    JOIN vEntreprise AS Ent
+                                    ON Ent.Id = Emp.IdEntreprise 
+                                    WHERE Stagiaire.IdUtilisateur = :id");
+            
+            $query->execute(array("id"=>$id));
+            $profil = $query->fetchAll();
+            
+            $this->nom = $profil[0]["Nom"];
+            $this->prenom = $profil[0]["Prenom"];
+            $this->numTel = $profil[0]["NumTelEntreprise"];
+            $this->codePermanent = $profil[0]["CodePermanent"];
+            $this->poste = $profil[0]["Poste"];
+            $this->courriel = $profil[0]["CourrielEntreprise"];
+            $this->entreprise = $profil[0]["Nom Entreprise"];
+            $this->numTelPerso = $profil[0]["NumTel"];
+            $this->courrielPerso = $profil[0]["CourrielPersonnel"];
+        }
+        
+        //Affiche les informations du profil.
+        public function AfficherProfil(){
+            $content = 
+            '
+            <div class="separateur">
+                <h3>Informations Personnelles</h3>
+            </div>
+
+            <div class="blocInfo infoProfil">
+                    <div class="champ">
+                        <p class="label">Prenom :</p>
+                        <p class="value">'.$this->getPrenom().'</p>
+                    </div>
+
+                    <div class="champ">
+                        <p class="label">Nom :</p>
+                        <p class="value">'.$this->getNom().'</p>
+                    </div>
+
+                    <div class="champ">
+                        <p class="label">No. Téléphone :</p>
+                        <p class="value">'.$this->getNumTelPerso().'</p>
+                    </div>
+
+                    <div class="champ">
+                        <p class="label">Courriel :</p>
+                        <p class="value">'.$this->getCourrielPerso().'</p>
+                    </div>
+            </div>
+
+            <div class="separateur">
+                <h3>Informations Professionnelles</h3>
+            </div>
+
+            <div class="blocInfo infoProfil">
+                    <div class="champ">
+                        <p class="label">Entreprise :</p>
+                        <p class="value">'.$this->getEntreprise().'</p>
+                    </div>
+
+                    <div class="champ">
+                        <p class="label">Courriel :</p>
+                        <p class="value">'.$this->getCourriel().'</p>
+                    </div>
+
+                    <div class="champ">
+                        <p class="label">No. Téléphone :</p>
+                        <p class="value">'.$this->getNumTel().'</p>
+                    </div>
+
+                    <div class="champ">
+                        <p class="label">Poste :</p>
+                        <p class="value">'.$this->getPoste().'</p>
+                    </div>
+            </div>
+            ';
+            return $content;
+        }
+        
+        public function getNumTelPerso(){
+            return $this->numTelPerso;
+        }
+        
+        public function getCourrielPerso(){
+            return $this->courrielPerso;
+        }
+    }
+
+    
+    
 
 ?>

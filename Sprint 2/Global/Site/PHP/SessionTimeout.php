@@ -26,18 +26,18 @@
 				$accessGranted = false; 
 				$sizeOfArray = sizeof($expectedId);
 
-				for ($i = 0; $i < $$sizeOfArray; $i ++)
-				{
-						if($expectedId[$i] == $_SESSION['IdRole'])
-						{
-							$accessGranted = true; // if the current session is the same as one of the autorised sessions, acess is granted
-							return true;
-						}
-				}
+        for ($i = 0; $i < $$sizeOfArray; $i ++)
+        {
+            if($expectedId[$i] == $_SESSION['IdRole'])
+            {
+              $accessGranted = true; // if the current session is the same as one of the autorised sessions, acess is granted
+              return true;
+            }
+        }
 
-				if ($accessGranted == false)
-				{
-					echo "You do not have access to this page"; //if access is still not granted at the end of the loop, return an error message
-				}
-		}
+        if ($accessGranted == false)
+        {
+          echo "You do not have access to this page"; //if access is still not granted at the end of the loop, return an error message
+        }
+    }
 ?>

@@ -160,13 +160,14 @@
                     </div>
                     <div id="imageJointe"></div>
 
-                    <div class="separateur">
-                        <h3>Nouvelle Entrée</h3>
-                    </div>
+            <textarea id="contenu" rows="5" cols="100" maxlength="500" name="contenu" wrap="hard"></textarea>
+            <input type="hidden" name="maxFileSize" value="2000000">
+            <input class="inputFile" id="file" type="file" value="Envoyer" name="fichier" onchange="AfficherNom(this)"/>
 
-                    <textarea id="contenu" rows="5" cols="100" maxlength="500" name="contenu" wrap="hard"></textarea>
-                    <input type="hidden" name="maxFileSize" value="2000000">
-                    <input class="inputFile" id="file" type="file" value="Envoyer" name="fichier"/>
+            <br/>                                                                             
+            <input style="width: 120px;" class="bouton" type="button" value="Envoyer" onclick="Execute(3, \'../PHP/TBNavigation.php?idStagiaire='.$idStagiaire.'&nomMenu=Journal\', \'&contenu=\', contenu.value); Execute(1, \'../PHP/TBNavigation.php?idStagiaire='.$idStagiaire.'&nomMenu=Journal\', \'&nbEntree=\', 5)"/>
+            <label class="bouton labelFile" for="file">Pièce Jointe</label>
+            <p id="nomPieceJointe"></p>
 
                     <br/>                                                                             
                     <input style="width: 120px;" class="bouton" type="button" value="Envoyer" onclick="Execute(3, \'../PHP/TBNavigation.php?idStagiaire='.$idStagiaire.'&nomMenu=Journal\', \'&contenu=\', contenu.value); Execute(1, \'../PHP/TBNavigation.php?idStagiaire='.$idStagiaire.'&nomMenu=Journal\', \'&nbEntree=\', 5)"/>

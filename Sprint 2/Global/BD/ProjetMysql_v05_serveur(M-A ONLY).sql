@@ -2,13 +2,13 @@
 -- CRÉÉE LE 06/09/2017 PAR MARC-ANTOINE DUCHESNE
 
 -- Création de la bd
--- DROP DATABASE IF EXISTS BDProjet_equipe2V2;
--- CREATE DATABASE BDProjet_equipe2V2;
+ DROP DATABASE IF EXISTS BDProjet_equipe2V2;
+ CREATE DATABASE BDProjet_equipe2V2;
 
- USE cegepjon_p2017_2_dev;
+-- USE cegepjon_p2017_2_dev;
 -- USE cegepjon_p2017_2_prod;
 -- USE cegepjon_p2017_2_tests;
--- USE bdprojet_equipe2v2;
+ USE bdprojet_equipe2v2;
 -- Table Reponsesss
 DROP TABLE IF EXISTS tblReponse;
 CREATE TABLE tblReponse(
@@ -217,17 +217,29 @@ FROM tblRole;
 DROP TABLE IF EXISTS tblStage;
 CREATE TABLE tblStage(
 	Id			 			INT				AUTO_INCREMENT,
+	DescriptionStage		VARCHAR(1000)		NULL,
+	CompetenceRecherche		VARCHAR(1000)		NULL,
+	HoraireTravail			VARCHAR(1000)		NULL,
+	NbHeureSemaine			INT					NULL,
+	Remunere				BOOL				NULL,
+	SalaireHoraire			iNT					NULL,
+	DateDebut				DATE				NULL,
+	DateFin					DATE				NULL,
+	LettreEntenteVide		VARCHAR(256)		NULL,
+	LettreEntenteSignee		VARCHAR(256)		NULL,
+	OffreStage				VARCHAR(256)		NULL,
 	PRIMARY KEY(Id),
 	IdResponsable			INT					NOT NULL,
 	IdSuperviseur			INT					NOT NULL,
 	IdStagiaire				INT					NOT NULL,
-	IdGestionnaire			INT					NOT NULL,
 	IdEnseignant			INT					NOT NULL
 );
 
 DROP VIEW IF EXISTS vStage;
-CREATE VIEW vStage AS SELECT Id,CONCAT(IdResponsable,IdSuperviseur,IdStagiaire,IdGestionnaire,IdEnseignant)
-AS tag,IdResponsable,IdSuperviseur,IdStagiaire,IdGestionnaire,IdEnseignant FROM tblStage;
+CREATE VIEW vStage AS SELECT Id,DescriptionStage,CompetenceRecherche,HoraireTravail,NbHeureSemaine,Remunere,
+SalaireHoraire,DateDebut,DateFin,LettreEntenteVide,LettreEntenteSignee,OffreStage,CONCAT(IdResponsable,IdSuperviseur,IdStagiaire,IdEnseignant,DescriptionStage,CompetenceRecherche,HoraireTravail,NbHeureSemaine,Remunere,
+SalaireHoraire,DateDebut,DateFin,LettreEntenteVide,LettreEntenteSignee,OffreStage)
+AS tag,IdResponsable,IdSuperviseur,IdStagiaire,IdEnseignant FROM tblStage;
 
 
 --  Table Entreprise
@@ -293,26 +305,6 @@ DROP VIEW IF EXISTS vCategorieQuestion;
 CREATE VIEW vCategorieQuestion AS SELECT Id,TitreCategorie,descriptionCategorie,Lettre,CONCAT(Id,TitreCategorie,descriptionCategorie,Lettre) AS tag FROM tblCategorieQuestion;
 
 
-/*
--- VUE
-DROP VIEW IF EXISTS vTableauBord;
-CREATE VIEW vTableauBord AS 
-SELECT  Stagiaire.Id, Stagiaire.Nom, Stagiaire.Prenom, Stagiaire.NumTelPersonnel, 
-        Emp.Id AS 'Id Superviseur', Emp.Nom AS 'Nom Superviseur', Emp.Prenom AS 'Prenom Superviseur', Emp.NumTelCell AS 'Cell Superviseur', 
-        EmpCeg.Id AS 'Id Enseignant', EmpCeg.Nom AS 'Nom Enseignant', EmpCeg.Prenom AS 'Prenom Enseignant', EmpCeg.NumTelCell AS 'Tel Enseignant' 
-FROM vStagiaire AS Stagiaire
-JOIN vStage AS Stage
-ON Stage.IdStagiaire = Stagiaire.Id
-JOIN vSuperviseur AS Sup
-ON Sup.Id = Stage.IdSuperviseur
-JOIN vEmployeEntreprise AS Emp
-ON Emp.Id = Sup.IdEmployeEntreprise
-JOIN vEnseignant AS Enseignant
-
-ON Enseignant.Id = Stage.IdEnseignant
-JOIN vEmployeCegep AS EmpCeg
-ON EmpCeg.Id = Enseignant.IdEmployeCegep;
-*/
 
 -- Foreign key
 
@@ -352,11 +344,6 @@ ADD FOREIGN KEY (IdEnseignant)
 REFERENCES
 tblUtilisateur(Id);
 
-
-ALTER TABLE tblStage
-ADD FOREIGN KEY (IdGestionnaire)
-REFERENCES
-tblUtilisateur(Id);
 
 
 ALTER TABLE tblStage
@@ -448,12 +435,6 @@ ALTER TABLE tblStage
 ADD FOREIGN KEY (IdStagiaire)
 REFERENCES
 tblStagiaire(Id);
-
-
-ALTER TABLE tblStage
-ADD FOREIGN KEY (IdGestionnaire)
-REFERENCES
-tblGestionnaire(Id);
 
 
 ALTER TABLE tblStage

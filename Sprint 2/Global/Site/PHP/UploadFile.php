@@ -8,28 +8,24 @@
 		$taille = filesize($_FILES['file']['tmp_name']);
 		$extensions = array('.png','.jpg','.jpeg','.docx','.pdf');
 		$extension = strchr($_FILES['file']['name'],'.');
-		$erreur = false;
 
 
 
 		if(!in_array($extension, $extensions))
 		{
-			?><script>alert("Ce type de fichier n'est pas valide...");</script>><?php
-			$erreur = true;
+			//Ne prend pas ce type de fichier
 		}
 
 		if($taille > $tailleMax)
 		{
-			?><script>alert("Le fichier est trop volumineux...");</script>><?php
-			$erreur = true;
-
+			//Le fichier est trop volumineux...
 		}
 
 		if($fichier != "")
 		{
 			$verif = verificationDoublon($bdd, $fichier);
 
-			if($erreur && $verif) //S'il n'y a pas d'erreur
+			if(!isset($erreur) && $verif) //S'il n'y a pas d'erreur
 			{
 				$fichier = strtr($fichier, 'ÀÁÂÃÄÅÇÈÉÊËÌÍÎÏÒÓÔÕÖÙÚÛÜÝàáâãäåçèéêëìíîïðòóôõöùúûüýÿ', 'AAAAAACEEEEIIIIOOOOOUUUUYaaaaaaceeeeiiiioooooouuuuyy');
 				$fichier = preg_replace('/([^.a-z0-9]+)/i','-', $fichier);
