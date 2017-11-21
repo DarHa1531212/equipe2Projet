@@ -55,7 +55,7 @@
             $document = $entree['Fichier'];
             $id = $entree["Id"];
 
-            $div = $div.'<div class="entree"><h2>'.$dates.'</h2><div class="crdJournal"><span class="crdJournalM" onclick="modificationJournal = true; Execute(3, \'../PHP/TBNavigation.php?idStagiaire='.$idStagiaire.'&nomMenu=Journal\'); Execute(1, \'../PHP/TBNavigation.php?idStagiaire='.$idStagiaire.'&nomMenu=Journal\', \'&nbEntree=\', 5, \'&ajoutModif=\',true,\'&idEntree=\','.$id.');">Modifier</span><span>&nbsp;|&nbsp;</span><span class="crdJournalD" onclick="if(ConfirmDelete()){Execute(3, \'../PHP/TBNavigation.php?idStagiaire='.$idStagiaire.'&nomMenu=Journal\', \'&delete=\', true, \'&idEntree=\', '.$id.'); Execute(1, \'../PHP/TBNavigation.php?idStagiaire='.$idStagiaire.'&nomMenu=Journal\', \'&nbEntree=\', 5);}">Supprimer</span></div><p>' .LineBreak($texte). '</p><p>' . PieceJointe($document) . '</p></div>';
+            $div = $div.'<div class="entree"><h2>'.$dates.'</h2><div class="crdJournal"><span class="crdJournalM">Modifier</span><span>&nbsp;|&nbsp;</span><span class="crdJournalD" onclick="if(ConfirmDelete()){Execute(3, \'../PHP/TBNavigation.php?idStagiaire='.$idStagiaire.'&nomMenu=Journal\', \'&delete=\', true, \'&idEntree=\', '.$id.'); Execute(1, \'../PHP/TBNavigation.php?idStagiaire='.$idStagiaire.'&nomMenu=Journal\', \'&nbEntree=\', 5);}">Supprimer</span></div><p>' .LineBreak($texte). '</p><p>' . PieceJointe($document) . '</p></div>';
         }
         
         if(isset($_REQUEST['nbEntree']))
@@ -148,12 +148,9 @@
             {
                 if(isset($_REQUEST['ajoutModif']))
                 {
-                    $textModif = SelectEntreeModif($_REQUEST['idEntree']);
+                    $_SESSION['textModif'] = SelectEntreeModif($_REQUEST['idEntree']);
                 }
-                else
-                {
-                    $textModif = "";
-                }
+                
 
                 $content=
                 '<article class="stagiaire">
@@ -167,7 +164,7 @@
                         <h3>Nouvelle Entrée</h3>
                     </div>
 
-                    <textarea id="contenu" rows="5" cols="100" maxlength="500" name="contenu" wrap="hard">'.$textModif.'</textarea>
+                    <textarea id="contenu" rows="5" cols="100" maxlength="500" name="contenu" wrap="hard"></textarea>
                     <input type="hidden" name="maxFileSize" value="2000000">
                     <input class="inputFile" id="file" type="file" value="Envoyer" name="fichier"/>
 
