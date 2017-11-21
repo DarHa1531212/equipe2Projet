@@ -36,6 +36,8 @@
                     break;
                 case "CRUDEntreprise":  $menu = include 'CRUDEntreprise.php';
                     break;
+                case "CRUDEmployeEntreprise" : $menu = include 'CRUDEmployeEntreprise.php';
+                    break;
             }
         }
         else

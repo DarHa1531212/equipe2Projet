@@ -164,9 +164,8 @@ But: Un écran de CRUD qui permet de gérer des stages
     {
        $query = $bdd->prepare("Select concat (vStagiaire.Prenom, ' ' , vStagiaire.Nom ) as 'Stagiaire',  vEntreprise.Nom, vStage.Id from vStage
     join vStagiaire on vStagiaire.IdUtilisateur = vStage.IdStagiaire
-    join vResponsable on vResponsable.IdUtilisateur = vStage.IdResponsable
-    join vEntreprise on vEntreprise.id = vResponsable.IdEntreprise
-    ;");
+    join vSuperviseur on vSuperviseur.IdUtilisateur = vStage.IdSuperviseur
+    join vEntreprise on vEntreprise.id = vSuperviseur.IdEntreprise;");
  
  
       $query->execute(array());     
@@ -177,8 +176,8 @@ But: Un écran de CRUD qui permet de gérer des stages
           $entreprise = $entree["Nom"];
           $idStage = $entree["Id"];
           echo '<tr>
-                  <th id="' . $idStage .'" value="' . $idStage . '" onClick="Execute(8,\'../PHP/TBNavigation.php?nomMenu=CRUDStage\', this.id)">' . $entreprise . '</th>
-                  <th>' . $nomStagiaire . '</th>
+                  <th id="' . $idStage .'" value="' . $idStage . '" onClick="Execute(8,\'../PHP/TBNavigation.php?nomMenu=CRUDStage\', this.id)">' . $nomStagiaire . '</th>
+                  <th>' . $entreprise . '</th>
                   <th>Lettre dentente</th>
                   <th>Offre de stage</th>
                 </tr>';

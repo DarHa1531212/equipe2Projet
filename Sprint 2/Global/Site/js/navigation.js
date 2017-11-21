@@ -126,6 +126,11 @@ function Execute(choix){
 			break;
 		case 8: readStage ( ExecuteQuery, arguments);
 			break;
+		case 9: readStagiaire(ExecuteQuery, arguments);
+			break;
+		case 10: readStagiaire(ExecuteQuery, arguments);
+			break;
+			
 
 	}
 }

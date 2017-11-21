@@ -16,14 +16,16 @@
 
 	switch ($functionToExecute) {
 		case "1":
-			creationStagiaire($bdd, $dataArray);
+			creationEmployeEntreprise($bdd, $dataArray);
 			break;
-		case "2": return (afficherInfos($bdd, $dataArray));
+		case "2": 
+			return (afficherInfos($bdd, $dataArray));
+			break;
 	}
 
 
 	//ajouter un stagiaire dans la base de données
-	function creationStagiaire($bdd, $dataArray)
+	function creationEmployeEntreprise($bdd, $dataArray)
 	{
 	$prenom = $dataArray[1]->value;
 	$nom = $dataArray[2]->value;
@@ -33,6 +35,7 @@
     $query->execute();
 	}
 
+	
 	function afficherInfos($bdd, $dataArray)
 	{
 		$idStagiaire =  intval ($dataArray[1]->value);

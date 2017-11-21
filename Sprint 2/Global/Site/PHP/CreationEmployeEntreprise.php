@@ -11,7 +11,7 @@ But: Un écran de CRUD qui permet de gérer des employés des entreprises
     <!--/!\SUPPRIMER CETTE LIGNE LORSQUE LA PAGE SERA LIÉE AU REST DU SITE/!\ -->
     <script src="../js/navigation.js"></script>
     <script src="../js/jquery.min.js"></script>
-    <script src="../js/creationStagiaire.js"></script>
+    <script src="../js/creationEmployeEntreprise.js"></script>
 
     <?php
     include 'connexionBD.php'; 
@@ -60,7 +60,7 @@ But: Un écran de CRUD qui permet de gérer des employés des entreprises
 
     
     <!-- paramètre à passer (dans l'ordre): prenomStagiaire, nomStagiaire, courrielStagiaire-->
-    <input type="button" id="Save" class="bouton" value="Sauvegarder" onclick="Execute(6, '../PHP/TBNavigation.php?nomMenu=CRUDStagiaire'); Execute(5, '../PHP/TBNavigation.php?nomMenu=CRUDStagiaire')" />
+    <input type="button" id="Save" class="bouton" value="Sauvegarder" onclick="Execute(6, '../PHP/TBNavigation.php?nomMenu=CRUDEmployeEntreprise');" />
     <br>
 
   <BR>
@@ -72,8 +72,8 @@ But: Un écran de CRUD qui permet de gérer des employés des entreprises
   <h2>Employés actuellement dans le système</h2>
   <table>
     <tr>
-      <th>Nom employe</th>
-      <th>Employeur</th>
+      <th>Nom Employe</th>
+      <th>Courriel Entreprise</th>
     </tr>
     
 
@@ -83,21 +83,25 @@ But: Un écran de CRUD qui permet de gérer des employés des entreprises
     function showInternships($bdd)
     {
 
-      $query = $bdd->prepare("");
+      $query = $bdd->prepare("select concat (vEmploye.Prenom, ' ', vEmploye.Nom) as 'NomEmploye', vEmploye.CourrielEntreprise as 'CourrielEntreprise', vEmploye.IdUtilisateur as 'IdEmploye'from vEmploye ");
       $i = 0;
       $query->execute(array());     
       $entrees = $query->fetchAll();
       
       foreach($entrees as $entree){
-          $nomStagiaire = $entree["nomStagiaire"];
-          $courrielScolaire = $entree["CourrielScolaire"];
-          echo  '<tr>
-                  <th>' . $nomStagiaire . '</th>
-                  <th>' . $courrielScolaire . '</th>
-                </tr>';
+          $NomEmploye = $entree["NomEmploye"];
+          $CourrielEntreprise = $entree["CourrielEntreprise"];
+          $IdEmploye = $entree["IdEmploye"];
 
+            echo '<tr>
+                  <th id="' . $IdEmploye .'" value="' . $IdEmploye . '" onClick="Execute(10,\'../PHP/TBNavigation.php?nomMenu=CRUDStage\', this.id)">' . $NomEmploye . '</th>
+                  <th>' . $CourrielEntreprise . '</th>
+                  <th>Lettre dentente</th>
+                  <th>Offre de stage</th>
+                </tr>';
       }      
-    }
+      }      
+    
   ?>
     </table>
 <!-- fin de section affichege de stages -->
