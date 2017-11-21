@@ -16,8 +16,8 @@
                     <div class="content">
                         <form action="PHP/Connexion.php" method="POST">
                             <div>
-                                <img src="Images/cj-logo.png">
-                                <img src="Images/dicj-logo.png">
+                                <a href="http://www.cegepjonquiere.ca/"><img src="Images/cj-logo.png"></a>
+                                <a href="http://dicj.info/"><img src="Images/dicj-logo.png"></a>
                             </div>
 
                             <div>

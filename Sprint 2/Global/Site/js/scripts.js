@@ -4,3 +4,12 @@ function ReponseChoisie(item){
     
     $(item).css("background-color", "#43ee2d");
 }
+
+function DisableSalaire(rad){
+    var salaire = document.getElementById("salaire");
+    
+    if(rad.id == "oui")
+        salaire.disabled = false;
+    else
+        salaire.disabled = true;
+}

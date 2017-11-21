@@ -5,7 +5,7 @@
         <div class="infoStagiaire">
             <h2>'.$prenomStagiaire.' '.$nomStagiaire.'</h2>
             <input class="bouton" type="button" value="Afficher le profil" onclick="Execute(1, \'../PHP/TBNavigation.php?idStagiaire='.$idStagiaire.'&nomMenu=Profil\')"/>
-            <h3>'.$telPerso.'</h3>
+            <br /><br /><br /><br /><br /><br />
         </div>
 
         <div class="blocInfo itemHover">

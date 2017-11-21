@@ -19,7 +19,7 @@ footer{
 }
 
 .infoCegepFooter{
-    width: 250px;   
+    width: 175px;   
     display: inline-block;
 }
 
@@ -31,10 +31,11 @@ footer{
 .copyright > p{
     font-size: 12px;
     padding-left: 7px;
+    padding-top: 10px;
 }
 
 .logoFooter{
-    height: 50px;
+    height: 75px;
 }
 
 @media screen and (max-width: 1020px){

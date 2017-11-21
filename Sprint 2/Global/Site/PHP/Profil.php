@@ -1,84 +1,45 @@
 <?php
     
     $content = "";
+    $role = "";
+
+    if(isset($_REQUEST["idEmploye"])){
+        $profil = new ProfilEmploye($_REQUEST["idEmploye"], $bdd);
+        
+        if($profil->getIdRole() == 4)
+            $role = "(Superviseur)";
+        else if($profil->getIdRole() == 3)
+            $role = "(Enseignant)";
+    }   
+    else
+        $profil = new ProfilStagiaire($_REQUEST["idStagiaire"], $bdd);
 
     $content = $content.
     '<article class="stagiaire">
         <div class="infoStagiaire">';
 
-        if($idProfil == $_SESSION['idConnecte']){
+        if($profil->getId() == $_SESSION['idConnecte']){
             $content = $content.
             '<h2>Votre Profil</h2>';
             
             if($_SESSION['IdRole'] == 5){
                 $content = $content.
-                '<input class="bouton" type="button" value="Modifier le profil" onclick="Execute(1, \'../PHP/TBNavigation.php?idStagiaire='.$idProfil.'&nomMenu=Modif\')"/>';
+                '<input class="bouton" type="button" value="Modifier le profil" onclick="Execute(1, \'../PHP/TBNavigation.php?idStagiaire='.$profil->getId().'&nomMenu=Modif\')"/>';
             }
         }
         else{
             $content = $content.
-            '<h2>Profil de '.$prenom.' '.$nom.'</h2>';
+            '<h2>Profil de '.$profil->getPrenom().' '.$profil->getNom().' '.$role.'</h2>';
         }
 
         $content = $content.
         '</div>';
 
         $content = $content.
-        '<div class="separateur">
-            <h3>Informations Personnelles</h3>
-        </div>
+        $profil->AfficherProfil().
+        '<br/><br/>
 
-        <div class="blocInfo infoProfil">
-                <div class="champ">
-                    <p class="label">Prenom :</p>
-                    <p class="value">'.$prenom.'</p>
-                </div>
-
-                <div class="champ">
-                    <p class="label">Nom :</p>
-                    <p class="value">'.$nom.'</p>
-                </div>
-
-                <div class="champ">
-                    <p class="label">No. Téléphone :</p>
-                    <p class="value">'.$numTel.'</p>
-                </div>
-
-                <div class="champ">
-                    <p class="label">Courriel :</p>
-                    <p class="value">'.$courrielPerso.'</p>
-                </div>
-        </div>
-
-        <div class="separateur">
-            <h3>Informations Professionnelles</h3>
-        </div>
-
-        <div class="blocInfo infoProfil">
-                <div class="champ">
-                    <p class="label">Entreprise :</p>
-                    <p class="value">'.$entreprise.'</p>
-                </div>
-
-                <div class="champ">
-                    <p class="label">Courriel :</p>
-                    <p class="value">'.$courrielEntreprise.'</p>
-                </div>
-
-                <div class="champ">
-                    <p class="label">No. Téléphone :</p>
-                    <p class="value">'.$numTelEntreprise.'</p>
-                </div>
-
-                <div class="champ">
-                    <p class="label">Poste :</p>
-                    <p class="value">'.$poste.'</p>
-                </div>
-        </div>
-
-        <br/><br/>
-
-        <input class="bouton" type="button" value="   Retour   ", onclick="Execute(1, \'../PHP/TBNavigation.php?idEmploye='.$idProfil.'&nomMenu=Main\');"/>
+        <input class="bouton" type="button" value="   Retour   ", onclick="Execute(1, \'../PHP/TBNavigation.php?idEmploye='.$profil->getId().'&nomMenu=Main\');"/>
     </article>';
     
     return $content;

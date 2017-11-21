@@ -19,6 +19,16 @@
                     '.$_SESSION['PrenomConnecte'] . ' ' . $_SESSION['NomConnecte'].'  
                 </p>
             </div>
+            
+            <a href="logout.php">
+                <div class="logout">
+
+                </div>
+            </a>
+            
+            <div class="headerTitre">
+                <h1>Tableau de bord</h1>
+            </div>
         </header>';
 
 ?>

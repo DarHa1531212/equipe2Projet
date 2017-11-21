@@ -32,7 +32,7 @@ section{
     box-shadow: 0px 0px 2px 0.05px black;
 }
 
-div > img{
+div > a > img{
     width: 200px;
 }
 
@@ -81,6 +81,7 @@ input[type=email], input[type=password]{
     margin-bottom: 5px;
     background: none;
     padding-left: 5px;
+    text-align: center;
 }
 
 @media screen and (max-width: 1500px){
