@@ -11,7 +11,7 @@
             case "Main":    
                 if($_SESSION['IdRole'] == 5)
                             $menu = include 'TBSMain.php';
-                else if(($_SESSION['IdRole'] == 4) || ($_SESSION['IdRole'] == 3))
+                else if(($_SESSION['IdRole'] == 4) || ($_SESSION['IdRole'] == 3) || ($_SESSION['IdRole'] == 2))
                             $menu = include 'TBEMain.php';
                 else if($_SESSION['IdRole'] == 1)
                             $menu = include 'ConsoleAdminMain.php';
