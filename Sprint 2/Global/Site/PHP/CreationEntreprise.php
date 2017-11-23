@@ -1,89 +1,96 @@
-<!DOCTYPE html>
+<?php
+    
+    if(isset($_REQUEST["post"]))
+        CreateEntreprise($bdd);
+        
 
-<!-- 
-Nom: Hans Darmstadt-Bélanger
-Date: 6 Novembre 2017
-But: Un écran de CRUD qui permet de gérer des entreprises
--->
-<html>
-	<head>
+    function CreateEntreprise($bdd){
+        $champs = json_decode($_POST["tabChamp"]);
+        $entreprise = array();
+        
+        foreach($champs as $champ){
+            $entreprise[$champ->nom] = $champ->value;
+        }
+        
+        $query = $bdd->prepare("INSERT INTO tblEntreprise (CourrielEntreprise, Nom, NumTel, NumCivique, Rue, Ville, Province, CodePostal, Logo) 
+                                VALUES (:courriel, :nom, :numTel, :numCivique, :rue, :ville, :province, :codePostal, :logo)");
+        
+        $query->execute(array(
+            "courriel"=>$entreprise["courriel"],
+            "nom"=>$entreprise["nom"],
+            "numTel"=>$entreprise["numTel"],
+            "numCivique"=>$entreprise["numCivique"],
+            "rue"=>$entreprise["rue"],
+            "ville"=>$entreprise["ville"],
+            "province"=>$entreprise["province"],
+            "codePostal"=>$entreprise["codePostal"],
+            "logo"=>$entreprise["logo"]));
+    }
 
-		<!--/!\SUPPRIMER CETTE LIGNE LORSQUE LA PAGE SERA LIÉE AU REST DU SITE/!\ -->
-		<script src="../js/creationEntreprise.js"></script>
-		<script src="../js/navigation.js"></script>
-		<script src="../js/jquery.min.js"></script>
+    $content =
+    '
+    <article class="stagiaire">
+        <div class="infoStagiaire">
+            <h2>Création d\'une Entreprise</h2>
+        </div>
 
-		<?php
-		include 'connexionBD.php'; 
-		include 'Session.php';
-		?>
+        <div class="separateur">
+            <h3>Information de l\'entreprise</h3>
+        </div>
 
-		<!-- Section création de stagiaire -->
-			<meta charset="utf-8">
-					<meta http-equiv="X-UA-Compatible" content="IE=edge">
-					<title>Gestion Entreprise</title>
-					<meta name="description" content="An interactive getting started guide for Brackets.">
-					<link rel="stylesheet" href="../CSS/style.css">
-					<link rel="shortcut icon" href="../Images/LogoDICJ2Petit.ico">
-	</head>
-	<body>
-		<h2>Créer une entreprise</h2>
-		<br>
-		Nom entreprise <input id="nomEntreprise" class = "data" type="text" name="nomEntreprise" value="nom entreprise"><br>
-		Adresse entreprise <input id="adresseEntreprise" class = "data" type="text" name="adresseEntreprise" value="adresse entreprise"><br>
-		No téléphone entreprise <input id="noTelEntreprise" class = "data" type="text" name="noTelEntreprise" value="numero téléphone"><br>
-		<p>description entreprise</p>
-		<textarea  id="descEntreprise" name = "descEntreprise" class = "data" rows="5" cols="100" wrap="hard"></textarea>
+        <div class="blocInfo infoProfil">
+            <div class="champ">
+                <p class="label labelForInput">Nom</p>
+                <input type="text" name="nom" class="value"/>
+            </div>
+            <div class="champ">
+                <p class="label labelForInput">Courriel</p>
+                <input type="email" name="courriel" class="value"/>
+            </div>
+            <div class="champ">
+                <p class="label labelForInput">No. Téléphone</p>
+                <input type="text" name="numTel" class="value"/>
+            </div>
+            <div class="champ">
+                <p class="label labelForInput">Ville</p>
+                <input type="text" name="ville" class="value"/>
+            </div>
+            <div class="champ">
+                <p class="label labelForInput">No. Civique</p>
+                <input type="text" name="numCivique" class="value"/>
+            </div>
+            <div class="champ">
+                <p class="label labelForInput">Rue</p>
+                <input type="text" name="rue" class="value"/>
+            </div>
+            <div class="champ">
+                <p class="label labelForInput">Province</p>
+                <input type="text" name="province" class="value"/>
+            </div>
+            <div class="champ">
+                <p class="label labelForInput">Code Postal</p>
+                <input type="text" name="codePostal" class="value"/>
+            </div>
+            <div class="champ">
+                <p class="label labelForInput">Logo</p>
+                <input type="text" name="logo" class="value"/>
+            </div>
+            
 
-		<BR> <br>
-		<!-- paramètre à passer (dans l'ordre): prenomStagiaire, nomStagiaire, courrielStagiaire-->
-		<input type="submit" id="Save" class="bouton" value="Sauvegarder" onclick="Execute(6, '../PHP/TBNavigation.php?nomMenu=CRUDEntreprise'); Execute(5, '../PHP/TBNavigation.php?nomMenu=CRUDEntreprise')" />
-		<br>
+            <br/><br/>
 
-	<BR>
+            <input class="bouton" type="button" style="width: 100px;" value="   Annuler   " onclick="Execute(1, \'../PHP/TBNavigation.php?idEmploye='.$id.'&nomMenu=Main\')"/>
+            <input class="bouton" type="button" id="Save" style="width: 100px;" value="Créer" onclick="Execute(5, \'../PHP/TBNavigation.php?idEmploye='.$id.'&nomMenu=Entreprise&post\');Execute(1, \'../PHP/TBNavigation.php?idEmploye='.$id.'&nomMenu=Main\')"/>
 
-<!-- Fin de section création de stagiaire -->
+            <br/><br/>
+        </div>
+    </article>
+    ';
+    
+    return $content;
+
+?>
 
 
-<!-- section affichage de stagiaires -->
-	<h2>Stagiaires actuellement dans le système</h2>
-	<table>
-		<tr>
-			<th>Entreprise</th>
-			<th>Numéro téléphone</th>
-			<th>modifier entreprise</th>
 
-		</tr>
-		
 
-	<?php 
-		showInternships($bdd);
-		//récupère les stages dans la BD et les affiche dans le tableau
-		function showInternships($bdd)
-		{
-
-			$query = $bdd->prepare("select nom, concat (NumCivique, ' ' , Rue, ' ' , Province) as 'adresse' from vEntreprise");
-			$i = 0;
-			$query->execute(array());     
-			$entrees = $query->fetchAll();
-			
-			foreach($entrees as $entree){
-					$nomEntreprise = $entree["nom"];
-					$adresseEntreprise = $entree["adresse"];
-					echo $i . '<tr>
-									<th>' . $nomEntreprise . '</th>
-									<th>' . $adresseEntreprise . '</th>
-								</tr>';
-
-			}    
-			if ($i ==0)
-			{
-				echo 'aucune entrée trouvée';
-			}  
-		} 
-	?>
-		</table>
-<!-- fin de section affichege de stages -->
-
-	</body>
-</html> 

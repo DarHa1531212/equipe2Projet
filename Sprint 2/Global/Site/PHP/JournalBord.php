@@ -97,7 +97,7 @@
         {
             $ext = strtolower(pathinfo($doc)['extension']);
             $method = "AfficherImage('". $doc . "','" . $ext ."')";
-            return '<a cLass="lienJointe"><span id="divBouton" style="cursor:pointer" onclick="' . $method . '">Pièce jointe ' . ' -  ' . $ext . '</span></a>'; //faire ici l'affichage en absolute
+            return '<a cLass="lienJointe"><span id="divBouton" onclick="' . $method . '">Pièce jointe ' . ' -  ' . $ext . '</span></a>'; //faire ici l'affichage en absolute
         }
         else
         {
@@ -143,11 +143,12 @@
 
             <textarea id="contenu" rows="5" cols="100" maxlength="500" name="contenu" wrap="hard" onload= "addArea2();"></textarea>
             <input type="hidden" name="maxFileSize" value="2000000">
-            <input class="inputFile" id="file" type="file" value="Envoyer" name="fichier"/>
+            <input class="inputFile" id="file" type="file" value="Envoyer" name="fichier" onchange="AfficherNom(this)"/>
 
             <br/>                                                                             
             <input style="width: 120px;" class="bouton" type="button" value="Envoyer" onclick="Execute(3, \'../PHP/TBNavigation.php?idStagiaire='.$idStagiaire.'&nomMenu=Journal\', \'&contenu=\', contenu.value); Execute(1, \'../PHP/TBNavigation.php?idStagiaire='.$idStagiaire.'&nomMenu=Journal\', \'&nbEntree=\', 5)"/>
             <label class="bouton labelFile" for="file">Pièce Jointe</label>
+            <p id="nomPieceJointe"></p>
 
             <div class="separateur">
                 <h3>Toutes les entrées</h3>

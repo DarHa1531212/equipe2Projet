@@ -24,7 +24,6 @@ function AfficherImage(doc, ext)
 	}
 }
 
-
 function EnleverImage()
 {
 	if(affichage)
@@ -33,4 +32,16 @@ function EnleverImage()
 		affichage=!affichage;
 	    document.getElementById('imageJointe').innerHTML = contenu;
 	}
+}
+
+//Affiche le nom du fichier sélectionné.
+function AfficherNom(champ){
+    var nom = document.getElementById("nomPieceJointe");
+    var nomFichier = champ.value.split("\\");
+    
+    for(var i = 0; i < nomFichier.length; i++){
+        nomFichier.splice(0, 1);
+    }
+    
+    nom.innerHTML = nomFichier[0];
 }

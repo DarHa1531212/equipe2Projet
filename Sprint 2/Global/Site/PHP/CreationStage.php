@@ -1,34 +1,83 @@
- <!DOCTYPE html>
+<?php
 
-<!-- 
-Nom: Hans Darmstadt-Bélanger
-Date: 31 octobre 2017
-But: Un écran de CRUD qui permet de gérer des stages
--->
-<html>
-	<head>
+    $content =
+    '
+    <article class="stagiaire">
+        <div class="infoStagiaire">
+            <h2>Stages</h2>
+        </div>
 
-		<!--/!\SUPPRIMER CETTE LIGNE LORSQUE LA PAGE SERA LIÉE AU REST DU SITE/!\ -->
-		<script src="../js/navigation.js"></script>
-		<script src="../js/jquery.min.js"></script>
-		<script src="../js/creationStage.js"></script>
-		<!--/!\SUPPRIMER CETTE LIGNE LORSQUE LA PAGE SERA LIÉE AU REST DU SITE/!\ -->
+        <div class="separateur">
+            <h3>Création d\'un Stage</h3>
+        </div>
 
+        <div class="blocInfo infoProfil">
+            <div class="champ">
+                <p class="label labelForInput">Entreprise</p>
+                <select class="value">
+                    <option>test</option>
+                </select>
+            </div>
+            <div class="champ">
+                <p class="label labelForInput">Stagiaire</p>
+                <select class="value">
+                    <option></option>
+                </select>
+            </div>
+            <div class="champ">
+                <p class="label labelForInput">Responsable</p>
+                <select class="value">
+                    <option></option>
+                </select>
+            </div>
+            <div class="champ">
+                <p class="label labelForInput">Superviseur</p>
+                <select class="value">
+                    <option></option>
+                </select>
+            </div>
+            <div class="champ">
+                <p class="label labelForInput">Enseignant</p>
+                <select class="value">
+                    <option></option>
+                </select>
+            </div>
+            <div class="champ">
+                <p class="label labelForInput">Heure / Semaine</p>
+                <input class="value" type="text"/>
+            </div>
+            <div class="champ">
+                <p class="label labelForInput">Rémunéré</p>
+                <div>
+                    <label for="oui">Oui</label>
+                    <input id="oui" type="radio" name="remunere" value="1" checked onclick="DisableSalaire(this)"/>
+                    <label for="non">Non</label>
+                    <input id="non" type="radio" name="remunere" value="0" onclick="DisableSalaire(this)"/>
+                </div>
+            </div>
+            <div class="champ">
+                <p class="label labelForInput">Salaire Horaire</p>
+                <input class="value" type="text" id="salaire"/>
+            </div>
+            <div class="champ">
+                <p class="label labelForInput">Date Début</p>
+                <input class="value" type="date"/>
+            </div>
+            <div class="champ">
+                <p class="label labelForInput">Date Fin</p>
+                <input class="value" type="date"/>
+            </div>
 
-		<?php
-		include 'connexionBD.php'; 
-		include 'Session.php';
-		?>
+            <br/>
 
-		<!-- Section création de stage -->
-			<meta charset="utf-8">
-					<meta http-equiv="X-UA-Compatible" content="IE=edge">
-					<title>Creation stage</title>
-					<meta name="description" content="An interactive getting started guide for Brackets.">
-					<link rel="stylesheet" href="../CSS/style.css">
-					<link rel="shortcut icon" href="../Images/LogoDICJ2Petit.ico">
-	</head>
-	<body>
+            <div class="champArea">
+                <p class="label labelForInput labelArea">Description du stage</p>
+                <textarea class="valueArea"></textarea>
+            </div>  
+            <div class="champArea">
+                <p class="label labelForInput labelArea">Compétences recherchées</p>
+                <textarea class="valueArea"></textarea>
+            </div>
 
     <!--afficher les inforations détaillées d'un stage -->
   <div id="readStage"></div>
@@ -41,24 +90,25 @@ But: Un écran de CRUD qui permet de gérer des stages
 					<option disabled="disabled" selected >Sélectionnez un stagiaire</option>
 					<?php 
 
-					// affiche les stagiaires dans le dropdown menu
+            <input class="bouton" type="button" style="width: 100px;" value="   Annuler   " onclick="Execute(1, \'../PHP/TBNavigation.php?idEmploye='.$id.'&nomMenu=Main\')"/>
+            <input class="bouton" type="button" id="Save" style="width: 100px;" value="Sauvegarder"/>
 
-					showInterns($bdd);
-					function showInterns($bdd)
-					{
-						 $query = $bdd->prepare("select concat (Prenom, ' ' , Nom) as nomStagiaire, Id from vStagiaire;");
+            <br/><br/>
+        </div>
 
-							$query->execute(array());     
-							$entrees = $query->fetchAll();
-							
-							foreach($entrees as $entree){
-									$nomStagiaire = $entree["nomStagiaire"]; 
-									$idStagiaire = $entree["Id"];
-									echo '<option value= "' . $idStagiaire . '">' . $nomStagiaire . '</option>';
-							 }
-					}
+        <div class="separateur">
+            <h3>Liste des stages</h3>
+        </div>
 
-					?>
+        <div class="blocInfo infoProfil">
+            <table class="stage">
+                <thead>
+                    <th>Entreprise </th>
+                    <th>Stagiaire</th>
+                    <th>Lettre d\'entente</th>
+                    <th>Offre de Stage</th>
+                    <th></th>
+                </thead>
 
       </select>
     <br>
@@ -81,59 +131,10 @@ But: Un écran de CRUD qui permet de gérer des stages
 											$nomEntreprise = $entree["Nom"];
 											$idEntreprise = $entree["Id"];
 
-											echo '<option value= "' . $idEntreprise . '">' . $nomEntreprise . '</option>';
-											}
-					}
-					?>
+?>
 
-			</select>
-		<br>
-			 <select id="responsableStage" name = "responsableStage" class = "infosStage">
-					<option  value="-1"  disabled="disabled" selected >Sélectionnez un responsable de stage</option>
-					<option value="1">One</option>
-					<option value="2">Two</option>
-			</select>
-		<br>
-			 <select id="superviseurStage" name= "superviseurStage" class = "infosStage" >
-					<option  value="-1" disabled="disabled" selected>Sélectionnez un superviseur de stage</option>
-					<option value="1">One</option>
-					<option value="2">Two</option>
-				</select>
-		<br>
-				<select id="enseignant" name = "enseignant" class = "infosStage">
-					<option  value="-1"  disabled="disabled" selected >Sélectionnez un enseignant</option>
-					<?php 
-								//affiche les entreprises dans le dropdown menu
-								showProfessors($bdd);
-								function showProfessors($bdd)
-								{
-									$query = $bdd->prepare("select concat (Prenom, ' ' , Nom) as nomEnseignant, IdEnseignant from vEnseignant;");
 
-											$query->execute(array());     
-											$entrees = $query->fetchAll();
-											
-											foreach($entrees as $entree){
-													$nomEnseignant = $entree["nomEnseignant"];
-													$IdEnseignant = $entree["IdEnseignant"];
-													echo '<option value= "' . $IdEnseignant .'">' . $nomEnseignant . '</option>';
-												}
-							}
-						?>
-			</select>
-		<br>
 
-		<p>Descrption de stage:</p>
-		<textarea id="descStage" rows="5" name = "descStage" class = "infosStage"  cols="100" maxlength="500" name="descStage" wrap="hard"></textarea>
-								<br>
-		<p>compétances recherchées</p>
-		<textarea  id="competencesRecherchees" name = "competencesRecherchees" class = "infosStage" rows="5" cols="100" maxlength="500" name="competancesRecherchees" wrap="hard"></textarea>
-								<br>
-		Horaire de travail <input id="horaireTravail" name = "horaireTravail" class = "infosStage" type="text" name="horaireTravail" value="temps plein/ partiel"><br>
-		Heures par semaine <input id="heuresTravail" name = "heuresTravail" class = "infosStage" type="text" name="heuresTravail" value="heures par semaine"><br>
-		<br>
-		Taux horaire (laisser vide si stage non rémunété) <input name = "tauxHoraire" id="tauxHoraire" type="text" class = "infosStage" name="tauxHoraire" value="Taux Horaire"><br>
-		Date de début:  <input name = "dateDebut" id="dateDebut" class = "infosStage" type="date" name="dateDebut"> <br>
-		Date de fin:  <input  name = "dateFin" id="dateFin" class = "infosStage" type="date" name="dateFin"> <br>
 
 
     <input type="button" id="Save" class="bouton" value="Sauvegarder" onclick="Execute(6, '../PHP/TBNavigation.php?nomMenu=CRUDStage')" />

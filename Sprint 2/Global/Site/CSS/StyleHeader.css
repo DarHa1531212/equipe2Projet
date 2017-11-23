@@ -35,3 +35,30 @@ header{
     cursor: pointer;
     background-color: #144486;
 }
+
+.headerTitre{
+    text-align: center;
+    height: 100px;
+    color: white;
+    margin: auto;
+    padding-top: 10px;
+    position: absolute;
+    
+}
+
+.logout{
+    display: table-cell;
+    background-image: url(../Images/logout.png);
+    background-size: 100px 100px;
+    background-position: center;
+    background-repeat: no-repeat;
+    float: right;
+    height: 100px;
+    width: 100px;
+    transition: 0.1s;
+}
+
+.logout:hover{
+    cursor: pointer;
+    background-image: url(../Images/logoutRouge.png);
+}
