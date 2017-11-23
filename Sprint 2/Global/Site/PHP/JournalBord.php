@@ -169,10 +169,6 @@
             <label class="bouton labelFile" for="file">Pièce Jointe</label>
             <p id="nomPieceJointe"></p>
 
-                    <br/>                                                                             
-                    <input style="width: 120px;" class="bouton" type="button" value="Envoyer" onclick="Execute(3, \'../PHP/TBNavigation.php?idStagiaire='.$idStagiaire.'&nomMenu=Journal\', \'&contenu=\', contenu.value); Execute(1, \'../PHP/TBNavigation.php?idStagiaire='.$idStagiaire.'&nomMenu=Journal\', \'&nbEntree=\', 5)"/>
-                    <label class="bouton labelFile" for="file">Pièce Jointe</label>
-
                     <div class="separateur">
                         <h3>Toutes les entrées</h3>
                     </div>
