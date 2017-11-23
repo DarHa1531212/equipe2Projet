@@ -633,5 +633,284 @@
 
     
     
+    /**********************************************************************************************
+    *   Classes: cUtilisateur, cStagiaire, cEmployeEntreprise                                     *
+    *   But: gérer le CRUD des utilisateurs                                                       *
+    *   Note: Va utiliser de l'héritage pour les champs des stagiaires vs des employes            *
+    *   Nom: Hans darmstadt-Bélanger                                                              *
+    *   date: 23 Novembre 2017                                                                    *
+    *   ******************************************************************************************/
+
+    abstract class cAbstractUtilisateur
+    {
+        //les classes abstraites pour le polymorphisme
+        abstract protected function createUtilisateur($bdd, $dataArray);
+        abstract protected function readUtilisateur($bdd,$dataArray);
+        abstract protected function updateUtilisateur($bdd,$dataArray);
+        abstract protected function deleteUtilisateur($bdd,$dataArray);
+
+    }
+    
+
+    class cUtilisateur {
+        
+        private $courrielPrincipal, $id, $prenom, $nom, $noTelPrincipal, $posteTelEntreprise;
+
+
+        
+        }
+    class cStagiaire extends cUtilisateur {
+
+        private $noTelEntreprise, $courrielEntreprise, $courrielPersonnel, $codePermanent;
+
+        protected function createUtilisateur($bdd,$dataArray)
+
+            {
+                $prenom = $dataArray[1]->value;
+                $nom = $dataArray[2]->value;
+                $courrielScolaire = $dataArray[3]->value;
+
+                $query = $bdd->prepare("insert into tblStagiaire (Prenom, Nom, CourrielScolaire) Values  ('$prenom' , '$nom' , '$courrielScolaire');");
+                $query->execute();
+            }
+
+        protected function readUtilisateur($bdd,$dataArray);
+        {
+
+            $idStagiaire =  intval ($dataArray[1]->value);
+            $returnData = array();
+
+            $query = $bdd->prepare("select 
+                                    vStagiaire.Nom as 'NomStagiaire', 
+                                    vStagiaire.Prenom as 'PrenomStagiaire'  , 
+                                    vStagiaire.CourrielScolaire as 'CourrieScolaire', 
+                                    vStagiaire.NumTelEntreprise as 'NumTelEntreprise',
+                                    vStagiaire.Poste as 'Poste',
+                                    vStagiaire.CourrielEntreprise as 'CourrielEntreprise', 
+                                    vStagiaire.CodePermanent as 'CodePermanent', 
+                                    vStagiaire.CourrielPersonnel as 'CourrielPersonnel', 
+                                    vStagiaire.NumTel as 'NumTelStagiaire', 
+                                    vEntreprise.Nom as 'NomEntreprise'
+                                    from vStagiaire 
+                                    join vStage on vStage.idStagiaire = vStagiaire.IdUtilisateur 
+                                    join vSuperviseur on vStage.IdSuperviseur = vSuperviseur.IdUtilisateur 
+                                    join vEntreprise on vEntreprise.Id = vSuperviseur.IdEntreprise 
+                                    where vStagiaire.IdUtilisateur like :idStagiaire");
+
+            $query->execute(array('idStagiaire'=> $idStagiaire));     
+            $entrees = $query->fetchAll();
+
+            foreach($entrees as $entree){
+
+                $NomStagiaire = $entree["NomStagiaire"];
+                $PrenomStagiaire = $entree["PrenomStagiaire"];
+                $CourrieScolaire = $entree["CourrieScolaire"];
+                $NumTelEntreprise = $entree["NumTelEntreprise"];
+                $Poste = $entree["Poste"];
+                $CourrielEntreprise = $entree["CourrielEntreprise"];
+                $CodePermanent = $entree["CodePermanent"];
+                $CourrielPersonnel = $entree["CourrielPersonnel"];
+                $NumTelStagiaire = $entree["NumTelStagiaire"];
+                $NomEntreprise = $entree["NomEntreprise"];
+
+                $returnData [0] = $NomStagiaire;
+                $returnData [1] = $PrenomStagiaire;
+                $returnData [2] = $CourrieScolaire;
+                $returnData [3] = $NumTelEntreprise;
+                $returnData [4] = $Poste;
+                $returnData [5] = $CourrielEntreprise;
+                $returnData [6] = $CodePermanent;
+                $returnData [7] = $CourrielPersonnel;
+                $returnData [8] = $NumTelStagiaire;
+                $returnData [9] = $NomEntreprise;  
+            }
+
+        return $returnData;
+
+        }
+
+
+
+    }
+       
+
+    class cEmployeEntreprise extends cUtilisateur{
+
+        protected function createUtilisateur($bdd,$dataArray)
+        {
+            $prenom = $dataArray[1]->value;
+            $nom = $dataArray[2]->value;
+            $courrielEmploye = $dataArray[3]->value;
+            $telEmploye = $dataArray[4]->value;
+            $posteTelEmploye = $dataArray[5]->value;
+            $idEntreprise = $dataArray[6]->value;
+
+
+            $query = $bdd->prepare("INSERT IGNORE INTO tblEmploye (CourrielEntreprise,Nom,Prenom,NumTelEntreprise,Poste,IdEntreprise)VALUES($courrielEmploye,$nom,$prenom,$telEmploye,$posteTelEmploye,$idEntreprise);");
+            $query->execute();
+
+        }
+
+        protected function readUtilisateur ($bdd, $dataArray)
+        {
+            $idStagiaire =  intval ($dataArray[1]->value);
+            $returnData = array();
+
+            $query = $bdd->prepare("select 
+                                    vStagiaire.Nom as 'NomStagiaire', 
+                                    vStagiaire.Prenom as 'PrenomStagiaire'  , 
+                                    vStagiaire.CourrielScolaire as 'CourrieScolaire', 
+                                    vStagiaire.NumTelEntreprise as 'NumTelEntreprise',
+                                    vStagiaire.Poste as 'Poste',
+                                    vStagiaire.CourrielEntreprise as 'CourrielEntreprise', 
+                                    vStagiaire.CodePermanent as 'CodePermanent', 
+                                    vStagiaire.CourrielPersonnel as 'CourrielPersonnel', 
+                                    vStagiaire.NumTel as 'NumTelStagiaire', 
+                                    vEntreprise.Nom as 'NomEntreprise'
+                                    from vStagiaire 
+                                    join vStage on vStage.idStagiaire = vStagiaire.IdUtilisateur 
+                                    join vSuperviseur on vStage.IdSuperviseur = vSuperviseur.IdUtilisateur 
+                                    join vEntreprise on vEntreprise.Id = vSuperviseur.IdEntreprise 
+                                    where vStagiaire.IdUtilisateur like :idStagiaire");
+
+            $query->execute(array('idStagiaire'=> $idStagiaire));     
+            $entrees = $query->fetchAll();
+
+            foreach($entrees as $entree){
+
+
+                $NomStagiaire = $entree["NomStagiaire"];
+                $PrenomStagiaire = $entree["PrenomStagiaire"];
+                $CourrieScolaire = $entree["CourrieScolaire"];
+                $NumTelEntreprise = $entree["NumTelEntreprise"];
+                $Poste = $entree["Poste"];
+                $CourrielEntreprise = $entree["CourrielEntreprise"];
+                $CodePermanent = $entree["CodePermanent"];
+                $CourrielPersonnel = $entree["CourrielPersonnel"];
+                $NumTelStagiaire = $entree["NumTelStagiaire"];
+                $NomEntreprise = $entree["NomEntreprise"];
+
+                $returnData [0] = $NomStagiaire;
+                $returnData [1] = $PrenomStagiaire;
+                $returnData [2] = $CourrieScolaire;
+                $returnData [3] = $NumTelEntreprise;
+                $returnData [4] = $Poste;
+                $returnData [5] = $CourrielEntreprise;
+                $returnData [6] = $CodePermanent;
+                $returnData [7] = $CourrielPersonnel;
+                $returnData [8] = $NumTelStagiaire;
+                $returnData [9] = $NomEntreprise;  
+            }
+
+        return $returnData;
+
+        }
+    }
+
+    class cStage
+    {
+
+        private $idStagiaire, $idResponsable, $idSuperviseur, $idEnseignant, $idEntreprise, $competancesRecherchees, $descriptionStage, $salaireHoraire, $nbreHeuresSemaine, $dateDebut, $dateFin;
+        function createStage($bdd, $dataArray)
+        {
+
+            $idStagiaire = intval ($dataArray[1]->value);
+            $idEntreprise = intval ($dataArray[2]->value);
+            $idResponsable = intval ($dataArray[3]->value);
+            $idSuperviseur = intval ($dataArray[4]->value);
+            $idEnseignant = intval ($dataArray[5]->value);
+            $descriptionStage = $dataArray[6]->value;
+            $competencesRecherche = $dataArray[7]->value;
+            $horaireTravail = $dataArray[8]->value;
+            $nbreHeuresSemaine = intval ($dataArray[9]->value);
+            $salaireHoraire = intval ($dataArray[10]->value);
+            $dateDebut = date ('Y-m-d', strtotime($dataArray[11]->value));
+            $dateFin = date ('Y-m-d', strtotime($dataArray[12]->value));
+
+           $query = $bdd->prepare("INSERT INTO tblStage (IdResponsable, IdSuperviseur, IdStagiaire, IdEnseignant, DescriptionStage, CompetenceRecherche, HoraireTravail, NbHeureSemaine, SalaireHoraire, DateDebut, DateFin ) VALUES ($idResponsable, $idSuperviseur, $idStagiaire, $idEnseignant, '$descriptionStage', '$competencesRecherche', '$horaireTravail', '$nbreHeuresSemaine', '$salaireHoraire', '$dateDebut', '$dateFin');");
+            $query->execute();
+        }
+
+        function returnSuperviseursAndResponsables($bdd, $dataArray)
+        {
+            $idEntreprise = intval ($dataArray[1]->value);
+            $valeurRetour = '<select id="responsableStage" name = "responsableStage" class = "infosStage">';
+            $query = $bdd->prepare("select concat (Prenom, ' ',  Nom) as NomEmploye, IdUtilisateur from tblEmploye where IdEntreprise like '$idEntreprise'");
+
+            $query->execute(array());     
+            $entrees = $query->fetchAll();
+
+            foreach($entrees as $entree){
+                  $NomEmploye = $entree["NomEmploye"];
+                  $IdUtilisateur = $entree["IdUtilisateur"];
+
+                  $valeurRetour = $valeurRetour . "<option value='". $IdUtilisateur . "'>" . $NomEmploye . "</option>";
+            }
+
+            $valeurRetour = $valeurRetour . '</select>';
+
+            return $valeurRetour;
+
+
+        }
+
+        function afficherInfos($bdd, $dataArray)
+        {
+            $idStage =  intval ($dataArray[1]->value);
+            $returnData = array();
+            $query = $bdd->prepare("select 
+                                    vStage.DescriptionStage as 'DescriptionStage', 
+                                    vStage.CompetenceRecherche as 'CompetenceRecherche', 
+                                    vStage.HoraireTravail as 'HoraireTravail', 
+                                    vStage.SalaireHoraire as 'SalaireHoraire', 
+                                    vStage.NbHeureSemaine as 'NbHeureSemaine' , 
+                                    vEntreprise.Nom as 'NomEntreprise' , 
+                                    concat(vStagiaire.Prenom, ' ' , vStagiaire.Nom)  as 'NomStagiaire' , 
+                                    concat (vSuperviseur.Prenom, ' ', vSuperviseur.Nom) as 'NomSuperviseur', 
+                                    concat (vResponsable.Prenom, ' ', vResponsable.Nom) as'NomResponsable', 
+                                    concat (vEnseignant.Prenom, ' ', vEnseignant.Nom) as 'NomEnseignant' 
+                                    from vStage    
+                                    left join vSuperviseur on  vSuperviseur.IdUtilisateur = vStage.IdSuperviseur    
+                                    left join vEntreprise on vEntreprise.Id = vSuperviseur.IdEntreprise     
+                                    left join vStagiaire on vStagiaire.IdUtilisateur = vStage.IdStagiaire     
+                                    left join vResponsable on vResponsable.IdUtilisateur = vStage.IdResponsable     
+                                    left join vEnseignant on vEnseignant.IdUtilisateur = vStage.IdEnseignant 
+                                    swhere vStage.Id like :idStage");
+
+
+            $query->execute(array('idStage'=> $idStage));     
+            $entrees = $query->fetchAll();
+
+            foreach($entrees as $entree){
+                $DescriptionStage = $entree["DescriptionStage"];
+                $CompetenceRecherche = $entree["CompetenceRecherche"];
+                $HoraireTravail = $entree["HoraireTravail"];
+                $SalaireHoraire = $entree["SalaireHoraire"];
+                $NbHeureSemaine = $entree["NbHeureSemaine"];
+                $NomEntreprise = $entree["NomEntreprise"];
+                $NomStagiaire = $entree["NomStagiaire"];
+                $NomSuperviseur = $entree["NomSuperviseur"];
+                $NomResponsable = $entree["NomResponsable"];
+                $NomEnseignant = $entree["NomEnseignant"];
+
+                $returnData [0] = $DescriptionStage;
+                $returnData [1] = $CompetenceRecherche;
+                $returnData [2] = $HoraireTravail;
+                $returnData [3] = $SalaireHoraire;
+                $returnData [4] = $NbHeureSemaine;
+                $returnData [5] = $NomEntreprise;
+                $returnData [6] = $NomSuperviseur;
+                $returnData [7] = $NomStagiaire;
+                $returnData [8] = $NomResponsable;
+                $returnData [9] = $NomEnseignant;  
+
+            }
+
+            return $returnData;
+
+        }
+
+    }
+
 
 ?>

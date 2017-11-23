@@ -45,6 +45,49 @@ But: Un écran de CRUD qui permet de gérer des stagiaires
 <!-- Fin de section création de stagiaire -->
 
 
+<!-- Section de modification du stagiaire -->
+
+
+
+Nom du stagiaire: Olimpia Tremblay
+
+
+Courrie scolaire: Tremblay.Olimpia@etu.cegepjonquiere.ca
+
+
+Numéro de téléphone en entreprise: null
+
+
+Poste: null
+
+
+Courriel d'entreprise: null
+
+
+Code permanent: null
+
+
+Courriel personnel: Tremblay.Olimpia@hotmail.com
+
+
+Numéro de téléphone personnel: (418) 695-1924
+
+
+Entreprise: BanTheB
+							<br>
+                            <p class="label labelForInput">Prenom :</p>
+                            <input type="text" value=" Prenom" class="value"/>
+
+                            	<br>
+                            <p class="label labelForInput">Nom :</p>
+                            <input type="text" value=" Prenom" class="value"/>
+                        
+
+
+<!-- Fin de section de modification du stagiaire -->
+
+
+
 <!-- section affichage de stagiaires -->
 	<h2>Stagiaires actuellement dans le système</h2>
 	<table>
