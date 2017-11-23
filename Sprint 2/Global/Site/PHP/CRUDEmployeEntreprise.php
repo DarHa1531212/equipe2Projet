@@ -91,7 +91,7 @@
 		$returnData [9] = $NomEntreprise;  
 	}
 
-	return $returnData;
+	return 'patate';
 
 	}
 

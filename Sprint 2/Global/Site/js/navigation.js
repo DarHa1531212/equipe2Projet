@@ -128,7 +128,7 @@ function Execute(choix){
 			break;
 		case 9: readStagiaire(ExecuteQuery, arguments);
 			break;
-		case 10: readStagiaire(ExecuteQuery, arguments);
+		case 10: readEmploye(ExecuteQuery, arguments);
 			break;
 			
 

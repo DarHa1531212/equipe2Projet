@@ -94,10 +94,8 @@ But: Un écran de CRUD qui permet de gérer des employés des entreprises
           $IdEmploye = $entree["IdEmploye"];
 
             echo '<tr>
-                  <th id="' . $IdEmploye .'" value="' . $IdEmploye . '" onClick="Execute(10,\'../PHP/TBNavigation.php?nomMenu=CRUDStage\', this.id)">' . $NomEmploye . '</th>
+                  <th id="' . $IdEmploye .'" value="' . $IdEmploye . '" onClick="Execute(10,\'../PHP/TBNavigation.php?nomMenu=CRUDEmployeEntreprise\', this.id)">' . $NomEmploye . '</th>
                   <th>' . $CourrielEntreprise . '</th>
-                  <th>Lettre dentente</th>
-                  <th>Offre de stage</th>
                 </tr>';
       }      
       }      
