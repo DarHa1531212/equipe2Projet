@@ -272,8 +272,6 @@ CREATE TABLE tblEmploye(
 	CourrielEntreprise 		VARCHAR(320)	NOT NULL,
 	Nom 					VARCHAR(50)		NOT NULL,
 	Prenom 					VARCHAR(50)		NOt NULL,
-	NumTel			 		CHAR(14)		NOT NULL,
-	CourrielPersonnel 		VARCHAR(320)	NOT NULL,
 	NumTelEntreprise 		CHAR(14)		NOT NULL,
 	Poste 					VARCHAR(7)		NULL,
 	CodePermanent			VARCHAR(12)		NULL,
@@ -284,9 +282,9 @@ CREATE TABLE tblEmploye(
 );
 
 DROP VIEW IF EXISTS vEmploye;
-CREATE VIEW vEmploye AS SELECT Id,CourrielEntreprise,Nom,Prenom,NumTel,
-CourrielPersonnel,NumTelEntreprise,Poste,CodePermanent,CONCAT(CourrielEntreprise,Nom,Prenom,NumTel,
-CourrielPersonnel,NumTelEntreprise,IFNULL(Poste, ""),CodePermanent,IdEntreprise,IdUtilisateur) AS tag,IdEntreprise,IdUtilisateur FROM tblEmploye;
+CREATE VIEW vEmploye AS SELECT Id,CourrielEntreprise,Nom,Prenom,
+NumTelEntreprise,Poste,CodePermanent,CONCAT(CourrielEntreprise,Nom,Prenom,
+NumTelEntreprise,IFNULL(Poste, ""),CodePermanent,IdEntreprise,IdUtilisateur) AS tag,IdEntreprise,IdUtilisateur FROM tblEmploye;
 
 
 -- Table Categorie Question
