@@ -6,18 +6,6 @@
     * et vérifier si un utilisateur est autorisé à accéder à une page   *
     *********************************************************************/
 
-    function verifyTimeout()
-    {
-        if (isset($_SESSION['last_click_time']) && (time() - $_SESSION['last_click_time'] > 10)) 
-        {
-            header("Location: logout.php");
-        }
-        else
-        {
-            $_SESSION['last_click_time'] = time();
-        }
-    }
-
     function verifyAuthorisations($expectedId)
     {
         $accessGranted = false; 

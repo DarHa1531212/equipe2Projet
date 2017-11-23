@@ -14,7 +14,7 @@
             </a>
         </div>
 
-        <div class="blocInfo itemHover onglet">
+        <div class="blocInfo itemHover onglet" onclick="Execute(1, \'../PHP/TBNavigation.php?nomMenu=Entreprise\')">
             <a class="linkFill">
                 <h1>Entreprises</h1>
             </a>

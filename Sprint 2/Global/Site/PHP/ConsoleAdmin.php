@@ -5,14 +5,14 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width"/>
         <title>Console d'administration</title>
-        <link rel="sortcut icon" href="Images/DICJIcone.PNG" type="image/x-icon"/>
+        <link rel="sortcut icon" href="../Images/DICJIcone.PNG" type="image/x-icon"/>
         <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
         <link rel="stylesheet" href="../CSS/StyleHeader.css">
         <link rel="stylesheet" href="../CSS/StyleFooter.css">
         <link rel="stylesheet" href="../CSS/Style.css">
     </head>
     
-    <body onload="CacherDiv('stagiaire')">
+    <body onload="SetTimeout()">
         <script src="../js/jquery.min.js"></script>
         <script src="../js/navigation.js"></script>
         <script src="../js/regexProfilStag.js"></script>

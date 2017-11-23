@@ -2,6 +2,33 @@
 
 $profil = new ProfilStagiaire($_REQUEST["idStagiaire"], $bdd);
 
+function ModifierStagiaire($bdd){
+    include 'hash.php';
+    
+    $champs = json_decode($_POST["tabChamp"]);
+    $stagiaire = array();
+    
+    foreach($champs as $champ){
+        $stagiaire[$champ->nom] = $champ->value;
+    }
+    
+    $query = $bdd->prepare('UPDATE tblStagiaire SET NumTel = :numTel, NumTelEntreprise = :numTelEntreprise, Poste = :poste, CourrielEntreprise = :courrielEntreprise, CourrielPersonnel = :courrielPerso WHERE Id = :id'); 
+    
+    SetPassword($stagiaire["nouveauPasse"], $bdd);
+    
+    $query->execute(array(
+        "numTel"=>$stagiaire["numTel"],
+        "numTelEntreprise"=>$stagiaire["numEntreprise"],
+        "poste"=>$stagiaire["poste"],
+        "courrielEntreprise"=>$stagiaire["courrielEntreprise"],
+        "courrielPerso"=>$stagiaire["courrielPersonnel"],
+        "id"=>$_SESSION["idConnecte"]
+    ));
+}
+
+if(isset($_REQUEST["post"]))
+    ModifierStagiaire($bdd);
+
 $content =
 '
 <article class="stagiaire">
@@ -62,7 +89,7 @@ avoir ce format - (xxx) xxx-xxxx"/>
                     
                         <div class="champ">
                             <p class="label labelForInput">Poste :</p>
-                            <input type="text" value="'.$profil->getPoste().'" id="poste" class="value" onkeyup="RegexProfilStagiaire()"/>
+                            <input type="text" value="'.$profil->getPoste().'" name="poste" id="poste" class="value" onkeyup="RegexProfilStagiaire()"/>
                         </div>
                 </div>
                 
@@ -73,7 +100,7 @@ avoir ce format - (xxx) xxx-xxxx"/>
                 <div class="blocInfo infoProfil">
                         <div class="champ">
                             <p class="label labelForInput">Nouveau mot de passe :</p>
-                            <input type="password" id="newPwd" class="value" onkeyup="RegexProfilStagiaire()"/>
+                            <input type="password" id="newPwd" class="value" name="nouveauPasse" onkeyup="RegexProfilStagiaire()"/>
                             <img class="info" src="../Images/info.png" title="Le mot de passe doit contenir
 - 8 caractères minimum
 - Au moins une majuscule
@@ -89,7 +116,7 @@ avoir ce format - (xxx) xxx-xxxx"/>
                 <br/><br/>
                 
                 <input class="bouton" type="button" style="width: 100px;" value="   Annuler   " onclick="Execute(1, \'../PHP/TBNavigation.php?idStagiaire='.$id.'&nomMenu=Main\')"/>
-                <input class="bouton" type="button" id="Save" style="width: 100px;" value="Sauvegarder" onclick="Execute(2, \'../PHP/TBNavigation.php?idStagiaire='.$id.'&nomMenu=ModifBD\', \'&Poste=\', poste.value, \'&NumTel=\', numTel.value, \'&NumTelEntreprise=\', numEntreprise.value, \'&CourrielEntreprise=\', courrielEntreprise.value, \'&CourrielPersonnel=\', courrielPersonnel.value, \'&NewPassword=\', newPwd.value); Execute(1, \'../PHP/TBNavigation.php?idStagiaire='.$id.'&nomMenu=Main\')"/>
+                <input class="bouton" type="button" id="Save" style="width: 100px;" value="Sauvegarder" onclick="Execute(5, \'../PHP/TBNavigation.php?idStagiaire='.$id.'&nomMenu=Modif&post\'); Execute(1, \'../PHP/TBNavigation.php?idStagiaire='.$id.'&nomMenu=Main\')"/>
 </article>';
 
 return $content;
