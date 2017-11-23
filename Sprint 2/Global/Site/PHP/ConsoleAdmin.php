@@ -29,33 +29,12 @@
             <article class="ressources">
             </article>
             
-            <article class="stagiaire">
-                <div class="stagiaireContainer">
-                    <div class="blocInfo itemHover onglet">
-                        <a class="linkFill">
-                            <h1>Stages</h1>
-                        </a>
-                    </div>
-
-                    <div class="blocInfo itemHover onglet">
-                        <a class="linkFill">
-                            <h1>Sessions</h1>
-                        </a>
-                    </div>
-                    
-                    <div class="blocInfo itemHover onglet">
-                        <a class="linkFill">
-                            <h1>Entreprises</h1>
-                        </a>
-                    </div>
-
-                    <div class="blocInfo itemHover onglet">
-                        <a class="linkFill">
-                            <h1>Utilisateurs</h1>
-                        </a>
-                    </div>
-                </div>            
-            </article>
+            <div class="stagiaireContainer">
+                <?php
+                    include 'ConsoleAdminMain.php';
+                    echo $content;
+                ?>         
+            </div>
             
         </section>
         

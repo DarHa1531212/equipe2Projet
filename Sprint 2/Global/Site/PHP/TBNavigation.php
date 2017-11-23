@@ -27,8 +27,10 @@
             case "Eval":    $menu = include 'Evaluation.php';
                 break;
             case "Stage":   $menu = include 'CreationStage.php';
+                break;
+            case "Session": $menu = include 'CreationSession.php';
         }
-
+        
         echo json_encode($menu);
     }
 
