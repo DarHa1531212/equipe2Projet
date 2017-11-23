@@ -113,7 +113,7 @@ function AfficherPage(xhttp){
     var page = $.parseJSON(xhttp);
     $(".stagiaireContainer").empty();
     $(".stagiaireContainer").append(page);
-    CacherDiv();//Juste si il y a des stagiaires a afficher ou des evaluations(Fix plus tard).
+    //CacherDiv();//Juste si il y a des stagiaires a afficher ou des evaluations(Fix plus tard).
 }
 
 //Éxecute une page PHP sans l'afficher.
