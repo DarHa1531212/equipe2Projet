@@ -89,16 +89,16 @@ ON res.IdUtilisateur = Stage.IdResponsable;
 
 DROP VIEW IF EXISTS vInfoEvalGlobale;
 CREATE VIEW vInfoEvalGlobale AS
-SELECT 	St.Id as 'IdStage', Eva.Id as 'IdEvaluation',Eva.DateComplétée as 'DateComplétée',Eva.Statut as 'Statut',
-		Eva.DateDébut as 'DateDébut',Eva.DateFin as 'DateFin',TE.Id as 'IdTypeEvaluation', TE.Titre as 'TitreTypeEvaluation',
+SELECT 	St.Id AS 'IdStage', Eva.Id AS 'IdEvaluation',Eva.DateComplétée AS 'DateComplétée',Eva.Statut AS 'Statut',
+		Eva.DateDébut AS 'DateDébut',Eva.DateFin AS 'DateFin',TE.Id AS 'IdTypeEvaluation', TE.Titre AS 'TitreTypeEvaluation',
         St.IdStagiaire
-FROM vEvaluation as Eva
-join vTypeEvaluation as TE
-on TE.Id = Eva.IdTypeEvaluation
-JOIN vEvaluationStage as ES
-on Eva.Id = ES.IdEvaluation
-join vStage as St
-on St.Id = ES.IdStage;
+FROM vEvaluation AS Eva
+JOIN vTypeEvaluation AS TE
+ON TE.Id = Eva.IdTypeEvaluation
+JOIN vEvaluationStage AS ES
+ON Eva.Id = ES.IdEvaluation
+JOIN vStage AS St
+ON St.Id = ES.IdStage;
 
 -- ------------------------------------------------
 -- Récupère toutes les évaluations des stagiaires selon leur ID et le type d'évaluation avec leurs réponses choisies.
@@ -108,7 +108,6 @@ CREATE VIEW vEvaluationCompletee AS
 SELECT Stagiaire.Id AS IdStagiaire, Stagiaire.Prenom, Stagiaire.Nom, Eval.Id AS IdEvaluation, 
 TypeEval.Titre AS Evaluation, Question.Texte AS Question,Lettre,TitreCategorie,DescriptionCategorie, EQR.IdReponse, Reponse.Texte AS Reponse,
 CONCAT(Enseignant.Prenom,' ',Enseignant.Nom) AS Enseignant,
--- CONCAT(Gestionnaire.Prenom,' ',Gestionnaire.Nom) AS Gestionnaire,
 CONCAT(Responsable.Prenom,' ',Responsable.Nom) AS Responsable,
 CONCAT(Superviseur.Prenom,' ',Superviseur.Nom) AS Superviseur,
 Entreprise.Nom AS Entreprise,TypeEval.Id AS TypeEvaluation, Competence
@@ -133,8 +132,6 @@ JOIN vReponse AS Reponse
 ON Reponse.Id = EQR.IdReponse
 JOIN vEnseignant AS Enseignant
 ON Enseignant.IdUtilisateur = Stage.IdEnseignant
-/*JOIN vGestionnaire AS Gestionnaire
-ON Gestionnaire.IdUtilisateur = Stage.IdGestionnaire*/
 JOIN vResponsable AS Responsable
 ON Responsable.IdUtilisateur = Stage.IdResponsable
 JOIN vSuperviseur AS Superviseur
@@ -167,8 +164,7 @@ ON CQ.Id = Qu.IdCategorieQuestion
 JOIN tblTypeQuestion AS TQ
 ON TQ.Id = Qu.IdTypeQuestion
 JOIN tblTypeEvaluation AS TE
-ON TE.Id = Eva.IdTypeEvaluation
-LIMIT 20000;
+ON TE.Id = Eva.IdTypeEvaluation;
 
 -- ------------------------------------------------
 -- Récupère les noms des différents noms des utilisateurs lié au stage
@@ -193,3 +189,30 @@ JOIN vEmploye AS Emp
 ON Emp.IdUtilisateur = Sup.IdUtilisateur
 JOIN vEntreprise AS Ent
 ON Ent.Id = Emp.IdEntreprise;
+
+-- ------------------------------------------------
+-- Récupère toutes les noms et les informations nécéssaires à la génération du pdf de la lettre d'entente
+-- ------------------------------------------------
+DROP VIEW IF EXISTS vInfoStagiaire;
+CREATE VIEW vInfoStagiaire AS
+SELECT CONCAT(Prenom,' ',Nom) AS NomComplet,IdUtilisateur,Adresse,NumTel,CourrielPersonnel FROM vUtilisateur 
+
+	JOIN vStagiaire
+	ON vStagiaire.IdUtilisateur = vUtilisateur.Id;
+
+DROP VIEW IF EXISTS vEntente;
+CREATE VIEW vEntente AS 
+SELECT * FROM vStage AS Stage
+	JOIN vUtilisateur AS Utilisateur
+	ON Stage.IdSuperviseur = Utilisateur.Id 
+
+	JOIN vEmploye AS Employe
+	ON Employe.IdUtilisateur = Utilisateur.Id
+
+	JOIN vEntreprise AS Entreprise
+	ON Entreprise.Id = Employe.IdEntreprise
+
+	JOIN vInfoStagiaire
+	ON Stage.IdStagiaire = vInfoStagiaire.IdUtilisateur
+
+WHERE Stage.Id = 1;

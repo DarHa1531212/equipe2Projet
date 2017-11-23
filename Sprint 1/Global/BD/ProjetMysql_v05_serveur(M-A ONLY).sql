@@ -2,8 +2,8 @@
 -- CRÉÉE LE 06/09/2017 PAR MARC-ANTOINE DUCHESNE
 
 -- Création de la bd
- DROP DATABASE IF EXISTS BDProjet_equipe2V2;
- CREATE DATABASE BDProjet_equipe2V2;
+-- DROP DATABASE IF EXISTS BDProjet_equipe2V2;
+-- CREATE DATABASE BDProjet_equipe2V2;
 
 -- USE cegepjon_p2017_2_dev;
 -- USE cegepjon_p2017_2_prod;
@@ -113,11 +113,12 @@ CREATE TABLE tblTypeEvaluation(
 	Id						INT				AUTO_INCREMENT,
 	Titre 					VARCHAR(40) 	NOT NULL,
 	DateLimite				DATE			NOT NULL,
+	Description				VARCHAR(300)	NULL,
 	PRIMARY KEY(Id)
 );
 
 DROP VIEW IF EXISTS vTypeEvaluation;
-CREATE VIEW vTypeEvaluation AS SELECT Id,Titre,DateLimite,CONCAT(Titre,DateLimite) AS tag FROM tblTypeEvaluation;
+CREATE VIEW vTypeEvaluation AS SELECT Id,Titre,DateLimite,Description,CONCAT(Titre,DateLimite,Description) AS tag FROM tblTypeEvaluation;
 
 -- Table SuperviseurEvaluationStagiaireStage
 
@@ -136,15 +137,16 @@ CONCAT(IdEvaluation,IdStage) AS tag FROM tblEvaluationStage;
 DROP TABLE IF EXISTS tblStagiaire;
 CREATE TABLE tblStagiaire(
 	Id			 			INT				AUTO_INCREMENT,
-	CourrielScolaire 		VARCHAR(320)	NOT NULL,
+	CourrielScolaire 		VARCHAR(320)	NULL,
 	Nom 					VARCHAR(50)		NOT NULL,
 	Prenom 					VARCHAR(50)		NOT NULL,
-	NumTel		 			CHAR(14)		NOT NULL,
+	NumTel		 			CHAR(14)		NULL,
 	CourrielPersonnel 		VARCHAR(320)	NOT NULL,
 	NumTelEntreprise 		CHAR(14)		NULL,
 	Poste 					VARCHAR(7)		NULL,
 	CourrielEntreprise	 	VARCHAR(320)	NULL,
 	CodePermanent			VARCHAR(12)		NULL,
+	Adresse					VARCHAR(350)	NULL,
 	PRIMARY KEY(Id),
 	IdStage					INT				NULL,
 	IdUtilisateur			INT				NULL,
@@ -153,7 +155,7 @@ CREATE TABLE tblStagiaire(
 
 DROP VIEW IF EXISTS vStagiaire;
 CREATE VIEW vStagiaire AS SELECT Id,CourrielScolaire,Nom,Prenom,NumTel,CourrielPersonnel
-,NumTelEntreprise,Poste,CourrielEntreprise,CodePermanent,
+,NumTelEntreprise,Poste,CourrielEntreprise,CodePermanent,Adresse,
 CONCAT(CourrielScolaire,Nom,Prenom,NumTel,CourrielPersonnel
 ,IFNULL(NumTelEntreprise,''),IFNULL(Poste,''),IFNULL(CourrielEntreprise,''),IFNULL(IdStage,''),IdUtilisateur,CodePermanent) AS tag,IdStage,IdUtilisateur FROM tblStagiaire;
 
@@ -221,7 +223,6 @@ CREATE TABLE tblStage(
 	CompetenceRecherche		VARCHAR(1000)		NULL,
 	HoraireTravail			VARCHAR(1000)		NULL,
 	NbHeureSemaine			INT					NULL,
-	Remunere				BOOL				NULL,
 	SalaireHoraire			iNT					NULL,
 	DateDebut				DATE				NULL,
 	DateFin					DATE				NULL,
@@ -236,8 +237,8 @@ CREATE TABLE tblStage(
 );
 
 DROP VIEW IF EXISTS vStage;
-CREATE VIEW vStage AS SELECT Id,DescriptionStage,CompetenceRecherche,HoraireTravail,NbHeureSemaine,Remunere,
-SalaireHoraire,DateDebut,DateFin,LettreEntenteVide,LettreEntenteSignee,OffreStage,CONCAT(IdResponsable,IdSuperviseur,IdStagiaire,IdEnseignant,DescriptionStage,CompetenceRecherche,HoraireTravail,NbHeureSemaine,Remunere,
+CREATE VIEW vStage AS SELECT Id,DescriptionStage,CompetenceRecherche,HoraireTravail,NbHeureSemaine,
+SalaireHoraire,DateDebut,DateFin,LettreEntenteVide,LettreEntenteSignee,OffreStage,CONCAT(IdResponsable,IdSuperviseur,IdStagiaire,IdEnseignant,DescriptionStage,CompetenceRecherche,HoraireTravail,NbHeureSemaine,
 SalaireHoraire,DateDebut,DateFin,LettreEntenteVide,LettreEntenteSignee,OffreStage)
 AS tag,IdResponsable,IdSuperviseur,IdStagiaire,IdEnseignant FROM tblStage;
 
