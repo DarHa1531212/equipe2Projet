@@ -5,6 +5,7 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width"/>
         <title>Tableau de bord - Entreprise</title>
+        <link rel="sortcut icon" href="../Images/DICJIcone.PNG" type="image/x-icon"/>
         <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
         <link rel="stylesheet" href="../CSS/StyleHeader.css">
         <link rel="stylesheet" href="../CSS/StyleFooter.css">
@@ -12,14 +13,17 @@
         <?php include 'vTableauBord.php' ?>
     </head>
     
-    <body onload="CacherDiv('stagiaire')">
+    <body onload="CacherDiv('stagiaire'); SetTimeout()">
         <script src="../js/jquery.min.js"></script>
         <script src="../js/navigation.js"></script>
         <script src="../js/regex.js"></script>
         <script src="../js/slideShow.js"></script>
         <script src="../js/scripts.js"></script>
         
-        <?php include('Header.php'); ?>
+        <?php 
+            include('Header.php'); 
+            AfficherHeader("Tableau de Bord", 120);
+        ?>
     
         <section>
             <article class="ressources">

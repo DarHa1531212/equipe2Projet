@@ -1,12 +1,13 @@
 <?php //recherche de connexion dans la bd
 
     include 'Session.php';
-    if (Login($username, $MDP, $bdd) && verifyTimeout())
+    if (Login($username, $MDP, $bdd))
     {
         switch ($_SESSION['IdRole'])
         {
             case 1: //case 1 is an administrator
-                echo "I am a teacher" . 1;
+                GetPrenomNom($bdd->prepare("SELECT * FROM vEmploye WHERE IdUtilisateur = :id"));
+                include 'ConsoleAdmin.php';
                 break;
 
             case 2: //case 2 is a Responsible

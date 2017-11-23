@@ -9,6 +9,38 @@ function Requete(callback){
     });
 }
 
+function Post(callback){
+    var lstChamps = $(".value");
+    var tabChamp = [];
+    var champ = "";
+    var form_data = new FormData();
+    
+    for(var i = 0; i < lstChamps.length; i++){
+        champ = {
+            nom: lstChamps[i].name,
+            value: lstChamps[i].value
+        };
+        
+        tabChamp.push(champ);
+    }
+    
+    tabChamp = JSON.stringify(tabChamp);
+    form_data.append('tabChamp', tabChamp);
+    
+    $.ajax({ 
+        url: Url(arguments),  
+        dataType: 'text',   
+        cache: false, 
+        contentType: false, 
+        processData: false, 
+        data: form_data,                          
+        type: 'post', 
+        success: function(data){ 
+            callback(data); 
+        } 
+    }); 
+}
+
 //Crée une liste des radios boutons et les encode en JSON pour le envoyer au PHP.
 function PostEval(callback){ 
     var questions = $('input[type="radio"]:checked');   
@@ -101,5 +133,7 @@ function Execute(choix){
         case 3: UploadFile(ExecuteQuery, arguments);
             break;
         case 4: PostEval(ExecuteQuery, arguments);
+            break;
+        case 5: Post(AfficherPage, arguments);
     }
 }

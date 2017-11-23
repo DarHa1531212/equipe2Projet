@@ -72,7 +72,6 @@
         
         $content = $content.
         '<article class="stagiaire">
-        <input type="button" onclick="Execute(1, \'../PHP/TBNavigation.php?nomMenu=Stage\')"/>
         <div class="infoStagiaire">
             <h2>'.$profil["Prenom"].' '.$profil["Nom"].'</h2>
             <input class="bouton" type="button" value="Afficher le profil" onclick="Execute(1, \'../PHP/TBNavigation.php?idStagiaire='.$profil["Id"].'&nomMenu=Profil\')"/>
