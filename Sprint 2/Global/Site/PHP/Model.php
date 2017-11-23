@@ -652,7 +652,7 @@
     }
     
 
-    class cUtilisateur {
+    class cUtilisateur  extends cAbstractUtilisateur{
         
         private $courrielPrincipal, $id, $prenom, $nom, $noTelPrincipal, $posteTelEntreprise;
 
