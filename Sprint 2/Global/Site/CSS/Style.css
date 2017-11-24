@@ -289,3 +289,24 @@ input[type=file]{
     bottom:0;
     margin:auto;
 }
+
+.commentaireEvalMiStage
+{
+    margin-top: 10px;
+    width: 90%;
+    margin: auto;
+}
+
+.commentaireEvalMiStage p
+{
+    float: left;
+}
+
+.messageErreurRadioButton
+{
+    width: 90%;
+    margin: auto;
+    margin-top: 10px;
+    color: red;
+    
+}

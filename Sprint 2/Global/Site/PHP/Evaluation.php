@@ -2,7 +2,13 @@
 
     $eval = new Evaluation($bdd, $_REQUEST["idEvaluation"]);
 
-    function Identification($bdd){
+    if($eval->getIdTypeEval() == 1)
+        $eval = new EvaluationGrille($bdd, $_REQUEST["idEvaluation"]);
+    else if($eval->getIdTypeEval() == 2)
+        $eval = new EvaluationChoixReponse($bdd, $_REQUEST["idEvaluation"]);
+
+    function Identification($bdd)
+    {
         $query = $bdd->prepare( 'SELECT * FROM vIdentification
                             WHERE IdStagiaire = :idStagiaire');
 
@@ -38,109 +44,55 @@
         ';
     }
 
-    function QuestionsGrille($bdd, $eval){
-        
-        $content = "";
-        
-        foreach($eval->getCategories() as $categorie){
-            $queryQuestion->execute(array("idEvaluation"=>$_REQUEST["idEvaluation"], "idCategorie"=>$categorie["IdCategorie"]));
-            $questions = $queryQuestion->fetchAll();
-            
-            $content = $content.
-                '
-                <div class="categories">
-                    <div class="separateur" id="question">
-                        <h3>'.$categorie["Lettre"].'. '.$categorie["TitreCategorie"].'</h3>
-                        <p> 
-                            '.$categorie["descriptionCategorie"].'
-                        </p>
-                    </div>
+    /*function radioButtonValide($bdd)
+    {
+        if(isset($_REQUEST["post"])) 
+        {
+            $reponses = json_decode($_POST["tabReponse"], true);
 
-                    <table class="evaluation">
-                        <thead>
-                            <th>Critères</th>
-                            <th>Généralement</th>
-                            <th>Souvent</th>
-                            <th>Parfois</th>
-                            <th>Rarement</th>
-                        </thead>
+            if(count($eval->getQuestions()) == count($reponses))
+            {
+                //toutes les questions ont ete cochées
+                $eval->Submit($bdd);
 
-                        <tbody>';
-            
-            foreach($questions as $question){
-                $content = $content.
-                '
-                            <tr>
-                                <td>'.$question["Texte"].'</td>
-                                '.ChoixReponses($bdd, $question["Id"], $queryReponseChoisie, $reponses).'
-                            </tr>
-                ';
+                $message = 'O';
+
             }
-            
-            $content = $content.
-                '
-                        </tbody>
-                    </table>
-                </div>
-                ';
-        }
-        
-        return $content;
-    }
-
-    function QuestionChoixReponse($bdd, $eval){
-        $content = "";
-        
-        foreach($eval->getQuestions() as $question){
-            $content = $content.
-            '<div class="categories">
-                <div class="separateur" id="question">
-                    <h3>'.$question->getCategorie()->getLettre().' '.$question->getCategorie()->getTitre().'</h3>
-                    <p> 
-                        '.$question->getTexte().'
-                    </p>
-                </div>
-                <table class="evaluation2">
-                    <tbody>          
-                            '.ChoixReponses($bdd, $question->getId(), $eval).'
-                    </tbody>
-                </table>
-            </div>';                  
-        }
-        
-        return $content;
-    }
-
-    function ChoixReponses($bdd, $idQuestion, $eval){
-        $content = "";
-    
-        foreach($eval->getQuestions() as $question){
-            foreach($question->getReponses() as $reponse){
-                if($_REQUEST["typeEval"] == 1){
-                    if($reponse->getId() == $eval->getReponses()[0]->getId())
-                        $content = $content.'<td><input type="radio" id="question'.$idQuestion.'" name="question'.$idQuestion.'" value="'.$reponse->getid().'" checked = "checked" ></td>';
-                    else
-                        $content = $content.'<td><input type="radio" name="question'.$idQuestion.'" value="'.$reponse->getid().'"></td>';
-                    }
-                else if($_REQUEST["typeEval"] == 2){
-                    $content = $content. 
-                    '
-                        <tr class="itemHover" onclick="ReponseChoisie(this)">
-                            <td>'.$reponse->getTexte().'</td>
-                        </tr>
-                    ';
-                }  
+            else
+            {
+                $message = '<div class = "messageErreurRadioButton" > Soumission impossible. Vous n\'avez pas repondu a toutes les questions </div>';
             }
         }
-        
-        return $content;
+        else
+        {
+            $message = 'N';
+        }   
+
+        return $message;
+    }*/
+
+    function zoneCommentaire($eval)
+    {
+        if( ( $eval->getStatut() == 3 ) || ( $eval->getStatut() == 4) )
+        {
+            $zoneSaisieCommentaire = '<textarea id="commentaireEvaluation" rows="5" cols="100" maxlength="500" name="commentaireEvaluation" wrap="hard" readonly>'.$eval->getCommentaire().'</textarea>';
+        }
+        else
+        {
+            $zoneSaisieCommentaire = '<textarea id="commentaireEvaluation" rows="5" cols="100" maxlength="500" name="commentaireEvaluation" wrap="hard"></textarea>';
+        }
+
+        return $zoneSaisieCommentaire;
     }
 
-    function LettreNav($bdd, $eval){
+
+    function LettreNav($bdd, $eval)
+    {
         $i = 0;
         $content = "";
         
-        foreach($eval->getCategories() as $categorie){
+        foreach($eval->getCategories() as $categorie)
+        {
             $content = $content.
             '<input id="Cat'.$i++.'" type="button" value="'.$categorie->getLettre().'" class="lettreNav bouton" onclick="JumpTo('.($i-1).')"/>';
         }
@@ -148,35 +100,46 @@
         return $content;
     }
 
-    function Submit($bdd, $queryCategorie, $queryQuestion){
-        $reponses = json_decode($_POST["tabReponse"], true);
+    if(isset($_REQUEST["post"]))
+    {
+        $eval->Submit($bdd);
+    }
         
-        $requeteModificationEvaluationQuestionReponse = $bdd->prepare(  'update tblEvaluationQuestionReponse SET IdReponse = :IdReponse
-                                                                        WHERE IdEvaluation = :IdEvaluation AND IdQuestion = :IdQuestion;');
+    function radioButtonValide()
+    {
+        if(isset($_REQUEST["erreurRadioButton"]))
+        {  
+            $message = '<div class="messageErreurRadioButton">
+                        Confirmation impossible. Veuillez choisir une reponse pour toutes les questions.
+                        </div>';
+        }
+        else
+        {
+            $message = '';
+        }
 
-        $requeteModifierStatutEvaluation = $bdd->prepare('update tblEvaluation set Statut= \'3\', DateComplétée=:DateCompletee where Id=:IdEvaluation;');
-
-        $queryCategorie->execute(array('idEvaluation'=>$_REQUEST['idEvaluation']));
-
-        $requeteModifierStatutEvaluation->execute(array('IdEvaluation'=>$_REQUEST['idEvaluation'],'DateCompletee'=>date("Y-m-d")));
-
-        $categories = $queryCategorie->fetchAll();
-
-          foreach($categories as $categorie)
-          {
-              foreach($reponses as $reponse){
-                  $requeteModificationEvaluationQuestionReponse->execute(array('IdEvaluation'=>$_REQUEST['idEvaluation'],'IdQuestion'=>$reponse["idQuestion"],'IdReponse'=>$reponse["value"]));
-              }         
-          }
+        return $message;
     }
 
-    if(isset($_REQUEST["post"]))
-        Submit($bdd, $queryCategorie, $queryQuestion);
+    if(( $eval->getStatut() == 3 ) || ( $eval->getStatut() == 4))
+    {
+        $boutonValider = '';
+    }
+    else
+    {
+        $boutonValider = '<input id="confirmer" class="bouton" style="width : 150px; float: right" type="button" value="Confirmer" onclick="Execute(4, \'../PHP/TBNavigation.php?idEmploye='.$profil["IdSuperviseur"].'&nomMenu=Eval\', \'&idEvaluation=\', '.$_REQUEST["idEvaluation"].', \'&idStagiaire=\', '.$_REQUEST["idStagiaire"].'); " hidden/>';
+        //$boutonValider = '<input id="confirmer" class="bouton" style="width : 150px; float: right" type="button" value="Confirmer" onclick="Execute(4, \'../PHP/TBNavigation.php?idEmploye='.$profil["IdSuperviseur"].'&nomMenu=Eval\', \'&post=true\', \'&idEvaluation=\', '.$_REQUEST["idEvaluation"].', \'&idStagiaire=\', '.$_REQUEST["idStagiaire"].'); Execute(1, \'../PHP/TBNavigation.php?idEmploye='.$profil["IdSuperviseur"].'&nomMenu=Main\')" hidden/>';
+    }
+
+    //$boutonValider = '<input id="confirmer" class="bouton" style="width : 150px; float: right" type="button" value="Confirmer" onclick="Execute(4, \'../PHP/TBNavigation.php?idEmploye='.$profil["IdSuperviseur"].'&nomMenu=Eval\', \'&post=true\', \'&idEvaluation=\', '.$_REQUEST["idEvaluation"].', \'&idStagiaire=\', '.$_REQUEST["idStagiaire"].') " hidden/>'; 
+    
+    //$boutonValider = '<input id="confirmer" class="bouton" style="width : 150px; float: right" type="button" value="Confirmer" onclick="Execute(4, \'../PHP/TBNavigation.php?idEmploye='.$profil["IdSuperviseur"].'&nomMenu=Eval\', \'&idEvaluation=\', '.$_REQUEST["idEvaluation"].', \'&idStagiaire=\', '.$_REQUEST["idStagiaire"].'); " hidden/>';
 
     $content =
     '<article class="stagiaire">
+
         <div class="infoStagiaire">
-            <h2>Évaluation de mi-stage</h2>
+            <h2>'.$eval->getTitre().'</h2>
         </div>
 
         <div class="blocInfo infoProfil">
@@ -193,32 +156,37 @@
             <h3>Identification</h3>
         </div>
 
-        '.Identification($bdd).'';
-
-        if($_REQUEST["typeEval"] == 1){
-            $content = $content.
-            '
-                '.QuestionsGrille($bdd, $queryQuestion, $queryReponse, $queryReponseChoisie, $queryCategorie).'
-            ';
-        }
-        else if($_REQUEST["typeEval"] == 2){
-            $content = $content.
-            '
-                '.QuestionChoixReponse($bdd, $eval).'
-            ';
-        }
+        '.Identification($bdd).'
+        '.$eval->DrawEvaluation($bdd).'';
         
         $content = $content .
         '<div class="navigateurEval">
             <input id="gauche" class="bouton" style="width : 150px; float: left;" type="button" value="Précédent" onclick="ChangerItem(this)"/>
             '.LettreNav($bdd, $eval).'
-            <input id="droite" class="bouton" style="width : 150px; float: right" type="button" value="Suivant" onclick="ChangerItem(this)"/>
-            <input id="confirmer" class="bouton" style="width : 150px; float: right" type="button" value="Confirmer" onclick="Execute(4, \'../PHP/TBNavigation.php?idEmploye='.$profil["IdSuperviseur"].'&nomMenu=Eval\', \'&post=true\', \'&idEvaluation=\', '.$_REQUEST["idEvaluation"].', \'&idStagiaire=\', '.$_REQUEST["idStagiaire"].'); Execute(1, \'../PHP/TBNavigation.php?idEmploye='.$profil["IdSuperviseur"].'&nomMenu=Main\')" hidden/>
+            <input id="droite" class="bouton" style="width : 150px; float: right" type="button" value="Suivant" onclick="ChangerItem(this)"/>'
+
+            .$boutonValider.
+
+        '</div>'.radioButtonValide().'
+
+        <div class="commentaireEvalMiStage">
+
+            <p>ÉVALUATION GLOBALE DE L’ÉLÈVE STAGIAIRE.</br> Donnez vos commentaires généraux.</p>
+                
+            '.zoneCommentaire($eval).'
+
         </div>
 
         <br/><br/>
 
         <input class="bouton" type="button" value="   Retour   " onclick="Execute(1, \'../PHP/TBNavigation.php?idEmploye='.$profil["IdSuperviseur"].'&nomMenu=Main\')"/>
+
+        <input type="hidden" name="IdSuperviseur" value="'. $profil["IdSuperviseur"] .'" />
+
+        <input type="hidden" name="IdEvaluation" value="'. $_REQUEST["idEvaluation"] .'" />
+
+        <input type="hidden" name="IdStagiaire" value="'. $_REQUEST["idStagiaire"] .'" />
+    
     </article>';
 
     return $content;
