@@ -10,25 +10,27 @@
                 break;
             case "Main":    
                 if($_SESSION['IdRole'] == 5)
-                                $menu = include 'TBSMain.php';
+                                        $menu = include 'TBSMain.php';
                 else if(($_SESSION['IdRole'] == 4) || ($_SESSION['IdRole'] == 3) || ($_SESSION['IdRole'] == 2))
-                                $menu = include 'TBEMain.php';
+                                        $menu = include 'TBEMain.php';
                 else if($_SESSION['IdRole'] == 1)
-                                $menu = include 'ConsoleAdminMain.php';
+                                        $menu = include 'ConsoleAdminMain.php';
                 break;
-            case "Modif":       $menu = include 'ModifProfil.php';
+            case "Modif":               $menu = include 'ModifProfil.php';
                 break;  
-            case "Journal":     $menu = include 'JournalBord.php';
+            case "Journal":             $menu = include 'JournalBord.php';
                 break;
-            case "Avenir":      $menu = include 'AVenir.php';
+            case "Avenir":              $menu = include 'AVenir.php';
                 break;
-            case "Eval":        $menu = include 'Evaluation.php';
+            case "Eval":                $menu = include 'Evaluation.php';
                 break;
-            case "Stage":       $menu = include 'CreationStage.php';
+            case "Stage":               $menu = include 'Stage.php';
                 break;
-            case "Session":     $menu = include 'CreationSession.php';
+            case "CreationStage":       $menu = include 'CreationStage.php';
                 break;
-            case "Entreprise":  $menu = include 'CreationEntreprise.php';
+            case "Session":             $menu = include 'CreationSession.php';
+                break;
+            case "Entreprise":          $menu = include 'CreationEntreprise.php';
         }
         
         echo json_encode($menu);

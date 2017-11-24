@@ -146,7 +146,7 @@ table > tbody>tr{border: solid 1px gainsboro;}
 .stage{
     margin-top: 40px;
     margin-bottom: 40px;
-    width: 80%;
+    width: 95%;
 }
 
 .stage > tbody > tr:hover{
@@ -313,6 +313,13 @@ input[type=file]{
     width: 49%;
 }
 
+.left{
+    float: left;
+    margin-left: 2.5%;
+    margin-top: 20px;
+    margin-bottom: 10px;
+}
+
 @media screen and (max-width: 1240px){
     .evaluation2{width: 100%;}
     
@@ -348,25 +355,4 @@ input[type=file]{
     right:0;
     bottom:0;
     margin:auto;
-}
-
-.commentaireEvalMiStage
-{
-    margin-top: 10px;
-    width: 90%;
-    margin: auto;
-}
-
-.commentaireEvalMiStage p
-{
-    float: left;
-}
-
-.messageErreurRadioButton
-{
-    width: 90%;
-    margin: auto;
-    margin-top: 10px;
-    color: red;
-    
 }

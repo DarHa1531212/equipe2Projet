@@ -4,11 +4,11 @@
     '
     <article class="stagiaire">
         <div class="infoStagiaire">
-            <h2>Stages</h2>
+            <h2>Création d\'un stage</h2>
         </div>
 
         <div class="separateur">
-            <h3>Création d\'un Stage</h3>
+            <h3>Information du stage</h3>
         </div>
 
         <div class="blocInfo infoProfil">
@@ -81,87 +81,11 @@
 
             <br/><br/>
 
-            <input class="bouton" type="button" style="width: 100px;" value="   Annuler   " onclick="Execute(1, \'../PHP/TBNavigation.php?idEmploye='.$id.'&nomMenu=Main\')"/>
+            <input class="bouton" type="button" style="width: 100px;" value="   Annuler   " onclick="Execute(1, \'../PHP/TBNavigation.php?&nomMenu=Stage\')"/>
             <input class="bouton" type="button" id="Save" style="width: 100px;" value="Sauvegarder"/>
 
             <br/><br/>
         </div>
-
-        <div class="separateur">
-            <h3>Liste des stages</h3>
-        </div>
-
-        <div class="blocInfo infoProfil">
-            <table class="stage">
-                <thead>
-                    <th>Entreprise </th>
-                    <th>Stagiaire</th>
-                    <th>Lettre d\'entente</th>
-                    <th>Offre de Stage</th>
-                    <th></th>
-                </thead>
-
-                <tbody>
-                    <tr class="itemHover">
-                        <td>CGI</td>
-                        <td>Martin Luther</td>
-                        <td>Lettre d\'entente.docx</td>
-                        <td>Offre de Stage.docx</td>
-                        <td>Mettre à jour la lettre d\'entente</td>
-                    </tr>
-                    <tr class="itemHover">
-                        <td>CGI</td>
-                        <td>Martin Luther</td>
-                        <td>Lettre d\'entente.docx</td>
-                        <td>Offre de Stage.docx</td>
-                        <td>Mettre à jour la lettre d\'entente</td>
-                    </tr>
-                    <tr class="itemHover">
-                        <td>CGI</td>
-                        <td>Martin Luther</td>
-                        <td>Lettre d\'entente.docx</td>
-                        <td>Offre de Stage.docx</td>
-                        <td>Mettre à jour la lettre d\'entente</td>
-                    </tr>
-                    <tr class="itemHover">
-                        <td>CGI</td>
-                        <td>Martin Luther</td>
-                        <td>Lettre d\'entente.docx</td>
-                        <td>Offre de Stage.docx</td>
-                        <td>Mettre à jour la lettre d\'entente</td>
-                    </tr>
-                    <tr class="itemHover">
-                        <td>CGI</td>
-                        <td>Martin Luther</td>
-                        <td>Lettre d\'entente.docx</td>
-                        <td>Offre de Stage.docx</td>
-                        <td>Mettre à jour la lettre d\'entente</td>
-                    </tr>
-                    <tr class="itemHover">
-                        <td>CGI</td>
-                        <td>Martin Luther</td>
-                        <td>Lettre d\'entente.docx</td>
-                        <td>Offre de Stage.docx</td>
-                        <td>Mettre à jour la lettre d\'entente</td>
-                    </tr>
-                    <tr class="itemHover">
-                        <td>CGI</td>
-                        <td>Martin Luther</td>
-                        <td>Lettre d\'entente.docx</td>
-                        <td>Offre de Stage.docx</td>
-                        <td>Mettre à jour la lettre d\'entente</td>
-                    </tr>
-                    <tr class="itemHover">
-                        <td>CGI</td>
-                        <td>Martin Luther</td>
-                        <td>Lettre d\'entente.docx</td>
-                        <td>Offre de Stage.docx</td>
-                        <td>Mettre à jour la lettre d\'entente</td>
-                    </tr>
-                </tbody>
-            </table>
-
-        </div>      
     </article>
     ';
     

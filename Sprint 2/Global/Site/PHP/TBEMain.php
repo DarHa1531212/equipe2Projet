@@ -5,46 +5,13 @@
     $query2 = $bdd->prepare("SELECT * FROM vInfoEvalGlobale
                             WHERE IdStagiaire = :idStagiaire;");
 
-    
-
     //Vérifie si les évaluations précédentes sont complétées pour pouvoir appuyer sur la suivante.
-    function VerifEvaluation($tblEvaluation, $profil, $bdd)
-    {
+    function VerifEvaluation($tblEvaluation, $profil){
         $listeStatut = array('Pas Accéssible','Pas Débuté','En Retard','Soumis ','Valide ');
-
-        $query3 = $bdd->prepare("update tblEvaluation set Statut=:Statut where Id=:IdEvaluation;");
-
         $div = "";
         $eval1 = "";
         $eval2 = "";
-
-        foreach ($tblEvaluation as $evaluation) 
-        {
-            if(date("Y-m-d") > $evaluation->dateFin) 
-            {
-                if(($evaluation->statut != 3) && ($evaluation->statut != 4))
-                {
-                    //l'evaluation n'est ni soumise, ni validée
-                    //update du statut de l'evaluation : il passe a en retard
-                    $query3->execute(array('Statut'=>2, 'IdEvaluation'=> $evaluation->id));
-                }
-            }
-            else if( date("Y-m-d") < $evaluation->dateDebut)
-            {
-                //affichage de l'évaluation : le statut est supposé etre a pas accéssible
-            }
-            else //intervalle de l'évaluation
-            {
-                if( ($evaluation->statut != 3) && ($evaluation->statut != 4))
-                {
-                    //l'evaluation n'est ni soumise, ni validée
-                    //update du statut de l'evaluation : il passe a pas débuté
-                    $query3->execute(array('Statut'=>1, 'IdEvaluation'=> $evaluation->id));   
-                }
-            }
-        }
-
-       
+        
         if($tblEvaluation[0]->statut != '0')//le statut est different de pas accéssible
         {
             $div = '<tr class="itemHover" onclick="Execute(1, \'../PHP/TBNavigation.php?idStagiaire='.$profil["Id"].'&nomMenu=Eval\', \'&idStage=\', '.$tblEvaluation[0]->idStage.', \'&idEvaluation=\', '.$tblEvaluation[0]->id.', \'&typeEval=1\');">';
@@ -61,8 +28,8 @@
             <td>'.$tblEvaluation[0]->dateFin.'</td>
             <td>'.$tblEvaluation[0]->dateCompletee.'</td>
         </tr>';
-
-        if(($tblEvaluation[1]->statut != '0')&&(($tblEvaluation[0]->statut == '3')||($tblEvaluation[0]->statut == '4')))//statut different de pas accéssible et est soumis ou valide
+        
+        if(($tblEvaluation[1]->statut != '0')&&(($tblEvaluation[0]->statut == '3')||($tblEvaluation[0]->statut == '4')))
         {
             $div = '<tr class="itemHover" onclick="Execute(1, \'../PHP/TBNavigation.php?idStagiaire='.$profil["Id"].'&nomMenu=Eval\', \'&idStage=\', '.$tblEvaluation[1]->idStage.', \'&idEvaluation=\', '.$tblEvaluation[1]->id.', \'&typeEval=2\')">';
         }
@@ -78,37 +45,18 @@
             <td>'.$tblEvaluation[1]->dateFin.'</td>
             <td>'.$tblEvaluation[1]->dateCompletee.'</td>
         </tr>';
-
-        if(($tblEvaluation[2]->statut != '0')&&(($tblEvaluation[0]->statut == '3')||($tblEvaluation[0]->statut == '4'))&&(($tblEvaluation[1]->statut == '3')||($tblEvaluation[1]->statut == '4')))//statut different de pas accéssible et est soumis ou valide
-        {
-            $div = '<tr class="itemHover" onclick="Execute(1, \'../PHP/TBNavigation.php?idStagiaire='.$profil["Id"].'&nomMenu=Eval\', \'&idStage=\', '.$tblEvaluation[1]->idStage.', \'&idEvaluation=\', '.$tblEvaluation[2]->id.', \'&typeEval=3\')">';
-        }
-        else
-        {
-            $div = '<tr>';
-        }
         
-        $eval3 = $div.
-            '<td>'.$tblEvaluation[2]->titre.'</td>
-            <td>'.$listeStatut[$tblEvaluation[2]->statut].'</td>
-            <td>'.$tblEvaluation[2]->dateDebut.'</td>
-            <td>'.$tblEvaluation[2]->dateFin.'</td>
-            <td>'.$tblEvaluation[2]->dateCompletee.'</td>
-        </tr>';
-        
-        $div = $eval1.$eval2.$eval3;
+        $div = $eval1.$eval2;
         
         return $div;
     }
 
-    foreach($profils as $profil)
-    {
+    foreach($profils as $profil){
         $query2->execute(array('idStagiaire'=> $profil["Id"]));
         $evals = $query2->fetchAll();
         $tblEvaluation = array();
         
-        foreach($evals as $eval)
-        {
+        foreach($evals as $eval){
             $evaluation = (object)[];
 
             $evaluation->idStage = $eval["IdStage"];
@@ -121,7 +69,7 @@
 
             $tblEvaluation[] = $evaluation;
         }
-
+        
         $content = $content.
         '<article class="stagiaire">
         <div class="infoStagiaire">
@@ -173,16 +121,13 @@
             </thead>
 
             <tbody>
-                '.VerifEvaluation($tblEvaluation, $profil, $bdd).'
+                '.VerifEvaluation($tblEvaluation, $profil).'
             </tbody>
         </table>
 
         <br/><br/><br/>';
         
-        if(count($profils) > 1)
-        {
-
-            //Si il y a plus qu'un stagiaire, affiche les flèches.
+        if(count($profils) > 1){//Si il y a plus qu'un stagiaire, affiche les flèches.
             $content = $content.
             '<input class="bouton" type="button" value="Écrire un commentaire" onclick="Execute(1, \'../PHP/TBNavigation.php?idEmploye='.$profil["IdSuperviseur"].'&nomMenu=Avenir\')"/>
 
@@ -190,7 +135,6 @@
                 <div id="gauche" class="fleche flecheGauche" onclick="ChangerItem(this)"></div>
                 <div id="droite" class="fleche flecheDroite" onclick="ChangerItem(this)"></div>
             </div>';
-            
         }
         
         $content = $content.

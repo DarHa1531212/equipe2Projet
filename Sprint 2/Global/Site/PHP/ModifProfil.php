@@ -53,9 +53,7 @@ $content =
                         
                         <div class="champ">
                             <p class="label labelForInput">No. Téléphone :</p>
-
                             <input type="text" value="'.$profil->getNumTelPerso().'" id="numTel" name="numTel" class="value" onkeyup="RegexProfilStagiaire()"/>
-
                             <img class="info" src="../Images/info.png" title="Le numéro de téléphone doit
 avoir ce format - (xxx) xxx-xxxx"/>
                         </div>
@@ -84,16 +82,13 @@ avoir ce format - (xxx) xxx-xxxx"/>
                         
                         <div class="champ">
                             <p class="label labelForInput">No. Téléphone :</p>
-
                             <input type="text" value="'.$profil->getNumTel().'" id="numEntreprise" name="numEntreprise" class="value" onkeyup="RegexProfilStagiaire()"/>
-
                             <img class="info" src="../Images/info.png" title="Le numéro de téléphone doit
 avoir ce format - (xxx) xxx-xxxx"/>
                         </div>
                     
                         <div class="champ">
                             <p class="label labelForInput">Poste :</p>
-
                             <input type="text" value="'.$profil->getPoste().'" name="poste" id="poste" class="value" onkeyup="RegexProfilStagiaire()"/>
                         </div>
                 </div>
