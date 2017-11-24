@@ -53,14 +53,14 @@ $content =
                         
                         <div class="champ">
                             <p class="label labelForInput">No. Téléphone :</p>
-                            <input type="text" value="'.$profil->getNumTelPerso().'" id="numTel" name="numTel" class="value" onkeyup="RegexProfilStagiaire()"/>
+                            <input type="text" value="'.$profil->getNumTelPerso().'" id="numTel" name="numTel" class="value" onexit="RegexProfilStagiaire()"/>
                             <img class="info" src="../Images/info.png" title="Le numéro de téléphone doit
 avoir ce format - (xxx) xxx-xxxx"/>
                         </div>
                     
                         <div class="champ">
                             <p class="label labelForInput">Courriel :</p>
-                            <input type="email" value="'.$profil->getCourrielPerso().'" id="courrielPersonnel" name="courrielPersonnel" class="value" onkeyup="RegexProfilStagiaire()"/>
+                            <input type="email" value="'.$profil->getCourrielPerso().'" id="courrielPersonnel" name="courrielPersonnel" class="value" onexit="RegexProfilStagiaire()"/>
                         </div>
                 </div>
                 
@@ -76,20 +76,20 @@ avoir ce format - (xxx) xxx-xxxx"/>
                         
                         <div class="champ">
                             <p class="label labelForInput">Courriel :</p>
-                            <input type="email" value="'.$profil->getCourriel().'" id="courrielEntreprise" name="courrielEntreprise" class="value" onkeyup="RegexProfilStagiaire()"/>
+                            <input type="email" value="'.$profil->getCourriel().'" id="courrielEntreprise" name="courrielEntreprise" class="value" onexit="RegexProfilStagiaire()"/>
                             
                         </div>
                         
                         <div class="champ">
                             <p class="label labelForInput">No. Téléphone :</p>
-                            <input type="text" value="'.$profil->getNumTel().'" id="numEntreprise" name="numEntreprise" class="value" onkeyup="RegexProfilStagiaire()"/>
+                            <input type="text" value="'.$profil->getNumTel().'" id="numEntreprise" name="numEntreprise" class="value" onexit="RegexProfilStagiaire()"/>
                             <img class="info" src="../Images/info.png" title="Le numéro de téléphone doit
 avoir ce format - (xxx) xxx-xxxx"/>
                         </div>
                     
                         <div class="champ">
                             <p class="label labelForInput">Poste :</p>
-                            <input type="text" value="'.$profil->getPoste().'" name="poste" id="poste" class="value" onkeyup="RegexProfilStagiaire()"/>
+                            <input type="text" value="'.$profil->getPoste().'" name="poste" id="poste" class="value" onexit="RegexProfilStagiaire()"/>
                         </div>
                 </div>
                 
@@ -100,7 +100,7 @@ avoir ce format - (xxx) xxx-xxxx"/>
                 <div class="blocInfo infoProfil">
                         <div class="champ">
                             <p class="label labelForInput">Nouveau mot de passe :</p>
-                            <input type="password" id="newPwd" class="value" name="nouveauPasse" onkeyup="RegexProfilStagiaire()"/>
+                            <input type="password" id="newPwd" class="value" name="nouveauPasse" onexit="RegexProfilStagiaire()"/>
                             <img class="info" src="../Images/info.png" title="Le mot de passe doit contenir
 - 8 caractères minimum
 - Au moins une majuscule
@@ -109,7 +109,7 @@ avoir ce format - (xxx) xxx-xxxx"/>
 
                         <div class="champ">
                             <p class="label labelForInput">Confirmer le mot de passe :</p>
-                            <input type="password" id="confirmationNewPwd" class="value" onkeyup="RegexProfilStagiaire()"/>
+                            <input type="password" id="confirmationNewPwd" class="value" onexit="RegexProfilStagiaire()"/>
                         </div>
                 </div>
                 
