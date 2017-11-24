@@ -31,7 +31,11 @@ JOIN vUtilisateurRole AS UR
 ON UR.IdUtilisateur = Util.Id
 JOIN vRole AS Role
 ON UR.IdRole = Role.Id
+<<<<<<< HEAD
+WHERE Role.Titre = 'Gestionnaire';
+=======
 WHERE Role.Titre = 'Gestionnaire';*/
+>>>>>>> f919533d5dcf2dba0255e78eeaae3b5a83a12642
 
 -- ------------------------------------------------
 -- Sélectionne tous les responsables.
@@ -106,7 +110,11 @@ CREATE VIEW vEvaluationCompletee AS
 SELECT Stagiaire.Id AS IdStagiaire, Stagiaire.Prenom, Stagiaire.Nom, Eval.Id AS IdEvaluation, 
 TypeEval.Titre AS Evaluation, Question.Texte AS Question,Lettre,TitreCategorie,DescriptionCategorie, EQR.IdReponse, Reponse.Texte AS Reponse,
 CONCAT(Enseignant.Prenom,' ',Enseignant.Nom) AS Enseignant,
+<<<<<<< HEAD
+CONCAT(Gestionnaire.Prenom,' ',Gestionnaire.Nom) AS Gestionnaire,
+=======
 -- CONCAT(Gestionnaire.Prenom,' ',Gestionnaire.Nom) AS Gestionnaire,
+>>>>>>> f919533d5dcf2dba0255e78eeaae3b5a83a12642
 CONCAT(Responsable.Prenom,' ',Responsable.Nom) AS Responsable,
 CONCAT(Superviseur.Prenom,' ',Superviseur.Nom) AS Superviseur,
 Entreprise.Nom AS Entreprise,TypeEval.Id AS TypeEvaluation, Competence
@@ -131,8 +139,13 @@ JOIN vReponse AS Reponse
 ON Reponse.Id = EQR.IdReponse
 JOIN vEnseignant AS Enseignant
 ON Enseignant.IdUtilisateur = Stage.IdEnseignant
+<<<<<<< HEAD
+JOIN vGestionnaire AS Gestionnaire
+ON Gestionnaire.IdUtilisateur = Stage.IdGestionnaire
+=======
 /*JOIN vGestionnaire AS Gestionnaire
 ON Gestionnaire.IdUtilisateur = Stage.IdGestionnaire*/
+>>>>>>> f919533d5dcf2dba0255e78eeaae3b5a83a12642
 JOIN vResponsable AS Responsable
 ON Responsable.IdUtilisateur = Stage.IdResponsable
 JOIN vSuperviseur AS Superviseur
@@ -144,9 +157,35 @@ where IdStagiaire = 15 ;
 -- ------------------------------------------------
 -- Récupère toutes les évaluations des stagiaires selon leur ID et le type d'évaluation avec leurs réponses choisies.
 -- ------------------------------------------------
+<<<<<<< HEAD
+
+DROP VIEW IF EXISTS vEvaluations;
+CREATE VIEW vEvaluations AS
+SELECT St.Id AS 'IdStage',St.IdResponsable AS 'IdResponsable',Eva.Id AS 'IdEvaluation',TE.Id AS 'IdTypeEvaluation',TE.Titre AS 'TypeEvaluation',Qu.Id AS 'IdQuestion',Qu.Texte AS 'DescriptionQuestion',CQ.DescriptionCategorie AS 'DescriptionCategorie',TQ.Description AS 'DescriptionTypeQuestion',Re.Id AS 'IdReponse',Re.Texte AS 'DescriptionReponse'
+FROM tblStage AS St
+JOIN tblEvaluationStage AS Es
+ON Es.IdStage = St.Id
+JOIN tblEvaluation AS Eva
+ON Eva.Id = Es.IdEvaluation
+JOIN tblEvaluationQuestionReponse AS EQR
+ON EQR.IdEvaluation = Eva.Id
+JOIN tblQuestion AS Qu
+ON Qu.Id = EQR.IdQuestion
+JOIN tblReponseQuestion AS RQ
+ON RQ.IdQuestion = Qu.Id
+JOIN tblReponse AS Re
+ON RQ.IdReponse = Re.Id
+JOIN tblCategorieQuestion AS CQ
+ON CQ.Id = Qu.IdCategorieQuestion
+JOIN tblTypeQuestion AS TQ
+ON TQ.Id = Qu.IdTypeQuestion
+JOIN tblTypeEvaluation AS TE
+ON TE.Id = Eva.IdTypeEvaluation
+LIMIT 20000;
+=======
 DROP VIEW IF EXISTS vEvaluations;
 CREATE VIEW vEvaluations as
-SELECT St.Id as 'IdStage',St.IdResponsable as 'IdResponsable',Eva.Id as 'IdEvaluation',TE.Id as 'IdTypeEvaluation',TE.Titre as 'TypeEvaluation',Qu.Id as 'IdQuestion',Qu.Texte as 'DescriptionQuestion',CQ.Id as 'IdCategorieQuestion',CQ.DescriptionCategorie as 'DescriptionCategorie',TQ.Description as 'DescriptionTypeQuestion',Re.Id as 'IdReponse',Re.Texte as 'DescriptionReponse'
+SELECT St.Id as 'IdStage',St.IdResponsable as 'IdResponsable',Eva.Id as 'IdEvaluation',TE.Id as 'IdTypeEvaluation',TE.Titre as 'TypeEvaluation',Qu.Id as 'IdQuestion',Qu.Texte as 'DescriptionQuestion',CQ.Id as 'IdCategorieQuestion',CQ.TitreCategorie as 'DescriptionCategorie',TQ.Description as 'DescriptionTypeQuestion',Re.Id as 'IdReponse',Re.Texte as 'DescriptionReponse'
 from tblStage as St
 join tblEvaluationStage as Es
 on Es.IdStage = St.Id
@@ -167,3 +206,4 @@ on TQ.Id = Qu.IdTypeQuestion
 join tblTypeEvaluation AS TE
 ON TE.Id = Eva.IdTypeEvaluation
 limit 20000;
+>>>>>>> f919533d5dcf2dba0255e78eeaae3b5a83a12642

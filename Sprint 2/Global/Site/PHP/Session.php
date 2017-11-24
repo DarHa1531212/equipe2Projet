@@ -6,4 +6,5 @@
     {
         session_start();
     }
+    
  ?>

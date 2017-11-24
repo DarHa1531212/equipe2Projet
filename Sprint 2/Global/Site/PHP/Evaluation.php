@@ -7,7 +7,8 @@
     else if($eval->getIdTypeEval() == 2)
         $eval = new EvaluationChoixReponse($bdd, $_REQUEST["idEvaluation"]);
 
-    function Identification($bdd){
+    function Identification($bdd)
+    {
         $query = $bdd->prepare( 'SELECT * FROM vIdentification
                             WHERE IdStagiaire = :idStagiaire');
 
@@ -43,11 +44,55 @@
         ';
     }
 
-    function LettreNav($bdd, $eval){
+    /*function radioButtonValide($bdd)
+    {
+        if(isset($_REQUEST["post"])) 
+        {
+            $reponses = json_decode($_POST["tabReponse"], true);
+
+            if(count($eval->getQuestions()) == count($reponses))
+            {
+                //toutes les questions ont ete cochées
+                $eval->Submit($bdd);
+
+                $message = 'O';
+
+            }
+            else
+            {
+                $message = '<div class = "messageErreurRadioButton" > Soumission impossible. Vous n\'avez pas repondu a toutes les questions </div>';
+            }
+        }
+        else
+        {
+            $message = 'N';
+        }   
+
+        return $message;
+    }*/
+
+    function zoneCommentaire($eval)
+    {
+        if( ( $eval->getStatut() == 3 ) || ( $eval->getStatut() == 4) )
+        {
+            $zoneSaisieCommentaire = '<textarea id="commentaireEvaluation" rows="5" cols="100" maxlength="500" name="commentaireEvaluation" wrap="hard" readonly>'.$eval->getCommentaire().'</textarea>';
+        }
+        else
+        {
+            $zoneSaisieCommentaire = '<textarea id="commentaireEvaluation" rows="5" cols="100" maxlength="500" name="commentaireEvaluation" wrap="hard"></textarea>';
+        }
+
+        return $zoneSaisieCommentaire;
+    }
+
+
+    function LettreNav($bdd, $eval)
+    {
         $i = 0;
         $content = "";
         
-        foreach($eval->getCategories() as $categorie){
+        foreach($eval->getCategories() as $categorie)
+        {
             $content = $content.
             '<input id="Cat'.$i++.'" type="button" value="'.$categorie->getLettre().'" class="lettreNav bouton" onclick="JumpTo('.($i-1).')"/>';
         }
@@ -57,9 +102,35 @@
 
     if(isset($_REQUEST["post"]))
         $eval->Submit($bdd);
+        
+    function radioButtonValide()
+    {
+        if(isset($_REQUEST["erreurRadioButton"]))
+        {  
+            $message = '<div class="messageErreurRadioButton">
+                        Confirmation impossible. Veuillez choisir une reponse pour toutes les questions.
+                        </div>';
+        }
+        else
+        {
+            $message = '';
+        }
+
+        return $message;
+    }
+
+    if(( $eval->getStatut() == 3 ) || ( $eval->getStatut() == 4))
+    {
+        $boutonValider = '';
+    }
+    else
+    {
+        $boutonValider = '<input id="confirmer" class="bouton" style="width : 150px; float: right" type="button" value="Confirmer" onclick="Execute(4, \'../PHP/TBNavigation.php?idEmploye='.$profil["IdSuperviseur"].'&nomMenu=Eval\', \'&idEvaluation=\', '.$_REQUEST["idEvaluation"].', \'&idStagiaire=\', '.$_REQUEST["idStagiaire"].'); " hidden/>';
+    }
 
     $content =
     '<article class="stagiaire">
+
         <div class="infoStagiaire">
             <h2>'.$eval->getTitre().'</h2>
         </div>
@@ -85,13 +156,32 @@
         '<div class="navigateurEval">
             <input id="gauche" class="bouton" style="width : 150px; float: left;" type="button" value="Précédent" onclick="ChangerItem(this)"/>
             '.LettreNav($bdd, $eval).'
+
             <input id="droite" class="bouton" style="width : 150px; float: right" type="button" value="Suivant" onclick="ChangerItem(this)"/>
-            <input id="confirmer" class="bouton" style="width : 150px; float: right" type="button" value="Confirmer" onclick="Execute(4, \'../PHP/TBNavigation.php?idEmploye='.$profil["IdSuperviseur"].'&nomMenu=Eval\', \'&post=true\', \'&idEvaluation=\', '.$_REQUEST["idEvaluation"].', \'&idStagiaire=\', '.$_REQUEST["idStagiaire"].'); Execute(1, \'../PHP/TBNavigation.php?idEmploye='.$profil["IdSuperviseur"].'&nomMenu=Main\')" hidden/>
+            <input id="droite" class="bouton" style="width : 150px; float: right" type="button" value="Suivant" onclick="ChangerItem(this)"/>'
+
+            .$boutonValider.
+
+        '</div>'.radioButtonValide().'
+
+        <div class="commentaireEvalMiStage">
+
+            <p>ÉVALUATION GLOBALE DE L’ÉLÈVE STAGIAIRE.</br> Donnez vos commentaires généraux.</p>
+                
+            '.zoneCommentaire($eval).'
+
         </div>
 
         <br/><br/>
 
         <input class="bouton" type="button" value="   Retour   " onclick="Execute(1, \'../PHP/TBNavigation.php?idEmploye='.$profil["IdSuperviseur"].'&nomMenu=Main\')"/>
+
+        <input type="hidden" name="IdSuperviseur" value="'. $profil["IdSuperviseur"] .'" />
+
+        <input type="hidden" name="IdEvaluation" value="'. $_REQUEST["idEvaluation"] .'" />
+
+        <input type="hidden" name="IdStagiaire" value="'. $_REQUEST["idStagiaire"] .'" />
+    
     </article>';
 
     return $content;
