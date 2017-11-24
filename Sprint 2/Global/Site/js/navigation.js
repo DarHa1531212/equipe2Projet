@@ -130,7 +130,8 @@ function Execute(choix){
 			break;
 		case 10: readEmploye(ExecuteQuery, arguments);
 			break;
-			
+		case 11: updateStagiaire (ExecuteQuery, arguments);
+			break;
 
 	}
 }

@@ -47,41 +47,47 @@ But: Un écran de CRUD qui permet de gérer des stagiaires
 
 <!-- Section de modification du stagiaire -->
 
+						
+	<div id="modifStagiaire" >
+		<br>
+        <p class="label labelForInput">Prenom :</p>
+        <input type="text" value="" class="value"/>
 
+        <br>
+        <p class="label labelForInput">Nom :</p>
+        <input type="text" value="" class="value"/>
 
-Nom du stagiaire: Olimpia Tremblay
+         <br>
+        <p class="label labelForInput">Courriel :</p>
+        <input type="text" value="" class="value"/>
 
+        <br>
+        <p class="label labelForInput">Numero de telephone entreprise :</p>
+        <input type="text" value="" class="value"/>
+    
+    	<br>
+        <p class="label labelForInput">Poste téléphonique :</p>
+        <input type="text" value="" class="value"/>
 
-Courrie scolaire: Tremblay.Olimpia@etu.cegepjonquiere.ca
+        <br>
+        <p class="label labelForInput">Courriel en entreprise :</p>
+        <input type="text" value="" class="value"/>
 
+        <br>
+        <p class="label labelForInput">Code permanent :</p>
+        <input type="text" value="" class="value"/>
 
-Numéro de téléphone en entreprise: null
+        <br>
+        <p class="label labelForInput">Courriel personnel :</p>
+        <input type="text" value="" class="value"/>
 
+        <br>
+        <p class="label labelForInput">Numéro de téléphone personnel :</p>
+        <input type="text" value="" class="value"/>
 
-Poste: null
-
-
-Courriel d'entreprise: null
-
-
-Code permanent: null
-
-
-Courriel personnel: Tremblay.Olimpia@hotmail.com
-
-
-Numéro de téléphone personnel: (418) 695-1924
-
-
-Entreprise: BanTheB
-							<br>
-                            <p class="label labelForInput">Prenom :</p>
-                            <input type="text" value=" Prenom" class="value"/>
-
-                            	<br>
-                            <p class="label labelForInput">Nom :</p>
-                            <input type="text" value=" Prenom" class="value"/>
-                        
+        <br>
+        <input type="button" id="Save" class="bouton" value="Sauvegarder" />
+	</div>
 
 
 <!-- Fin de section de modification du stagiaire -->
@@ -116,6 +122,7 @@ Entreprise: BanTheB
           echo  '<tr>
                   <th  id="' . $idStagiaire .'" onClick="Execute(9,\'../PHP/TBNavigation.php?nomMenu=CRUDStagiaire\', this.id)">' . $nomStagiaire . '</th>
                   <th>' . $courrielScolaire . '</th>
+                  <th id="' . $idStagiaire .'" onClick="Execute(11,\'../PHP/TBNavigation.php?nomMenu=CRUDStagiaire\', this.id)">Modifier le stagiaire</th>
                 </tr>';
 
       }      

@@ -634,7 +634,7 @@
     
     
     /**********************************************************************************************
-    *   Classes: cUtilisateur, cStagiaire, cEmployeEntreprise                                     *
+    *   Classes: cUtilisateur, cStagiaire, cEmployeEntreprise, cEntreprise                        *
     *   But: gérer le CRUD des utilisateurs                                                       *
     *   Note: Va utiliser de l'héritage pour les champs des stagiaires vs des employes            *
     *   Nom: Hans darmstadt-Bélanger                                                              *
@@ -654,14 +654,53 @@
 
     class cUtilisateur  extends cAbstractUtilisateur{
         
+        public function __construct($id, $bdd){
+            $this->id = $id;
+        }
         private $courrielPrincipal, $id, $prenom, $nom, $noTelPrincipal, $posteTelEntreprise;
 
-
-        
+        public function getCourrielPrincipal(){
+            return $this->courrielPrincipal;
         }
+
+        public function getId(){
+            return $this->id;
+        }
+
+        public function getPrenom(){
+            return $this->prenom;
+        }
+
+        public function getNoTelPrincipal(){
+            return $this->noTelPrincipal;
+        }
+
+        public function getPosteTelEntreprise(){
+            return $this->posteTelEntreprise;
+        }
+    }
+        
+        
     class cStagiaire extends cUtilisateur {
 
         private $noTelEntreprise, $courrielEntreprise, $courrielPersonnel, $codePermanent;
+
+        public function getNoTelEntreprise(){
+            return $this->noTelEntreprise;
+        }
+
+        public function getCourrielEntreprise(){
+            return $this->courrielEntreprise;
+        }
+
+        public function getCourrielPersonnel(){
+            return $this->courrielPersonnel;
+        }
+
+        public function getCodePermanent(){
+            return $this->codePermanent;
+        }
+
 
         protected function createUtilisateur($bdd,$dataArray)
 
@@ -735,6 +774,11 @@
        
 
     class cEmployeEntreprise extends cUtilisateur{
+
+        public function __construct($id, $bdd){     
+            parent::__construct($id, $bdd);
+            $this->Initialise($id, $bdd);
+        }
 
         protected function createUtilisateur($bdd,$dataArray)
         {
@@ -811,6 +855,55 @@
     {
 
         private $idStagiaire, $idResponsable, $idSuperviseur, $idEnseignant, $idEntreprise, $competancesRecherchees, $descriptionStage, $salaireHoraire, $nbreHeuresSemaine, $dateDebut, $dateFin;
+
+        public function __construct($id, $bdd){  
+            $this->Initialise($id, $bdd);   
+        }
+
+        public function getIdSuperviseur(){
+            return $this->idSuperviseur;
+        }
+
+        public function getIdEnseignant(){
+            return $this->idEnseignant;
+        }
+
+        public function getIdEntreprise(){
+            return $this->idEntreprise;
+        }
+
+        public function getIdResponsable(){
+            return $this->idResponsable;
+        }
+
+        public function getIdStagiaire(){
+            return $this->idStagiaire;
+        }
+
+        public function getCompetancesRecherchees(){
+            return $this->competancesRecherchees;
+        }
+
+        public function getDescriptionStage(){
+            return $this->descriptionStage;
+        }
+
+        public function getSalaireHoraire(){
+            return $this->salaireHoraire;
+        }
+
+        public function getNbreHeuresSemaine(){
+            return $this->nbreHeuresSemaine;
+        }
+
+        public function getDateDebut(){
+            return $this->dateDebut;
+        }
+
+        public function getDateFin(){
+            return $this->dateFin;
+        }
+
         function createStage($bdd, $dataArray)
         {
 

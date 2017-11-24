@@ -111,3 +111,8 @@ function afficherInfos(data)
     */
 
 }
+
+function updateStagiaire(callback, args)
+{
+   
+}
