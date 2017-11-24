@@ -92,12 +92,12 @@ function readEmploye (callback, args)
 
 function afficherInfos(data)
 {  
-    alert (data);
+   
     var myObject = JSON.parse(data);
     console.log (myObject);
-    var contenu ="<p>Nom du stagiaire:  ".concat(  myObject[7]  + "</p><br><p>Nom d'entreprise: " + myObject[5] + "</p><br><p>Nom de l'enseignant: " + myObject[9] +"</p><br><p>Nom du superviseur: " + myObject[6] + "</p><br><p>Nom du responsable: " + myObject[8] +  "</p> <br> <p>Horaire de travail: " + myObject[2] + "</p><br><p>Salaire horaire: " + myObject[3] + "</p><br><p>Nombre d'heures par semaine: " +  myObject[4] + "</p> <br><p>Compétences recherchées: " + myObject[1] +   "</p><br><p>Description du stage: " + myObject[0] + "</p><br>");
+    var contenu ="<p>Nom de l'employe:  ".concat(  myObject[0]  + "</p><br><p>Nom d'entreprise: " + myObject[4] + "</p><br><p>Courriel de l'employe: " + myObject[1] +"</p><br><p>Numéro de téléphone de l'employé: " + myObject[2] + "</p><br><p>Poste téléphonique de l'employe: " + myObject[3] +  "</p> <br>");
     console.log (contenu);
-    document.getElementById('readStage').innerHTML = contenu;
+    document.getElementById('readEmployeEntreprise').innerHTML = contenu;
 
 
 

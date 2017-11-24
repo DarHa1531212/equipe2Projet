@@ -27,6 +27,7 @@ But: Un écran de CRUD qui permet de gérer des employés des entreprises
           <link rel="shortcut icon" href="../Images/LogoDICJ2Petit.ico">
   </head>
   <body>
+    <div id="readEmployeEntreprise"></div>
     <h2>Créer un employé</h2>
     <br>
     Prenom de l'employé <input id="prenomEmploye" class = "data" type="text" name="prenomEmploye" value="prenom"><br>

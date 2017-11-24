@@ -42,56 +42,40 @@
 	
 	function afficherInfos($bdd, $dataArray)
 	{
-		$idStagiaire =  intval ($dataArray[1]->value);
+		$idEmploye =  intval ($dataArray[1]->value);
 		$returnData = array();
 
 		$query = $bdd->prepare("select 
-    vStagiaire.Nom as 'NomStagiaire', 
-    vStagiaire.Prenom as 'PrenomStagiaire'  , 
-    vStagiaire.CourrielScolaire as 'CourrieScolaire', 
-    vStagiaire.NumTelEntreprise as 'NumTelEntreprise',
-    vStagiaire.Poste as 'Poste',
-    vStagiaire.CourrielEntreprise as 'CourrielEntreprise', 
-    vStagiaire.CodePermanent as 'CodePermanent', 
-    vStagiaire.CourrielPersonnel as 'CourrielPersonnel', 
-    vStagiaire.NumTel as 'NumTelStagiaire', 
-    vEntreprise.Nom as 'NomEntreprise'
-    from vStagiaire 
-    join vStage on vStage.idStagiaire = vStagiaire.IdUtilisateur 
-    join vSuperviseur on vStage.IdSuperviseur = vSuperviseur.IdUtilisateur 
-    join vEntreprise on vEntreprise.Id = vSuperviseur.IdEntreprise 
-    where vStagiaire.IdUtilisateur like :idStagiaire");
+		concat (Prenom, ' ' , vEmploye.Nom) as 'NomEmploye', 
+		vEmploye.CourrielEntreprise as 'CourrielEmploye' , 
+		vEmploye.NumTel as 'NumTelEmploye', 
+		Poste as 'PosteEmploye',
+		vEntreprise.Nom as 'NomEntreprise'
+		from vEmploye
+		join vEntreprise on vEmploye.IdEntreprise = vEntreprise.Id 
+		where IdUtilisateur like :idEmploye");
 
-		$query->execute(array('idStagiaire'=> $idStagiaire));     
+		$query->execute(array('idEmploye'=> $idEmploye));     
 		$entrees = $query->fetchAll();
 
 	foreach($entrees as $entree){
 
 
-		$NomStagiaire = $entree["NomStagiaire"];
-		$PrenomStagiaire = $entree["PrenomStagiaire"];
-		$CourrieScolaire = $entree["CourrieScolaire"];
-		$NumTelEntreprise = $entree["NumTelEntreprise"];
-		$Poste = $entree["Poste"];
-		$CourrielEntreprise = $entree["CourrielEntreprise"];
-		$CodePermanent = $entree["CodePermanent"];
-		$CourrielPersonnel = $entree["CourrielPersonnel"];
-		$NumTelStagiaire = $entree["NumTelStagiaire"];
+		$NomEmploye = $entree["NomEmploye"];
+		$CourrielEmploye = $entree["CourrielEmploye"];
+		$NumTelEmploye = $entree["NumTelEmploye"];
+		$PosteEmploye = $entree["PosteEmploye"];
 		$NomEntreprise = $entree["NomEntreprise"];
+	
+		$returnData [0] = $NomEmploye;
+		$returnData [1] = $CourrielEmploye;
+		$returnData [2] = $NumTelEmploye;
+		$returnData [3] = $PosteEmploye;
+		$returnData [4] = $NomEntreprise;
 
-		$returnData [0] = $NomStagiaire;
-		$returnData [1] = $PrenomStagiaire;
-		$returnData [2] = $CourrieScolaire;
-		$returnData [3] = $NumTelEntreprise;
-		$returnData [4] = $Poste;
-		$returnData [5] = $CourrielEntreprise;
-		$returnData [6] = $CodePermanent;
-		$returnData [7] = $CourrielPersonnel;
-		$returnData [8] = $NumTelStagiaire;
-		$returnData [9] = $NomEntreprise;  
 	}
 
-	return 'patate';
+	return $returnData;
 
 	}
 
