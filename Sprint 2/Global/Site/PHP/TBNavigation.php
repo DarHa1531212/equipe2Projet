@@ -1,7 +1,7 @@
 <?php 
     function AfficherPage($NomMenu){
         include 'Session.php';
-        include 'vProfil.php';
+        //include 'vProfil.php';
         include 'vTableauBord.php';
         include 'Model.php';
         $menu = "";
