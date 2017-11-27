@@ -91,21 +91,19 @@ CONCAT(IdQuestion,IdReponse,IdEvaluation) AS tag FROM tblEvaluationQuestionRepon
 -- Table Evaluation
 
 DROP TABLE IF EXISTS tblEvaluation;
-CREATE TABLE tblEvaluation
-(
+CREATE TABLE tblEvaluation(
 	Id						INT				AUTO_INCREMENT,
 	Statut					CHAR(1)			NOT	NULL,
 	DateDébut				DATE			NULL,
 	DateFin					DATE			NULL,
 	DateComplétée			DATE			NULL,
-	Commentaire 			VARCHAR(700)	NOT NULL,				
 	PRIMARY KEY(Id),
 	IdTypeEvaluation		INT				NOT NULL
 );
 
 DROP VIEW IF EXISTS vEvaluation;
-CREATE VIEW vEvaluation AS SELECT Id,Statut,DateComplétée,DateDébut,DateFin,Commentaire,
-CONCAT(Id,Statut,DateComplétée,DateDébut,DateFin,IdTypeEvaluation,Commentaire,Statut,IFNULL(DateComplétée,'')) AS tag,IdTypeEvaluation FROM tblEvaluation;
+CREATE VIEW vEvaluation AS SELECT Id,Statut,DateComplétée,DateDébut,DateFin,
+CONCAT(Id,Statut,DateComplétée,DateDébut,DateFin,IdTypeEvaluation,IdTypeEvaluation,Statut,IFNULL(DateComplétée,'')) AS tag,IdTypeEvaluation FROM tblEvaluation;
 
 
 -- Table tblTypeEvaluation

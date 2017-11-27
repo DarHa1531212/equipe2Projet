@@ -1,7 +1,3 @@
-
--- USE BDProjet_equipe2V2;
--- USE cegepjon_p2017_2_dev;
-
  USE BDProjet_equipe2V2;
 -- USE cegepjon_p2017_2_dev;
 -- USE cegepjon_p2017_2_prod;
@@ -93,14 +89,6 @@ ON res.IdUtilisateur = Stage.IdResponsable;
 
 DROP VIEW IF EXISTS vInfoEvalGlobale;
 CREATE VIEW vInfoEvalGlobale AS
-SELECT IdStagiaire, Titre, Statut, DateLimite, DateComplétée
-FROM vStage AS Stage
-JOIN vEvaluationStage AS ES
-ON Stage.Id = ES.IdStage
-JOIN vEvaluation AS Eval
-ON Eval.Id = ES.IdEvaluation
-JOIN vTypeEvaluation AS TE
-ON TE.Id = Eval.IdTypeEvaluation;
 SELECT 	St.Id as 'IdStage', Eva.Id as 'IdEvaluation',Eva.DateComplétée as 'DateComplétée',Eva.Statut as 'Statut',
 		Eva.DateDébut as 'DateDébut',Eva.DateFin as 'DateFin',TE.Id as 'IdTypeEvaluation', TE.Titre as 'TitreTypeEvaluation',
         St.IdStagiaire
@@ -111,7 +99,6 @@ JOIN vEvaluationStage as ES
 on Eva.Id = ES.IdEvaluation
 join vStage as St
 on St.Id = ES.IdStage;
-
 
 -- ------------------------------------------------
 -- Récupère toutes les évaluations des stagiaires selon leur ID et le type d'évaluation avec leurs réponses choisies.
@@ -206,5 +193,3 @@ JOIN vEmploye AS Emp
 ON Emp.IdUtilisateur = Sup.IdUtilisateur
 JOIN vEntreprise AS Ent
 ON Ent.Id = Emp.IdEntreprise;
-
-

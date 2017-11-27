@@ -1,9 +1,12 @@
+var titrePage;
+
 //Envoie la requete au serveur et retourne la réponse.
 function Requete(callback){
     $.ajax({
         type: "POST",
         url: Url(arguments) ,
         success: function(data){
+            history.pushState(JSON.parse(data), titrePage[0], titrePage[0] + ".html");
             callback(data);
         }
     });
@@ -105,16 +108,34 @@ function Url(){
         url = url.replace(/(?:\r\n|\r|\n)/g, '\\n');
     }
     
+    titrePage = url.split("nomMenu=");
+    titrePage = titrePage[1].split("&");
+
     return url;
 }
  
 //Affiche la page selon l'url demandé.
 function AfficherPage(xhttp){
-    var page = $.parseJSON(xhttp);
+    var page = "";
+    
+    if(xhttp != history.state)
+        page = $.parseJSON(xhttp);
+    else
+        page = xhttp;
+        
     $(".stagiaireContainer").empty();
     $(".stagiaireContainer").append(page);
     //CacherDiv();//Juste si il y a des stagiaires a afficher ou des evaluations(Fix plus tard).
 }
+
+window.onpopstate = function(){
+    AfficherPage(history.state);
+}
+
+window.addEventListener("load", function(){
+    var html = document.getElementsByClassName("stagiaireContainer")[0].innerHTML;
+    history.replaceState(html, "Main", "Main.html");
+})
 
 //Éxecute une page PHP sans l'afficher.
 function ExecuteQuery(xhttp){
