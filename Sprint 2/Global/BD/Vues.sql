@@ -193,3 +193,31 @@ JOIN vEmploye AS Emp
 ON Emp.IdUtilisateur = Sup.IdUtilisateur
 JOIN vEntreprise AS Ent
 ON Ent.Id = Emp.IdEntreprise;
+
+-- ------------------------------------------------
+-- Récupère toutes les noms et les informations nécéssaires à la génération du pdf de la lettre d'entente
+-- ------------------------------------------------
+DROP VIEW IF EXISTS vInfoStagiaire;
+CREATE VIEW vInfoStagiaire AS
+SELECT CONCAT(Prenom,' ',Nom) AS NomComplet,IdUtilisateur,Adresse AS  'AdresseStagiaire',NumTel AS NumTelStagiaire,CourrielPersonnel FROM vUtilisateur 
+
+	JOIN vStagiaire
+	ON vStagiaire.IdUtilisateur = vUtilisateur.Id;
+
+DROP VIEW IF EXISTS vEntente;
+CREATE VIEW vEntente AS 
+SELECT Stage.Id AS IdStage,Stagiaire.NomComplet,Stagiaire.IdUtilisateur,Stagiaire.AdresseStagiaire,Stagiaire.NumTelStagiaire,Stagiaire.CourrielPersonnel,
+Entreprise.nom AS NomEntreprise,CONCAT(Entreprise.NumCivique,' ',Entreprise.Rue) AS AdresseEntreprise,Entreprise.NumTel,Employe.CourrielEntreprise FROM vStage AS Stage
+	JOIN vUtilisateur AS Utilisateur
+	ON Stage.IdSuperviseur = Utilisateur.Id 
+
+	JOIN vEmploye AS Employe
+	ON Employe.IdUtilisateur = Utilisateur.Id
+
+	JOIN vEntreprise AS Entreprise
+	ON Entreprise.Id = Employe.IdEntreprise
+
+	JOIN vInfoStagiaire AS Stagiaire
+	ON Stage.IdStagiaire = Stagiaire.IdUtilisateur;
+
+SELECT * FROM vEntente WHERE IdStage = 15  ;

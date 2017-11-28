@@ -5,10 +5,10 @@
 -- DROP DATABASE IF EXISTS BDProjet_equipe2V2;
 -- CREATE DATABASE BDProjet_equipe2V2;
 
- USE cegepjon_p2017_2_dev;
+-- USE cegepjon_p2017_2_dev;
 -- USE cegepjon_p2017_2_prod;
 -- USE cegepjon_p2017_2_tests;
--- USE bdprojet_equipe2v2;
+ USE bdprojet_equipe2v2;
 -- Table Reponsesss
 DROP TABLE IF EXISTS tblReponse;
 CREATE TABLE tblReponse(
@@ -145,6 +145,7 @@ CREATE TABLE tblStagiaire(
 	Poste 					VARCHAR(7)		NULL,
 	CourrielEntreprise	 	VARCHAR(320)	NULL,
 	CodePermanent			VARCHAR(12)		NULL,
+	Adresse					VARCHAR(200)	NULL,
 	PRIMARY KEY(Id),
 	IdStage					INT				NULL,
 	IdUtilisateur			INT				NULL,
@@ -153,7 +154,7 @@ CREATE TABLE tblStagiaire(
 
 DROP VIEW IF EXISTS vStagiaire;
 CREATE VIEW vStagiaire AS SELECT Id,CourrielScolaire,Nom,Prenom,NumTel,CourrielPersonnel
-,NumTelEntreprise,Poste,CourrielEntreprise,CodePermanent,
+,NumTelEntreprise,Poste,CourrielEntreprise,CodePermanent,Adresse,
 CONCAT(CourrielScolaire,Nom,Prenom,NumTel,CourrielPersonnel
 ,IFNULL(NumTelEntreprise,''),IFNULL(Poste,''),IFNULL(CourrielEntreprise,''),IFNULL(IdStage,''),IdUtilisateur,CodePermanent) AS tag,IdStage,IdUtilisateur FROM tblStagiaire;
 
