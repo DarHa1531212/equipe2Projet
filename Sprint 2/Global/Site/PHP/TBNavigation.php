@@ -1,5 +1,6 @@
 <?php 
     include 'Session.php';
+    
     function AfficherPage($NomMenu){
         include 'vTableauBord.php';
         include 'Model.php';
@@ -31,6 +32,13 @@
             case "Session":             $menu = include 'CreationSession.php';
                 break;
             case "Entreprise":          $menu = include 'CreationEntreprise.php';
+                break;
+            case "CRUDStage":   $menu = include 'CRDStage.php';
+                break;
+            case "CRUDStagiaire":   $menu = include 'CRUDStagiaire.php';
+                break;
+            case "CRUDEmployeEntreprise" : $menu = include 'CRUDEmployeEntreprise.php';
+                break;
         }
         
         echo json_encode($menu);

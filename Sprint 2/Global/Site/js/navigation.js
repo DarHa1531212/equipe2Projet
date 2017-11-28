@@ -80,22 +80,22 @@ function PostEval(callback){
 } 
 
 function UploadFile(callback){ 
-    var file_data = $('#file').prop('files')[0];    
-    var form_data = new FormData();                   
-    form_data.append('file', file_data); 
-     
-    $.ajax({ 
-        url: Url(arguments),  
-        dataType: 'text',   
-        cache: false, 
-        contentType: false, 
-        processData: false, 
-        data: form_data,                          
-        type: 'post', 
-        success: function(data){ 
-            callback(data); 
-        } 
-    }); 
+	var file_data = $('#file').prop('files')[0];    
+	var form_data = new FormData();                   
+	form_data.append('file', file_data); 
+	 
+	$.ajax({ 
+		url: Url(arguments),  
+		dataType: 'text',   
+		cache: false, 
+		contentType: false, 
+		processData: false, 
+		data: form_data,                          
+		type: 'post', 
+		success: function(data){ 
+			callback(data); 
+		} 
+	}); 
 } 
 
 //Construit l'URL selon les derniers paramètre de la fonction Execute.
@@ -139,22 +139,36 @@ window.addEventListener("load", function(){
 
 //Éxecute une page PHP sans l'afficher.
 function ExecuteQuery(xhttp){
-    $.parseJSON(xhttp);
+	$.parseJSON(xhttp);
 }
 
 //Selon le choix, éxecute la fonction demandé. C'est la fonction qui doit être appelée
 //sur les OnClicks. Tous les paramètres qui se trouvent après "choix" sont utilisés pour
 //construire l'url.
 function Execute(choix){
-    switch(choix){
-        case 1: Requete(AfficherPage, arguments);
-            break;
-        case 2: Requete(ExecuteQuery, arguments);
-            break;
-        case 3: UploadFile(ExecuteQuery, arguments);
-            break;
-        case 4: PostEval(ExecuteQuery, arguments);
-            break;
-        case 5: Post(AfficherPage, arguments);
-    }
+	switch(choix){
+		case 1: Requete(AfficherPage, arguments);
+			break;
+		case 2: Requete(ExecuteQuery, arguments);
+			break;
+		case 3: UploadFile(ExecuteQuery, arguments);
+			break;
+		case 4: PostEval(ExecuteQuery, callback2, arguments);
+			break;
+		case 5: getValuesFromUser(AfficherPage, arguments);
+			break;
+		case 6: getValuesFromUser (ExecuteQuery, arguments);
+			break;
+		case 7: afficherResponsableEtSuperviseur(ExecuteQuery, arguments);
+			break;
+		case 8: readStage ( ExecuteQuery, arguments);
+			break;
+		case 9: readStagiaire(ExecuteQuery, arguments);
+			break;
+		case 10: readEmploye(ExecuteQuery, arguments);
+			break;
+		case 11: updateStagiaire (ExecuteQuery, arguments);
+			break;
+
+	}
 }
