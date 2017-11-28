@@ -1,8 +1,8 @@
 <?php
 
-include 'ConnexionBD.php';
-   
- 
+    include 'ConnexionBD.php';
+   // $Stage = new cStage($_REQUEST["idStage"]), $bdd, "","","", "","", "", "", "", "", "", "");
+
     //affiche les entreprises dans le dropdown menu
     function showEnterprises($bdd)
     {

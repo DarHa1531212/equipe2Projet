@@ -989,7 +989,7 @@
                 $NomResponsable = $entree["NomResponsable"];
                 $NomEnseignant = $entree["NomEnseignant"];
 
-                $valeurRetour = '<p>Nom du stagiaire: ' . $NomStagiaire . '</p><br><p>Nom d\'entreprise: ' . $NomEntreprise . '</p><br><p>Nom de l\'enseignant: ' . $NomEnseignant . '</p><br><p>Nom du superviseur: ' . $NomResponsable . '</p> <br> <p>Horaire de travail: ' . $HoraireTravail . '</p><br><p>Salaire horaire: ' . $SalaireHoraire . '</p><br><p>Nombre d\'heures par semaine: ' . $NbHeureSemaine . '</p> <br><p>Compétences recherchées: ' . $CompetenceRecherche . '</p><br><p>Description du stage: ' . $DescriptionStage . '</p><br>';
+                $valeurRetour = '<article class="stagiaire"><p>Nom du stagiaire: ' . $NomStagiaire . '</p><br><p>Nom d\'entreprise: ' . $NomEntreprise . '</p><br><p>Nom de l\'enseignant: ' . $NomEnseignant . '</p><br><p>Nom du superviseur: ' . $NomResponsable . '</p> <br> <p>Horaire de travail: ' . $HoraireTravail . '</p><br><p>Salaire horaire: ' . $SalaireHoraire . '</p><br><p>Nombre d\'heures par semaine: ' . $NbHeureSemaine . '</p> <br><p>Compétences recherchées: ' . $CompetenceRecherche . '</p><br><p>Description du stage: ' . $DescriptionStage . '</p><br></article>';
  
 
             }

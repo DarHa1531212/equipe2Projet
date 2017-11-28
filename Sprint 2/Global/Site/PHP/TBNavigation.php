@@ -43,20 +43,12 @@
                 case "Entreprise":  $menu = include 'CreationEntreprise.php';
                     break;
                 case  "ReadStage":  //var_dump($a = initialiserEtAppelerCreationStage($bdd, $_REQUEST["idStage"]));
-                                    $menu =  (initialiserEtAppelerCreationStage($bdd, $_REQUEST["idStage"]));
+                                    $menu =  ($Stage->afficherInfos($bdd, $_REQUEST["idStage"]));
                     break;
                                            
         }
         
         echo json_encode($menu);
-    }
-
-    function initialiserEtAppelerCreationStage($bdd, $idStage)
-    {
-        $Stage = new cStage($idStage, $bdd, "","","", "","", "", "", "", "", "", "");
-       return ( $Stage->afficherInfos($bdd, $idStage));
-
-
     }
 
     AfficherPage($bdd,$_REQUEST["nomMenu"]);
