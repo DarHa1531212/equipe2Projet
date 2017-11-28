@@ -80,22 +80,22 @@ function PostEval(callback){
 } 
 
 function UploadFile(callback){ 
-    var file_data = $('#file').prop('files')[0];    
-    var form_data = new FormData();                   
-    form_data.append('file', file_data); 
-     
-    $.ajax({ 
-        url: Url(arguments),  
-        dataType: 'text',   
-        cache: false, 
-        contentType: false, 
-        processData: false, 
-        data: form_data,                          
-        type: 'post', 
-        success: function(data){ 
-            callback(data); 
-        } 
-    }); 
+	var file_data = $('#file').prop('files')[0];    
+	var form_data = new FormData();                   
+	form_data.append('file', file_data); 
+	 
+	$.ajax({ 
+		url: Url(arguments),  
+		dataType: 'text',   
+		cache: false, 
+		contentType: false, 
+		processData: false, 
+		data: form_data,                          
+		type: 'post', 
+		success: function(data){ 
+			callback(data); 
+		} 
+	}); 
 } 
 
 //Construit l'URL selon les derniers paramètre de la fonction Execute.
@@ -139,7 +139,7 @@ window.addEventListener("load", function(){
 
 //Éxecute une page PHP sans l'afficher.
 function ExecuteQuery(xhttp){
-    $.parseJSON(xhttp);
+	$.parseJSON(xhttp);
 }
 
 //Selon le choix, éxecute la fonction demandé. C'est la fonction qui doit être appelée
