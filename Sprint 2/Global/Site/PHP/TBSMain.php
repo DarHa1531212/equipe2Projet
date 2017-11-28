@@ -47,14 +47,14 @@
             <tbody>
                 <tr class="itemHover" onclick="Execute(1, \'../PHP/TBNavigation.php?idStagiaire='.$idStagiaire.'&nomMenu=Avenir\')">
                     <td>Rapport 1</td>
-                    <td>Non complétée</td>
+                    <td>Non complétée <span class="statutColor">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></td>
                     <td>2017-02-15</td>
                     <td></td>
                 </tr>
 
                 <tr class="itemHover" onclick="Execute(1, \'../PHP/TBNavigation.php?idStagiaire='.$idStagiaire.'&nomMenu=Avenir\')">
                     <td>Rapport 2</td>
-                    <td>Complétée</td>
+                    <td>complétée <span class="statutColor">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></td>
                     <td>2017-03-30</td>
                     <td>2017-03-25</td>
                 </tr>

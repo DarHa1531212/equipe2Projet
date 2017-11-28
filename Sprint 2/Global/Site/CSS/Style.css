@@ -338,6 +338,13 @@ input[type=file]{
     .champ{width: 100%;}
 }
 
+.statutColor{
+    border-style: solid;
+    border-color: black;
+    border-radius: 25px;
+    background-color: blue;
+}
+
 /* ---------------------------------------------------*/
 
 .crdJournal{
