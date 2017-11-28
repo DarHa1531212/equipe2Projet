@@ -1,13 +1,13 @@
 <?php 
     include 'Session.php';
-    
+
     function AfficherPage($NomMenu){
         include 'vTableauBord.php';
         include 'Model.php';
         $menu = "";
         
         switch($NomMenu){
-            case "Profil":      $menu = include 'Profil.php';
+            case "Profil":              $menu = include 'Profil.php';
                 break;
             case "Main":    
                 if($_SESSION['IdRole'] == 5)
@@ -33,9 +33,9 @@
                 break;
             case "Entreprise":          $menu = include 'CreationEntreprise.php';
                 break;
-            case "CRUDStage":   $menu = include 'CRDStage.php';
+            case "CRUDStage":           $menu = include 'CRDStage.php';
                 break;
-            case "CRUDStagiaire":   $menu = include 'CRUDStagiaire.php';
+            case "CRUDStagiaire":       $menu = include 'CRUDStagiaire.php';
                 break;
             case "CRUDEmployeEntreprise" : $menu = include 'CRUDEmployeEntreprise.php';
                 break;

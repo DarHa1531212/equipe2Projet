@@ -199,6 +199,7 @@ textarea{
 }
 
 .entree{
+    position: relative;
     width: 80%;
     border: solid 1px #a9a9a9;
     margin: auto;
@@ -337,7 +338,46 @@ input[type=file]{
     .champ{width: 100%;}
 }
 
+.statutColor{
+    border-style: solid;
+    border-color: black;
+    border-radius: 25px;
+    background-color: blue;
+}
+
 /* ---------------------------------------------------*/
+
+.crdJournal{
+    position: absolute;
+    top: 8px;
+    right: 16px;
+    font-size: 18px;
+    display: none;
+}
+
+.entree:hover .crdJournal{
+    display: block;
+}
+
+.crdJournalM{
+    color: blue;
+    text-decoration: underline;
+}
+
+.crdJournalM:hover{
+    cursor: pointer;
+}
+
+.crdJournalD{
+    color:blue;
+    text-decoration: underline;
+}
+
+.crdJournalD:hover{
+    cursor: pointer;
+}
+
+/*--------------------------------------------------*/
 
 .pieceJointe{
     position: fixed;
@@ -354,5 +394,6 @@ input[type=file]{
     left:0;
     right:0;
     bottom:0;
+    width: 80%;
     margin:auto;
 }

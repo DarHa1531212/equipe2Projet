@@ -1,5 +1,5 @@
 <?php
-    
+    include 'ConnexionBD.php';
     $content = "";
 
     $query2 = $bdd->prepare("SELECT * FROM vInfoEvalGlobale

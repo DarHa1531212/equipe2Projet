@@ -39,11 +39,10 @@
     function SelectEntrees($bdd, $idStagiaire){
         $limit = "";
         $div = "";
-        
         if(isset($_REQUEST['nbEntree']))
             $limit = "LIMIT ".$_REQUEST['nbEntree'];
         
-        $query = $bdd->prepare("SELECT Entree, Date_Format (Dates, '%d/%m/%Y') AS Dates, Dates AS DateComplete, Documents AS Fichier FROM vJournalDeBord WHERE IdStagiaire LIKE $idStagiaire ORDER BY datecomplete desc $limit;");
+        $query = $bdd->prepare("SELECT Id, Entree, Date_Format (Dates, '%d/%m/%Y') AS Dates, Dates AS DateComplete, Documents AS Fichier FROM vJournalDeBord WHERE IdStagiaire LIKE $idStagiaire ORDER BY datecomplete desc $limit;");
         $query->execute(array());
         
         $entrees = $query->fetchAll();
@@ -53,8 +52,9 @@
             $dates = $entree["Dates"];
             $dateComplete = $entree["DateComplete"];
             $document = $entree['Fichier'];
+            $id = $entree["Id"];
 
-            $div = $div."<div class=\"entree\"><h2>".$dates."</h2><p>" .LineBreak($texte). "</p><p>" . PieceJointe($document) . "</p></div>";
+            $div = $div.'<div class="entree"><h2>'.$dates.'</h2><div class="crdJournal"><span class="crdJournalM" onclick="modificationJournal = true; Execute(1, \'../PHP/TBNavigation.php?idStagiaire='.$idStagiaire.'&nomMenu=Journal\', \'&nbEntree=\', 5, \'&ajoutModif=\', true, \'&idEntree=\', '.$id.');">Modifier</span><span>&nbsp;|&nbsp;</span><span class="crdJournalD" onclick="if(ConfirmDelete()){Execute(3, \'../PHP/TBNavigation.php?idStagiaire='.$idStagiaire.'&nomMenu=Journal\', \'&delete=\', true, \'&idEntree=\', '.$id.'); Execute(1, \'../PHP/TBNavigation.php?idStagiaire='.$idStagiaire.'&nomMenu=Journal\', \'&nbEntree=\', 5);}">Supprimer</span></div><p>' .LineBreak($texte). '</p><p>' . PieceJointe($document) . '</p></div>';
         }
         
         if(isset($_REQUEST['nbEntree']))
@@ -97,7 +97,7 @@
         {
             $ext = strtolower(pathinfo($doc)['extension']);
             $method = "AfficherImage('". $doc . "','" . $ext ."')";
-            return '<a cLass="lienJointe"><span id="divBouton" onclick="' . $method . '">Pièce jointe ' . ' -  ' . $ext . '</span></a>'; //faire ici l'affichage en absolute
+            return '<a class="lienJointe"><span id="divBouton" style="cursor:pointer" onclick="' . $method . '">Pièce jointe ' . ' -  ' . $ext . '</span></a>'; //faire ici l'affichage en absolute
         }
         else
         {
@@ -105,44 +105,103 @@
             return $vide;
         }
     }
-    
-    if(isset($_REQUEST['contenu'])){
-        NouvelleEntree($bdd, $idStagiaire);
+
+    function DeleteEntree($bdd, $idEntree)
+    {
+        $query = $bdd->prepare("DELETE FROM tblJournalDeBord WHERE Id = :id");
+        $query->execute(array('id'=>$idEntree));
     }
-    else{
-        $content=
-        '
-        <article class="stagiaire">
-            <div class="infoStagiaire">
-                <h2>Journal de bord</h2>
-                <h3>Dernière entrée il y a : '.DerniereEntree($bdd, $idStagiaire).' jour(s)</h3>
-            </div>
-            <div id="imageJointe"></div>
 
-            <div class="separateur">
-                <h3>Nouvelle Entrée</h3>
-            </div>
+    function UpdateEntree($bdd, $idEntree, $Entree)
+    {
+        $entree = array(htmlspecialchars($Entree));
+        $query = $bdd->prepare("UPDATE tblJournalDeBord SET Entree = :text WHERE Id = :id");
+        $query->bindValue( 'text', $entree[0], PDO::PARAM_STR );
+        $query->bindValue( 'id', $idEntree, PDO::PARAM_INT);
+        $query->execute();
+    }
 
-            <textarea id="contenu" rows="5" cols="100" maxlength="500" name="contenu" wrap="hard"></textarea>
+    function SelectEntreeModif($bdd, $idEntree)
+    {
+        $query = $bdd->prepare("SELECT Entree FROM vJournalDeBord WHERE Id = :id");
+        $query->execute(array('id'=>$idEntree));
+        $entrees = $query->fetchAll();
+
+        foreach($entrees as $entree)
+        {
+            return $entree['Entree'];
+        }
+    }
+
+    function addId()
+    {
+        if(isset($_REQUEST['idEntree']))
+        {
+            return ', \'&idEntree=\', ' . $_REQUEST['idEntree'];
+        }
+        else
+        {
+            return '';
+        }
+    }
+    
+    if(isset($_REQUEST['contenu']) && isset($_REQUEST['update']))
+    {
+        UpdateEntree($bdd, $_REQUEST['idEntree'], $_REQUEST['contenu']);
+    }
+    else
+    {
+        if(isset($_REQUEST['delete']))
+        {
+            DeleteEntree($bdd, $_REQUEST['idEntree']);
+        }
+        else
+        {
+            if(isset($_REQUEST['contenu']))
+            {
+                NouvelleEntree($bdd, $idStagiaire);
+            }
+            else
+            {
+                if(isset($_REQUEST['ajoutModif']))
+                {
+                    $_SESSION['textModif'] = SelectEntreeModif($bdd, $_REQUEST['idEntree']);
+                }
+                else
+                {
+                    $_SESSION['textModif'] = '';
+                }
+                
+                $content=
+                '<article class="stagiaire">
+                    <div class="infoStagiaire">
+                        <h2>Journal de bord</h2>
+                        <h3>Dernière entrée il y a : '.DerniereEntree($bdd, $idStagiaire).' jour(s)</h3>
+                    </div>
+                    <div id="imageJointe"></div>
+
+            <textarea id="contenu" rows="5" cols="100" maxlength="500" name="contenu" wrap="hard">'.$_SESSION['textModif'].'</textarea>
             <input type="hidden" name="maxFileSize" value="2000000">
             <input class="inputFile" id="file" type="file" value="Envoyer" name="fichier" onchange="AfficherNom(this)"/>
 
             <br/>                                                                             
-            <input style="width: 120px;" class="bouton" type="button" value="Envoyer" onclick="Execute(3, \'../PHP/TBNavigation.php?idStagiaire='.$idStagiaire.'&nomMenu=Journal\', \'&contenu=\', contenu.value); Execute(1, \'../PHP/TBNavigation.php?idStagiaire='.$idStagiaire.'&nomMenu=Journal\', \'&nbEntree=\', 5)"/>
+            <input style="width: 120px;" class="bouton" type="button" value="Envoyer" onclick="if(modificationJournal){Execute(3, \'../PHP/TBNavigation.php?idStagiaire='.$idStagiaire.'&nomMenu=Journal\',\'&update=\', true, \'&contenu=\', contenu.value'.addId().'); Execute(1, \'../PHP/TBNavigation.php?idStagiaire='.$idStagiaire.'&nomMenu=Journal\', \'&nbEntree=\', 5); modificationJournal = false;}else{Execute(3, \'../PHP/TBNavigation.php?idStagiaire='.$idStagiaire.'&nomMenu=Journal\', \'&contenu=\', contenu.value); Execute(1, \'../PHP/TBNavigation.php?idStagiaire='.$idStagiaire.'&nomMenu=Journal\', \'&nbEntree=\', 5);}"/>
             <label class="bouton labelFile" for="file">Pièce Jointe</label>
             <p id="nomPieceJointe"></p>
 
-            <div class="separateur">
-                <h3>Toutes les entrées</h3>
-            </div>
+                    <div class="separateur">
+                        <h3>Toutes les entrées</h3>
+                    </div>
 
-            '.SelectEntrees($bdd, $idStagiaire).'
+                    '.SelectEntrees($bdd, $idStagiaire).'
 
-            <br/><br/>
+                    <br/><br/>
 
-            <input class="bouton" type="button" value="   Retour   " onclick="Execute(1, \'../PHP/TBNavigation.php?idStagiaire='.$id.'&nomMenu=Main\')"/>
-        </article>';
+                    <input class="bouton" type="button" value="   Retour   " onclick="Execute(1, \'../PHP/TBNavigation.php?idStagiaire='.$id.'&nomMenu=Main\')"/>
+                </article>';
 
-        return $content;
+                return $content;
+            }
+        }
     }
 ?>

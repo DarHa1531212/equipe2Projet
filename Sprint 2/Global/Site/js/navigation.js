@@ -125,7 +125,7 @@ function AfficherPage(xhttp){
         
     $(".stagiaireContainer").empty();
     $(".stagiaireContainer").append(page);
-    CacherDiv();//Juste si il y a des stagiaires a afficher ou des evaluations(Fix plus tard).
+    //CacherDiv();//Juste si il y a des stagiaires a afficher ou des evaluations(Fix plus tard).
 }
 
 window.onpopstate = function(){
