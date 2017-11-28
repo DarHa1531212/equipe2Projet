@@ -146,29 +146,15 @@ function ExecuteQuery(xhttp){
 //sur les OnClicks. Tous les paramètres qui se trouvent après "choix" sont utilisés pour
 //construire l'url.
 function Execute(choix){
-	switch(choix){
-		case 1: Requete(AfficherPage, arguments);
-			break;
-		case 2: Requete(ExecuteQuery, arguments);
-			break;
-		case 3: UploadFile(ExecuteQuery, arguments);
-			break;
-		case 4: PostEval(ExecuteQuery, callback2, arguments);
-			break;
-		case 5: getValuesFromUser(AfficherPage, arguments);
-			break;
-		case 6: getValuesFromUser (ExecuteQuery, arguments);
-			break;
-		case 7: afficherResponsableEtSuperviseur(ExecuteQuery, arguments);
-			break;
-		case 8: readStage ( ExecuteQuery, arguments);
-			break;
-		case 9: readStagiaire(ExecuteQuery, arguments);
-			break;
-		case 10: readEmploye(ExecuteQuery, arguments);
-			break;
-		case 11: updateStagiaire (ExecuteQuery, arguments);
-			break;
-
-	}
+    switch(choix){
+        case 1: Requete(AfficherPage, arguments);
+            break;
+        case 2: Requete(ExecuteQuery, arguments);
+            break;
+        case 3: UploadFile(ExecuteQuery, arguments);
+            break;
+        case 4: PostEval(ExecuteQuery, arguments);
+            break;
+        case 5: Post(AfficherPage, arguments);
+    }
 }

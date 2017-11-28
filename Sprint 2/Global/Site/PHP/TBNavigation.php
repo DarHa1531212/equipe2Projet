@@ -44,6 +44,6 @@
         echo json_encode($menu);
     }
 
-    AfficherPage($bdd,$_REQUEST["nomMenu"]);
+    AfficherPage($_REQUEST["nomMenu"]);
 
 ?>
