@@ -106,20 +106,16 @@ function readStage(callback, args)
  
     var reponse = "";
     var tabValues = [];
-     var form_data = new FormData();
- 
-    reponse={
-                nom: "functionToExecute",
-                value: "3"
-            };
+    var form_data = new FormData();
+
     tabValues.push(reponse);
  
     reponse={
                 nom: "idStage",
-                value: args[2]
+                value: args[1]
             };
     tabValues.push(reponse);
-    args[2]="";
+    args[1]="";
 
      tabValues = JSON.stringify(tabValues);
 

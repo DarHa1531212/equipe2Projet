@@ -641,18 +641,10 @@
     *   date: 23 Novembre 2017                                                                    *
     *   ******************************************************************************************/
 
-    abstract class cAbstractUtilisateur
-    {
-        //les classes abstraites pour le polymorphisme
-        abstract protected function createUtilisateur($bdd, $dataArray);
-        abstract protected function readUtilisateur($bdd,$dataArray);
-        abstract protected function updateUtilisateur($bdd,$dataArray);
-        abstract protected function deleteUtilisateur($bdd,$dataArray);
 
-    }
     
 
-    class cUtilisateur  extends cAbstractUtilisateur{
+    class cUtilisateur {
         
         public function __construct($id, $bdd){
             $this->id = $id;
@@ -678,9 +670,9 @@
         public function getPosteTelEntreprise(){
             return $this->posteTelEntreprise;
         }
-    }
+
         
-        
+     }   
     class cStagiaire extends cUtilisateur {
 
         private $noTelEntreprise, $courrielEntreprise, $courrielPersonnel, $codePermanent;
@@ -713,7 +705,7 @@
                 $query->execute();
             }
 
-        protected function readUtilisateur($bdd,$dataArray);
+        protected function readUtilisateur($bdd,$dataArray)
         {
 
             $idStagiaire =  intval ($dataArray[1]->value);
@@ -856,8 +848,20 @@
 
         private $idStagiaire, $idResponsable, $idSuperviseur, $idEnseignant, $idEntreprise, $competancesRecherchees, $descriptionStage, $salaireHoraire, $nbreHeuresSemaine, $dateDebut, $dateFin;
 
-        public function __construct($id, $bdd){  
-            $this->Initialise($id, $bdd);   
+        public function __construct($id, $bdd, $idStagiaire, $idResponsable, $idSuperviseur, $idEnseignant, $idEntreprise, $competancesRecherchees, $descriptionStage, $salaireHoraire, $nbreHeuresSemaine, $dateDebut, $dateFin){  
+       //     $this->Initialise($id, $bdd);
+            $this->idStagiaire = $idStagiaire;
+            $this->idResponsable = $idResponsable;
+            $this->idSuperviseur = $idSuperviseur;
+            $this->idEnseignant = $idEnseignant;
+            $this->idEntreprise = $idEntreprise;
+            $this->competancesRecherchees = $competancesRecherchees;
+            $this->descriptionStage = $descriptionStage;
+            $this->salaireHoraire = $salaireHoraire;
+            $this->nbreHeuresSemaine = $nbreHeuresSemaine;
+            $this->dateDebut = $dateDebut;
+            $this->dateFin = $dateFin;
+
         }
 
         public function getIdSuperviseur(){
@@ -947,17 +951,16 @@
 
         }
 
-        function afficherInfos($bdd, $dataArray)
+        function afficherInfos($bdd, $idStage)
         {
-            $idStage =  intval ($dataArray[1]->value);
-            $returnData = array();
+            $valeurRetour = "";
             $query = $bdd->prepare("select 
                                     vStage.DescriptionStage as 'DescriptionStage', 
                                     vStage.CompetenceRecherche as 'CompetenceRecherche', 
                                     vStage.HoraireTravail as 'HoraireTravail', 
                                     vStage.SalaireHoraire as 'SalaireHoraire', 
                                     vStage.NbHeureSemaine as 'NbHeureSemaine' , 
-                                    vEntreprise.Nom as 'NomEntreprise' , 
+                                    vEntreprise.Nom as 'NomEntreprise' , +
                                     concat(vStagiaire.Prenom, ' ' , vStagiaire.Nom)  as 'NomStagiaire' , 
                                     concat (vSuperviseur.Prenom, ' ', vSuperviseur.Nom) as 'NomSuperviseur', 
                                     concat (vResponsable.Prenom, ' ', vResponsable.Nom) as'NomResponsable', 
@@ -968,7 +971,7 @@
                                     left join vStagiaire on vStagiaire.IdUtilisateur = vStage.IdStagiaire     
                                     left join vResponsable on vResponsable.IdUtilisateur = vStage.IdResponsable     
                                     left join vEnseignant on vEnseignant.IdUtilisateur = vStage.IdEnseignant 
-                                    swhere vStage.Id like :idStage");
+                                    where vStage.Id like :idStage");
 
 
             $query->execute(array('idStage'=> $idStage));     
@@ -986,20 +989,13 @@
                 $NomResponsable = $entree["NomResponsable"];
                 $NomEnseignant = $entree["NomEnseignant"];
 
-                $returnData [0] = $DescriptionStage;
-                $returnData [1] = $CompetenceRecherche;
-                $returnData [2] = $HoraireTravail;
-                $returnData [3] = $SalaireHoraire;
-                $returnData [4] = $NbHeureSemaine;
-                $returnData [5] = $NomEntreprise;
-                $returnData [6] = $NomSuperviseur;
-                $returnData [7] = $NomStagiaire;
-                $returnData [8] = $NomResponsable;
-                $returnData [9] = $NomEnseignant;  
+                $valeurRetour = '<p>Nom du stagiaire: ' . $NomStagiaire . '</p><br><p>Nom d\'entreprise: ' . $NomEntreprise . '</p><br><p>Nom de l\'enseignant: ' . $NomEnseignant . '</p><br><p>Nom du superviseur: ' . $NomResponsable . '</p> <br> <p>Horaire de travail: ' . $HoraireTravail . '</p><br><p>Salaire horaire: ' . $SalaireHoraire . '</p><br><p>Nombre d\'heures par semaine: ' . $NbHeureSemaine . '</p> <br><p>Compétences recherchées: ' . $CompetenceRecherche . '</p><br><p>Description du stage: ' . $DescriptionStage . '</p><br>';
+ 
 
             }
 
-            return $returnData;
+
+            return $valeurRetour;
 
         }
 

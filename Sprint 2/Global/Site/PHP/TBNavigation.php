@@ -1,20 +1,21 @@
 <?php 
-   // include 'Session.php';
+    include 'Session.php';
+    include 'ConnexionBD.php';
     
-    function AfficherPage($NomMenu){
-    //    include 'vTableauBord.php';
-     //   include 'Model.php';
+    function AfficherPage($bdd, $NomMenu){
+        include 'vTableauBord.php';
+        include 'Model.php';
         $menu = "";
         
         switch($NomMenu){
             case "Profil":      $menu = include 'Profil.php';
                 break;
-           /* case "Main":    
+            case "Main":    
                 if($_SESSION['IdRole'] == 5)
                                 $menu = include 'TBSMain.php';
                 else if(($_SESSION['IdRole'] == 4) || ($_SESSION['IdRole'] == 3) || ($_SESSION['IdRole'] == 2))
                                 $menu = include 'TBEMain.php';
-                    break; */
+                    break; 
                 case "Modif":   $menu = include 'ModifProfil.php';
                     break;
                 case "ModifBD": $menu = include 'ModifBDStagiaire.php';
@@ -41,11 +42,23 @@
                     break;
                 case "Entreprise":  $menu = include 'CreationEntreprise.php';
                     break;
+                case  "ReadStage":  //var_dump($a = initialiserEtAppelerCreationStage($bdd, $_REQUEST["idStage"]));
+                                    $menu =  (initialiserEtAppelerCreationStage($bdd, $_REQUEST["idStage"]));
+                    break;
+                                           
         }
         
         echo json_encode($menu);
     }
 
-    AfficherPage($_REQUEST["nomMenu"]);
+    function initialiserEtAppelerCreationStage($bdd, $idStage)
+    {
+        $Stage = new cStage($idStage, $bdd, "","","", "","", "", "", "", "", "", "");
+       return ( $Stage->afficherInfos($bdd, $idStage));
+
+
+    }
+
+    AfficherPage($bdd,$_REQUEST["nomMenu"]);
 
 ?>
