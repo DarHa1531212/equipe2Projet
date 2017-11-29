@@ -25,5 +25,6 @@
         }
     }
 
-    $bdd = new Database("localhost", "BDProjet_equipe2V2", "root", null);
+    //$bdd = new Database("localhost", "BDProjet_equipe2V2", "root", null);
+    $bdd = new Database("dicj.info","cegepjon_p2017_2_dev","cegepjon_p2017_2","madfpfadshdb")
 ?>
