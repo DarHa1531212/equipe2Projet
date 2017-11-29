@@ -79,12 +79,13 @@ CREATE TABLE tblEvaluationQuestionReponse(
 	IdQuestion				INT				NOT NULL,
 	IdReponse				INT				NULL,
 	IdEvaluation			INT				NOT NULL,
+	Commentaire				VARCHAR(2000)	NULL,
 	PRIMARY KEY(IdQuestion,IdEvaluation)
 );
 
 
 DROP VIEW IF EXISTS vEvaluationQuestionReponse;
-CREATE VIEW vEvaluationQuestionReponse AS SELECT IdQuestion,IdReponse,IdEvaluation,
+CREATE VIEW vEvaluationQuestionReponse AS SELECT Commentaire,IdQuestion,IdReponse,IdEvaluation,
 CONCAT(IdQuestion,IdReponse,IdEvaluation) AS tag FROM tblEvaluationQuestionReponse;
 
 
@@ -97,12 +98,13 @@ CREATE TABLE tblEvaluation(
 	DateDébut				DATE			NULL,
 	DateFin					DATE			NULL,
 	DateComplétée			DATE			NULL,
+	Commentaire				VARCHAR(2000)	NULL,
 	PRIMARY KEY(Id),
 	IdTypeEvaluation		INT				NOT NULL
 );
 
 DROP VIEW IF EXISTS vEvaluation;
-CREATE VIEW vEvaluation AS SELECT Id,Statut,DateComplétée,DateDébut,DateFin,
+CREATE VIEW vEvaluation AS SELECT Commentaire,Id,Statut,DateComplétée,DateDébut,DateFin,
 CONCAT(Id,Statut,DateComplétée,DateDébut,DateFin,IdTypeEvaluation,IdTypeEvaluation,Statut,IFNULL(DateComplétée,'')) AS tag,IdTypeEvaluation FROM tblEvaluation;
 
 
@@ -113,11 +115,12 @@ CREATE TABLE tblTypeEvaluation(
 	Id						INT				AUTO_INCREMENT,
 	Titre 					VARCHAR(40) 	NOT NULL,
 	DateLimite				DATE			NOT NULL,
+	Objectif				VARCHAR(2000)	NOT NULL,
 	PRIMARY KEY(Id)
 );
 
 DROP VIEW IF EXISTS vTypeEvaluation;
-CREATE VIEW vTypeEvaluation AS SELECT Id,Titre,DateLimite,CONCAT(Titre,DateLimite) AS tag FROM tblTypeEvaluation;
+CREATE VIEW vTypeEvaluation AS SELECT Id,Titre,DateLimite,Objectif,CONCAT(Titre,DateLimite) AS tag FROM tblTypeEvaluation;
 
 -- Table SuperviseurEvaluationStagiaireStage
 
@@ -223,12 +226,42 @@ CREATE TABLE tblStage(
 	IdSuperviseur			INT					NOT NULL,
 	IdStagiaire				INT					NOT NULL,
 	IdGestionnaire			INT					NOT NULL,
-	IdEnseignant			INT					NOT NULL
+	IdEnseignant			INT					NOT NULL,
+	IdSession				INT					NULL DEFAULT 1
 );
 
 DROP VIEW IF EXISTS vStage;
 CREATE VIEW vStage AS SELECT Id,CONCAT(IdResponsable,IdSuperviseur,IdStagiaire,IdGestionnaire,IdEnseignant)
-AS tag,IdResponsable,IdSuperviseur,IdStagiaire,IdGestionnaire,IdEnseignant FROM tblStage;
+AS tag,IdResponsable,IdSuperviseur,IdStagiaire,IdGestionnaire,IdEnseignant,IdSession FROM tblStage;
+
+
+-- Table Session
+
+DROP TABLE IF EXISTS tblSession;
+CREATE TABLE tblSession(
+	Id			 			INT				AUTO_INCREMENT,
+	Annee		 			YEAR(4)			NOT NULL,
+	Periode		 			VARCHAR(10)		NOT NULL,
+	CahierEntreprise		VARCHAR(255)	NULL,
+	CahierStagiaire			VARCHAR(255)	NULL,
+	MiStageDebut			DATE			NULL,
+	MiStageLimite			DATE			NULL,
+	FinaleDebut				DATE			NULL,
+	FinaleLimite			DATE			NULL,
+	FormationDebut			DATE			NULL,
+	FormationLimite			DATE			NULL,
+	JanvierDebut			DATE			NULL,
+	JanvierLimite			DATE			NULL,
+	FevrierDebut			DATE			NULL,
+	FevrierLimite			DATE			NULL,
+	MarsDebut				DATE			NULL,
+	MarsLimite				DATE			NULL,
+	PRIMARY KEY(Id)
+);
+
+DROP VIEW IF EXISTS vSession;
+CREATE VIEW vSession AS SELECT Id, Annee,Periode,CahierEntreprise,CahierStagiaire,MiStageDebut,MiStageLimite,FinaleDebut,FinaleLimite
+FormationDebut,FormationLimite,JanvierDebut,JanvierLimite,FevrierDebut,FevrierLimite,MarsDebut,MarsLimite FROM tblSession;
 
 
 --  Table Entreprise
@@ -293,29 +326,6 @@ CREATE TABLE tblCategorieQuestion
 DROP VIEW IF EXISTS vCategorieQuestion;
 CREATE VIEW vCategorieQuestion AS SELECT Id,TitreCategorie,descriptionCategorie,Lettre,CONCAT(Id,TitreCategorie,descriptionCategorie,Lettre) AS tag FROM tblCategorieQuestion;
 
-
-/*
--- VUE
-DROP VIEW IF EXISTS vTableauBord;
-CREATE VIEW vTableauBord AS 
-SELECT  Stagiaire.Id, Stagiaire.Nom, Stagiaire.Prenom, Stagiaire.NumTelPersonnel, 
-        Emp.Id AS 'Id Superviseur', Emp.Nom AS 'Nom Superviseur', Emp.Prenom AS 'Prenom Superviseur', Emp.NumTelCell AS 'Cell Superviseur', 
-        EmpCeg.Id AS 'Id Enseignant', EmpCeg.Nom AS 'Nom Enseignant', EmpCeg.Prenom AS 'Prenom Enseignant', EmpCeg.NumTelCell AS 'Tel Enseignant' 
-FROM vStagiaire AS Stagiaire
-JOIN vStage AS Stage
-ON Stage.IdStagiaire = Stagiaire.Id
-JOIN vSuperviseur AS Sup
-ON Sup.Id = Stage.IdSuperviseur
-JOIN vEmployeEntreprise AS Emp
-ON Emp.Id = Sup.IdEmployeEntreprise
-JOIN vEnseignant AS Enseignant
-
-ON Enseignant.Id = Stage.IdEnseignant
-JOIN vEmployeCegep AS EmpCeg
-ON EmpCeg.Id = Enseignant.IdEmployeCegep;
-*/
-
--- Foreign key
 
 
 ALTER TABLE tblUtilisateurRole
@@ -424,6 +434,12 @@ ALTER TABLE tblReponseQuestion
 ADD FOREIGN KEY (IdReponse)
 REFERENCES
 tblReponse(Id);
+
+
+ALTER TABLE tblStage
+ADD FOREIGN KEY (IdSession)
+REFERENCES
+tblSession(Id);
 
 
 ALTER TABLE tblQuestion

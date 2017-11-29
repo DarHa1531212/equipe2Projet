@@ -664,6 +664,57 @@ INSERT IGNORE INTO `tblEvaluationStage` (`IdEvaluation`,`IdStage`) VALUES (147,4
 INSERT IGNORE INTO `tblEvaluationStage` (`IdEvaluation`,`IdStage`) VALUES (148,50);
 INSERT IGNORE INTO `tblEvaluationStage` (`IdEvaluation`,`IdStage`) VALUES (149,50);
 INSERT IGNORE INTO `tblEvaluationStage` (`IdEvaluation`,`IdStage`) VALUES (150,50);
+
+INSERT IGNORE INTO `tblEvaluationStage` (`IdEvaluation`,`IdStage`) VALUES (151,1);
+INSERT IGNORE INTO `tblEvaluationStage` (`IdEvaluation`,`IdStage`) VALUES (152,2);
+INSERT IGNORE INTO `tblEvaluationStage` (`IdEvaluation`,`IdStage`) VALUES (153,3);
+INSERT IGNORE INTO `tblEvaluationStage` (`IdEvaluation`,`IdStage`) VALUES (154,4);
+INSERT IGNORE INTO `tblEvaluationStage` (`IdEvaluation`,`IdStage`) VALUES (155,5);
+INSERT IGNORE INTO `tblEvaluationStage` (`IdEvaluation`,`IdStage`) VALUES (156,6);
+INSERT IGNORE INTO `tblEvaluationStage` (`IdEvaluation`,`IdStage`) VALUES (157,7);
+INSERT IGNORE INTO `tblEvaluationStage` (`IdEvaluation`,`IdStage`) VALUES (158,8);
+INSERT IGNORE INTO `tblEvaluationStage` (`IdEvaluation`,`IdStage`) VALUES (159,9);
+INSERT IGNORE INTO `tblEvaluationStage` (`IdEvaluation`,`IdStage`) VALUES (160,10);
+INSERT IGNORE INTO `tblEvaluationStage` (`IdEvaluation`,`IdStage`) VALUES (161,11);
+INSERT IGNORE INTO `tblEvaluationStage` (`IdEvaluation`,`IdStage`) VALUES (162,12);
+INSERT IGNORE INTO `tblEvaluationStage` (`IdEvaluation`,`IdStage`) VALUES (163,13);
+INSERT IGNORE INTO `tblEvaluationStage` (`IdEvaluation`,`IdStage`) VALUES (164,14);
+INSERT IGNORE INTO `tblEvaluationStage` (`IdEvaluation`,`IdStage`) VALUES (165,15);
+INSERT IGNORE INTO `tblEvaluationStage` (`IdEvaluation`,`IdStage`) VALUES (166,16);
+INSERT IGNORE INTO `tblEvaluationStage` (`IdEvaluation`,`IdStage`) VALUES (167,17);
+INSERT IGNORE INTO `tblEvaluationStage` (`IdEvaluation`,`IdStage`) VALUES (168,18);
+INSERT IGNORE INTO `tblEvaluationStage` (`IdEvaluation`,`IdStage`) VALUES (169,19);
+INSERT IGNORE INTO `tblEvaluationStage` (`IdEvaluation`,`IdStage`) VALUES (170,20);
+INSERT IGNORE INTO `tblEvaluationStage` (`IdEvaluation`,`IdStage`) VALUES (171,21);
+INSERT IGNORE INTO `tblEvaluationStage` (`IdEvaluation`,`IdStage`) VALUES (172,22);
+INSERT IGNORE INTO `tblEvaluationStage` (`IdEvaluation`,`IdStage`) VALUES (173,23);
+INSERT IGNORE INTO `tblEvaluationStage` (`IdEvaluation`,`IdStage`) VALUES (174,24);
+INSERT IGNORE INTO `tblEvaluationStage` (`IdEvaluation`,`IdStage`) VALUES (175,25);
+INSERT IGNORE INTO `tblEvaluationStage` (`IdEvaluation`,`IdStage`) VALUES (176,26);
+INSERT IGNORE INTO `tblEvaluationStage` (`IdEvaluation`,`IdStage`) VALUES (177,27);
+INSERT IGNORE INTO `tblEvaluationStage` (`IdEvaluation`,`IdStage`) VALUES (178,28);
+INSERT IGNORE INTO `tblEvaluationStage` (`IdEvaluation`,`IdStage`) VALUES (179,29);
+INSERT IGNORE INTO `tblEvaluationStage` (`IdEvaluation`,`IdStage`) VALUES (180,30);
+INSERT IGNORE INTO `tblEvaluationStage` (`IdEvaluation`,`IdStage`) VALUES (181,31);
+INSERT IGNORE INTO `tblEvaluationStage` (`IdEvaluation`,`IdStage`) VALUES (182,32);
+INSERT IGNORE INTO `tblEvaluationStage` (`IdEvaluation`,`IdStage`) VALUES (183,33);
+INSERT IGNORE INTO `tblEvaluationStage` (`IdEvaluation`,`IdStage`) VALUES (184,34);
+INSERT IGNORE INTO `tblEvaluationStage` (`IdEvaluation`,`IdStage`) VALUES (185,35);
+INSERT IGNORE INTO `tblEvaluationStage` (`IdEvaluation`,`IdStage`) VALUES (186,36);
+INSERT IGNORE INTO `tblEvaluationStage` (`IdEvaluation`,`IdStage`) VALUES (187,37);
+INSERT IGNORE INTO `tblEvaluationStage` (`IdEvaluation`,`IdStage`) VALUES (188,38);
+INSERT IGNORE INTO `tblEvaluationStage` (`IdEvaluation`,`IdStage`) VALUES (189,39);
+INSERT IGNORE INTO `tblEvaluationStage` (`IdEvaluation`,`IdStage`) VALUES (190,40);
+INSERT IGNORE INTO `tblEvaluationStage` (`IdEvaluation`,`IdStage`) VALUES (191,41);
+INSERT IGNORE INTO `tblEvaluationStage` (`IdEvaluation`,`IdStage`) VALUES (192,42);
+INSERT IGNORE INTO `tblEvaluationStage` (`IdEvaluation`,`IdStage`) VALUES (193,43);
+INSERT IGNORE INTO `tblEvaluationStage` (`IdEvaluation`,`IdStage`) VALUES (194,44);
+INSERT IGNORE INTO `tblEvaluationStage` (`IdEvaluation`,`IdStage`) VALUES (195,45);
+INSERT IGNORE INTO `tblEvaluationStage` (`IdEvaluation`,`IdStage`) VALUES (196,46);
+INSERT IGNORE INTO `tblEvaluationStage` (`IdEvaluation`,`IdStage`) VALUES (197,47);
+INSERT IGNORE INTO `tblEvaluationStage` (`IdEvaluation`,`IdStage`) VALUES (198,48);
+INSERT IGNORE INTO `tblEvaluationStage` (`IdEvaluation`,`IdStage`) VALUES (199,49);
+INSERT IGNORE INTO `tblEvaluationStage` (`IdEvaluation`,`IdStage`) VALUES (200,50);
 /*
 INSERT IGNORE INTO `tblEvaluation` (`Id`,`IdTypeEvaluation`) VALUES (1,1);
 INSERT IGNORE INTO `tblEvaluation` (`Id`,`IdTypeEvaluation`) VALUES (2,2);
@@ -968,11 +1019,72 @@ INSERT INTO `tblEvaluation` (`Id`,`Statut`,`DateDébut`,`DateFin`,`DateComplét�
 INSERT INTO `tblEvaluation` (`Id`,`Statut`,`DateDébut`,`DateFin`,`DateComplétée`,`IdTypeEvaluation`) VALUES (149,'1', ' 2017-10-20 ', ' 2018-04-04 ',NULL,2);
 INSERT INTO `tblEvaluation` (`Id`,`Statut`,`DateDébut`,`DateFin`,`DateComplétée`,`IdTypeEvaluation`) VALUES (150,'1', ' 2017-10-20 ', ' 2018-04-04 ',NULL,3);
 
+INSERT INTO `tblEvaluation` (`Id`,`Statut`,`DateDébut`,`DateFin`,`DateComplétée`,`Commentaire`,`IdTypeEvaluation`) VALUES (151,'0','2017-10-20','2018-04-04',NULL,'',4);
+INSERT INTO `tblEvaluation` (`Id`,`Statut`,`DateDébut`,`DateFin`,`DateComplétée`,`Commentaire`,`IdTypeEvaluation`) VALUES (152,'0','2017-10-20','2018-04-04',NULL,'',4);
+INSERT INTO `tblEvaluation` (`Id`,`Statut`,`DateDébut`,`DateFin`,`DateComplétée`,`Commentaire`,`IdTypeEvaluation`) VALUES (153,'0','2017-10-20','2018-04-04',NULL,'',4);
+INSERT INTO `tblEvaluation` (`Id`,`Statut`,`DateDébut`,`DateFin`,`DateComplétée`,`Commentaire`,`IdTypeEvaluation`) VALUES (154,'0','2017-10-20','2018-04-04',NULL,'',4);
+INSERT INTO `tblEvaluation` (`Id`,`Statut`,`DateDébut`,`DateFin`,`DateComplétée`,`Commentaire`,`IdTypeEvaluation`) VALUES (155,'0','2017-10-20','2018-04-04',NULL,'',4);
+INSERT INTO `tblEvaluation` (`Id`,`Statut`,`DateDébut`,`DateFin`,`DateComplétée`,`Commentaire`,`IdTypeEvaluation`) VALUES (156,'0','2017-10-20','2018-04-04',NULL,'',4);
+INSERT INTO `tblEvaluation` (`Id`,`Statut`,`DateDébut`,`DateFin`,`DateComplétée`,`Commentaire`,`IdTypeEvaluation`) VALUES (157,'0','2017-10-20','2018-04-04',NULL,'',4);
+INSERT INTO `tblEvaluation` (`Id`,`Statut`,`DateDébut`,`DateFin`,`DateComplétée`,`Commentaire`,`IdTypeEvaluation`) VALUES (158,'0','2017-10-20','2018-04-04',NULL,'',4);
+INSERT INTO `tblEvaluation` (`Id`,`Statut`,`DateDébut`,`DateFin`,`DateComplétée`,`Commentaire`,`IdTypeEvaluation`) VALUES (159,'0','2017-10-20','2018-04-04',NULL,'',4);
+INSERT INTO `tblEvaluation` (`Id`,`Statut`,`DateDébut`,`DateFin`,`DateComplétée`,`Commentaire`,`IdTypeEvaluation`) VALUES (160,'0','2017-10-20','2018-04-04',NULL,'',4);
+INSERT INTO `tblEvaluation` (`Id`,`Statut`,`DateDébut`,`DateFin`,`DateComplétée`,`Commentaire`,`IdTypeEvaluation`) VALUES (161,'0','2017-10-20','2018-04-04',NULL,'',4);
+INSERT INTO `tblEvaluation` (`Id`,`Statut`,`DateDébut`,`DateFin`,`DateComplétée`,`Commentaire`,`IdTypeEvaluation`) VALUES (162,'0','2017-10-20','2018-04-04',NULL,'',4);
+INSERT INTO `tblEvaluation` (`Id`,`Statut`,`DateDébut`,`DateFin`,`DateComplétée`,`Commentaire`,`IdTypeEvaluation`) VALUES (163,'0','2017-10-20','2018-04-04',NULL,'',4);
+INSERT INTO `tblEvaluation` (`Id`,`Statut`,`DateDébut`,`DateFin`,`DateComplétée`,`Commentaire`,`IdTypeEvaluation`) VALUES (164,'0','2017-10-20','2018-04-04',NULL,'',4);
+INSERT INTO `tblEvaluation` (`Id`,`Statut`,`DateDébut`,`DateFin`,`DateComplétée`,`Commentaire`,`IdTypeEvaluation`) VALUES (165,'0','2017-10-20','2018-04-04',NULL,'',4);
+INSERT INTO `tblEvaluation` (`Id`,`Statut`,`DateDébut`,`DateFin`,`DateComplétée`,`Commentaire`,`IdTypeEvaluation`) VALUES (166,'0','2017-10-20','2018-04-04',NULL,'',4);
+INSERT INTO `tblEvaluation` (`Id`,`Statut`,`DateDébut`,`DateFin`,`DateComplétée`,`Commentaire`,`IdTypeEvaluation`) VALUES (167,'0','2017-10-20','2018-04-04',NULL,'',4);
+INSERT INTO `tblEvaluation` (`Id`,`Statut`,`DateDébut`,`DateFin`,`DateComplétée`,`Commentaire`,`IdTypeEvaluation`) VALUES (168,'0','2017-10-20','2018-04-04',NULL,'',4);
+INSERT INTO `tblEvaluation` (`Id`,`Statut`,`DateDébut`,`DateFin`,`DateComplétée`,`Commentaire`,`IdTypeEvaluation`) VALUES (169,'0','2017-10-20','2018-04-04',NULL,'',4);
+INSERT INTO `tblEvaluation` (`Id`,`Statut`,`DateDébut`,`DateFin`,`DateComplétée`,`Commentaire`,`IdTypeEvaluation`) VALUES (170,'0','2017-10-20','2018-04-04',NULL,'',4);
+INSERT INTO `tblEvaluation` (`Id`,`Statut`,`DateDébut`,`DateFin`,`DateComplétée`,`Commentaire`,`IdTypeEvaluation`) VALUES (171,'0','2017-10-20','2018-04-04',NULL,'',4);
+INSERT INTO `tblEvaluation` (`Id`,`Statut`,`DateDébut`,`DateFin`,`DateComplétée`,`Commentaire`,`IdTypeEvaluation`) VALUES (172,'0','2017-10-20','2018-04-04',NULL,'',4);
+INSERT INTO `tblEvaluation` (`Id`,`Statut`,`DateDébut`,`DateFin`,`DateComplétée`,`Commentaire`,`IdTypeEvaluation`) VALUES (173,'0','2017-10-20','2018-04-04',NULL,'',4);
+INSERT INTO `tblEvaluation` (`Id`,`Statut`,`DateDébut`,`DateFin`,`DateComplétée`,`Commentaire`,`IdTypeEvaluation`) VALUES (174,'0','2017-10-20','2018-04-04',NULL,'',4);
+INSERT INTO `tblEvaluation` (`Id`,`Statut`,`DateDébut`,`DateFin`,`DateComplétée`,`Commentaire`,`IdTypeEvaluation`) VALUES (175,'0','2017-10-20','2018-04-04',NULL,'',4);
+INSERT INTO `tblEvaluation` (`Id`,`Statut`,`DateDébut`,`DateFin`,`DateComplétée`,`Commentaire`,`IdTypeEvaluation`) VALUES (176,'0','2017-10-20','2018-04-04',NULL,'',4);
+INSERT INTO `tblEvaluation` (`Id`,`Statut`,`DateDébut`,`DateFin`,`DateComplétée`,`Commentaire`,`IdTypeEvaluation`) VALUES (177,'0','2017-10-20','2018-04-04',NULL,'',4);
+INSERT INTO `tblEvaluation` (`Id`,`Statut`,`DateDébut`,`DateFin`,`DateComplétée`,`Commentaire`,`IdTypeEvaluation`) VALUES (178,'0','2017-10-20','2018-04-04',NULL,'',4);
+INSERT INTO `tblEvaluation` (`Id`,`Statut`,`DateDébut`,`DateFin`,`DateComplétée`,`Commentaire`,`IdTypeEvaluation`) VALUES (179,'0','2017-10-20','2018-04-04',NULL,'',4);
+INSERT INTO `tblEvaluation` (`Id`,`Statut`,`DateDébut`,`DateFin`,`DateComplétée`,`Commentaire`,`IdTypeEvaluation`) VALUES (180,'0','2017-10-20','2018-04-04',NULL,'',4);
+INSERT INTO `tblEvaluation` (`Id`,`Statut`,`DateDébut`,`DateFin`,`DateComplétée`,`Commentaire`,`IdTypeEvaluation`) VALUES (181,'0','2017-10-20','2018-04-04',NULL,'',4);
+INSERT INTO `tblEvaluation` (`Id`,`Statut`,`DateDébut`,`DateFin`,`DateComplétée`,`Commentaire`,`IdTypeEvaluation`) VALUES (182,'0','2017-10-20','2018-04-04',NULL,'',4);
+INSERT INTO `tblEvaluation` (`Id`,`Statut`,`DateDébut`,`DateFin`,`DateComplétée`,`Commentaire`,`IdTypeEvaluation`) VALUES (183,'0','2017-10-20','2018-04-04',NULL,'',4);
+INSERT INTO `tblEvaluation` (`Id`,`Statut`,`DateDébut`,`DateFin`,`DateComplétée`,`Commentaire`,`IdTypeEvaluation`) VALUES (184,'0','2017-10-20','2018-04-04',NULL,'',4);
+INSERT INTO `tblEvaluation` (`Id`,`Statut`,`DateDébut`,`DateFin`,`DateComplétée`,`Commentaire`,`IdTypeEvaluation`) VALUES (185,'0','2017-10-20','2018-04-04',NULL,'',4);
+INSERT INTO `tblEvaluation` (`Id`,`Statut`,`DateDébut`,`DateFin`,`DateComplétée`,`Commentaire`,`IdTypeEvaluation`) VALUES (186,'0','2017-10-20','2018-04-04',NULL,'',4);
+INSERT INTO `tblEvaluation` (`Id`,`Statut`,`DateDébut`,`DateFin`,`DateComplétée`,`Commentaire`,`IdTypeEvaluation`) VALUES (187,'0','2017-10-20','2018-04-04',NULL,'',4);
+INSERT INTO `tblEvaluation` (`Id`,`Statut`,`DateDébut`,`DateFin`,`DateComplétée`,`Commentaire`,`IdTypeEvaluation`) VALUES (188,'0','2017-10-20','2018-04-04',NULL,'',4);
+INSERT INTO `tblEvaluation` (`Id`,`Statut`,`DateDébut`,`DateFin`,`DateComplétée`,`Commentaire`,`IdTypeEvaluation`) VALUES (189,'0','2017-10-20','2018-04-04',NULL,'',4);
+INSERT INTO `tblEvaluation` (`Id`,`Statut`,`DateDébut`,`DateFin`,`DateComplétée`,`Commentaire`,`IdTypeEvaluation`) VALUES (190,'0','2017-10-20','2018-04-04',NULL,'',4);
+INSERT INTO `tblEvaluation` (`Id`,`Statut`,`DateDébut`,`DateFin`,`DateComplétée`,`Commentaire`,`IdTypeEvaluation`) VALUES (191,'0','2017-10-20','2018-04-04',NULL,'',4);
+INSERT INTO `tblEvaluation` (`Id`,`Statut`,`DateDébut`,`DateFin`,`DateComplétée`,`Commentaire`,`IdTypeEvaluation`) VALUES (192,'0','2017-10-20','2018-04-04',NULL,'',4);
+INSERT INTO `tblEvaluation` (`Id`,`Statut`,`DateDébut`,`DateFin`,`DateComplétée`,`Commentaire`,`IdTypeEvaluation`) VALUES (193,'0','2017-10-20','2018-04-04',NULL,'',4);
+INSERT INTO `tblEvaluation` (`Id`,`Statut`,`DateDébut`,`DateFin`,`DateComplétée`,`Commentaire`,`IdTypeEvaluation`) VALUES (194,'0','2017-10-20','2018-04-04',NULL,'',4);
+INSERT INTO `tblEvaluation` (`Id`,`Statut`,`DateDébut`,`DateFin`,`DateComplétée`,`Commentaire`,`IdTypeEvaluation`) VALUES (195,'0','2017-10-20','2018-04-04',NULL,'',4);
+INSERT INTO `tblEvaluation` (`Id`,`Statut`,`DateDébut`,`DateFin`,`DateComplétée`,`Commentaire`,`IdTypeEvaluation`) VALUES (196,'0','2017-10-20','2018-04-04',NULL,'',4);
+INSERT INTO `tblEvaluation` (`Id`,`Statut`,`DateDébut`,`DateFin`,`DateComplétée`,`Commentaire`,`IdTypeEvaluation`) VALUES (197,'0','2017-10-20','2018-04-04',NULL,'',4);
+INSERT INTO `tblEvaluation` (`Id`,`Statut`,`DateDébut`,`DateFin`,`DateComplétée`,`Commentaire`,`IdTypeEvaluation`) VALUES (198,'0','2017-10-20','2018-04-04',NULL,'',4);
+INSERT INTO `tblEvaluation` (`Id`,`Statut`,`DateDébut`,`DateFin`,`DateComplétée`,`Commentaire`,`IdTypeEvaluation`) VALUES (199,'0','2017-10-20','2018-04-04',NULL,'',4);
+INSERT INTO `tblEvaluation` (`Id`,`Statut`,`DateDébut`,`DateFin`,`DateComplétée`,`Commentaire`,`IdTypeEvaluation`) VALUES (200,'0','2017-10-20','2018-04-04',NULL,'',4);
 
 
-INSERT IGNORE INTO `tblTypeEvaluation` (`Id`,`Titre`,`DateLimite`) VALUES (1,'Évaluation mi-stage','2017-01-30');
-INSERT IGNORE INTO `tblTypeEvaluation` (`Id`,`Titre`,`DateLimite`) VALUES (2,'Évaluation finale','2017-03-27');
-INSERT IGNORE INTO `tblTypeEvaluation` (`Id`,`Titre`,`DateLimite`) VALUES (3,'Évaluation de la formation','2017-04-14');
+INSERT IGNORE INTO `tblTypeEvaluation` (`Id`,`Titre`,`Objectif`) VALUES (1,'Évaluation mi-stage','La première évaluation servira à noter de façon générale l’élève stagiaire en vue
+d\'un réajustement possible. Il serait grandement souhaitable que cette évaluation
+se fasse conjointement avec l’élève stagiaire et que la démarche s\'effectue de
+façon formative. Une fois complété, le formulaire devra être remis à votre
+stagiaire qui se chargera de nous l\'expédier.');
+INSERT IGNORE INTO `tblTypeEvaluation` (`Id`,`Titre`,`Objectif`) VALUES (2,'Évaluation finale','La deuxième évaluation mesurera plus en détail les thèmes abordés dans le
+formulaire 1, et permettra de tracer le bilan du stage. Dans la semaine qui suivra
+la fin du stage, vous devrez nous faire parvenir le formulaire par la poste si vous ne
+l\'avez pas déjà remis à votre stagiaire lors de son départ.');
+INSERT IGNORE INTO `tblTypeEvaluation` (`Id`,`Titre`,`Objectif`) VALUES (3,'Évaluation de la formation','Obtenir une appréciation de la formation collégiale du stagiaire et évaluer l’importance
+des divers domaines de formation en milieu de travail.');
+INSERT IGNORE INTO `tblTypeEvaluation` (`Id`,`Titre`,`Objectif`) VALUES (4,'Auto-évaluation','À remplir conjointement par la personne responsable technique et par l’élève stagiaire.');
+
+
 
 INSERT IGNORE INTO `tblQuestion` (`Id`,`Competence`,`Texte`, `IdTypeQuestion`, `IdCategorieQuestion`) VALUES (1,'Intégration dans le milieu ','Intégration dans le milieu ',1,8);
 INSERT IGNORE INTO `tblQuestion` (`Id`,`Competence`,`Texte`, `IdTypeQuestion`, `IdCategorieQuestion`) VALUES (2,'Ponctualité', 'L’élève stagiaire est-il ou est-elle constamment à l''heure à son travail?',1,9);
@@ -1032,6 +1144,17 @@ INSERT IGNORE INTO `tblQuestion` (`Id`,`Texte`, `IdTypeQuestion`, `IdCategorieQu
 INSERT IGNORE INTO `tblQuestion` (`Id`,`Texte`, `IdTypeQuestion`, `IdCategorieQuestion`) VALUES (56,'Tenir compte du point de vue des autres et reconsidérer, s’il y a lieu, son propre point de vue. ',2,7);
 INSERT IGNORE INTO `tblQuestion` (`Id`,`Texte`, `IdTypeQuestion`, `IdCategorieQuestion`) VALUES (66,'Commentaires.',3,7);
 INSERT IGNORE INTO `tblQuestion` (`Id`,`Texte`, `IdTypeQuestion`, `IdCategorieQuestion`) VALUES (67,'Commentaires.',3,12);
+
+
+INSERT IGNORE INTO `tblQuestion` (`Id`,`Texte`, `IdTypeQuestion`, `IdCategorieQuestion`) VALUES (57,'La formation a permis au stagiaire de bien fonctionner dans un contexte de développement d\’application (modélisation, documentation, tests, etc.)',2,13);
+INSERT IGNORE INTO `tblQuestion` (`Id`,`Texte`, `IdTypeQuestion`, `IdCategorieQuestion`) VALUES (58,'La formation reçue a permis au stagiaire de s\’adapter aux environnements de développement de l’entreprise',2,14);
+INSERT IGNORE INTO `tblQuestion` (`Id`,`Texte`, `IdTypeQuestion`, `IdCategorieQuestion`) VALUES (59,'Les connaissances du stagiaire étaient suffisantes pour comprendre et réaliser les tâches confiées',2,14);
+INSERT IGNORE INTO `tblQuestion` (`Id`,`Texte`, `IdTypeQuestion`, `IdCategorieQuestion`) VALUES (60,'Les connaissances du stagiaire étaient suffisantes pour réaliser des tâches reliées au WEB',2,15);
+INSERT IGNORE INTO `tblQuestion` (`Id`,`Texte`, `IdTypeQuestion`, `IdCategorieQuestion`) VALUES (61,'La formation reçue par le stagiaire lui a permis de bien modéliser les informations dans une base de données',2,16);
+INSERT IGNORE INTO `tblQuestion` (`Id`,`Texte`, `IdTypeQuestion`, `IdCategorieQuestion`) VALUES (62,'Les connaissances du stagiaire lui ont permis d’effectuer des interactions justes avec la base de données(ex : requêtes SQL)',2,16);
+INSERT IGNORE INTO `tblQuestion` (`Id`,`Texte`, `IdTypeQuestion`, `IdCategorieQuestion`) VALUES (63,'La formation en réseautique du stagiaire lui a permis de réaliser efficacement les tâches confiées',2,17);
+INSERT IGNORE INTO `tblQuestion` (`Id`,`Texte`, `IdTypeQuestion`, `IdCategorieQuestion`) VALUES (64,'La formation reçue par le stagiaire lui a permis de réaliser des installations et des configurations de systèmes',2,18);
+INSERT IGNORE INTO `tblQuestion` (`Id`,`Texte`, `IdTypeQuestion`, `IdCategorieQuestion`) VALUES (65,'Le stagiaire possède les techniques de support nécessaire pour répondre à des demandes d’assistance de la part des usagers',2,18);
 
 INSERT IGNORE INTO `tblReponse` (`Id`,`Texte`) VALUES (1,'Généralement');
 INSERT IGNORE INTO `tblReponse` (`Id`,`Texte`) VALUES (2,'Souvent');
@@ -1147,17 +1270,11 @@ INSERT IGNORE INTO `tblReponse` (`Id`,`Texte`) VALUES (111,'Très bien ');
 INSERT IGNORE INTO `tblReponse` (`Id`,`Texte`) VALUES (112,'Bien ');
 INSERT IGNORE INTO `tblReponse` (`Id`,`Texte`) VALUES (113,'Acceptable ');
 INSERT IGNORE INTO `tblReponse` (`Id`,`Texte`) VALUES (114,'Faible ');
--- INSERT IGNORE INTO `tblReponse` (`Id`,`Texte`) VALUES (115,'J''ai aimé l''expérience de travail offerte par la compagnie. J''e crois avoir fait du bon travail même si les technologies utilisées n''étaient pas dans mes outils habituels. ');
-INSERT IGNORE INTO `tblReponse` (`Id`,`Texte`) VALUES (115,'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam gravida lectus vel risus dignissim, eu lobortis augue sodales. Nam scelerisque a metus eu imperdiet. Morbi dictum rhoncus lacus, sit amet varius neque. Maecenas faucibus purus lacus, eget consectetur purus viverra ut. Aenean dui augue, aliquet vitae varius ut, tincidunt in erat. Suspendisse potenti. Aenean sed dapibus arcu, vitae tincidunt arcu. In maximus leo enim, at lobortis tellus finibus nec. Duis volutpat nulla eget sapien tincidunt, a aliquam neque posuere. Duis in sollicitudin metus, eu placerat ipsum. Sed commodo, libero in tempor tempor, neque libero pretium lectus, a porta dolor dui nec lectus. Integer id molestie erat, quis convallis nulla. Aenean urna nibh, cursus sed cursus id, lobortis vitae est. Vivamus id sapien fermentum, facilisis magna nec, aliquet tortor. Etiam ac hendrerit sapien.
-
-Quisque sit amet risus faucibus, auctor ex vel, sagittis nisl. Maecenas lacinia, nunc quis venenatis gravida, arcu ipsum bibendum nisl, eget semper lectus ex nec ipsum. Cras sollicitudin sem eget metus feugiat volutpat. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Duis pretium nunc ut est mattis elementum. Phasellus vestibulum ipsum in est maximus varius. Duis non tempus lacus. Cras vitae augue maximus, luctus dolor in, blandit turpis. Pellentesque commodo lacinia malesuada. In non arcu eros.
-
-Donec vel congue velit. Integer commodo ultricies quam, nec imperdiet arcu luctus sit amet. Vestibulum nec scelerisque est, a aliquam nisl. Vestibulum laoreet, eros nec euismod pharetra, dui lacus scelerisque dui, ut faucibus metus est eu mauris. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer ut pulvinar eros. Morbi lobortis ligula vel mauris varius pharetra. Nullam volutpat tristique vulputate. Morbi turpis velit, vehicula in lorem a, blandit viverra nibh. Vivamus eleifend pellentesque scelerisque.
-
-Etiam mattis accumsan dapibus. Sed ac dictum arcu, id gravida est. Phasellus nec neque porttitor, vehicula nunc vehicula, luctus neque. Morbi condimentum tincidunt imperdiet. Aliquam eleifend nibh ut sapien pretium, et gravida massa bibendum. Curabitur tincidunt augue dui, ut vestibulum velit vulputate ac. Maecenas iaculis fermentum metus at eleifend. Quisque egestas turpis at urna posuere viverra. Phasellus maximus efficitur fermentum. Interdum et malesuada fames ac ante ipsum primis in faucibus. Proin sapien dui, fringilla a dictum vitae, eleifend ut diam. Pellentesque fermentum ex ut dapibus aliquet. Aliquam quis tortor vitae urna interdum luctus. Suspendisse turpis purus, rhoncus a congue non, dictum sit amet urna.
-
-Phasellus sodales felis ac faucibus tincidunt. Nunc et justo in quam aliquet aliquet sed ut orci. Sed fringilla purus non dictum pulvinar. Morbi facilisis libero ut lorem finibus posuere. Praesent id ullamcorper elit, et mattis leo. Suspendisse tempus diam a ultricies porta. Donec volutpat odio nec risus pharetra, in nullam.');
-
+INSERT IGNORE INTO `tblReponse` (`Id`,`Texte`) VALUES (115,'En accord');
+INSERT IGNORE INTO `tblReponse` (`Id`,`Texte`) VALUES (116,'Plutot en accord');
+INSERT IGNORE INTO `tblReponse` (`Id`,`Texte`) VALUES (117,'Plutot en désaccord');
+INSERT IGNORE INTO `tblReponse` (`Id`,`Texte`) VALUES (118,'En désaccord');
+INSERT IGNORE INTO `tblReponse` (`Id`,`Texte`) VALUES (119,'Ne s\'applique pas');
 /*
 INSERT IGNORE INTO `tblReponseQuestion` (`IdQuestion`,`IdReponse`) VALUES (1,1);
 INSERT IGNORE INTO `tblReponseQuestion` (`IdQuestion`,`IdReponse`) VALUES (1,2);
@@ -1658,6 +1775,52 @@ INSERT INTO `tblReponseQuestion` (`IdReponse`,`IdQuestion`) VALUES (1,56);
 INSERT INTO `tblReponseQuestion` (`IdReponse`,`IdQuestion`) VALUES (2,56);
 INSERT INTO `tblReponseQuestion` (`IdReponse`,`IdQuestion`) VALUES (3,56);
 INSERT INTO `tblReponseQuestion` (`IdReponse`,`IdQuestion`) VALUES (4,56);
+-- evaluation de la formation
+INSERT INTO `tblReponseQuestion` (`IdQuestion`,`IdReponse`) VALUES (57,115);
+INSERT INTO `tblReponseQuestion` (`IdQuestion`,`IdReponse`) VALUES (57,116);
+INSERT INTO `tblReponseQuestion` (`IdQuestion`,`IdReponse`) VALUES (57,117);
+INSERT INTO `tblReponseQuestion` (`IdQuestion`,`IdReponse`) VALUES (57,118);
+INSERT INTO `tblReponseQuestion` (`IdQuestion`,`IdReponse`) VALUES (57,119);
+INSERT INTO `tblReponseQuestion` (`IdQuestion`,`IdReponse`) VALUES (58,115);
+INSERT INTO `tblReponseQuestion` (`IdQuestion`,`IdReponse`) VALUES (58,116);
+INSERT INTO `tblReponseQuestion` (`IdQuestion`,`IdReponse`) VALUES (58,117);
+INSERT INTO `tblReponseQuestion` (`IdQuestion`,`IdReponse`) VALUES (58,118);
+INSERT INTO `tblReponseQuestion` (`IdQuestion`,`IdReponse`) VALUES (58,119);
+INSERT INTO `tblReponseQuestion` (`IdQuestion`,`IdReponse`) VALUES (59,115);
+INSERT INTO `tblReponseQuestion` (`IdQuestion`,`IdReponse`) VALUES (59,116);
+INSERT INTO `tblReponseQuestion` (`IdQuestion`,`IdReponse`) VALUES (59,117);
+INSERT INTO `tblReponseQuestion` (`IdQuestion`,`IdReponse`) VALUES (59,118);
+INSERT INTO `tblReponseQuestion` (`IdQuestion`,`IdReponse`) VALUES (59,119);
+INSERT INTO `tblReponseQuestion` (`IdQuestion`,`IdReponse`) VALUES (60,115);
+INSERT INTO `tblReponseQuestion` (`IdQuestion`,`IdReponse`) VALUES (60,116);
+INSERT INTO `tblReponseQuestion` (`IdQuestion`,`IdReponse`) VALUES (60,117);
+INSERT INTO `tblReponseQuestion` (`IdQuestion`,`IdReponse`) VALUES (60,118);
+INSERT INTO `tblReponseQuestion` (`IdQuestion`,`IdReponse`) VALUES (60,119);
+INSERT INTO `tblReponseQuestion` (`IdQuestion`,`IdReponse`) VALUES (61,115);
+INSERT INTO `tblReponseQuestion` (`IdQuestion`,`IdReponse`) VALUES (61,116);
+INSERT INTO `tblReponseQuestion` (`IdQuestion`,`IdReponse`) VALUES (61,117);
+INSERT INTO `tblReponseQuestion` (`IdQuestion`,`IdReponse`) VALUES (61,118);
+INSERT INTO `tblReponseQuestion` (`IdQuestion`,`IdReponse`) VALUES (61,119);
+INSERT INTO `tblReponseQuestion` (`IdQuestion`,`IdReponse`) VALUES (62,115);
+INSERT INTO `tblReponseQuestion` (`IdQuestion`,`IdReponse`) VALUES (62,116);
+INSERT INTO `tblReponseQuestion` (`IdQuestion`,`IdReponse`) VALUES (62,117);
+INSERT INTO `tblReponseQuestion` (`IdQuestion`,`IdReponse`) VALUES (62,118);
+INSERT INTO `tblReponseQuestion` (`IdQuestion`,`IdReponse`) VALUES (62,119);
+INSERT INTO `tblReponseQuestion` (`IdQuestion`,`IdReponse`) VALUES (63,115);
+INSERT INTO `tblReponseQuestion` (`IdQuestion`,`IdReponse`) VALUES (63,116);
+INSERT INTO `tblReponseQuestion` (`IdQuestion`,`IdReponse`) VALUES (63,117);
+INSERT INTO `tblReponseQuestion` (`IdQuestion`,`IdReponse`) VALUES (63,118);
+INSERT INTO `tblReponseQuestion` (`IdQuestion`,`IdReponse`) VALUES (63,119);
+INSERT INTO `tblReponseQuestion` (`IdQuestion`,`IdReponse`) VALUES (64,115);
+INSERT INTO `tblReponseQuestion` (`IdQuestion`,`IdReponse`) VALUES (64,116);
+INSERT INTO `tblReponseQuestion` (`IdQuestion`,`IdReponse`) VALUES (64,117);
+INSERT INTO `tblReponseQuestion` (`IdQuestion`,`IdReponse`) VALUES (64,118);
+INSERT INTO `tblReponseQuestion` (`IdQuestion`,`IdReponse`) VALUES (64,119);
+INSERT INTO `tblReponseQuestion` (`IdQuestion`,`IdReponse`) VALUES (65,115);
+INSERT INTO `tblReponseQuestion` (`IdQuestion`,`IdReponse`) VALUES (65,116);
+INSERT INTO `tblReponseQuestion` (`IdQuestion`,`IdReponse`) VALUES (65,117);
+INSERT INTO `tblReponseQuestion` (`IdQuestion`,`IdReponse`) VALUES (65,118);
+INSERT INTO `tblReponseQuestion` (`IdQuestion`,`IdReponse`) VALUES (65,119);
 
 INSERT IGNORE INTO `tblJournalDeBord` (`Id`,`Dates`,`Entree`,`Documents`,`IdStagiaire`) VALUES (1,'2017-01-01','Olimpia.Tremblay',NULL,1);
 INSERT IGNORE INTO `tblJournalDeBord` (`Id`,`Dates`,`Entree`,`Documents`,`IdStagiaire`) VALUES (2,'2010-01-01','Olga.Bouchard',NULL,2);
@@ -1722,7 +1885,13 @@ INSERT IGNORE INTO tblCategorieQuestion(TitreCategorie,Lettre,DescriptionCategor
 ('Le comportement de la ou du stagiaire','B', NULL),
 ('Le travail de la ou du stagiaire','C', NULL),
 ('Le potentiel de la ou du stagiaire','D', NULL),
-('L\'appréciation globale','E', NULL);
+('L\'appréciation globale','E', NULL),
+('Analyse','A', NULL),
+('Programmation','B', NULL),
+('Internet et programmation web','C', NULL),
+('Bases de données','D', NULL),
+('Réseau','E', NULL),
+('Soutien technique','F', NULL);
 
 
 
