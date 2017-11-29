@@ -1,35 +1,35 @@
 <?php
-    
+        
     $content = 
     '<article class="stagiaire">
         <div class="infoStagiaire">
-            <h2>'.$prenomStagiaire.' '.$nomStagiaire.'</h2>
-            <input class="bouton" type="button" value="Afficher le profil" onclick="Execute(1, \'../PHP/TBNavigation.php?idStagiaire='.$idStagiaire.'&nomMenu=Profil.php\')"/>
+            <h2>'.$profils[0]->Prenom.' '.$profils[0]->Nom.'</h2>
+            <input class="bouton" type="button" value="Afficher le profil" onclick="Execute(1, \'../PHP/TBNavigation.php?idStagiaire='.$profils[0]->Id.'&nomMenu=Profil.php\')"/>
             <br /><br /><br /><br /><br /><br />
         </div>
 
         <div class="blocInfo itemHover">
-            <a class="linkFill" onclick="Execute(1, \'../PHP/TBNavigation.php?idEmploye='.$idProf.'&nomMenu=Profil.php\')">
+            <a class="linkFill" onclick="Execute(1, \'../PHP/TBNavigation.php?idEmploye='.$profils[0]->IdEnseignant.'&nomMenu=Profil.php\')">
                 <div class="entete">
                     <h2>Enseignant</h2>
                 </div>
 
                 <div>
-                    <p>'.$prenomProf.' '.$nomProf.'</p>
-                    <p>'.$telProf.'</p>
+                    <p>'.$profils[0]->PrenomEnseignant.' '.$profils[0]->NomEnseignant.'</p>
+                    <p>'.$profils[0]->TelEnseignant.'</p>
                 </div>
             </a>
         </div>
 
         <div class="blocInfo itemHover">
-            <a class="linkFill" onclick="Execute(1, \'../PHP/TBNavigation.php?idEmploye='.$idSup.'&nomMenu=Profil.php\')">
+            <a class="linkFill" onclick="Execute(1, \'../PHP/TBNavigation.php?idEmploye='.$profils[0]->IdSuperviseur.'&nomMenu=Profil.php\')">
                 <div class="entete">
                     <h2>Superviseur</h2>
                 </div>
 
                 <div>
-                    <p>'.$prenomSup.' '.$nomSup.'</p>
-                    <p>'.$cellSup.'</p>
+                    <p>'.$profils[0]->PrenomSuperviseur.' '.$profils[0]->NomSuperviseur.'</p>
+                    <p>'.$profils[0]->TelSuperviseur.'</p>
                 </div>
             </a>
         </div>
@@ -45,14 +45,14 @@
             </thead>
 
             <tbody>
-                <tr class="itemHover" onclick="Execute(1, \'../PHP/TBNavigation.php?idStagiaire='.$idStagiaire.'&nomMenu=AVenir.php\')">
+                <tr class="itemHover" onclick="Execute(1, \'../PHP/TBNavigation.php?idStagiaire='.$profils[0]->Id.'&nomMenu=AVenir.php\')">
                     <td>Rapport 1</td>
                     <td>Non complétée <span class="statutColor">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></td>
                     <td>2017-02-15</td>
                     <td></td>
                 </tr>
 
-                <tr class="itemHover" onclick="Execute(1, \'../PHP/TBNavigation.php?idStagiaire='.$idStagiaire.'&nomMenu=AVenir.php\')">
+                <tr class="itemHover" onclick="Execute(1, \'../PHP/TBNavigation.php?idStagiaire='.$profils[0]->Id.'&nomMenu=AVenir.php\')">
                     <td>Rapport 2</td>
                     <td>complétée <span class="statutColor">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></td>
                     <td>2017-03-30</td>
@@ -69,11 +69,11 @@
             </thead>
 
             <tbody>
-                <tr class="itemHover" onclick="Execute(1, \'../PHP/TBNavigation.php?idStagiaire='.$idStagiaire.'&nomMenu=JournalBord.php\', \'&nbEntree=\', 5) ">
+                <tr class="itemHover" onclick="Execute(1, \'../PHP/TBNavigation.php?idStagiaire='.$profils[0]->Id.'&nomMenu=JournalBord.php\', \'&nbEntree=\', 5) ">
                     <td>Journal de bord</td>
                 </tr>
 
-                <tr class="itemHover" onclick="Execute(1, \'../PHP/TBNavigation.php?idStagiaire='.$idStagiaire.'&nomMenu=AVenir.php\')">
+                <tr class="itemHover" onclick="Execute(1, \'../PHP/TBNavigation.php?idStagiaire='.$profils[0]->Id.'&nomMenu=AVenir.php\')">
                     <td>Auto-Évaluation</td>
                 </tr>
             </tbody>

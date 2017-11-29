@@ -1,6 +1,6 @@
 <?php
 
-$profil = new ProfilStagiaire($_REQUEST["idStagiaire"], $bdd);
+require 'Profil.php';
 
 function ModifierStagiaire($bdd){
     include 'hash.php';
@@ -12,18 +12,17 @@ function ModifierStagiaire($bdd){
         $stagiaire[$champ->nom] = $champ->value;
     }
     
-    $query = $bdd->prepare('UPDATE tblStagiaire SET NumTel = :numTel, NumTelEntreprise = :numTelEntreprise, Poste = :poste, CourrielEntreprise = :courrielEntreprise, CourrielPersonnel = :courrielPerso WHERE Id = :id'); 
-    
     SetPassword($stagiaire["nouveauPasse"], $bdd);
     
-    $query->execute(array(
-        "numTel"=>$stagiaire["numTel"],
-        "numTelEntreprise"=>$stagiaire["numEntreprise"],
-        "poste"=>$stagiaire["poste"],
-        "courrielEntreprise"=>$stagiaire["courrielEntreprise"],
-        "courrielPerso"=>$stagiaire["courrielPersonnel"],
-        "id"=>$_SESSION["idConnecte"]
-    ));
+    $bdd->Request(" UPDATE tblStagiaire SET NumTel = :numTel, NumTelEntreprise = :numTelEntreprise, Poste = :poste, CourrielEntreprise = :courrielEntreprise, CourrielPersonnel = :courrielPerso WHERE Id = :id",
+                    array(
+                    "numTel"=>$stagiaire["numTel"],
+                    "numTelEntreprise"=>$stagiaire["numEntreprise"],
+                    "poste"=>$stagiaire["poste"],
+                    "courrielEntreprise"=>$stagiaire["courrielEntreprise"],
+                    "courrielPerso"=>$stagiaire["courrielPersonnel"],
+                    "id"=>$_SESSION["idConnecte"]),
+                    "stdClass");
 }
 
 if(isset($_REQUEST["post"]))
@@ -76,13 +75,13 @@ avoir ce format - (xxx) xxx-xxxx"/>
                         
                         <div class="champ">
                             <p class="label labelForInput">Courriel :</p>
-                            <input type="email" value="'.$profil->getCourriel().'" id="courrielEntreprise" name="courrielEntreprise" class="value" onexit="RegexProfilStagiaire()"/>
+                            <input type="email" value="'.$profil->getCourrielEntreprise().'" id="courrielEntreprise" name="courrielEntreprise" class="value" onexit="RegexProfilStagiaire()"/>
                             
                         </div>
                         
                         <div class="champ">
                             <p class="label labelForInput">No. Téléphone :</p>
-                            <input type="text" value="'.$profil->getNumTel().'" id="numEntreprise" name="numEntreprise" class="value" onexit="RegexProfilStagiaire()"/>
+                            <input type="text" value="'.$profil->getNumTelEntreprise().'" id="numEntreprise" name="numEntreprise" class="value" onexit="RegexProfilStagiaire()"/>
                             <img class="info" src="../Images/info.png" title="Le numéro de téléphone doit
 avoir ce format - (xxx) xxx-xxxx"/>
                         </div>

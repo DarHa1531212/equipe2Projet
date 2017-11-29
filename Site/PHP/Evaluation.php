@@ -8,12 +8,10 @@
         $eval = new EvaluationChoixReponse($bdd, $_REQUEST["idEvaluation"]);
 
     function Identification($bdd){
-        $query = $bdd->prepare( 'SELECT * FROM vIdentification
-                            WHERE IdStagiaire = :idStagiaire');
-
-        $query->execute(array('idStagiaire'=>$_REQUEST["idStagiaire"]));
-
-        $identification = $query->fetchAll();
+        $identification = $bdd->Request('   SELECT * FROM vIdentification
+                                            WHERE IdStagiaire = :idStagiaire',
+                                            array('idStagiaire'=>$_REQUEST["idStagiaire"]),
+                                            "stdClass")[0];
         
         return 
         '
@@ -21,7 +19,7 @@
             <tbody>
                 <tr>
                     <td>Organisation</td>
-                    <td>'.$identification[0]["NomEnt"].'</td>
+                    <td>'.$identification->NomEnt.'</td>
                 </tr>
 
                 <tr>
@@ -31,12 +29,12 @@
 
                 <tr>
                     <td>Responsable pédagogique</td>
-                    <td>'.$identification[0]["PrenomEns"].' '.$identification[0]["NomEns"].'</td>
+                    <td>'.$identification->PrenomEns.' '.$identification->NomEns.'</td>
                 </tr>
 
                 <tr>
                     <td>Élève stagiaire</td>
-                    <td>'.$identification[0]["PrenomSta"].' '.$identification[0]["NomSta"].'</td>
+                    <td>'.$identification->PrenomSta.' '.$identification->NomSta.'</td>
                 </tr>
             </tbody>
         </table>
@@ -86,12 +84,12 @@
             <input id="gauche" class="bouton" style="width : 150px; float: left;" type="button" value="Précédent" onclick="ChangerItem(this)"/>
             '.LettreNav($bdd, $eval).'
             <input id="droite" class="bouton" style="width : 150px; float: right" type="button" value="Suivant" onclick="ChangerItem(this)"/>
-            <input id="confirmer" class="bouton" style="width : 150px; float: right" type="button" value="Confirmer" onclick="Execute(4, \'../PHP/TBNavigation.php?idEmploye='.$profil["IdSuperviseur"].'&nomMenu=Evaluation.php\', \'&post=true\', \'&idEvaluation=\', '.$_REQUEST["idEvaluation"].', \'&idStagiaire=\', '.$_REQUEST["idStagiaire"].'); Execute(1, \'../PHP/TBNavigation.php?idEmploye='.$profil["IdSuperviseur"].'&nomMenu=Main\')" hidden/>
+            <input id="confirmer" class="bouton" style="width : 150px; float: right" type="button" value="Confirmer" onclick="Execute(4, \'../PHP/TBNavigation.php?idEmploye='.$profils[0]->IdSuperviseur.'&nomMenu=Evaluation.php\', \'&post=true\', \'&idEvaluation=\', '.$_REQUEST["idEvaluation"].', \'&idStagiaire=\', '.$_REQUEST["idStagiaire"].'); Execute(1, \'../PHP/TBNavigation.php?idEmploye='.$profils[0]->IdSuperviseur.'&nomMenu=Main\')" hidden/>
         </div>
 
         <br/><br/>
 
-        <input class="bouton" type="button" value="   Retour   " onclick="Execute(1, \'../PHP/TBNavigation.php?idEmploye='.$profil["IdSuperviseur"].'&nomMenu=Main\')"/>
+        <input class="bouton" type="button" value="   Retour   " onclick="Execute(1, \'../PHP/TBNavigation.php?idEmploye='.$profils[0]->IdSuperviseur.'&nomMenu=Main\')"/>
     </article>';
 
     return $content;

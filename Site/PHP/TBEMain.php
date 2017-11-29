@@ -1,9 +1,5 @@
 <?php
-    include 'ConnexionBD.php';
     $content = "";
-
-    $query2 = $bdd->prepare("SELECT * FROM vInfoEvalGlobale
-                            WHERE IdStagiaire = :idStagiaire;");
 
     //Vérifie si les évaluations précédentes sont complétées pour pouvoir appuyer sur la suivante.
     function VerifEvaluation($tblEvaluation, $profil){
@@ -12,9 +8,9 @@
         $eval1 = "";
         $eval2 = "";
         
-        if($tblEvaluation[0]->statut != '0')//le statut est different de pas accéssible
+        if($tblEvaluation[0]->Statut != '0')//le statut est different de pas accéssible
         {
-            $div = '<tr class="itemHover" onclick="Execute(1, \'../PHP/TBNavigation.php?idStagiaire='.$profil["Id"].'&nomMenu=Evaluation.php\', \'&idStage=\', '.$tblEvaluation[0]->idStage.', \'&idEvaluation=\', '.$tblEvaluation[0]->id.', \'&typeEval=1\');">';
+            $div = '<tr class="itemHover" onclick="Execute(1, \'../PHP/TBNavigation.php?idStagiaire='.$profil->Id.'&nomMenu=Evaluation.php\', \'&idStage=\', '.$tblEvaluation[0]->IdStage.', \'&idEvaluation=\', '.$tblEvaluation[0]->IdEvaluation.', \'&typeEval=1\');">';
         }
         else
         {
@@ -22,16 +18,16 @@
         }
 
         $eval1 = $div.
-            '<td>'.$tblEvaluation[0]->titre.'</td>
-            <td>'.$listeStatut[$tblEvaluation[0]->statut].'</td>
-            <td>'.$tblEvaluation[0]->dateDebut.'</td>
-            <td>'.$tblEvaluation[0]->dateFin.'</td>
-            <td>'.$tblEvaluation[0]->dateCompletee.'</td>
+            '<td>'.$tblEvaluation[0]->TitreTypeEvaluation.'</td>
+            <td>'.$listeStatut[$tblEvaluation[0]->Statut].'</td>
+            <td>'.$tblEvaluation[0]->DateDébut.'</td>
+            <td>'.$tblEvaluation[0]->DateFin.'</td>
+            <td>'.$tblEvaluation[0]->DateComplétée.'</td>
         </tr>';
         
-        if(($tblEvaluation[1]->statut != '0')&&(($tblEvaluation[0]->statut == '3')||($tblEvaluation[0]->statut == '4')))
+        if(($tblEvaluation[1]->Statut != '0')&&(($tblEvaluation[0]->Statut == '3')||($tblEvaluation[0]->Statut == '4')))
         {
-            $div = '<tr class="itemHover" onclick="Execute(1, \'../PHP/TBNavigation.php?idStagiaire='.$profil["Id"].'&nomMenu=Evaluation.php\', \'&idStage=\', '.$tblEvaluation[1]->idStage.', \'&idEvaluation=\', '.$tblEvaluation[1]->id.', \'&typeEval=2\')">';
+            $div = '<tr class="itemHover" onclick="Execute(1, \'../PHP/TBNavigation.php?idStagiaire='.$profil->Id.'&nomMenu=Evaluation.php\', \'&idStage=\', '.$tblEvaluation[1]->IdStage.', \'&idEvaluation=\', '.$tblEvaluation[1]->IdEvaluation.', \'&typeEval=2\')">';
         }
         else
         {
@@ -39,11 +35,11 @@
         }
         
         $eval2 = $div.
-            '<td>'.$tblEvaluation[1]->titre.'</td>
-            <td>'.$listeStatut[$tblEvaluation[1]->statut].'</td>
-            <td>'.$tblEvaluation[1]->dateDebut.'</td>
-            <td>'.$tblEvaluation[1]->dateFin.'</td>
-            <td>'.$tblEvaluation[1]->dateCompletee.'</td>
+            '<td>'.$tblEvaluation[1]->TitreTypeEvaluation.'</td>
+            <td>'.$listeStatut[$tblEvaluation[1]->Statut].'</td>
+            <td>'.$tblEvaluation[1]->DateDébut.'</td>
+            <td>'.$tblEvaluation[1]->DateFin.'</td>
+            <td>'.$tblEvaluation[1]->DateComplétée.'</td>
         </tr>';
         
         $div = $eval1.$eval2;
@@ -52,41 +48,28 @@
     }
 
     foreach($profils as $profil){
-        $query2->execute(array('idStagiaire'=> $profil["Id"]));
-        $evals = $query2->fetchAll();
-        $tblEvaluation = array();
-        
-        foreach($evals as $eval){
-            $evaluation = (object)[];
-
-            $evaluation->idStage = $eval["IdStage"];
-            $evaluation->id = $eval["IdEvaluation"];
-            $evaluation->statut = $eval["Statut"];
-            $evaluation->titre = $eval["TitreTypeEvaluation"]; 
-            $evaluation->dateDebut = $eval["DateDébut"];
-            $evaluation->dateFin = $eval["DateFin"];
-            $evaluation->dateCompletee = $eval["DateComplétée"];
-
-            $tblEvaluation[] = $evaluation;
-        }
+        $evals = $bdd->Request("SELECT * FROM vInfoEvalGlobale
+                                WHERE IdStagiaire = :idStagiaire;",
+                                array('idStagiaire'=> $profil->Id),
+                                "stdClass");
         
         $content = $content.
         '<article class="stagiaire">
         <div class="infoStagiaire">
-            <h2>'.$profil["Prenom"].' '.$profil["Nom"].'</h2>
-            <input class="bouton" type="button" value="Afficher le profil" onclick="Execute(1, \'../PHP/TBNavigation.php?idStagiaire='.$profil["Id"].'&nomMenu=Profil.php\')"/>
-            <h3>'.$profil["NumTel"].'</h3>
+            <h2>'.$profil->Prenom.' '.$profil->Nom.'</h2>
+            <input class="bouton" type="button" value="Afficher le profil" onclick="Execute(1, \'../PHP/TBNavigation.php?idStagiaire='.$profil->Id.'&nomMenu=Profil.php\')"/>
+            <h3>'.$profil->NumTel.'</h3>
         </div>
 
         <div class="blocInfo itemHover">
-            <a class="linkFill" onclick="Execute(1, \'../PHP/TBNavigation.php?idEmploye='.$profil["IdEnseignant"].'&nomMenu=Profil.php\')">
+            <a class="linkFill" onclick="Execute(1, \'../PHP/TBNavigation.php?idEmploye='.$profil->IdEnseignant.'&nomMenu=Profil.php\')">
                 <div class="entete">
                     <h2>Enseignant</h2>
                 </div>
 
                 <div>
-                    <p>'.$profil["PrenomEnseignant"].' '.$profil["NomEnseignant"].'</p>
-                    <p>'.$profil["TelEnseignant"].'</p>
+                    <p>'.$profil->PrenomEnseignant.' '.$profil->NomEnseignant.'</p>
+                    <p>'.$profil->TelEnseignant.'</p>
                 </div>
             </a>
         </div>';
@@ -95,14 +78,14 @@
             $content = $content.
             '
             <div class="blocInfo itemHover">
-                <a class="linkFill" onclick="Execute(1, \'../PHP/TBNavigation.php?idEmploye='.$profil["IdSuperviseur"].'&nomMenu=Profil.php\')">
+                <a class="linkFill" onclick="Execute(1, \'../PHP/TBNavigation.php?idEmploye='.$profil->IdSuperviseur.'&nomMenu=Profil.php\')">
                     <div class="entete">
                         <h2>Superviseur</h2>
                     </div>
 
                     <div>
-                        <p>'.$profil["PrenomSuperviseur"].' '.$profil["NomSuperviseur"].'</p>
-                        <p>'.$profil["TelSuperviseur"].'</p>
+                        <p>'.$profil->PrenomSuperviseur.' '.$profil->NomSuperviseur.'</p>
+                        <p>'.$profil->TelSuperviseur.'</p>
                     </div>
                 </a>
             </div>';
@@ -121,7 +104,7 @@
             </thead>
 
             <tbody>
-                '.VerifEvaluation($tblEvaluation, $profil).'
+                '.VerifEvaluation($evals, $profil).'
             </tbody>
         </table>
 
@@ -129,7 +112,7 @@
         
         if(count($profils) > 1){//Si il y a plus qu'un stagiaire, affiche les flèches.
             $content = $content.
-            '<input class="bouton" type="button" value="Écrire un commentaire" onclick="Execute(1, \'../PHP/TBNavigation.php?idEmploye='.$profil["IdSuperviseur"].'&nomMenu=AVenir.php\')"/>
+            '<input class="bouton" type="button" value="Écrire un commentaire" onclick="Execute(1, \'../PHP/TBNavigation.php?idEmploye='.$profil->IdSuperviseur.'&nomMenu=AVenir.php\')"/>
 
             <div class="navigateur">
                 <div id="gauche" class="fleche flecheGauche" onclick="ChangerItem(this)"></div>

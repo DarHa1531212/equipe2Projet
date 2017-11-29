@@ -1,23 +1,17 @@
 <?php
 
-    include 'ConnexionBD.php';
    // $Stage = new cStage($_REQUEST["idStage"]), $bdd, "","","", "","", "", "", "", "", "", "");
 
     //affiche les entreprises dans le dropdown menu
-    function showEnterprises($bdd)
-    {
-     $returnValue = "";
-      $query = $bdd->prepare("select Nom, Id from vEntreprise;");
+    function showEnterprises($bdd){
+        $returnValue = "";
+        $entrees = $bdd->Requete("select Nom, Id from vEntreprise;", null, "stdClass")[0];
 
-          $query->execute(array());     
-          $entrees = $query->fetchAll();
-          
-          foreach($entrees as $entree){
-              $nomEntreprise = $entree["Nom"];
-              $idEntreprise = $entree["Id"];
+        $nomEntreprise = $entree->Nom;
+        $idEntreprise = $entree->Id;
 
-              $returnValue = $returnValue . '<option value= "' . $idEntreprise . '">' . $nomEntreprise . '</option>';
-              }
+        $returnValue = $returnValue . '<option value= "' . $idEntreprise . '">' . $nomEntreprise . '</option>';
+        
         return $returnValue;
     }
 
@@ -25,19 +19,16 @@
     function showInternships($bdd)
     {
        $returnData = "";
-       $query = $bdd->prepare("Select concat (vStagiaire.Prenom, ' ' , vStagiaire.Nom ) as 'Stagiaire',  vEntreprise.Nom, vStage.Id from vStage
-    join vStagiaire on vStagiaire.IdUtilisateur = vStage.IdStagiaire
-    join vSuperviseur on vSuperviseur.IdUtilisateur = vStage.IdSuperviseur
-    join vEntreprise on vEntreprise.id = vSuperviseur.IdEntreprise;");
- 
- 
-      $query->execute(array());     
-      $entrees = $query->fetchAll();
-      //
+       $entrees = $bdd->Requete("   Select concat (vStagiaire.Prenom, ' ' , vStagiaire.Nom ) as 'Stagiaire',  vEntreprise.Nom, vStage.Id from vStage
+                                    join vStagiaire on vStagiaire.IdUtilisateur = vStage.IdStagiaire
+                                    join vSuperviseur on vSuperviseur.IdUtilisateur = vStage.IdSuperviseur
+                                    join vEntreprise on vEntreprise.id = vSuperviseur.IdEntreprise;",
+                                    null, "stdClass");
+
       foreach($entrees as $entree){
-          $nomStagiaire = $entree["Stagiaire"];
-          $entreprise = $entree["Nom"];
-          $idStage = $entree["Id"];
+          $nomStagiaire = $entree->Stagiaire;
+          $entreprise = $entree->Nom;
+          $idStage = $entree->Id;
           $returnData = $returnData .  '<tr>
                   <th  id="' 
                   . $idStage . '" value="' 
@@ -55,36 +46,32 @@
  //affiche les entreprises dans le dropdown menu
     function showProfessors($bdd)
     {
-      $returnData = "";
-      $query = $bdd->prepare("select concat (Prenom, ' ' , Nom) as nomEnseignant, IdEnseignant from vEnseignant;");
+        $returnData = "";
+        $entrees = $bdd->Requete("select concat (Prenom, ' ' , Nom) as nomEnseignant, IdEnseignant from vEnseignant;", null, "stdClass");
 
-          $query->execute(array());     
-          $entrees = $query->fetchAll();
-          
-          foreach($entrees as $entree){
-              $nomEnseignant = $entree["nomEnseignant"];
-              $IdEnseignant = $entree["IdEnseignant"];
-              $returnData = $returnData . '<option value= "' . $IdEnseignant .'">' . $nomEnseignant . '</option>';
-            }
-  return $returnData;
+        foreach($entrees as $entree){
+            $nomEnseignant = $entree->nomEnseignant;
+            $IdEnseignant = $entree->IdEnseignant;
+            $returnData = $returnData . '<option value= "' . $IdEnseignant .'">' . $nomEnseignant . '</option>';
+        }
+        
+        return $returnData;
   }
 
   // affiche les stagiaires dans le dropdown menu
 
   function showInterns($bdd)
   {
-     $returnValue = "";
-     $query = $bdd->prepare("select concat (Prenom, ' ' , Nom) as nomStagiaire, Id from vStagiaire;");
+        $returnValue = "";
+        $entrees = $bdd->Requete("select concat (Prenom, ' ' , Nom) as nomStagiaire, Id from vStagiaire;", null, "stdClass");
 
-      $query->execute(array());     
-      $entrees = $query->fetchAll();
+        foreach($entrees as $entree){
+            $nomStagiaire = $entree->nomStagiaire; 
+            $idStagiaire = $entree->Id;
+            $returnValue = $returnValue . '<option value= "' . $idStagiaire . '">' . $nomStagiaire . '</option>';
+        }
       
-      foreach($entrees as $entree){
-          $nomStagiaire = $entree["nomStagiaire"]; 
-          $idStagiaire = $entree["Id"];
-          $returnValue = $returnValue . '<option value= "' . $idStagiaire . '">' . $nomStagiaire . '</option>';
-       }
-       return $returnValue;
+        return $returnValue;
   }
 
  //   $dropDownInterns = "patate";

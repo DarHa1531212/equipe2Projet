@@ -1,7 +1,8 @@
 <?php 
     include 'Session.php';
+    require 'ConnexionBD.php';
 
-    function AfficherPage($NomMenu){
+    function AfficherPage($bdd, $NomMenu){
         include 'vTableauBord.php';
         include 'Model.php';
         
@@ -20,6 +21,6 @@
         echo json_encode($menu);
     }
 
-    AfficherPage($_REQUEST["nomMenu"]);
+    AfficherPage($bdd, $_REQUEST["nomMenu"]);
 
 ?>

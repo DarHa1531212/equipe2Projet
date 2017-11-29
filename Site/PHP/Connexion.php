@@ -2,7 +2,7 @@
 	session_start();
 	$username = $_POST['Username'];
 	$MDP = $_POST['Password'];
-	include 'ConnexionBD.php';
+	require 'ConnexionBD.php';
 	include 'hash.php';
 	
 	try

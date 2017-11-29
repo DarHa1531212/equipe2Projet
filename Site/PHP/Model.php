@@ -12,20 +12,18 @@
             unset($this->categories);
             $this->categories = array();
             
-            $query = $bdd->prepare('SELECT DISTINCT(CQ.Id) AS IdCategorie, TitreCategorie, Lettre, descriptionCategorie
-                                    FROM vQuestion AS Q
-                                    JOIN vCategorieQuestion AS CQ
-                                    ON CQ.Id = Q.IdCategorieQuestion
-                                    JOIN vEvaluationQuestionReponse AS EQR
-                                    ON EQR.IdQuestion = Q.Id
-                                    WHERE IdQuestion = :idQuestion');
-            
-            $query->execute(array('idQuestion'=>$idQuestion));
-            
-            $categories = $query->fetchAll();
-            
+            $categories = $bdd->Request('   SELECT DISTINCT(CQ.Id) AS IdCategorie, TitreCategorie, Lettre, descriptionCategorie
+                                            FROM vQuestion AS Q
+                                            JOIN vCategorieQuestion AS CQ
+                                            ON CQ.Id = Q.IdCategorieQuestion
+                                            JOIN vEvaluationQuestionReponse AS EQR
+                                            ON EQR.IdQuestion = Q.Id
+                                            WHERE IdQuestion = :idQuestion',
+                                            array('idQuestion'=>$idQuestion),
+                                            "stdClass");
+
             foreach($categories as $categorie){
-                array_push($this->categories, new CategorieQuestion($categorie["IdCategorie"], $categorie["TitreCategorie"], $categorie["Lettre"], $categorie["descriptionCategorie"]));
+                array_push($this->categories, new CategorieQuestion($categorie->IdCategorie, $categorie->TitreCategorie, $categorie->Lettre, $categorie->descriptionCategorie));
             }
         }
         
@@ -34,18 +32,16 @@
             unset($this->questions);
             $this->questions = array();
 
-            $query = $bdd->prepare('SELECT DISTINCT(Id), Q.Texte
-                                    FROM vQuestion AS Q
-                                    JOIN vEvaluationQuestionReponse AS EQR
-                                    ON EQR.IdQuestion = Q.Id
-                                    WHERE EQR.IdEvaluation = :idEvaluation');
-            
-            $query->execute(array('idEvaluation'=>$idEvaluation));
-            
-            $questions = $query->fetchAll();
+            $questions = $bdd->Request('SELECT DISTINCT(Id), Q.Texte
+                                        FROM vQuestion AS Q
+                                        JOIN vEvaluationQuestionReponse AS EQR
+                                        ON EQR.IdQuestion = Q.Id
+                                        WHERE EQR.IdEvaluation = :idEvaluation',
+                                        array('idEvaluation'=>$idEvaluation),
+                                        "stdClass");
             
             foreach($questions as $question){
-                array_push($this->questions, new Question($question["Id"], $question["Texte"]));
+                array_push($this->questions, new Question($question->Id, $question->Texte));
             }
         }
         
@@ -106,20 +102,18 @@
         
         //Sélectionne toutes les catégories pour l'évaluation.
         private function SelectCategories($bdd, $idEvaluation){
-            $query = $bdd->prepare('SELECT DISTINCT(CQ.Id) AS IdCategorie, TitreCategorie, Lettre, descriptionCategorie
-                                    FROM vQuestion AS Q
-                                    JOIN vCategorieQuestion AS CQ
-                                    ON CQ.Id = Q.IdCategorieQuestion
-                                    JOIN vEvaluationQuestionReponse AS EQR
-                                    ON EQR.IdQuestion = Q.Id
-                                    WHERE IdEvaluation = :idEvaluation');
-            
-            $query->execute(array('idEvaluation'=>$idEvaluation));
-            
-            $categories = $query->fetchAll();
-            
+            $categories = $bdd->Request('   SELECT DISTINCT(CQ.Id) AS IdCategorie, TitreCategorie, Lettre, descriptionCategorie
+                                            FROM vQuestion AS Q
+                                            JOIN vCategorieQuestion AS CQ
+                                            ON CQ.Id = Q.IdCategorieQuestion
+                                            JOIN vEvaluationQuestionReponse AS EQR
+                                            ON EQR.IdQuestion = Q.Id
+                                            WHERE IdEvaluation = :idEvaluation',
+                                            array('idEvaluation'=>$idEvaluation),
+                                            "stdClass");
+
             foreach($categories as $categorie){
-                array_push($this->categories, new CategorieQuestion($categorie["IdCategorie"], $categorie["TitreCategorie"], $categorie["Lettre"], $categorie["descriptionCategorie"]));
+                array_push($this->categories, new CategorieQuestion($categorie->IdCategorie, $categorie->TitreCategorie, $categorie->Lettre, $categorie->descriptionCategorie));
             }
         }
         
@@ -128,18 +122,16 @@
             unset($this->questions);
             $this->questions = array();
 
-            $query = $bdd->prepare('SELECT DISTINCT(Id), Q.Texte
-                                    FROM vQuestion AS Q
-                                    JOIN vEvaluationQuestionReponse AS EQR
-                                    ON EQR.IdQuestion = Q.Id
-                                    WHERE EQR.IdEvaluation = :idEvaluation AND Q.IdCategorieQuestion = :idCategorieQuestion');
-            
-            $query->execute(array('idEvaluation'=>$idEvaluation, 'idCategorieQuestion'=>$idCategorie));
-            
-            $questions = $query->fetchAll();
+            $questions = $bdd->Request('SELECT DISTINCT(Id), Q.Texte
+                                        FROM vQuestion AS Q
+                                        JOIN vEvaluationQuestionReponse AS EQR
+                                        ON EQR.IdQuestion = Q.Id
+                                        WHERE EQR.IdEvaluation = :idEvaluation AND Q.IdCategorieQuestion = :idCategorieQuestion',
+                                        array('idEvaluation'=>$idEvaluation, 'idCategorieQuestion'=>$idCategorie),
+                                        "stdClass");
             
             foreach($questions as $question){
-                array_push($this->questions, new Question($question["Id"], $question["Texte"]));
+                array_push($this->questions, new Question($question->Id, $question->Texte));
             }
         }
         
@@ -228,23 +220,21 @@
         
         //Initialise l'évaluation.
         private function Initialise($bdd, $id){
-            $query = $bdd->prepare('SELECT *
-                                    FROM vEvaluation AS Eval
-                                    JOIN vTypeEvaluation AS TE
-                                    ON TE.Id = Eval.IdTypeEvaluation
-                                    WHERE Eval.Id = :idEvaluation');
-            
-            $query->execute(array('idEvaluation'=>$id));
-            
-            $evaluations = $query->fetchAll();
+            $evaluations = $bdd->Request('  SELECT *
+                                            FROM vEvaluation AS Eval
+                                            JOIN vTypeEvaluation AS TE
+                                            ON TE.Id = Eval.IdTypeEvaluation
+                                            WHERE Eval.Id = :idEvaluation',
+                                            array('idEvaluation'=>$id),
+                                            "stdClass");
             
             foreach($evaluations as $evaluation){
-                $this->titre = $evaluation["Titre"];
-                $this->statut = $evaluation["Statut"];
-                $this->dateCompletee = $evaluation["DateComplétée"];
-                $this->dateDebut = $evaluation["DateDébut"];
-                $this->dateFin = $evaluation["DateFin"];
-                $this->idTypeEval = $evaluation["IdTypeEvaluation"];                
+                $this->titre = $evaluation->Titre;
+                $this->statut = $evaluation->Statut;
+                $this->dateCompletee = $evaluation->DateComplétée;
+                $this->dateDebut = $evaluation->DateDébut;
+                $this->dateFin = $evaluation->DateFin;
+                $this->idTypeEval = $evaluation->IdTypeEvaluation;                
             }
         }
         
@@ -253,20 +243,18 @@
             unset($this->reponses);
             $this->reponses = array();
             
-            $query = $bdd->prepare('SELECT Q.Id AS IdQuestion, Q.Texte AS TexteQuestion, R.Id AS IdReponse, R.Texte AS TexteReponse
-                                    FROM vQuestion AS Q
-                                    JOIN vReponseQuestion AS RQ
-                                    ON RQ.IdQuestion = Q.Id
-                                    JOIN vReponse AS R
-                                    ON R.Id = RQ.IdReponse
-                                    WHERE IdQuestion = :idQuestion');
-            
-            $query->execute(array('idQuestion'=>$idQuestion));
-            
-            $reponses = $query->fetchAll();
+            $reponses = $bdd->Request(' SELECT Q.Id AS IdQuestion, Q.Texte AS TexteQuestion, R.Id AS IdReponse, R.Texte AS TexteReponse
+                                        FROM vQuestion AS Q
+                                        JOIN vReponseQuestion AS RQ
+                                        ON RQ.IdQuestion = Q.Id
+                                        JOIN vReponse AS R
+                                        ON R.Id = RQ.IdReponse
+                                        WHERE IdQuestion = :idQuestion',
+                                        array('idQuestion'=>$idQuestion),
+                                        "stdClass");
             
             foreach($reponses as $reponse){
-                array_push($this->reponses, new Reponse($reponse["IdReponse"], $reponse["TexteReponse"]));
+                array_push($this->reponses, new Reponse($reponse->IdReponse, $reponse->TexteReponse));
             }
         }
         
@@ -275,18 +263,16 @@
             unset($this->reponsesChoisies);
             $this->reponsesChoisies = array();
             
-            $query = $bdd->prepare('SELECT IdReponse, R.Texte
-                                    FROM vEvaluationQuestionReponse AS EQR
-                                    JOIN vReponse AS R
-                                    ON R.Id = EQR.IdReponse
-                                    WHERE IdEvaluation = :idEvaluation AND IdQuestion = :idQuestion;');
-            
-            $query->execute(array('idEvaluation'=>$idEvaluation, 'idQuestion'=>$idQuestion));
-            
-            $reponses = $query->fetchAll();
-            
+            $reponses = $bdd->Request(' SELECT IdReponse, R.Texte
+                                        FROM vEvaluationQuestionReponse AS EQR
+                                        JOIN vReponse AS R
+                                        ON R.Id = EQR.IdReponse
+                                        WHERE IdEvaluation = :idEvaluation AND IdQuestion = :idQuestion;',
+                                        array('idEvaluation'=>$idEvaluation, 'idQuestion'=>$idQuestion),
+                                        "stdClass");
+
             foreach($reponses as $reponse){
-                array_push($this->reponsesChoisies, new Reponse($reponse["IdReponse"], $reponse["Texte"]));
+                array_push($this->reponsesChoisies, new Reponse($reponse->IdReponse, $reponse->Texte));
             }
         }
         
@@ -294,15 +280,15 @@
         public function Submit($bdd){
             $reponses = json_decode($_POST["tabReponse"], true);
 
-            $requeteModificationEvaluationQuestionReponse = $bdd->prepare(  'update tblEvaluationQuestionReponse SET IdReponse = :IdReponse
-                                                                            WHERE IdEvaluation = :IdEvaluation AND IdQuestion = :IdQuestion;');
-
-            $requeteModifierStatutEvaluation = $bdd->prepare('update tblEvaluation set Statut= \'3\', DateComplétée=:DateCompletee where Id=:IdEvaluation;');
-
-            $requeteModifierStatutEvaluation->execute(array('IdEvaluation'=>$_REQUEST['idEvaluation'],'DateCompletee'=>date("Y-m-d")));
+            $bdd->Request(' update tblEvaluation set Statut= \'3\', DateComplétée=:DateCompletee where Id=:IdEvaluation;',
+                            array('IdEvaluation'=>$_REQUEST['idEvaluation'],'DateCompletee'=>date("Y-m-d")),
+                            "stdClass");
 
             foreach($reponses as $reponse){
-                $requeteModificationEvaluationQuestionReponse->execute(array('IdEvaluation'=>$this->id,'IdQuestion'=>$reponse["idQuestion"],'IdReponse'=>$reponse["value"]));
+                $bdd->Request(' UPDATE tblEvaluationQuestionReponse SET IdReponse = :IdReponse
+                                WHERE IdEvaluation = :IdEvaluation AND IdQuestion = :IdQuestion;',
+                                array('IdEvaluation'=>$this->id,'IdQuestion'=>$reponse["idQuestion"],'IdReponse'=>$reponse["value"]),
+                                "stdClass");
             }  
         }    
         
@@ -407,77 +393,44 @@
 
     class Profil{
         
-        protected $id, $nom, $prenom, $numTel, $codePermanent, $poste, $courriel, $entreprise;
-            
-        public function __construct($id, $bdd){
-            $this->id = $id;
-        }
+        protected $IdUtilisateur, $Nom, $Prenom, $NumTelEntreprise, $CodePermanent, $Poste, $CourrielEntreprise, $NomEntreprise;
         
         public function getId(){
-            return $this->id;
+            return $this->IdUtilisateur;
         }
         
         public function getNom(){
-            return $this->nom;
+            return $this->Nom;
         }
         
         public function getPrenom(){
-            return $this->prenom;
+            return $this->Prenom;
         }
         
-        public function getNumTel(){
-            return $this->numTel;
+        public function getNumTelEntreprise(){
+            return $this->NumTelEntreprise;
         }
         
         public function getCodePermanent(){
-            return $this->codePermanent;
+            return $this->CodePermanent;
         }
         
         public function getPoste(){
-            return $this->poste;
+            return $this->Poste;
         }
         
-        public function getCourriel(){
-            return $this->courriel;
+        public function getCourrielEntreprise(){
+            return $this->CourrielEntreprise;
         }
         
         public function getEntreprise(){
-            return $this->entreprise;
+            return $this->NomEntreprise;
         }
     }
 
     class ProfilEmploye extends Profil{
         
-        private $idRole;
-        
-        public function __construct($id, $bdd){
-            parent::__construct($id, $bdd);
-            $this->Initialise($id, $bdd);
-        }
-        
-        //Initialise les données du profil.
-        private function Initialise($id, $bdd){
-            $query = $bdd->prepare("SELECT Emp.IdUtilisateur, Prenom, Emp.Nom, Emp.NumTel, CourrielPersonnel, IdRole,
-                                    Ent.Nom AS 'Nom Entreprise', Emp.CourrielEntreprise, Emp.NumTelEntreprise, Poste, CodePermanent
-                                    FROM vEmploye AS Emp
-                                    JOIN vEntreprise AS Ent
-                                    ON Ent.Id = Emp.IdEntreprise
-                                    JOIN vUtilisateurRole AS UR
-                                    ON UR.IdUtilisateur = Emp.IdUtilisateur
-                                    WHERE Emp.IdUtilisateur = :id");
-            
-            $query->execute(array("id"=>$id));
-            $profil = $query->fetchAll();
-            
-            $this->nom = $profil[0]["Nom"];
-            $this->prenom = $profil[0]["Prenom"];
-            $this->numTel = $profil[0]["NumTelEntreprise"];
-            $this->codePermanent = $profil[0]["CodePermanent"];
-            $this->poste = $profil[0]["Poste"];
-            $this->courriel = $profil[0]["CourrielEntreprise"];
-            $this->entreprise = $profil[0]["Nom Entreprise"];
-            $this->idRole = $profil[0]["IdRole"];
-        }
+        private $IdRole;
         
         //Affiche les informations du profil.
         public function AfficherProfil(){
@@ -505,12 +458,12 @@
 
                 <div class="champ">
                     <p class="label">Courriel :</p>
-                    <p class="value">'.$this->getCourriel().'</p>
+                    <p class="value">'.$this->getCourrielEntreprise().'</p>
                 </div>
 
                 <div class="champ">
                     <p class="label">No. Téléphone :</p>
-                    <p class="value">'.$this->getNumTel().'</p>
+                    <p class="value">'.$this->getNumTelEntreprise().'</p>
                 </div>
 
                 <div class="champ">
@@ -523,46 +476,14 @@
         }
         
         public function getIdRole(){
-               return $this->idRole;
+               return $this->IdRole;
         }
     }
 
     class ProfilStagiaire extends Profil{
         
-        private $numTelPerso, $courrielPerso;
-        
-        public function __construct($id, $bdd){     
-            parent::__construct($id, $bdd);
-            $this->Initialise($id, $bdd);
-        }
-        
-        //Initialise les données du profil.
-        private function Initialise($id, $bdd){
-            $query = $bdd->prepare("SELECT Stagiaire.IdUtilisateur, Stagiaire.Prenom, Stagiaire.Nom, Stagiaire.NumTel, Stagiaire.CourrielPersonnel, Stagiaire.CodePermanent,
-                                    Stagiaire.CourrielEntreprise, Stagiaire.NumTelEntreprise, Stagiaire.Poste, Ent.Nom AS 'Nom Entreprise'
-                                    FROM vStage AS Stage
-                                    JOIN vStagiaire AS Stagiaire
-                                    ON Stage.Id = Stagiaire.Id
-                                    JOIN vEmploye AS Emp
-                                    ON Emp.IdUtilisateur = Stage.IdSuperviseur
-                                    JOIN vEntreprise AS Ent
-                                    ON Ent.Id = Emp.IdEntreprise 
-                                    WHERE Stagiaire.IdUtilisateur = :id");
-            
-            $query->execute(array("id"=>$id));
-            $profil = $query->fetchAll();
-            
-            $this->nom = $profil[0]["Nom"];
-            $this->prenom = $profil[0]["Prenom"];
-            $this->numTel = $profil[0]["NumTelEntreprise"];
-            $this->codePermanent = $profil[0]["CodePermanent"];
-            $this->poste = $profil[0]["Poste"];
-            $this->courriel = $profil[0]["CourrielEntreprise"];
-            $this->entreprise = $profil[0]["Nom Entreprise"];
-            $this->numTelPerso = $profil[0]["NumTel"];
-            $this->courrielPerso = $profil[0]["CourrielPersonnel"];
-        }
-        
+        private $NumTel, $CourrielPersonnel;
+    
         //Affiche les informations du profil.
         public function AfficherProfil(){
             $content = 
@@ -605,12 +526,12 @@
 
                     <div class="champ">
                         <p class="label">Courriel :</p>
-                        <p class="value">'.$this->getCourriel().'</p>
+                        <p class="value">'.$this->getCourrielPerso().'</p>
                     </div>
 
                     <div class="champ">
                         <p class="label">No. Téléphone :</p>
-                        <p class="value">'.$this->getNumTel().'</p>
+                        <p class="value">'.$this->getNumTelEntreprise().'</p>
                     </div>
 
                     <div class="champ">
@@ -623,48 +544,11 @@
         }
         
         public function getNumTelPerso(){
-            return $this->numTelPerso;
+            return $this->NumTel;
         }
         
         public function getCourrielPerso(){
-            return $this->courrielPerso;
-        }
-    }
-
-    
-    class Entreprise{
-        public $Id, $Nom, $CourrielEntreprise, $NumTel, $NumCivique, $Rue, $Ville, $Province, $CodePostal, $Logo, $tag;
-        
-        public function getId(){
-            return $this->Id;
-        }
-        
-        public function getNom(){
-            return $this->Nom;
-        }
-        public function getCourriel(){
-            return $this->CourrielEntreprise;
-        }
-        public function getNumTel(){
-            return $this->NumTel;
-        }
-        public function getNumCivique(){
-            return $this->NumCivique;
-        }
-        public function getRue(){
-            return $this->Rue;
-        }
-        public function getVille(){
-            return $this->Ville;
-        }
-        public function getProvince(){
-            return $this->Province;
-        }
-        public function getCodePostal(){
-            return $this->CodePostal;
-        }
-        public function getLogo(){
-            return $this->Logo;
+            return $this->CourrielPersonnel;
         }
     }
     

@@ -1,21 +1,29 @@
 <?php
-	try
-	{
-        //$bdd = new PDO('mysql:host=dicj.info;dbname=cegepjon_p2017_2_dev', 'cegepjon_p2017_2', 'madfpfadshdb' ,array(PDO::MYSQL_ATTR_INIT_COMMAND => 'SET NAMES utf8'));
-        $bdd = new PDO('mysql:host=localhost;dbname=BDProjet_equipe2V2', 'root', '' ,array(PDO::MYSQL_ATTR_INIT_COMMAND => 'SET NAMES utf8'));
+    class Database{
+        private $bdd;
+        
+        public function __construct($host, $dbName, $user, $password){
+            try{
+                $this->bdd = new PDO('mysql:host='.$host.';dbname='.$dbName.'', ''.$user.'', ''.$password.'' ,array(PDO::MYSQL_ATTR_INIT_COMMAND => 'SET NAMES utf8'));
+            }
+            catch(Exception $e){
+                die('Erreur : ' .$e->getMessage());
+            }
+        }
+        
+        //Éxecute une requete SQL et retourne un objet du type de la classe passée en paramètre.
+        public function Request($query, $parametres, $classe){     
+            $query = $this->bdd->prepare($query);
+            $query->execute($parametres);
+            $result = $query->fetchAll(PDO::FETCH_CLASS, $classe);
+            
+            return $result;
+        }
+        
+        public function getPDO(){
+            return $this->bdd;
+        }
+    }
 
-        //BD locale Hans
-        //$bdd = new PDO('mysql:host=localhost;dbname=cegepjon_p2017_2_dev', 'root', '' ,array(PDO::MYSQL_ATTR_INIT_COMMAND => 'SET NAMES utf8'));
-	}
-	catch(Exception $e)
-	{
-        try
-        {
-            $bdd = new PDO('mysql:host=localhost;dbname=BDProjet_equipe2V2', 'root', '' ,array(PDO::MYSQL_ATTR_INIT_COMMAND => 'SET NAMES utf8'));
-        }
-        catch(Exception $e)
-        {
-            die('Erreur : ' .$e->getMessage());
-        }
-	}
+    $bdd = new Database("localhost", "BDProjet_equipe2V2", "root", null);
 ?>
