@@ -848,20 +848,8 @@
 
         private $idStagiaire, $idResponsable, $idSuperviseur, $idEnseignant, $idEntreprise, $competancesRecherchees, $descriptionStage, $salaireHoraire, $nbreHeuresSemaine, $dateDebut, $dateFin;
 
-        public function __construct($id, $bdd, $idStagiaire, $idResponsable, $idSuperviseur, $idEnseignant, $idEntreprise, $competancesRecherchees, $descriptionStage, $salaireHoraire, $nbreHeuresSemaine, $dateDebut, $dateFin){  
+        public function __construct($bdd){  
        //     $this->Initialise($id, $bdd);
-            $this->idStagiaire = $idStagiaire;
-            $this->idResponsable = $idResponsable;
-            $this->idSuperviseur = $idSuperviseur;
-            $this->idEnseignant = $idEnseignant;
-            $this->idEntreprise = $idEntreprise;
-            $this->competancesRecherchees = $competancesRecherchees;
-            $this->descriptionStage = $descriptionStage;
-            $this->salaireHoraire = $salaireHoraire;
-            $this->nbreHeuresSemaine = $nbreHeuresSemaine;
-            $this->dateDebut = $dateDebut;
-            $this->dateFin = $dateFin;
-
         }
 
         public function getIdSuperviseur(){
@@ -910,19 +898,19 @@
 
         function createStage($bdd, $dataArray)
         {
-
+            $idEntreprise = intval ($dataArray[0]->value);
             $idStagiaire = intval ($dataArray[1]->value);
-            $idEntreprise = intval ($dataArray[2]->value);
-            $idResponsable = intval ($dataArray[3]->value);
-            $idSuperviseur = intval ($dataArray[4]->value);
-            $idEnseignant = intval ($dataArray[5]->value);
+            $idResponsable = intval ($dataArray[2]->value);
+            $idSuperviseur = intval ($dataArray[3]->value);
+            $idEnseignant = intval ($dataArray[4]->value);
+            $nbreHeuresSemaine = intval ($dataArray[5]->value);
+            $salaireHoraire = intval ($dataArray[6]->value);
+            $dateDebut = date ('Y-m-d', strtotime($dataArray[7]->value));
+            $dateFin = date ('Y-m-d', strtotime($dataArray[8]->value));
+
             $descriptionStage = $dataArray[6]->value;
             $competencesRecherche = $dataArray[7]->value;
             $horaireTravail = $dataArray[8]->value;
-            $nbreHeuresSemaine = intval ($dataArray[9]->value);
-            $salaireHoraire = intval ($dataArray[10]->value);
-            $dateDebut = date ('Y-m-d', strtotime($dataArray[11]->value));
-            $dateFin = date ('Y-m-d', strtotime($dataArray[12]->value));
 
            $query = $bdd->prepare("INSERT INTO tblStage (IdResponsable, IdSuperviseur, IdStagiaire, IdEnseignant, DescriptionStage, CompetenceRecherche, HoraireTravail, NbHeureSemaine, SalaireHoraire, DateDebut, DateFin ) VALUES ($idResponsable, $idSuperviseur, $idStagiaire, $idEnseignant, '$descriptionStage', '$competencesRecherche', '$horaireTravail', '$nbreHeuresSemaine', '$salaireHoraire', '$dateDebut', '$dateFin');");
             $query->execute();
@@ -989,7 +977,7 @@
                 $NomResponsable = $entree["NomResponsable"];
                 $NomEnseignant = $entree["NomEnseignant"];
 
-                $valeurRetour = '<article class="stagiaire"><p>Nom du stagiaire: ' . $NomStagiaire . '</p><br><p>Nom d\'entreprise: ' . $NomEntreprise . '</p><br><p>Nom de l\'enseignant: ' . $NomEnseignant . '</p><br><p>Nom du superviseur: ' . $NomResponsable . '</p> <br> <p>Horaire de travail: ' . $HoraireTravail . '</p><br><p>Salaire horaire: ' . $SalaireHoraire . '</p><br><p>Nombre d\'heures par semaine: ' . $NbHeureSemaine . '</p> <br><p>Compétences recherchées: ' . $CompetenceRecherche . '</p><br><p>Description du stage: ' . $DescriptionStage . '</p><br></article>';
+                $valeurRetour = '<article class="stagiaire"><p>Nom du stagiaire: ' . $NomStagiaire . '</p><br><p>Nom d\'entreprise: ' . $NomEntreprise . '</p><br><p>Nom de l\'enseignant: ' . $NomEnseignant . '</p><br><p>Nom du superviseur: ' . $NomResponsable . '</p> <br> <p>Horaire de travail: ' . $HoraireTravail . '</p><br><p>Salaire horaire: ' . $SalaireHoraire . '</p><br><p>Nombre d\'heures par semaine: ' . $NbHeureSemaine . '</p> <br><p>Compétences recherchées: ' . $CompetenceRecherche . '</p><br><p>Description du stage: ' . $DescriptionStage . '</p><input type="button" onclick="Execute(1, \'../PHP/TBNavigation.php?nomMenu=Stage\')"class="bouton" value="Retour" /> <br></article>';
  
 
             }

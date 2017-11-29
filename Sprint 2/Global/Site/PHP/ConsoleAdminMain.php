@@ -20,7 +20,7 @@
             </a>
         </div>
 
-        <div class="blocInfo itemHover onglet">
+        <div class="blocInfo itemHover onglet" onclick="Execute(1, \'../PHP/TBNavigation.php?nomMenu=ReadUtilisateurs\')">
             <a class="linkFill">
                 <h1>Utilisateurs</h1>
             </a>

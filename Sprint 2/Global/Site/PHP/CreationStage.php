@@ -1,7 +1,7 @@
 <?php
 
     include 'ConnexionBD.php';
-   // $Stage = new cStage($_REQUEST["idStage"]), $bdd, "","","", "","", "", "", "", "", "", "");
+    $Stage = new cStage($bdd);
 
     //affiche les entreprises dans le dropdown menu
     function showEnterprises($bdd)
@@ -21,36 +21,7 @@
         return $returnValue;
     }
 
- //récupère les stages dans la BD et les affiche dans le tableau
-    function showInternships($bdd)
-    {
-       $returnData = "";
-       $query = $bdd->prepare("Select concat (vStagiaire.Prenom, ' ' , vStagiaire.Nom ) as 'Stagiaire',  vEntreprise.Nom, vStage.Id from vStage
-    join vStagiaire on vStagiaire.IdUtilisateur = vStage.IdStagiaire
-    join vSuperviseur on vSuperviseur.IdUtilisateur = vStage.IdSuperviseur
-    join vEntreprise on vEntreprise.id = vSuperviseur.IdEntreprise;");
- 
- 
-      $query->execute(array());     
-      $entrees = $query->fetchAll();
-      //
-      foreach($entrees as $entree){
-          $nomStagiaire = $entree["Stagiaire"];
-          $entreprise = $entree["Nom"];
-          $idStage = $entree["Id"];
-          $returnData = $returnData .  '<tr>
-                  <th  id="' 
-                  . $idStage . '" value="' 
-                  . $idStage . '
-                  "  onclick="Execute(1,\'../PHP/TBNavigation.php?nomMenu=ReadStage\',\'&idStage=\',this.id)">
-                  ' . $nomStagiaire . '</th>
-                  <th>' . $entreprise . '</th>
-                  <th>Lettre dentente</th>
-                  <th>Offre de stage</th>
-                </tr>';
-      }      
-        return $returnData;
-    }
+   
  
  //affiche les entreprises dans le dropdown menu
     function showProfessors($bdd)
@@ -89,7 +60,6 @@
 
  //   $dropDownInterns = "patate";
     $dropDownInterns = showInterns($bdd);
-    $internships = showInternships($bdd);
     $professors = showProfessors($bdd);
     $enterprises = showEnterprises($bdd);
 
@@ -109,37 +79,37 @@
         <div class="blocInfo infoProfil">
             <div class="champ">
                 <p class="label labelForInput">Entreprise</p>
-                <select class="value" class = "infosStage">
+                <select class="value" name = "Entreprise">
                     ' . $enterprises . '
                 </select>
             </div>
             <div class="champ">
                 <p class="label labelForInput">Stagiaire</p>
-                <select class="value" class = "infosStage">
+                <select class="value"  name = "Stagiaire">
                     ' . $dropDownInterns . '
                 </select>
             </div>
             <div class="champ">
                 <p class="label labelForInput">Responsable</p>
-                <select class="value" class = "infosStage">
-                    <option></option>
+                <select class="value"  name = "Responsable">
+                    <option value = "1">Responsable 1</option>
                 </select>
             </div>
             <div class="champ">
                 <p class="label labelForInput">Superviseur</p>
-                <select class="value" class = "infosStage">
-                    <option></option>
+                <select class="value"  name = "Superviseur">
+                <option value = "1">SUPERVISEUR 1</option>                
                 </select>
             </div>
             <div class="champ">
                 <p class="label labelForInput">Enseignant</p>
-                <select class="value" class = "infosStage">
+                <select class="value"  name = "Enseignant">
                     ' . $professors . '
                     </select>
             </div>
             <div class="champ">
                 <p class="label labelForInput">Heure / Semaine</p>
-                <input class="value" type="text"/>
+                <input class="value" type="text"  name = "HeuresSemaine"/>
             </div>
             <div class="champ">
                 <p class="label labelForInput">Rémunéré</p>
@@ -152,26 +122,26 @@
             </div>
             <div class="champ">
                 <p class="label labelForInput">Salaire Horaire</p>
-                <input class="value" type="text" id="salaire"/>
+                <input class="value" type="text"  name = "SalaireHoraire" id="salaire"/>
             </div>
             <div class="champ">
                 <p class="label labelForInput">Date Début</p>
-                <input class="value" type="date"/>
+                <input class="value"  name = "DateDebut" type="date"/>
             </div>
             <div class="champ">
                 <p class="label labelForInput">Date Fin</p>
-                <input class="value" type="date"/>
+                <input class="value"  name = "DateFin" type="date"/>
             </div>
 
             <br/>
 
             <div class="champArea">
                 <p class="label labelForInput labelArea">Description du stage</p>
-                <textarea class="valueArea"></textarea>
+                <textarea class="value" class="valueArea"  name = "DescStage"></textarea>
             </div>  
             <div class="champArea">
                 <p class="label labelForInput labelArea">Compétences recherchées</p>
-                <textarea class="valueArea"></textarea>
+                <textarea class="value" class="valueArea"  name = "CompetancesRecherchees"></textarea>
             </div>
 
     <!--afficher les inforations détaillées d\'un stage -->
@@ -180,54 +150,17 @@
 		<br>
 
 
-            <input class="bouton" type="button" style="width: 100px;" value="   Annuler   " onclick="Execute(1, \'../PHP/TBNavigation.php?idEmploye=\'.$_SESSION [\'id\'].\'&nomMenu=Main\')"/>
-            <input class="bouton" type="button" id="Save" style="width: 100px;" value="Sauvegarder"/>
+            <input class="bouton" type="button" style="width: 100px;" value="   Annuler   " onclick="Execute(1, \'../PHP/TBNavigation.php?nomMenu=Stage\')"/>
+           
+
+            <input class="bouton" type="button" id="Save" style="width: 100px;" value=" Sauvegarder " onclick= "Execute(12, \'../PHP/TBNavigation.php?&nomMenu=InsertStage\')"/>
 
             <br/><br/>
-        </div>
-
-        <div class="separateur">
-        </div>
-
-        <div class="blocInfo infoProfil">
-            <table class="stage">
-                <thead>
-                    <th>Entreprise </th>
-                    <th>Stagiaire</th>
-                    <th>Lettre d\'entente</th>
-                    <th>Offre de Stage</th>
-                    <th></th>
-                </thead>
-
-      </select>
+        </div>   
     <br>
 
-  <!--onchange="Execute(7,\'../PHP/TBNavigation.php?nomMenu=CRUDStage\')" -->
+<!-- Fin de section création de stage -->';
 
-
-    <br>
-
-	<BR>
-
-<!-- Fin de section création de stage -->
-
-
-
-
-
-<!-- section affichege de stages -->
-  <h2>Stages actuellement dans le système</h2>
-  <table>
-    <tr>
-      <th>Employe</th>
-      <th>Travaille pour</th>
-    </tr> ' . $internships . '
-   
-    </table>
-<!-- fin de section affichege de stages -->
-
-	</body>
-</html> ';
 
 return $content;
 

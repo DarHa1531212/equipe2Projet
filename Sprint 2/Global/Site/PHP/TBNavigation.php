@@ -33,17 +33,22 @@
                 break;
             case "Entreprise":          $menu = include 'CreationEntreprise.php';
                 break;
-            case "CRUDStage":   $menu = include 'CRDStage.php';
+            case "ReadStage" :      $Stage = new cStage($bdd);
+                                    $menu = ($Stage->afficherInfos($bdd, $_REQUEST["idStage"]));
                 break;
-            case "CRUDStagiaire":   $menu = include 'CRUDStagiaire.php';
+            case "ReadUtilisateurs": $menu = include 'Utilisateur.php';
                 break;
-            case "CRUDEmployeEntreprise" : $menu = include 'CRUDEmployeEntreprise.php';
+            case "CreationUtilisateur" : $menu = include 'CreationUtilisateur.php';
                 break;
+            case "InsertStage":   $Stage = new cStage($bdd);
+                                  $dataArray = (json_decode($_POST ['tabChamp'], false));
+                                  $menu = ($Stage->createStage($bdd, $dataArray));   
+                break;   
         }
         
         echo json_encode($menu);
     }
 
-    AfficherPage($bdd,$_REQUEST["nomMenu"]);
+    AfficherPage($_REQUEST["nomMenu"]);
 
 ?>

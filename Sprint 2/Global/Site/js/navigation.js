@@ -169,6 +169,10 @@ function Execute(choix){
 			break;
 		case 11: updateStagiaire (ExecuteQuery, arguments);
 			break;
+        case 12: Post (ExecuteQuery, arguments);
+            break;
+        case 13: changeUserType(AfficherPage, arguments, obj.options[obj.selectedIndex].value);
+            break;
 
 	}
 }

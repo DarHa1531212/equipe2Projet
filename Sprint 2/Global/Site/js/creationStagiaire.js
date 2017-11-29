@@ -98,21 +98,5 @@ function afficherInfos(data)
     var contenu = "<p>Nom du stagiaire: ".concat( myObject[1] + " " + myObject[0] + "</p><br><p>Courrie scolaire: " + myObject[2] + "</p><br><p>Numéro de téléphone en entreprise: " + myObject[3] + "</p><br><p>Poste: " + myObject[4] + "</p><br><p>Courriel d'entreprise: " + myObject[5] + "</p><br><p>Code permanent: " + myObject[6] + "</p><br><p>Courriel personnel: " + myObject[7] + "</p><br><p>Numéro de téléphone personnel: " + myObject[8] + "</p><br><p>Entreprise: " + myObject[9] + "</p>");
     document.getElementById('readStagiaire').innerHTML = contenu;
 
-    /*  $returnData [0] = $NomStagiaire;
-        $returnData [1] = $PrenomStagiaire;
-        $returnData [2] = $CourrieScolaire;
-        $returnData [3] = $NumTelEntreprise;
-        $returnData [4] = $Poste;
-        $returnData [5] = $CourrielEntreprise;
-        $returnData [6] = $CodePermanent;
-        $returnData [7] = $CourrielPersonnel;
-        $returnData [8] = $NumTelStagiaire;
-        $returnData [9] = $NomEntreprise; 
-    */
-
 }
 
-function updateStagiaire(callback, args)
-{
-   
-}
