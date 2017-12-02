@@ -44,26 +44,6 @@ function Post(callback){
     }); 
 }
 
-function test(callback, object, url){;
-    var form_data = new FormData();
-    
-    tabChamp = JSON.stringify(object);
-    form_data.append('objet', tabChamp);
-    
-    $.ajax({ 
-        url: url,  
-        dataType: 'text',   
-        cache: false, 
-        contentType: false, 
-        processData: false, 
-        data: form_data,                          
-        type: 'post', 
-        success: function(data){ 
-            callback(data); 
-        } 
-    }); 
-}
-
 //Crée une liste des radios boutons et les encode en JSON pour le envoyer au PHP.
 function PostEval(callback){ 
     var questions = $('input[type="radio"]:checked');   

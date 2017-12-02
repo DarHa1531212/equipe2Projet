@@ -1,18 +1,6 @@
  
 <?php 
  
-function SetPassword ($newPassword, $bdd)
-{
-    if($newPassword != "")
-    {
-        $newPassword = password_hash($newPassword, PASSWORD_DEFAULT);
-
-        $bdd->Request(" UPDATE tblUtilisateur SET MotDePasse = :motPasse WHERE Id LIKE :id;",
-                        array("motPasse"=>$newPassword, "id"=>$_SESSION['idConnecte']),
-                        "stdClass");
-    }
-}
- 
 function Login ($userEmail, $password, $bdd)
 {
     $userEmail = strtolower($userEmail);

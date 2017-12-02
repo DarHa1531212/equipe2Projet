@@ -1,19 +1,12 @@
 <?php
 
     function AfficherHeader($Entete, $Left){
-        $idConnecte = "";
-
-        if($_SESSION['IdRole'] == 5)
-            $idConnecte = "idStagiaire=";
-        else
-            $idConnecte = "idEmploye=";
-
         echo '<header>
                 <a href="http://dicj.info/">
                     <img class="logoHeader" src="../Images/LogoDICJ2.png"/>
                 </a>
 
-                <div class="userHeader" onclick="Execute(1, \'../PHP/TBNavigation.php?'.$idConnecte.$_SESSION['idConnecte'].'&nomMenu=Profil.php\')">
+                <div class="userHeader" onclick="Execute(1, \'../PHP/TBNavigation.php?id='.$_SESSION['idConnecte'].'&nomMenu=Profil.php\')">
                     <p>
                         Bonjour
                         <br/>

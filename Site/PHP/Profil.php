@@ -24,14 +24,16 @@
         }
         else{
             $profil = $bdd->Request("   SELECT Stagiaire.IdUtilisateur, Stagiaire.Prenom, Stagiaire.Nom, Stagiaire.NumTel, Stagiaire.CourrielPersonnel, Stagiaire.CodePermanent,
-                                        Stagiaire.CourrielEntreprise, Stagiaire.NumTelEntreprise, Stagiaire.Poste, Ent.Nom AS 'Nom Entreprise'
+                                        Stagiaire.CourrielEntreprise, Stagiaire.NumTelEntreprise, Stagiaire.Poste, Ent.Nom AS 'NomEntreprise', IdRole
                                         FROM vStage AS Stage
                                         JOIN vStagiaire AS Stagiaire
                                         ON Stage.Id = Stagiaire.Id
                                         JOIN vEmploye AS Emp
                                         ON Emp.IdUtilisateur = Stage.IdSuperviseur
                                         JOIN vEntreprise AS Ent
-                                        ON Ent.Id = Emp.IdEntreprise 
+                                        ON Ent.Id = Emp.IdEntreprise
+                                        JOIN vUtilisateurRole AS UR
+                                        ON UR.IdUtilisateur = Stagiaire.IdUtilisateur
                                         WHERE Stagiaire.IdUtilisateur = :id",
                                         array("id"=>$_REQUEST["id"]),
                                         "ProfilStagiaire")[0];
