@@ -25,6 +25,10 @@ function ModifierStagiaire($bdd){
                     "stdClass");
 }
 
+function ModifierEmploye($bdd){
+    
+}
+
 if(isset($_REQUEST["post"]))
     ModifierStagiaire($bdd);
 
@@ -114,8 +118,8 @@ avoir ce format - (xxx) xxx-xxxx"/>
                 
                 <br/><br/>
                 
-                <input class="bouton" type="button" style="width: 100px;" value="   Annuler   " onclick="Execute(1, \'../PHP/TBNavigation.php?idStagiaire='.$id.'&nomMenu=Main\')"/>
-                <input class="bouton" type="button" id="Save" style="width: 100px;" value="Sauvegarder" onclick="Execute(5, \'../PHP/TBNavigation.php?idStagiaire='.$id.'&nomMenu=ModifProfil.php&post\'); Execute(1, \'../PHP/TBNavigation.php?idStagiaire='.$id.'&nomMenu=Main\')"/>
+                <input class="bouton" type="button" style="width: 100px;" value="   Annuler   " onclick="Execute(1, \'../PHP/TBNavigation.php?id='.$id.'&nomMenu=Main\')"/>
+                <input class="bouton" type="button" id="Save" style="width: 100px;" value="Sauvegarder" onclick="Execute(5, \'../PHP/TBNavigation.php?id='.$id.'&nomMenu=ModifProfil.php&post\'); Execute(1, \'../PHP/TBNavigation.php?id='.$id.'&nomMenu=Main\')"/>
 </article>';
 
 return $content;
