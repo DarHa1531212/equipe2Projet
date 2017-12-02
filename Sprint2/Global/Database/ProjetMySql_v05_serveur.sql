@@ -8,13 +8,13 @@
 --
 --
 -- Création de la bd
- DROP DATABASE IF EXISTS BDProjet_equipe2V2;
- CREATE DATABASE BDProjet_equipe2V2;
+DROP DATABASE IF EXISTS BDProjet_equipe2V2;
+CREATE DATABASE BDProjet_equipe2V2;
 
 -- USE cegepjon_p2017_2_dev;
 -- USE cegepjon_p2017_2_prod;
 -- USE cegepjon_p2017_2_tests;
- USE bdprojet_equipe2v2;
+USE BDProjet_equipe2V2;
 -- Table Reponsesss
 DROP TABLE IF EXISTS tblReponse;
 CREATE TABLE tblReponse(
@@ -134,6 +134,9 @@ CREATE TABLE tblEvaluationStage(
 	PRIMARY KEY(IdEvaluation,IdStage)
 );
 DROP VIEW IF EXISTS vEvaluationStage;
+
+
+
 CREATE VIEW vEvaluationStage AS SELECT IdEvaluation,IdStage,
 CONCAT(IdEvaluation,IdStage) AS tag FROM tblEvaluationStage;
 
@@ -151,9 +154,9 @@ CREATE TABLE tblStagiaire(
 	Poste 					VARCHAR(7)		NULL,
 	CourrielEntreprise	 	VARCHAR(320)	NULL,
 	CodePermanent			VARCHAR(12)		NULL,
-	PRIMARY KEY(Id),
 	IdStage					INT				NULL,
 	IdUtilisateur			INT				NULL,
+	PRIMARY KEY(Id),
 	CONSTRAINT Constraint_UNIQUE_Stagiaire UNIQUE (CourrielScolaire)
 );
 
