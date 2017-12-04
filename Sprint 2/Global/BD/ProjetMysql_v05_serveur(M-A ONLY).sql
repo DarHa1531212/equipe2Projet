@@ -148,7 +148,7 @@ CREATE TABLE tblStagiaire(
 	Poste 					VARCHAR(7)		NULL,
 	CourrielEntreprise	 	VARCHAR(320)	NULL,
 	CodePermanent			VARCHAR(12)		NULL,
-	Adresse					VARCHAR(200)	NULL,
+	Adresse					VARCHAR(200)	NULL DEFAULT '0000 rue xxxx',
 	PRIMARY KEY(Id),
 	IdStage					INT				NULL,
 	IdUtilisateur			INT				NULL,
@@ -221,19 +221,30 @@ FROM tblRole;
 DROP TABLE IF EXISTS tblStage;
 CREATE TABLE tblStage(
 	Id			 			INT				AUTO_INCREMENT,
+	DescriptionStage		VARCHAR(1000)		NULL,
+	CompetenceRecherche		VARCHAR(1000)		NULL,
+	RaisonSociale			VARCHAR(1000)		NULL,
+	HoraireTravail			VARCHAR(1000)		NULL,
+	NbHeureSemaine			INT					NULL,
+	SalaireHoraire			INT					NULL,
+	DateDebut				DATE				NULL,
+	DateFin					DATE				NULL,
+	LettreEntenteVide		VARCHAR(256)		NULL,
+	LettreEntenteSignee		VARCHAR(256)		NULL,
+	OffreStage				VARCHAR(256)		NULL,
 	PRIMARY KEY(Id),
 	IdResponsable			INT					NOT NULL,
 	IdSuperviseur			INT					NOT NULL,
-	IdStagiaire				INT					NOT NULL,
-	IdGestionnaire			INT					NOT NULL,
-	IdEnseignant			INT					NOT NULL,
-	IdSession				INT					NULL DEFAULT 1
+	IdStagiaire				INT					NULL,
+	IdSession				INT					NOT NULL DEFAULT 1,
+	IdEnseignant			INT					NULL
 );
 
 DROP VIEW IF EXISTS vStage;
-CREATE VIEW vStage AS SELECT Id,CONCAT(IdResponsable,IdSuperviseur,IdStagiaire,IdGestionnaire,IdEnseignant)
-AS tag,IdResponsable,IdSuperviseur,IdStagiaire,IdGestionnaire,IdEnseignant,IdSession FROM tblStage;
-
+CREATE VIEW vStage AS SELECT Id,DescriptionStage,CompetenceRecherche,HoraireTravail,NbHeureSemaine,
+SalaireHoraire,DateDebut,DateFin,LettreEntenteVide,LettreEntenteSignee,OffreStage,IdSession,CONCAT(IdResponsable,IdSuperviseur,IdStagiaire,IdEnseignant,DescriptionStage,CompetenceRecherche,HoraireTravail,NbHeureSemaine,
+SalaireHoraire,DateDebut,DateFin,LettreEntenteVide,LettreEntenteSignee,OffreStage)
+AS tag,IdResponsable,IdSuperviseur,IdStagiaire,IdEnseignant FROM tblStage;
 
 -- Table Session
 
@@ -272,8 +283,8 @@ CREATE TABLE tblEntreprise(
 	CourrielEntreprise		VARCHAR(320)	NOT NULL,
 	Nom 					VARCHAR(100)	NOT NULL,
 	NumTel			 		CHAR(14) 		NOT NULL,
-	NumCivique 				CHAR(5)			NOT NULL,
-	Rue				 		VARCHAR(100)	NOT NULL,
+	NumCivique 				CHAR(5)			NOT NULL DEFAULT 0000,
+	Rue				 		VARCHAR(100)	NOT NULL DEFAULT 'xxxx',
 	Ville			 		VARCHAR(100)	NOT NULL,
 	Province				VARCHAR(25)		NOT NULL,
 	CodePostal			 	VARCHAR(7)		NOT NULL,
@@ -360,12 +371,6 @@ tblUtilisateur(Id);
 
 ALTER TABLE tblStage
 ADD FOREIGN KEY (IdEnseignant)
-REFERENCES
-tblUtilisateur(Id);
-
-
-ALTER TABLE tblStage
-ADD FOREIGN KEY (IdGestionnaire)
 REFERENCES
 tblUtilisateur(Id);
 
@@ -465,19 +470,6 @@ ALTER TABLE tblStage
 ADD FOREIGN KEY (IdStagiaire)
 REFERENCES
 tblStagiaire(Id);
-
-
-ALTER TABLE tblStage
-ADD FOREIGN KEY (IdGestionnaire)
-REFERENCES
-tblGestionnaire(Id);
-
-
-ALTER TABLE tblStage
-ADD FOREIGN KEY (IdEnseignant)
-REFERENCES
-tblEnseignant(Id);
-
 
 
 ALTER TABLE tblStagiaire
