@@ -54,11 +54,11 @@
             $document = $entree['Fichier'];
             $id = $entree["Id"];
 
-            $div = $div.'<div class="entree"><h2>'.$dates.'</h2><div class="crdJournal"><span class="crdJournalM" onclick="modificationJournal = true; Execute(1, \'../PHP/TBNavigation.php?idStagiaire='.$idStagiaire.'&nomMenu=JournalBord.php\', \'&nbEntree=\', 5, \'&ajoutModif=\', true, \'&idEntree=\', '.$id.');">Modifier</span><span>&nbsp;|&nbsp;</span><span class="crdJournalD" onclick="if(ConfirmDelete()){Execute(3, \'../PHP/TBNavigation.php?idStagiaire='.$idStagiaire.'&nomMenu=JournalBord.php\', \'&delete=\', true, \'&idEntree=\', '.$id.'); Execute(1, \'../PHP/TBNavigation.php?idStagiaire='.$idStagiaire.'&nomMenu=JournalBord.php\', \'&nbEntree=\', 5);}">Supprimer</span></div><p>' .LineBreak($texte). '</p><p>' . PieceJointe($document) . '</p></div>';
+            $div = $div.'<div class="entree"><h2>'.$dates.'</h2><div class="crdJournal"><span class="crdJournalM" onclick="modificationJournal = true; Execute(1, \'../PHP/TBNavigation.php?id='.$idStagiaire.'&nomMenu=JournalBord.php\', \'&nbEntree=\', 5, \'&ajoutModif=\', true, \'&idEntree=\', '.$id.');">Modifier</span><span>&nbsp;|&nbsp;</span><span class="crdJournalD" onclick="if(ConfirmDelete()){Execute(3, \'../PHP/TBNavigation.php?id='.$idStagiaire.'&nomMenu=JournalBord.php\', \'&delete=\', true, \'&idEntree=\', '.$id.'); Execute(1, \'../PHP/TBNavigation.php?id='.$idStagiaire.'&nomMenu=JournalBord.php\', \'&nbEntree=\', 5);}">Supprimer</span></div><p>' .LineBreak($texte). '</p><p>' . PieceJointe($document) . '</p></div>';
         }
         
         if(isset($_REQUEST['nbEntree']))
-            $div = $div.'<input class="bouton" type="button" value="Voir toutes les entrées" onclick="Execute(1, \'../PHP/TBNavigation.php?idStagiaire='.$idStagiaire.'&nomMenu=JournalBord.php\')"/>';
+            $div = $div.'<input class="bouton" type="button" value="Voir toutes les entrées" onclick="Execute(1, \'../PHP/TBNavigation.php?id='.$idStagiaire.'&nomMenu=JournalBord.php\')"/>';
 
         return $div;
     }
@@ -185,7 +185,7 @@
             <input class="inputFile" id="file" type="file" value="Envoyer" name="fichier" onchange="AfficherNom(this)"/>
 
             <br/>                                                                             
-            <input style="width: 120px;" class="bouton" type="button" value="Envoyer" onclick="if(modificationJournal){Execute(3, \'../PHP/TBNavigation.php?idStagiaire='.$idStagiaire.'&nomMenu=JournalBord.php\',\'&update=\', true, \'&contenu=\', contenu.value'.addId().'); Execute(1, \'../PHP/TBNavigation.php?idStagiaire='.$idStagiaire.'&nomMenu=JournalBord.php\', \'&nbEntree=\', 5); modificationJournal = false;}else{Execute(3, \'../PHP/TBNavigation.php?idStagiaire='.$idStagiaire.'&nomMenu=JournalBord.php\', \'&contenu=\', contenu.value); Execute(1, \'../PHP/TBNavigation.php?idStagiaire='.$idStagiaire.'&nomMenu=JournalBord.php\', \'&nbEntree=\', 5);}"/>
+            <input style="width: 120px;" class="bouton" type="button" value="Envoyer" onclick="if(modificationJournal){Execute(3, \'../PHP/TBNavigation.php?id='.$idStagiaire.'&nomMenu=JournalBord.php\',\'&update=\', true, \'&contenu=\', contenu.value'.addId().'); Execute(1, \'../PHP/TBNavigation.php?id='.$idStagiaire.'&nomMenu=JournalBord.php\', \'&nbEntree=\', 5); modificationJournal = false;}else{Execute(3, \'../PHP/TBNavigation.php?id='.$idStagiaire.'&nomMenu=JournalBord.php\', \'&contenu=\', contenu.value); Execute(1, \'../PHP/TBNavigation.php?id='.$idStagiaire.'&nomMenu=JournalBord.php\', \'&nbEntree=\', 5);}"/>
             <label class="bouton labelFile" for="file">Pièce Jointe</label>
             <p id="nomPieceJointe"></p>
 
@@ -197,7 +197,7 @@
 
                     <br/><br/>
 
-                    <input class="bouton" type="button" value="   Retour   " onclick="Execute(1, \'../PHP/TBNavigation.php?idStagiaire='.$id.'&nomMenu=Main\')"/>
+                    <input class="bouton" type="button" value="   Retour   " onclick="Execute(1, \'../PHP/TBNavigation.php?id='.$id.'&nomMenu=Main\')"/>
                 </article>';
 
                 return $content;

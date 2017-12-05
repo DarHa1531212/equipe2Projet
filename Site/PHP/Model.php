@@ -393,7 +393,18 @@
 
     class Profil{
         
-        protected $IdUtilisateur, $Nom, $Prenom, $NumTelEntreprise, $CodePermanent, $Poste, $CourrielEntreprise, $NomEntreprise;
+        protected $IdUtilisateur, $Nom, $Prenom, $NumTelEntreprise, $CodePermanent, $Poste, $CourrielEntreprise, $NomEntreprise, $IdRole;
+        
+        protected function SetPassword($newPassword, $bdd){
+            if($newPassword != "")
+            {
+                $newPassword = password_hash($newPassword, PASSWORD_DEFAULT);
+
+                $bdd->Request(" UPDATE tblUtilisateur SET MotDePasse = :motPasse WHERE Id LIKE :id;",
+                                array("motPasse"=>$newPassword, "id"=>$this->IdUtilisateur),
+                                "stdClass");
+            }
+        }
         
         public function getId(){
             return $this->IdUtilisateur;
@@ -426,11 +437,13 @@
         public function getEntreprise(){
             return $this->NomEntreprise;
         }
+        
+        public function getIdRole(){
+               return $this->IdRole;
+        }
     }
 
     class ProfilEmploye extends Profil{
-        
-        private $IdRole;
         
         //Affiche les informations du profil.
         public function AfficherProfil(){
@@ -475,8 +488,83 @@
             return $content;
         }
         
-        public function getIdRole(){
-               return $this->IdRole;
+        public function ModifierProfil(){
+            $content =
+            '
+            <div class="blocInfo infoProfil">
+                    <div class="champ">
+                        <p class="label labelForInput">Prenom :</p>
+                        <input type="text" value="'.$this->getPrenom().'" class="value" disabled/>
+                    </div>
+
+                    <div class="champ">
+                        <p class="label labelForInput">Nom :</p>
+                        <input type="text" value="'.$this->getNom().'" class="value" disabled/>
+                    </div>
+
+                    <div class="champ">
+                        <p class="label labelForInput">Entreprise :</p>
+                        <input type="text" value="'.$this->getEntreprise().'" class="value" disabled/>
+                    </div>
+
+                    <div class="champ">
+                        <p class="label labelForInput">Courriel :</p>
+                        <input type="email" value="'.$this->getCourrielEntreprise().'" id="courrielEntreprise" name="courrielEntreprise" class="value" onexit="RegexProfilStagiaire()"/>
+
+                    </div>
+
+                    <div class="champ">
+                        <p class="label labelForInput">No. Téléphone :</p>
+                        <input type="text" value="'.$this->getNumTelEntreprise().'" id="numEntreprise" name="numEntreprise" class="value" onexit="RegexProfilStagiaire()"/>
+                        <img class="info" src="../Images/info.png" title="Le numéro de téléphone doit
+avoir ce format - (xxx) xxx-xxxx"/>
+                    </div>
+
+                    <div class="champ">
+                        <p class="label labelForInput">Poste :</p>
+                        <input type="text" value="'.$this->getPoste().'" name="poste" id="poste" class="value" onexit="RegexProfilStagiaire()"/>
+                    </div>
+            </div>
+
+            <div class="separateur">
+                <h3>Sécurité</h3>
+            </div>
+
+            <div class="blocInfo infoProfil">
+                    <div class="champ">
+                        <p class="label labelForInput">Nouveau mot de passe :</p>
+                        <input type="password" id="newPwd" class="value" name="nouveauPasse" onexit="RegexProfilStagiaire()"/>
+                        <img class="info" src="../Images/info.png" title="Le mot de passe doit contenir
+- 8 caractères minimum
+- Au moins une majuscule
+- Au moins un chiffre(0-9)"/>
+                    </div>
+
+                    <div class="champ">
+                        <p class="label labelForInput">Confirmer le mot de passe :</p>
+                        <input type="password" id="confirmationNewPwd" class="value" onexit="RegexProfilStagiaire()"/>
+                    </div>
+            </div>';
+
+            return $content;
+        }
+        
+        public function UpdateProfil($bdd, $champs){
+            $profil = array();
+
+            foreach($champs as $champ){
+                $profil[$champ->nom] = $champ->value;
+            }
+
+            $this->SetPassword($profil["nouveauPasse"], $bdd);
+
+            $bdd->Request(" UPDATE tblEmploye SET NumTelEntreprise = :numTelEntreprise, Poste = :poste, CourrielEntreprise = :courrielEntreprise WHERE IdUtilisateur = :id",
+                            array(
+                            "numTelEntreprise"=>$profil["numEntreprise"],
+                            "poste"=>$profil["poste"],
+                            "courrielEntreprise"=>$profil["courrielEntreprise"],
+                            "id"=>$this->IdUtilisateur),
+                            "stdClass");
         }
     }
 
@@ -526,7 +614,7 @@
 
                     <div class="champ">
                         <p class="label">Courriel :</p>
-                        <p class="value">'.$this->getCourrielPerso().'</p>
+                        <p class="value">'.$this->getCourrielEntreprise().'</p>
                     </div>
 
                     <div class="champ">
@@ -541,6 +629,109 @@
             </div>
             ';
             return $content;
+        }
+        
+        public function ModifierProfil(){
+            $content =
+            '
+            <div class="separateur">
+                <h3>Informations Personnelles</h3>
+            </div>
+
+            <div class="blocInfo infoProfil">
+                    <div class="champ">
+                        <p class="label labelForInput">Prenom :</p>
+                        <input type="text" value="'.$this->getPrenom().'" class="value" disabled/>
+                    </div>
+
+                    <div class="champ">
+                        <p class="label labelForInput">Nom :</p>
+                        <input type="text" value="'.$this->getNom().'" class="value" disabled/>
+                    </div>
+
+                    <div class="champ">
+                        <p class="label labelForInput">No. Téléphone :</p>
+                        <input type="text" value="'.$this->getNumTelPerso().'" id="numTel" name="numTel" class="value" onexit="RegexProfilStagiaire()"/>
+                        <img class="info" src="../Images/info.png" title="Le numéro de téléphone doit
+avoir ce format - (xxx) xxx-xxxx"/>
+                    </div>
+
+                    <div class="champ">
+                        <p class="label labelForInput">Courriel :</p>
+                        <input type="email" value="'.$this->getCourrielPerso().'" id="courrielPersonnel" name="courrielPersonnel" class="value" onexit="RegexProfilStagiaire()"/>
+                    </div>
+            </div>
+
+            <div class="separateur">
+                <h3>Informations Professionnelles</h3>
+            </div>
+
+            <div class="blocInfo infoProfil">
+                    <div class="champ">
+                        <p class="label labelForInput">Entreprise :</p>
+                        <input type="text" value="'.$this->getEntreprise().'" class="value" disabled/>
+                    </div>
+
+                    <div class="champ">
+                        <p class="label labelForInput">Courriel :</p>
+                        <input type="email" value="'.$this->getCourrielEntreprise().'" id="courrielEntreprise" name="courrielEntreprise" class="value" onexit="RegexProfilStagiaire()"/>
+
+                    </div>
+
+                    <div class="champ">
+                        <p class="label labelForInput">No. Téléphone :</p>
+                        <input type="text" value="'.$this->getNumTelEntreprise().'" id="numEntreprise" name="numEntreprise" class="value" onexit="RegexProfilStagiaire()"/>
+                        <img class="info" src="../Images/info.png" title="Le numéro de téléphone doit
+avoir ce format - (xxx) xxx-xxxx"/>
+                    </div>
+
+                    <div class="champ">
+                        <p class="label labelForInput">Poste :</p>
+                        <input type="text" value="'.$this->getPoste().'" name="poste" id="poste" class="value" onexit="RegexProfilStagiaire()"/>
+                    </div>
+            </div>
+
+            <div class="separateur">
+                <h3>Sécurité</h3>
+            </div>
+
+            <div class="blocInfo infoProfil">
+                    <div class="champ">
+                        <p class="label labelForInput">Nouveau mot de passe :</p>
+                        <input type="password" id="newPwd" class="value" name="nouveauPasse" onexit="RegexProfilStagiaire()"/>
+                        <img class="info" src="../Images/info.png" title="Le mot de passe doit contenir
+- 8 caractères minimum
+- Au moins une majuscule
+- Au moins un chiffre(0-9)"/>
+                    </div>
+
+                    <div class="champ">
+                        <p class="label labelForInput">Confirmer le mot de passe :</p>
+                        <input type="password" id="confirmationNewPwd" class="value" onexit="RegexProfilStagiaire()"/>
+                    </div>
+            </div>';
+
+            return $content;
+        }
+        
+        public function UpdateProfil($bdd, $champs){
+            $profil = array();
+
+            foreach($champs as $champ){
+                $profil[$champ->nom] = $champ->value;
+            }
+
+            $this->SetPassword($profil["nouveauPasse"], $bdd);
+
+            $bdd->Request(" UPDATE tblStagiaire SET NumTel = :numTel, NumTelEntreprise = :numTelEntreprise, Poste = :poste, CourrielEntreprise = :courrielEntreprise, CourrielPersonnel = :courrielPerso WHERE IdUtilisateur = :id",
+                            array(
+                            "numTel"=>$profil["numTel"],
+                            "numTelEntreprise"=>$profil["numEntreprise"],
+                            "poste"=>$profil["poste"],
+                            "courrielEntreprise"=>$profil["courrielEntreprise"],
+                            "courrielPerso"=>$profil["courrielPersonnel"],
+                            "id"=>$this->IdUtilisateur),
+                            "stdClass");
         }
         
         public function getNumTelPerso(){
@@ -758,162 +949,6 @@
         return $returnData;
 
         }
-    }
-
-    class cStage{
-        private $idStagiaire, $idResponsable, $idSuperviseur, $idEnseignant, $idEntreprise, $competancesRecherchees, $descriptionStage, $salaireHoraire, $nbreHeuresSemaine, $dateDebut, $dateFin;
-
-        public function __construct($id, $bdd, $idStagiaire, $idResponsable, $idSuperviseur, $idEnseignant, $idEntreprise, $competancesRecherchees, $descriptionStage, $salaireHoraire, $nbreHeuresSemaine, $dateDebut, $dateFin){  
-       //     $this->Initialise($id, $bdd);
-            $this->idStagiaire = $idStagiaire;
-            $this->idResponsable = $idResponsable;
-            $this->idSuperviseur = $idSuperviseur;
-            $this->idEnseignant = $idEnseignant;
-            $this->idEntreprise = $idEntreprise;
-            $this->competancesRecherchees = $competancesRecherchees;
-            $this->descriptionStage = $descriptionStage;
-            $this->salaireHoraire = $salaireHoraire;
-            $this->nbreHeuresSemaine = $nbreHeuresSemaine;
-            $this->dateDebut = $dateDebut;
-            $this->dateFin = $dateFin;
-
-        }
-
-        public function getIdSuperviseur(){
-            return $this->idSuperviseur;
-        }
-
-        public function getIdEnseignant(){
-            return $this->idEnseignant;
-        }
-
-        public function getIdEntreprise(){
-            return $this->idEntreprise;
-        }
-
-        public function getIdResponsable(){
-            return $this->idResponsable;
-        }
-
-        public function getIdStagiaire(){
-            return $this->idStagiaire;
-        }
-
-        public function getCompetancesRecherchees(){
-            return $this->competancesRecherchees;
-        }
-
-        public function getDescriptionStage(){
-            return $this->descriptionStage;
-        }
-
-        public function getSalaireHoraire(){
-            return $this->salaireHoraire;
-        }
-
-        public function getNbreHeuresSemaine(){
-            return $this->nbreHeuresSemaine;
-        }
-
-        public function getDateDebut(){
-            return $this->dateDebut;
-        }
-
-        public function getDateFin(){
-            return $this->dateFin;
-        }
-
-        function createStage($bdd, $dataArray)
-        {
-
-            $idStagiaire = intval ($dataArray[1]->value);
-            $idEntreprise = intval ($dataArray[2]->value);
-            $idResponsable = intval ($dataArray[3]->value);
-            $idSuperviseur = intval ($dataArray[4]->value);
-            $idEnseignant = intval ($dataArray[5]->value);
-            $descriptionStage = $dataArray[6]->value;
-            $competencesRecherche = $dataArray[7]->value;
-            $horaireTravail = $dataArray[8]->value;
-            $nbreHeuresSemaine = intval ($dataArray[9]->value);
-            $salaireHoraire = intval ($dataArray[10]->value);
-            $dateDebut = date ('Y-m-d', strtotime($dataArray[11]->value));
-            $dateFin = date ('Y-m-d', strtotime($dataArray[12]->value));
-
-           $query = $bdd->prepare("INSERT INTO tblStage (IdResponsable, IdSuperviseur, IdStagiaire, IdEnseignant, DescriptionStage, CompetenceRecherche, HoraireTravail, NbHeureSemaine, SalaireHoraire, DateDebut, DateFin ) VALUES ($idResponsable, $idSuperviseur, $idStagiaire, $idEnseignant, '$descriptionStage', '$competencesRecherche', '$horaireTravail', '$nbreHeuresSemaine', '$salaireHoraire', '$dateDebut', '$dateFin');");
-            $query->execute();
-        }
-
-        function returnSuperviseursAndResponsables($bdd, $dataArray)
-        {
-            $idEntreprise = intval ($dataArray[1]->value);
-            $valeurRetour = '<select id="responsableStage" name = "responsableStage" class = "infosStage">';
-            $query = $bdd->prepare("select concat (Prenom, ' ',  Nom) as NomEmploye, IdUtilisateur from tblEmploye where IdEntreprise like '$idEntreprise'");
-
-            $query->execute(array());     
-            $entrees = $query->fetchAll();
-
-            foreach($entrees as $entree){
-                  $NomEmploye = $entree["NomEmploye"];
-                  $IdUtilisateur = $entree["IdUtilisateur"];
-
-                  $valeurRetour = $valeurRetour . "<option value='". $IdUtilisateur . "'>" . $NomEmploye . "</option>";
-            }
-
-            $valeurRetour = $valeurRetour . '</select>';
-
-            return $valeurRetour;
-
-
-        }
-
-        function afficherInfos($bdd, $idStage)
-        {
-            $valeurRetour = "";
-            $query = $bdd->prepare("select 
-                                    vStage.DescriptionStage as 'DescriptionStage', 
-                                    vStage.CompetenceRecherche as 'CompetenceRecherche', 
-                                    vStage.HoraireTravail as 'HoraireTravail', 
-                                    vStage.SalaireHoraire as 'SalaireHoraire', 
-                                    vStage.NbHeureSemaine as 'NbHeureSemaine' , 
-                                    vEntreprise.Nom as 'NomEntreprise' , +
-                                    concat(vStagiaire.Prenom, ' ' , vStagiaire.Nom)  as 'NomStagiaire' , 
-                                    concat (vSuperviseur.Prenom, ' ', vSuperviseur.Nom) as 'NomSuperviseur', 
-                                    concat (vResponsable.Prenom, ' ', vResponsable.Nom) as'NomResponsable', 
-                                    concat (vEnseignant.Prenom, ' ', vEnseignant.Nom) as 'NomEnseignant' 
-                                    from vStage    
-                                    left join vSuperviseur on  vSuperviseur.IdUtilisateur = vStage.IdSuperviseur    
-                                    left join vEntreprise on vEntreprise.Id = vSuperviseur.IdEntreprise     
-                                    left join vStagiaire on vStagiaire.IdUtilisateur = vStage.IdStagiaire     
-                                    left join vResponsable on vResponsable.IdUtilisateur = vStage.IdResponsable     
-                                    left join vEnseignant on vEnseignant.IdUtilisateur = vStage.IdEnseignant 
-                                    where vStage.Id like :idStage");
-
-
-            $query->execute(array('idStage'=> $idStage));     
-            $entrees = $query->fetchAll();
-
-            foreach($entrees as $entree){
-                $DescriptionStage = $entree["DescriptionStage"];
-                $CompetenceRecherche = $entree["CompetenceRecherche"];
-                $HoraireTravail = $entree["HoraireTravail"];
-                $SalaireHoraire = $entree["SalaireHoraire"];
-                $NbHeureSemaine = $entree["NbHeureSemaine"];
-                $NomEntreprise = $entree["NomEntreprise"];
-                $NomStagiaire = $entree["NomStagiaire"];
-                $NomSuperviseur = $entree["NomSuperviseur"];
-                $NomResponsable = $entree["NomResponsable"];
-                $NomEnseignant = $entree["NomEnseignant"];
-
-                $valeurRetour = '<article class="stagiaire"><p>Nom du stagiaire: ' . $NomStagiaire . '</p><br><p>Nom d\'entreprise: ' . $NomEntreprise . '</p><br><p>Nom de l\'enseignant: ' . $NomEnseignant . '</p><br><p>Nom du superviseur: ' . $NomResponsable . '</p> <br> <p>Horaire de travail: ' . $HoraireTravail . '</p><br><p>Salaire horaire: ' . $SalaireHoraire . '</p><br><p>Nombre d\'heures par semaine: ' . $NbHeureSemaine . '</p> <br><p>Compétences recherchées: ' . $CompetenceRecherche . '</p><br><p>Description du stage: ' . $DescriptionStage . '</p><br></article>';
- 
-
-            }
-
-
-            return $valeurRetour;
-
-        }
-
     }
 
 

@@ -9,7 +9,7 @@
         foreach($entreprises as $entreprise){
             $content = $content.
             '
-            <tr class="itemHover" onclick="Execute(1, \'../PHP/TBNavigation.php?nomMenu=Entreprise.php&id=\', '.$id.')">
+            <tr class="itemHover" onclick="Execute(1, \'../PHP/TBNavigation.php?nomMenu=InfoEntreprise.php&id=\', '.$id.')">
                 <td>'.$entreprise->Nom.'</td>
                 <td>'.$entreprise->NumTel.'</td>
                 <td>'.$entreprise->CourrielEntreprise.'</td>

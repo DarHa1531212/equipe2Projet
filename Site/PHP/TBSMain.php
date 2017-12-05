@@ -23,12 +23,12 @@
     '<article class="stagiaire">
         <div class="infoStagiaire">
             <h2>'.$profils[0]->Prenom.' '.$profils[0]->Nom.'</h2>
-            <input class="bouton" type="button" value="Afficher le profil" onclick="Execute(1, \'../PHP/TBNavigation.php?idStagiaire='.$profils[0]->Id.'&nomMenu=Profil.php\')"/>
+            <input class="bouton" type="button" value="Afficher le profil" onclick="Execute(1, \'../PHP/TBNavigation.php?id='.$profils[0]->Id.'&nomMenu=Profil.php\')"/>
             <br /><br /><br /><br /><br /><br />
         </div>
 
         <div class="blocInfo itemHover">
-            <a class="linkFill" onclick="Execute(1, \'../PHP/TBNavigation.php?idEmploye='.$profils[0]->IdEnseignant.'&nomMenu=Profil.php\')">
+            <a class="linkFill" onclick="Execute(1, \'../PHP/TBNavigation.php?id='.$profils[0]->IdEnseignant.'&nomMenu=Profil.php\')">
                 <div class="entete">
                     <h2>Enseignant</h2>
                 </div>
@@ -41,7 +41,7 @@
         </div>
 
         <div class="blocInfo itemHover">
-            <a class="linkFill" onclick="Execute(1, \'../PHP/TBNavigation.php?idEmploye='.$profils[0]->IdSuperviseur.'&nomMenu=Profil.php\')">
+            <a class="linkFill" onclick="Execute(1, \'../PHP/TBNavigation.php?id='.$profils[0]->IdSuperviseur.'&nomMenu=Profil.php\')">
                 <div class="entete">
                     <h2>Superviseur</h2>
                 </div>
@@ -64,14 +64,14 @@
             </thead>
 
             <tbody>
-                <tr class="itemHover" onclick="Execute(1, \'../PHP/TBNavigation.php?idStagiaire='.$profils[0]->Id.'&nomMenu=AVenir.php\')">
+                <tr class="itemHover" onclick="Execute(1, \'../PHP/TBNavigation.php?id='.$profils[0]->Id.'&nomMenu=AVenir.php\')">
                     <td>Rapport 1</td>
                     <td><span class="statutColor" style="background-color:' . definirCouleur($bdd,2) . ';">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span> Non complétée</td>
                     <td>2017-02-15</td>
                     <td></td>
                 </tr>
 
-                <tr class="itemHover" onclick="Execute(1, \'../PHP/TBNavigation.php?idStagiaire='.$profils[0]->Id.'&nomMenu=AVenir.php\')">
+                <tr class="itemHover" onclick="Execute(1, \'../PHP/TBNavigation.php?id='.$profils[0]->Id.'&nomMenu=AVenir.php\')">
                     <td>Rapport 2</td>
                     <td><span class="statutColor" style="background-color:' . definirCouleur($bdd,1) . ';">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span> complétée</td>
                     <td>2017-03-30</td>
@@ -88,11 +88,11 @@
             </thead>
 
             <tbody>
-                <tr class="itemHover" onclick="Execute(1, \'../PHP/TBNavigation.php?idStagiaire='.$profils[0]->Id.'&nomMenu=JournalBord.php\', \'&nbEntree=\', 5) ">
+                <tr class="itemHover" onclick="Execute(1, \'../PHP/TBNavigation.php?id='.$profils[0]->Id.'&nomMenu=JournalBord.php\', \'&nbEntree=\', 5) ">
                     <td>Journal de bord</td>
                 </tr>
 
-                <tr class="itemHover" onclick="Execute(1, \'../PHP/TBNavigation.php?idStagiaire='.$profils[0]->Id.'&nomMenu=AVenir.php\')">
+                <tr class="itemHover" onclick="Execute(1, \'../PHP/TBNavigation.php?id='.$profils[0]->Id.'&nomMenu=AVenir.php\')">
                     <td>Auto-Évaluation</td>
                 </tr>
             </tbody>
