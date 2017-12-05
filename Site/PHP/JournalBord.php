@@ -1,6 +1,6 @@
 <?php
 
-    require 'ConnexionBD.php';
+    //require 'ConnexionBD.php';
 
     function DateDifference($date_1 , $date_2 , $differenceFormat = '%a' ){
         $datetime1 = date_create($date_1);

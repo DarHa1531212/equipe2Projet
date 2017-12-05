@@ -6,9 +6,15 @@
 
         switch($result[0]->Statut)//return la couleur qui sera ajouter en CSS
         {
-            case 'C':       return 'rgba(72, 229, 88, 1)'; //Green
+            case 'C':       return 'rgba(72, 229, 88, 1)'; //Green - Complete
             break;
-            case 'N':       return 'rgba(237, 7, 7, 1)'; //Red
+            case 'N':       return 'rgba(237, 7, 7, 1)'; //red - Non-complete
+            break;
+            case 'U':       return 'rgba(248, 181, 99, 1)'; //Orange - Non Disponible
+            break;
+            case 'E':       return 'rgba(255, 253, 112, 1)'; //Jaune - En cours
+            break;
+            case 'D':       return 'rgba(51, 43, 218, 1)'; //Bleu - Disponible
             break;
         }
     }
