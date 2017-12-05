@@ -185,7 +185,9 @@
             <input class="inputFile" id="file" type="file" value="Envoyer" name="fichier" onchange="AfficherNom(this)"/>
 
             <br/>                                                                             
+
             <input style="width: 120px;" class="bouton" type="button" value="Envoyer" onclick="if(modificationJournal){Execute(3, \'../PHP/TBNavigation.php?id='.$idStagiaire.'&nomMenu=JournalBord.php\',\'&update=\', true, \'&contenu=\', contenu.value'.addId().'); Execute(1, \'../PHP/TBNavigation.php?id='.$idStagiaire.'&nomMenu=JournalBord.php\', \'&nbEntree=\', 5); modificationJournal = false;}else{Execute(3, \'../PHP/TBNavigation.php?id='.$idStagiaire.'&nomMenu=JournalBord.php\', \'&contenu=\', contenu.value); Execute(1, \'../PHP/TBNavigation.php?id='.$idStagiaire.'&nomMenu=JournalBord.php\', \'&nbEntree=\', 5);}"/>
+
             <label class="bouton labelFile" for="file">Pièce Jointe</label>
             <p id="nomPieceJointe"></p>
 

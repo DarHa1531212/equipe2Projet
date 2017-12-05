@@ -13,9 +13,19 @@
 
         $bdd->Request(" INSERT INTO tblStage (IdResponsable, IdSuperviseur, IdStagiaire, IdEnseignant, DescriptionStage, CompetenceRecherche, HoraireTravail, NbHeureSemaine, SalaireHoraire, DateDebut, DateFin ) 
                         VALUES (:idResponsable, :idSuperviseur, :idStagiaire, :idEnseignant, :description, :competence, :horaire, :nbHeure, :salaire, :dateDebut, :dateFin);",
-                        array("idResponsable"=>$stage["Responsable"], "idSuperviseur"=>$stage["Superviseur"], "idStagiaire"=>$stage["Stagiaire"], "idEnseignant"=>$stage["Enseignant"],
-                              "description"=>$stage["DescStage"], "competence"=>$stage["CompetancesRecherchees"], "horaire"=>$stage["SalaireHoraire"], "nbHeure"=>$stage["HeuresSemaine"],
-                              "salaire"=>["SalaireHoraire"], "dateDebut"=>["DateDebut"], "dateFin"=$stage["DateFin"]), "stdClass");
+                        array(
+                            'idResponsable'=>$stage["Responsable"], 
+                            'idSuperviseur'=>$stage["Superviseur"], 
+                            'idStagiaire'=>$stage["Stagiaire"], 
+                            'idEnseignant'=>$stage["Enseignant"],
+                            'description'=>$stage["DescStage"], 
+                            'competence'=>$stage["CompetancesRecherchees"], 
+                            'horaire'=>$stage["SalaireHoraire"], 
+                            'nbHeure'=>$stage["HeuresSemaine"],
+                            'salaire'=>$stage["SalaireHoraire"], 
+                            'dateDebut'=>$stage["DateDebut"], 
+                            'dateFin'=>$stage["DateFin"]), 
+                            'stdClass');
     }
 
     //affiche les entreprises dans le dropdown menu
@@ -28,6 +38,7 @@
             $returnValue = $returnValue . '<option value= "' . $entreprise->Id . '">' . $entreprise->Nom . '</option>';
 
         return $returnValue;
+        }
     }
  
     //affiche les entreprises dans le dropdown menu
@@ -133,17 +144,14 @@
                 <textarea class="value" class="valueArea"  name = "CompetancesRecherchees"></textarea>
             </div>
 
-    <!--afficher les inforations détaillées d\'un stage -->
-  <div id="readStage"></div>
+        <!--afficher les inforations détaillées d\'un stage -->
+        <div id="readStage"></div>
 
 		<br>
-
-            <input class="bouton" type="button" style="width: 100px;" value="   Annuler   " onclick="Execute(1, \'../PHP/TBNavigation.php?nomMenu=Stage\')"/>
-           
-            <input class="bouton" type="button" id="Save" style="width: 100px;" value=" Sauvegarder " onclick= "Execute(12, \'../PHP/TBNavigation.php?&nomMenu=CreationStage.php&post\')"/>
-
+            <input class="bouton" type="button" style="width: 100px;" value="   Annuler   " onclick="Execute(1, \'../PHP/TBNavigation.php?nomMenu=ListeStage.php\')"/>      
+            <input class="bouton" type="button" id="Save" style="width: 100px;" value=" Sauvegarder " onclick= "Execute(5, \'../PHP/TBNavigation.php?&nomMenu=CreationStage.php&post\')"/>
             <br/><br/>
-        </div>   
+    </div>   
     <br>
 
 <!-- Fin de section création de stage -->';

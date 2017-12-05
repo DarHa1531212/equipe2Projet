@@ -445,6 +445,8 @@
 
     class ProfilEmploye extends Profil{
         
+        private $IdRole;
+        
         //Affiche les informations du profil.
         public function AfficherProfil(){
             $content =

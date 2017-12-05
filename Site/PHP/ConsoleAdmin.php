@@ -18,6 +18,8 @@
         <script src="../js/regexProfilStag.js"></script>
         <script src="../js/slideShow.js"></script>
         <script src="../js/scripts.js"></script>
+        <script src="../js/creationUtilisateur.js"></script>
+
         
         <?php 
             include('Header.php'); 
