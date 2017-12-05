@@ -1,6 +1,5 @@
-<?php
-   
-    $stages = $bdd-> Request (" SELECT 
+<?php 
+$stages = $bdd-> Request (" SELECT 
                                 vStage.Id as 'IdStage',
                                 vStage.DescriptionStage as 'DescriptionStage', 
                                 vStage.CompetenceRecherche as 'CompetenceRecherche', 
@@ -23,7 +22,6 @@
                                 ORDER BY IdStage DESC", 
                                 null, "stdClass");
 
-      
   function AfficherStages($stages)
   {
     $content = "";
@@ -31,9 +29,9 @@
     foreach ($stages as $stage) {
       $content = $content . 
           '<tr class="itemHover" onclick="Execute(1,\'../PHP/TBNavigation.php?nomMenu=InfoStage.php&id=\', '.$id.')">
-                  <td >' . $stage->NomStagiaire . '</td>
-                  <td' . $stage->NomEntreprise . '</td>
-                  <td>Lettre dentente</td>
+                <td>' . $stage->NomEntreprise . '</td>
+                <td>' . $stage->NomStagiaire . '</td>
+                <td>Lettre dentente</td>
             </tr>';
             $id = $id + 1;
       }

@@ -1,6 +1,6 @@
 <?php
 
-    $entreprises = $bdd->Request("SELECT * FROM vEntreprise ORDER BY Id DESC", null, "stdClass");
+    $entreprises = $bdd->Request("SELECT * FROM vEntreprise ORDER BY Id DESC", null, "Entreprise");
 
     function AfficherEntreprise($entreprises){
         $content = "";
@@ -10,10 +10,10 @@
             $content = $content.
             '
             <tr class="itemHover" onclick="Execute(1, \'../PHP/TBNavigation.php?nomMenu=InfoEntreprise.php&id=\', '.$id.')">
-                <td>'.$entreprise->Nom.'</td>
-                <td>'.$entreprise->NumTel.'</td>
-                <td>'.$entreprise->CourrielEntreprise.'</td>
-                <td>'.$entreprise->Ville.'</td>
+                <td>'.$entreprise->getNom().'</td>
+                <td>'.$entreprise->getNumTel().'</td>
+                <td>'.$entreprise->getCourriel().'</td>
+                <td>'.$entreprise->getVille().'</td>
             </tr>
             ';
             

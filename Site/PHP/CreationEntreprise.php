@@ -74,8 +74,7 @@
                 <p class="label labelForInput">Logo</p>
                 <input type="text" name="logo" class="value"/>
             </div>
-            
-
+        
             <br/><br/>
 
             <input class="bouton" type="button" style="width: 100px;" value="   Annuler   " onclick="Execute(1, \'../PHP/TBNavigation.php?idEmploye='.$id.'&nomMenu=Main\')"/>

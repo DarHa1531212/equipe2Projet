@@ -395,13 +395,19 @@
         
         protected $IdUtilisateur, $Nom, $Prenom, $NumTelEntreprise, $CodePermanent, $Poste, $CourrielEntreprise, $NomEntreprise, $IdRole;
         
-        protected function SetPassword($newPassword, $bdd){
-            if($newPassword != "")
+        protected function UpdateUser($bdd, $motPasse, $courriel){
+            if($motPasse != "")
             {
-                $newPassword = password_hash($newPassword, PASSWORD_DEFAULT);
+                $motPasse = password_hash($motPasse, PASSWORD_DEFAULT);
 
                 $bdd->Request(" UPDATE tblUtilisateur SET MotDePasse = :motPasse WHERE Id LIKE :id;",
-                                array("motPasse"=>$newPassword, "id"=>$this->IdUtilisateur),
+                                array("motPasse"=>$motPasse, "id"=>$this->IdUtilisateur),
+                                "stdClass");
+            }
+            
+            if($courriel != ""){
+                $bdd->Request(" UPDATE tblUtilisateur SET Courriel = :courriel WHERE Id LIKE :id;",
+                                array("id"=>$this->IdUtilisateur, "courriel"=>$courriel),
                                 "stdClass");
             }
         }
@@ -444,8 +450,6 @@
     }
 
     class ProfilEmploye extends Profil{
-        
-        private $IdRole;
         
         //Affiche les informations du profil.
         public function AfficherProfil(){
@@ -558,7 +562,7 @@ avoir ce format - (xxx) xxx-xxxx"/>
                 $profil[$champ->nom] = $champ->value;
             }
 
-            $this->SetPassword($profil["nouveauPasse"], $bdd);
+            $this->UpdateUser($bdd, $profil["nouveauPasse"], $profil["courrielEntreprise"]);
 
             $bdd->Request(" UPDATE tblEmploye SET NumTelEntreprise = :numTelEntreprise, Poste = :poste, CourrielEntreprise = :courrielEntreprise WHERE IdUtilisateur = :id",
                             array(
@@ -723,7 +727,7 @@ avoir ce format - (xxx) xxx-xxxx"/>
                 $profil[$champ->nom] = $champ->value;
             }
 
-            $this->SetPassword($profil["nouveauPasse"], $bdd);
+            $this->UpdateUser($bdd, $profil["nouveauPasse"], $profil["courrielPersonnel"]);
 
             $bdd->Request(" UPDATE tblStagiaire SET NumTel = :numTel, NumTelEntreprise = :numTelEntreprise, Poste = :poste, CourrielEntreprise = :courrielEntreprise, CourrielPersonnel = :courrielPerso WHERE IdUtilisateur = :id",
                             array(
@@ -742,6 +746,75 @@ avoir ce format - (xxx) xxx-xxxx"/>
         
         public function getCourrielPerso(){
             return $this->CourrielPersonnel;
+        }
+    }
+
+    
+    class Entreprise{
+        private $Id, $CourrielEntreprise, $Nom, $NumTel, $NumCivique, $Rue, $Ville, $Province, $CodePostal, $Logo;
+        
+        public function Update($bdd, $champs){
+            $entreprise = array();
+
+            foreach($champs as $champ){
+                $entreprise[$champ->nom] = $champ->value;
+            }
+            
+            $bdd->Request(" UPDATE tblEntreprise SET CourrielEntreprise = :courriel, Nom = :nom, NumTel = :numTel,
+                            NumCivique = :numCivique, Rue = :rue, Ville = :ville, Province = :province, CodePostal = :codePostal,
+                            Logo = :logo WHERE Id = :id",
+                            array(  
+                            "courriel"=>$entreprise["courrielEntreprise"],
+                            "nom"=>$entreprise["nom"],
+                            "numTel"=>$entreprise["numEntreprise"],
+                            "numCivique"=>$entreprise["noCivique"],
+                            "rue"=>$entreprise["rue"],
+                            "ville"=>$entreprise["ville"],
+                            "province"=>$entreprise["province"],
+                            "codePostal"=>$entreprise["codePostal"],
+                            "logo"=>$entreprise["logo"],
+                            "id"=>$this->Id),
+                            "stdClass");
+        }
+        
+        public function getId(){
+            return $this->Id;
+        }
+        
+        public function getCourriel(){
+            return $this->CourrielEntreprise;
+        }
+        
+        public function getNom(){
+            return $this->Nom;
+        }
+        
+        public function getNumTel(){
+            return $this->NumTel;
+        }
+        
+        public function getNumCivique(){
+            return $this->NumCivique;
+        }
+        
+        public function getRue(){
+            return $this->Rue;
+        }
+        
+        public function getVille(){
+            return $this->Ville;
+        }
+        
+        public function getProvince(){
+            return $this->Province;
+        }
+        
+        public function getCodePostal(){
+            return $this->CodePostal;
+        }
+        
+        public function getLogo(){
+            return $this->Logo;
         }
     }
     
