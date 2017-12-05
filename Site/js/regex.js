@@ -150,11 +150,54 @@ function regexCreationStage()
 	var confirmSaveHeure = true;
 
 	var regexHeure = /^[0-4][0-9],?[0-5]?[0]?$/;
+	var text = document.getElementById("heureSem");
+
+	if(regexHeure.test(text.value))
+	{
+		changerCouleur(text, true);
+		confirmSaveHeure = true;
+	}
+	else
+	{
+		changerCouleur(text, false);
+		confirmSaveHeure = false;
+	}
 
 	//salaire
 	var confirmSalaire = true;
 
 	var regexSalaire = /^[0-9][0-9],[0-9][0-9]$/;
+	var text = document.getElementById("salaire");
+
+	if(document.getElementById("non").checked == false)
+	{
+		if(regexSalaire.test(text.value))
+		{
+			changerCouleur(text, true);
+			confirmSalaire = true;
+		}
+		else
+		{
+			changerCouleur(text, false);
+			confirmSalaire = false;
+		}
+	}
+	else
+	{
+		changerCouleur(text, "disabled");
+		confirmSalaire = true;
+	}
+
+	if(!confirmSaveHeure || !confirmSalaire)
+	{
+		document.getElementById('Save').disabled = true;
+        $("#Save").css("background-color", "#011f45");
+	}
+	else
+	{
+		document.getElementById('Save').disabled = false;
+        $("#Save").css('background-color', '');
+	}	
 }
 
 function regexCreationStagiaire()
@@ -217,5 +260,10 @@ function changerCouleur(text, etat)
 	else
 	{
 		text.style.backgroundColor = "white";
+	}
+
+	if (etat == "disabled") 
+	{
+		text.style.backgroundColor = "#dddddd"
 	}
 }

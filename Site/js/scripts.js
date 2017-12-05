@@ -11,9 +11,17 @@ function DisableSalaire(rad){
     var salaire = document.getElementById("salaire");
     
     if(rad.id == "oui")
+    {
         salaire.disabled = false;
+        salaire.style.backgroundColor = "#ffffff";
+
+    }
     else
+    {
         salaire.disabled = true;
+        salaire.style.backgroundColor = "#dddddd";
+    }
+
 }
 
 function SetTimeout(){
