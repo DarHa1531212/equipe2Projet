@@ -45,7 +45,7 @@
             <article class="stagiaire">
                 <div id="modifStagiaire" >
                      <p class="label labelForInput">Selectionnez le type d\'utilisateur</p>
-                            <select class="value" class = "infosStage" name = "userType" onChange="changeUserType(this)">
+                            <select class="value" class = "infosStage" name = "userType" onChange="changeUserType(this); Utilisateur = \'EmployeEntreprise\';">
                                 <option disabled selected value> -- select an option -- </option>
                                 <option value = "5">Stagiaire</option>
                                 <option value = "2">Employé d\'entreprise</option>
@@ -54,19 +54,19 @@
                 <div class = "champ" id = "Prenom">
                     <br>
                     <p class="label labelForInput">Prenom :</p>
-                    <input type="text" value="" id="prenom" class="value" name = "prenom"/>
+                    <input type="text" value="" id="prenom" class="value" name = "prenom" onchange="regexCreationUtilisateur();"/>
                 </div>
 
                <div class = "champ" id = "Nom">
                 <br>
                 <p class="label labelForInput">Nom :</p>
-                <input type="text" value="" class="value" name = "nom"/>
+                <input type="text" value="" class="value" name = "nom" id="nom" onchange="regexCreationUtilisateur();"/>
                 </div>
 
                 <div class = "champ" id = "courriel">
                  <br>
                 <p class="label labelForInput">Courriel :</p>
-                <input type="text" value="" class="value" name = "courriel"/>
+                <input type="text" value="" class="value" name = "courriel" id="Courriel" onchange="regexCreationUtilisateur();"/>
                 </div>
                     <div class="champ" id = "dropDownEntreprise">
                         <p class="label labelForInput">Entreprise</p>
@@ -77,13 +77,13 @@
                 <div class = "champ" id = "noTelEntreprise">
                 <br>
                 <p class="label labelForInput">Numero de telephone entreprise :</p>
-                <input type="text" value="" class="value" name = "noTelEntreprise"/>
+                <input type="text" value="" class="value" name = "noTelEntreprise" id="numTelEntreprise" onchange="regexCreationUtilisateur();"/>
                 </div>
 
                 <div class = "champ" id = "posteTelEntreprise">
                 <br>
                 <p class="label labelForInput">Poste téléphonique :</p>
-                <input type="text" value="" class="value" name = "posteTelEntreprise"/>
+                <input type="text" value="" class="value" name = "posteTelEntreprise" id="posteTel" onchange="regexCreationUtilisateur();"/>
                 </div>
 
                 <div class = "champ" id="posteEntreprise">

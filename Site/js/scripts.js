@@ -14,14 +14,13 @@ function DisableSalaire(rad){
     {
         salaire.disabled = false;
         salaire.style.backgroundColor = "#ffffff";
-
     }
     else
     {
         salaire.disabled = true;
         salaire.style.backgroundColor = "#dddddd";
+        salaire.value = "";
     }
-
 }
 
 function SetTimeout(){

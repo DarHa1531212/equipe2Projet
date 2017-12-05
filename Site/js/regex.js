@@ -7,6 +7,7 @@ function RegexProfilStagiaire(){
 	var confirmSaveCourriel = [true, true];
 	var confirmSavePoste = true;
 	var confirmSaveMDP = [true, true];
+	var Utilisateur = "";
 
 	for(var i = 0; i < 2; i++) //boucle rentre 3 fois pour verifier les 3 nums
 	{
@@ -200,17 +201,117 @@ function regexCreationStage()
 	}	
 }
 
-function regexCreationStagiaire()
+function regexCreationUtilisateur()
 {
+	var confirmEmployeEntreprise = true;
+
 	//Prenom
-	var confirmmNom = true;
+	var confirmNom = true;
 	var regexNom = /^[A-Z][a-z]{1,}$/;
+	var text = document.getElementById("nom");
+
+	if(regexNom.test(text.value))
+	{
+		changerCouleur(text, true);
+		confirmNom = true;
+	}
+	else
+	{
+		changerCouleur(text, false);
+		confirmNom = false;
+	}
+
 	//Nom
 	var confirmPrenom = true;
 	var regexPrenom = /^[A-Z][a-z]{1,}$/;
+	var text = document.getElementById("prenom");
+
+	if(regexPrenom.test(text.value))
+	{
+		changerCouleur(text, true);
+		confirmPrenom = true;
+	}
+	else
+	{
+		changerCouleur(text, false);
+		confirmPrenom = false;
+	}
+
 	//email
 	var confirmEmail = true;
 	var regexCourriel = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+	var text = document.getElementById("Courriel");
+
+	if(regexCourriel.test(text.value))
+	{
+		changerCouleur(text, true);
+		confirmEmail = true;
+	}
+	else
+	{
+		changerCouleur(text, false);
+		confirmEmail = false;
+	}
+
+	if(Utilisateur == "EmployeEntreprise")
+	{
+		confirmEmployeEntreprise = regexEmployeEntreprise();
+	}
+
+	if(!confirmPrenom || !confirmNom || !confirmEmail || !confirmEmployeEntreprise)
+	{
+		document.getElementById('Save').disabled = true;
+        $("#Save").css("background-color", "#011f45");
+	}
+	else
+	{
+		document.getElementById('Save').disabled = false;
+        $("#Save").css('background-color', '');
+	}	
+}
+
+function regexEmployeEntreprise()
+{
+	//numtel
+	var confirmNum = true;
+	var regexNumTel = /^[(]{1}[0-9]{3}[)]{1}[\s]{1}[0-9]{3}[-]{1}[0-9]{4}$/;
+	var text = document.getElementById("numTelEntreprise");
+
+	if(regexNumTel.test(text.value))
+	{
+		changerCouleur(text, true);
+		confirmNum = true;
+	}
+	else
+	{
+		changerCouleur(text, false);
+		confirmNum = false;
+	}
+
+	//Poste
+	var confirmPoste = true;
+	var regexPoste = /^[0-9]{0,7}$/;
+	var text = document.getElementById("posteTel");
+
+	if(regexPoste.test(text.value))
+	{
+		changerCouleur(text, true);
+		confirmPoste = true;
+	}
+	else
+	{
+		changerCouleur(text, false);
+		confirmPoste = false;
+	}
+
+	if(confirmNum && confirmPoste)
+	{
+		return true;
+	}
+	else
+	{
+		return false;
+	}
 }
 
 function regexCreationEntreprise()
@@ -230,25 +331,6 @@ function regexCreationEntreprise()
 	//code postal
 	var confirmPostal = true;
 	var regexPostal = /^[A-Z][0-9][A-Z]\s[0-9][A-Z][0-9]$/;
-}
-
-function regexEmploye()
-{
-	//Prenom
-	var confirmmNom = true;
-	var regexNom = /^[A-Z][a-z]{1,}$/;
-	//Nom
-	var confirmPrenom = true;
-	var regexPrenom = /^[A-Z][a-z]{1,}$/;
-	//numtel
-	var confirmNum = true;
-	var regexNumTel = /^[(]{1}[0-9]{3}[)]{1}[\s]{1}[0-9]{3}[-]{1}[0-9]{4}$/;
-	//Courriel
-	var confirmEmail = true;
-	var regexCourriel = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
-	//Poste
-	var confirmPoste = true;
-	var regexPoste = /^[0-9]{0,7}$/;
 }
 
 function changerCouleur(text, etat)
