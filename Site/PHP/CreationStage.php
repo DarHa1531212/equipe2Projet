@@ -13,9 +13,34 @@
 
         $bdd->Request(" INSERT INTO tblStage (IdResponsable, IdSuperviseur, IdStagiaire, IdEnseignant, DescriptionStage, CompetenceRecherche, HoraireTravail, NbHeureSemaine, SalaireHoraire, DateDebut, DateFin ) 
                         VALUES (:idResponsable, :idSuperviseur, :idStagiaire, :idEnseignant, :description, :competence, :horaire, :nbHeure, :salaire, :dateDebut, :dateFin);",
-                        array("idResponsable"=>$stage["Responsable"], "idSuperviseur"=>$stage["Superviseur"], "idStagiaire"=>$stage["Stagiaire"], "idEnseignant"=>$stage["Enseignant"],
-                              "description"=>$stage["DescStage"], "competence"=>$stage["CompetancesRecherchees"], "horaire"=>$stage["SalaireHoraire"], "nbHeure"=>$stage["HeuresSemaine"],
-                              "salaire"=>["SalaireHoraire"], "dateDebut"=>["DateDebut"], "dateFin"=$stage["DateFin"]), "stdClass");
+                        array(
+                            'idResponsable'=>$stage["Responsable"], 
+                            'idSuperviseur'=>$stage["Superviseur"], 
+                            'idStagiaire'=>$stage["Stagiaire"], 
+                            'idEnseignant'=>$stage["Enseignant"],
+                            'description'=>$stage["DescStage"], 
+                            'competence'=>$stage["CompetancesRecherchees"], 
+                            'horaire'=>$stage["SalaireHoraire"], 
+                            'nbHeure'=>$stage["HeuresSemaine"],
+                            'salaire'=>$stage["SalaireHoraire"], 
+                            'dateDebut'=>$stage["DateDebut"], 
+                            'dateFin'=>$stage["DateFin"]), 
+                            'stdClass');
+        
+        
+    /*     $bdd->Request(" INSERT INTO tblEntreprise (CourrielEntreprise, Nom, NumTel, NumCivique, Rue, Ville, Province, CodePostal, Logo) 
+                        VALUES (:courriel, :nom, :numTel, :numCivique, :rue, :ville, :province, :codePostal, :logo)",
+                        array(
+                        'courriel'=>$entreprise["courriel"],
+                        'nom'=>$entreprise["nom"],
+                        'numTel'=>$entreprise["numTel"],
+                        'numCivique'=>$entreprise["numCivique"],
+                        'rue'=>$entreprise["rue"],
+                        'ville'=>$entreprise["ville"],
+                        'province'=>$entreprise["province"],
+                        'codePostal'=>$entreprise["codePostal"],
+                        'logo'=>$entreprise["logo"]),
+                        'stdClass'); */
     }
 
     //affiche les entreprises dans le dropdown menu
@@ -28,7 +53,9 @@
             $returnValue = $returnValue . '<option value= "' . $entreprise->Id . '">' . $entreprise->Nom . '</option>';
 
         return $returnValue;
+        }
     }
+
  
     //affiche les entreprises dans le dropdown menu
     function showProfessors($bdd)
@@ -138,9 +165,9 @@
 
 		<br>
 
-            <input class="bouton" type="button" style="width: 100px;" value="   Annuler   " onclick="Execute(1, \'../PHP/TBNavigation.php?nomMenu=Stage\')"/>
+            <input class="bouton" type="button" style="width: 100px;" value="   Annuler   " onclick="Execute(1, \'../PHP/TBNavigation.php?nomMenu=ListeStage.php\')"/>
            
-            <input class="bouton" type="button" id="Save" style="width: 100px;" value=" Sauvegarder " onclick= "Execute(12, \'../PHP/TBNavigation.php?&nomMenu=CreationStage.php&post\')"/>
+            <input class="bouton" type="button" id="Save" style="width: 100px;" value=" Sauvegarder " onclick= "Execute(5, \'../PHP/TBNavigation.php?&nomMenu=CreationStage.php&post\')"/>
 
             <br/><br/>
         </div>   

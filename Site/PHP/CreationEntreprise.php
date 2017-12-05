@@ -79,6 +79,7 @@
             <br/><br/>
 
             <input class="bouton" type="button" style="width: 100px;" value="   Annuler   " onclick="Execute(1, \'../PHP/TBNavigation.php?idEmploye='.$id.'&nomMenu=Main\')"/>
+            
             <input class="bouton" type="button" id="Save" style="width: 100px;" value="Créer" onclick="Execute(5, \'../PHP/TBNavigation.php?idEmploye='.$id.'&nomMenu=CreationEntreprise.php&post\');Execute(1, \'../PHP/TBNavigation.php?idEmploye='.$id.'&nomMenu=ListeEntreprise.php\')"/>
 
             <br/><br/>

@@ -145,7 +145,8 @@ function AfficherPage(xhttp){
         
     $(".stagiaireContainer").empty();
     $(".stagiaireContainer").append(page);
-    CacherDiv();//Juste si il y a des stagiaires a afficher ou des evaluations(Fix plus tard).
+        CacherDiv();//Juste si il y a des stagiaires a afficher ou des evaluations(Fix plus tard).
+  
 }
 
 window.onpopstate = function(){
@@ -176,5 +177,6 @@ function Execute(choix){
         case 4: PostEval(ExecuteQuery, arguments);
             break;
         case 5: Post(AfficherPage, arguments);
+            break;
     }
 }
