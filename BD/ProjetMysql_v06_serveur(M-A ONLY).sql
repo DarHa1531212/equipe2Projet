@@ -221,9 +221,10 @@ CREATE TABLE tblStage(
 	Id			 			INT				AUTO_INCREMENT,
 	DescriptionStage		VARCHAR(1000)		NULL,
 	CompetenceRecherche		VARCHAR(1000)		NULL,
+	RaisonSociale			VARCHAR(1000)		NULL,
 	HoraireTravail			VARCHAR(1000)		NULL,
 	NbHeureSemaine			INT					NULL,
-	SalaireHoraire			iNT					NULL,
+	SalaireHoraire			INT					NULL,
 	DateDebut				DATE				NULL,
 	DateFin					DATE				NULL,
 	LettreEntenteVide		VARCHAR(256)		NULL,
@@ -232,15 +233,44 @@ CREATE TABLE tblStage(
 	PRIMARY KEY(Id),
 	IdResponsable			INT					NOT NULL,
 	IdSuperviseur			INT					NOT NULL,
-	IdStagiaire				INT					NOT NULL,
-	IdEnseignant			INT					NOT NULL
+	IdStagiaire				INT					NULL,
+	IdSession				INT					NOT NULL DEFAULT 1,
+	IdEnseignant			INT					NULL
 );
 
 DROP VIEW IF EXISTS vStage;
 CREATE VIEW vStage AS SELECT Id,DescriptionStage,CompetenceRecherche,HoraireTravail,NbHeureSemaine,
-SalaireHoraire,DateDebut,DateFin,LettreEntenteVide,LettreEntenteSignee,OffreStage,CONCAT(IdResponsable,IdSuperviseur,IdStagiaire,IdEnseignant,DescriptionStage,CompetenceRecherche,HoraireTravail,NbHeureSemaine,
+SalaireHoraire,DateDebut,DateFin,LettreEntenteVide,LettreEntenteSignee,OffreStage,IdSession,CONCAT(IdResponsable,IdSuperviseur,IdStagiaire,IdEnseignant,DescriptionStage,CompetenceRecherche,HoraireTravail,NbHeureSemaine,
 SalaireHoraire,DateDebut,DateFin,LettreEntenteVide,LettreEntenteSignee,OffreStage)
 AS tag,IdResponsable,IdSuperviseur,IdStagiaire,IdEnseignant FROM tblStage;
+
+-- Table Session
+
+DROP TABLE IF EXISTS tblSession;
+CREATE TABLE tblSession(
+	Id			 			INT				AUTO_INCREMENT,
+	Annee		 			YEAR(4)			NOT NULL,
+	Periode		 			VARCHAR(10)		NOT NULL,
+	CahierEntreprise		VARCHAR(255)	NULL,
+	CahierStagiaire			VARCHAR(255)	NULL,
+	MiStageDebut			DATE			NULL,
+	MiStageLimite			DATE			NULL,
+	FinaleDebut				DATE			NULL,
+	FinaleLimite			DATE			NULL,
+	FormationDebut			DATE			NULL,
+	FormationLimite			DATE			NULL,
+	JanvierDebut			DATE			NULL,
+	JanvierLimite			DATE			NULL,
+	FevrierDebut			DATE			NULL,
+	FevrierLimite			DATE			NULL,
+	MarsDebut				DATE			NULL,
+	MarsLimite				DATE			NULL,
+	PRIMARY KEY(Id)
+);
+
+DROP VIEW IF EXISTS vSession;
+CREATE VIEW vSession AS SELECT Id, Annee,Periode,CahierEntreprise,CahierStagiaire,MiStageDebut,MiStageLimite,FinaleDebut,FinaleLimite
+FormationDebut,FormationLimite,JanvierDebut,JanvierLimite,FevrierDebut,FevrierLimite,MarsDebut,MarsLimite FROM tblSession;
 
 
 --  Table Entreprise
