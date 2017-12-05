@@ -1,5 +1,12 @@
 <?php
-    
+
+    $query2 = $bdd->prepare("SELECT * FROM vInfoEvalGlobale
+                            WHERE IdTypeEvaluation = 4 AND IdStagiaire = :idStagiaire;");
+
+    $query2->execute(array('idStagiaire'=> $_SESSION["idConnecte"]));
+
+    $autoEvaluation = $query2->fetchAll();
+
     $content = 
     '<article class="stagiaire">
         <div class="infoStagiaire">
@@ -46,19 +53,20 @@
 
             <tbody>
                 <tr class="itemHover" onclick="Execute(1, \'../PHP/TBNavigation.php?idStagiaire='.$idStagiaire.'&nomMenu=Avenir\')">
-                    <td>Rapport 1</td>
+                    <td>Etat avancement janvier</td>
                     <td>Non complétée</td>
                     <td>2017-02-15</td>
-                    <td></td>
+                    <td>2017-03-25</td>
                 </tr>
 
                 <tr class="itemHover" onclick="Execute(1, \'../PHP/TBNavigation.php?idStagiaire='.$idStagiaire.'&nomMenu=Avenir\')">
-                    <td>Rapport 2</td>
+                    <td>Etat avancement février</td>
                     <td>Complétée</td>
                     <td>2017-03-30</td>
                     <td>2017-03-25</td>
                 </tr>
             </tbody>
+            
         </table>
 
         <br/><br/>
@@ -69,15 +77,18 @@
             </thead>
 
             <tbody>
+
                 <tr class="itemHover" onclick="Execute(1, \'../PHP/TBNavigation.php?idStagiaire='.$idStagiaire.'&nomMenu=Journal\', \'&nbEntree=\', 5)">
                     <td>Journal de bord</td>
                 </tr>
 
-                <tr class="itemHover" onclick="Execute(1, \'../PHP/TBNavigation.php?idStagiaire='.$idStagiaire.'&nomMenu=Avenir\')">
+                <tr class="itemHover" onclick="Execute(1, \'../PHP/TBNavigation.php?idStagiaire='.$idStagiaire.'&nomMenu=Eval\', \'&idEvaluation=\','.$autoEvaluation[0]["IdEvaluation"].')">
                     <td>Auto-Évaluation</td>
                 </tr>
+
             </tbody>
         </table>
+        
     </article>';
 
     return $content;

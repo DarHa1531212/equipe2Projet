@@ -19,7 +19,8 @@
     $query->execute(array('id'=>$id));
     $profils = $query->fetchAll();
 
-    foreach($profils as $profil){
+    foreach($profils as $profil)
+    {
         $idStagiaire = $profil["Id"];
         $prenomStagiaire = $profil["Prenom"];
         $nomStagiaire = $profil["Nom"];

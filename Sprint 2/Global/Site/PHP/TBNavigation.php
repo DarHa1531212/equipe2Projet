@@ -6,7 +6,8 @@
         include 'Model.php';
         $menu = "";
         
-        switch($NomMenu){
+        switch($NomMenu)
+        {
             case "Profil":  $menu = include 'Profil.php';
                 break;
             case "Main":    

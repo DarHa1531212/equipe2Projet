@@ -9,6 +9,7 @@
 	{
 		include 'Recherche.php';
 	}
+	
 	catch(Exception $e){echo "HO NO " . $e;}
 	
 ?>

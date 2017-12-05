@@ -18,6 +18,7 @@ function PostEval(callback)
    
         var questions = $('input[type="radio"]:checked');   
         var zoneCommentaireEvaluation = $('[name=commentaireEvaluation]');
+        var zoneCommentaireCategories = $(".commentaireCategorie");
         var reponse = "";
         var tabReponse = [];
         
@@ -34,6 +35,23 @@ function PostEval(callback)
             };
             
             tabReponse.push(reponse);
+        }
+
+        if(zoneCommentaireCategories.length != 0)
+        {
+            for(var i = 0; i < zoneCommentaireCategories.length; i++)
+            {
+                commentaireCategorie = 
+                {
+                    nom: zoneCommentaireCategories[i].name,
+                    idQuestion: zoneCommentaireCategories[i].name,
+                    value : zoneCommentaireCategories[i].value,
+                    type:"commentaireCategorie"
+                }
+
+                 tabReponse.push(commentaireCategorie);
+
+            }
         }
 
         commentaire = 
@@ -118,7 +136,8 @@ function Url()
 }
  
 //Affiche la page selon l'url demandé.
-function AfficherPage(xhttp){
+function AfficherPage(xhttp)
+{
     var page = $.parseJSON(xhttp);
     $(".stagiaireContainer").empty();
     $(".stagiaireContainer").append(page);

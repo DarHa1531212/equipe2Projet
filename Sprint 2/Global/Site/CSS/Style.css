@@ -302,6 +302,21 @@ input[type=file]{
     float: left;
 }
 
+.commentaireEvalFinale
+{
+    width: 100%;
+   height: auto;
+   margin: auto;
+   margin-top: 10px;
+}
+
+.commentaireEvalFinale textarea
+{
+    width: 80%;
+    height: 100px;
+}
+
+
 .messageErreurRadioButton
 {
     width: 90%;

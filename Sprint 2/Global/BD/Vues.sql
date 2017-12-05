@@ -93,14 +93,6 @@ ON res.IdUtilisateur = Stage.IdResponsable;
 
 DROP VIEW IF EXISTS vInfoEvalGlobale;
 CREATE VIEW vInfoEvalGlobale AS
-SELECT IdStagiaire, Titre, Statut, DateLimite, DateComplétée
-FROM vStage AS Stage
-JOIN vEvaluationStage AS ES
-ON Stage.Id = ES.IdStage
-JOIN vEvaluation AS Eval
-ON Eval.Id = ES.IdEvaluation
-JOIN vTypeEvaluation AS TE
-ON TE.Id = Eval.IdTypeEvaluation;
 SELECT 	St.Id as 'IdStage', Eva.Id as 'IdEvaluation',Eva.DateComplétée as 'DateComplétée',Eva.Statut as 'Statut',
 		Eva.DateDébut as 'DateDébut',Eva.DateFin as 'DateFin',TE.Id as 'IdTypeEvaluation', TE.Titre as 'TitreTypeEvaluation',
         St.IdStagiaire

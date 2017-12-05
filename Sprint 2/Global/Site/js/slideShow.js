@@ -43,6 +43,25 @@ function ChangerItem(element)
     $(liste[itemActu]).show();  
 }
 
+function ChangerItemConsultationEvaluation(element)
+{
+    if((element.id == "gauche") && ((itemActu - 1) >= 0))
+    {
+        $(liste[itemActu]).hide();
+        itemActu--;
+    }
+    else if((element.id == "droite") && ((itemActu + 1) < liste.length))
+    {
+        $(liste[itemActu]).hide();
+        itemActu++;
+    } 
+    
+   // ActualiseBtnEval(element);
+   ChangerLettre(itemActu);
+    
+    $(liste[itemActu]).show();  
+}
+
 //Va a la categorie selectionee.
 function JumpTo(position)
 {
@@ -52,6 +71,17 @@ function JumpTo(position)
     $(liste[itemActu]).show();
     
     ActualiseBtnEval(document.getElementById("droite"));
+}
+
+function JumpToConsultationEvaluation(position)
+{
+    ChangerLettre(position);
+    $(liste[itemActu]).hide();
+    itemActu = position;
+    $(liste[itemActu]).show();
+    
+    //ActualiseBtnEval(document.getElementById("droite"));
+    ChangerLettre(itemActu);
 }
 
 //Modifie les propriétées des lettres de catégorie.
@@ -79,10 +109,12 @@ function ActualiseBtnEval(element)
             $("#droite").hide();
             $("#confirmer").show();
         }
-        else if($("#confirmer").is(":visible"))
+        else
         {
             $("#droite").show();
             $("#confirmer").hide();
         }
+
+        //else if($("#confirmer").is(":visible"))
     }
 }

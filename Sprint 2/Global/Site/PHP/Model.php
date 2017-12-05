@@ -120,7 +120,7 @@
         }
         
         //Sélectionne toutes les catégories pour l'évaluation.
-        private function SelectCategories($bdd, $idEvaluation)
+        protected function SelectCategories($bdd, $idEvaluation)
         {
             $query = $bdd->prepare('SELECT DISTINCT(CQ.Id) AS IdCategorie, TitreCategorie, Lettre, descriptionCategorie
                                     FROM vQuestion AS Q
@@ -142,7 +142,7 @@
         }
         
         //Sélectionne toutes les questions pour la catégorie.
-        private function SelectQuestionsByCategories($bdd, $idEvaluation, $idCategorie)
+        protected function SelectQuestionsByCategories($bdd, $idEvaluation, $idCategorie)
         {
            
             
@@ -167,7 +167,7 @@
         }
 
 
-        private function SelectAllQuestions($bdd, $idEvaluation)
+        protected function SelectAllQuestions($bdd, $idEvaluation)
         {
             unset($this->questions);
 
@@ -190,6 +190,208 @@
         }
 
         //Affiche l'évaluation.
+        /*public function DrawEvaluation($bdd)
+        {
+            $content = "";
+        
+            foreach($this->categories as $categorie)
+            {
+                $questions = $this->SelectQuestionsByCategories($bdd, $this->id, $categorie->getId());
+                    
+                $content = $content.
+                '
+                <div class="categories">
+                    <div class="separateur" id="question">
+                        <h3>'.$categorie->getLettre().'. '.$categorie->getTitre().'</h3>
+                        <p> 
+                            '.$categorie->getDescription().'
+                        </p>
+                    </div>
+
+                    <table class="evaluation">
+
+                        <thead>
+                            <th>Critères</th>
+                            <th>Généralement</th>
+                            <th>Souvent</th>
+                            <th>Parfois</th>
+                            <th>Rarement</th>
+                        </thead>
+
+                        <tbody>
+                            '.$this->AfficherQuestion($bdd, $questions).'
+                        </tbody>
+                    </table>
+                </div>';
+            }
+
+            return $content;
+        }*/
+
+        //Affiche les questions.
+        protected function AfficherQuestion($bdd, $questions)
+        {
+            $content = "";
+            
+            foreach($questions as $question)
+            {
+                $content = $content.
+                '<tr class="questions">
+                    <td>'.$question->getTexte().'</td>
+                    '.$this->AfficheReponse($bdd, $question).'
+                </tr>';
+            } 
+            
+            return $content;
+        }
+
+
+        
+        //Affiche les réponses.
+        protected function AfficheReponse($bdd, $question)
+        {
+            $content = "";
+            
+            $this->SelectReponses($bdd, $question->getId());
+            
+            foreach($this->reponses as $reponse)
+            {   
+                $this->SelectReponsesChoisies($bdd, $this->id, $question->getId());
+
+                if(( $this->getStatut() == 3 )|| ( $this->getStatut() == 4))
+                {
+                    //evaluation soumise ou validée
+                    if($reponse->getId() == $this->reponsesChoisies[0]->getId())
+                        $content = $content.'<td><input type="radio" name="question'.$question->getId().'" value="'.$reponse->getid().'" checked = "checked" ></td>';
+                    else
+                        $content = $content.'<td><input type="radio" name="question'.$question->getId().'" value="'.$reponse->getid().'"></td>';
+                }
+                else
+                {
+                     $content = $content.'<td><input type="radio" name="question'.$question->getId().'" value="'.$reponse->getid().'"></td>';
+                }
+                
+               
+            }
+            
+            return $content;
+        }
+
+    }
+
+    class EvaluationGrilleFormation extends EvaluationGrille
+    {
+
+        public function __construct($bdd, $id)
+        {
+            parent::__construct($bdd, $id);
+        }
+
+        private function questionsHasComment($bdd, $questions)
+        {
+            $query = $bdd->prepare('select *
+                                    from tblevaluationquestionreponse
+                                    where IdEvaluation = :IdEvaluation and IdQuestion = :IdQuestion;');
+
+            foreach ($questions as $question) 
+            {
+                $query->execute( array('IdEvaluation'=>$this->getId(), 'IdQuestion'=>$question->getId() ) );
+            
+                $resultat = $query->fetchAll();
+
+                $commentaireQuestion = $resultat[0]["Commentaire"];
+
+                if($commentaireQuestion != 'Aucun')
+                {
+                    return array($question->getId(),); 
+                }
+            }
+
+        }
+
+        private function zoneCommentaireCategorie($bdd,  $questions)
+        {
+            if( ( $this->statut == 3 ) || ( $this->statut == 4) )//evaluation soumise ou validée
+            {
+                $query = $bdd->prepare('select * from tblEvaluationQuestionReponse where IdEvaluation=:IdEvaluation AND IdQuestion = :IdQuestion;');
+
+                $query->execute(array('IdEvaluation'=>$this->id,'IdQuestion'=> $this->questionsHasComment($bdd, $questions)[0]));
+
+                $commentaireCategorie = $query->fetchAll();
+
+                return '<textarea class="commentaireCategorie" rows="" cols="" maxlength="500" wrap="hard" readonly>'. $commentaireCategorie[0]["Commentaire"] .'</textarea>';
+            }
+            else
+            {
+                return '<textarea class="commentaireCategorie" rows="" cols="" maxlength="500" name="'.$this->questionsHasComment($bdd, $questions)[0].'" wrap="hard">Vos commentaires</textarea>';
+            }
+
+        }
+
+
+        public function DrawEvaluation($bdd)
+        {
+            $content = "";
+        
+            foreach($this->categories as $categorie)
+            {
+                $questions = $this->SelectQuestionsByCategories($bdd, $this->id, $categorie->getId());
+                    
+                $content = $content.
+                '
+                <div class="categories">
+
+                    <div class="separateur" id="question">
+                        <h3>'.$categorie->getLettre().'. '.$categorie->getTitre().'</h3>
+                        <p> 
+                            '.$categorie->getDescription().'
+                        </p>
+                    </div>
+
+                    <table class="evaluation">
+                    
+                        <thead>
+                             <th>Critères</th>
+                            <th>En accord</th>
+                            <th>Plutot en accord</th>
+                            <th>Plutot en désaccord</th>
+                            <th>En désaccord</th>
+                            <th>Ne s\'applique pas</th>
+                        </thead>
+
+                        <tbody>
+                            '.$this->AfficherQuestion($bdd, $questions).'
+                        </tbody>
+
+                    </table>
+
+                     <div class="commentaireEvalFinale">
+
+                        '.$this->zoneCommentaireCategorie($bdd, $questions).'
+
+                    </div>
+
+                    
+                </div>';
+
+            }
+
+            return $content;
+
+            //<textarea class="commentaireCategorie" rows="" cols="" maxlength="500" name="'.$this->questionsHasComment($bdd, $questions)[0].'" wrap="hard">Vos commentaires</textarea>
+        }
+
+
+    }
+
+    class EvaluationGrilleMiStage extends EvaluationGrille
+    {
+
+        public function __construct($bdd, $id)
+        {
+            parent::__construct($bdd, $id);
+        }
+
         public function DrawEvaluation($bdd)
         {
             $content = "";
@@ -209,6 +411,7 @@
                     </div>
 
                     <table class="evaluation">
+                    
                         <thead>
                             <th>Critères</th>
                             <th>Généralement</th>
@@ -220,65 +423,14 @@
                         <tbody>
                             '.$this->AfficherQuestion($bdd, $questions).'
                         </tbody>
+
                     </table>
+
                 </div>';
             }
 
             return $content;
         }
-        
-        //Affiche les questions.
-        private function AfficherQuestion($bdd, $questions)
-        {
-            $content = "";
-            
-            foreach($questions as $question)
-            {
-                $content = $content.
-                '<tr class="questions">
-                    <td>'.$question->getTexte().'</td>
-                    '.$this->AfficheReponse($bdd, $question).'
-                </tr>';
-            } 
-            
-            return $content;
-        }
-
-
-        
-        //Affiche les réponses.
-        private function AfficheReponse($bdd, $question)
-        {
-            $content = "";
-            
-            $this->SelectReponses($bdd, $question->getId());
-            
-            foreach($this->reponses as $reponse)
-            {   
-                $this->SelectReponsesChoisies($bdd, $this->id, $question->getId());
-
-                if(( $this->getStatut() == 3 )|| ( $this->getStatut() == 4))
-                {
-                    //evaluation soumise ou validée
-                    if($reponse->getId() == $this->reponsesChoisies[0]->getId())
-                        $content = $content.'<td><input type="radio" name="question'.$question->getId().'" value="'.$reponse->getid().'" checked = "checked" ></td>';
-                    else
-                        $content = $content.'<td><input type="radio" name="question'.$question->getId().'" value="'.$reponse->getid().'"></td>';
-
-                }
-                else
-                {
-                     $content = $content.'<td><input type="radio" name="question'.$question->getId().'" value="'.$reponse->getid().'"></td>';
-                }
-                
-               
-            }
-            
-            return $content;
-        }
-
-
-
     }
 
     class Evaluation{
@@ -286,7 +438,7 @@
         protected $reponses = array();
         protected $categories = array();
         protected $reponsesChoisies = array();
-        protected $id, $statut, $titre, $dateCompletee, $dateDebut, $dateFin, $idTypeEval, $commentaire;
+        protected $id, $statut, $titre, $dateCompletee, $dateDebut, $dateFin, $idTypeEval, $commentaire, $objectifEval;
         
         public function __construct($bdd, $id)
         {
@@ -315,7 +467,8 @@
                 $this->dateDebut = $evaluation["DateDébut"];
                 $this->dateFin = $evaluation["DateFin"];
                 $this->idTypeEval = $evaluation["IdTypeEvaluation"]; 
-                $this->commentaire = $evaluation["Commentaire"];               
+                $this->commentaire = $evaluation["Commentaire"];
+                $this->objectifEval = $evaluation["Objectif"];               
             }
 
         }
@@ -376,40 +529,34 @@
           
                 $requeteModificationEvaluationQuestionReponse = $bdd->prepare(  'update tblEvaluationQuestionReponse SET IdReponse = :IdReponse
                                                                             WHERE IdEvaluation = :IdEvaluation AND IdQuestion = :IdQuestion;');
-                $requeteModifierStatutEvaluation = $bdd->prepare('update tblEvaluation set Statut= \'3\', DateComplétée=:DateCompletee, Commentaire = :Commentaire where Id=:IdEvaluation;');
+
+                $requeteModifierCommentaireEvaluation = $bdd->prepare('update tblEvaluation set Statut= \'3\', DateComplétée=:DateCompletee, Commentaire = :Commentaire where Id=:IdEvaluation;');
+
+
+                $requeteModifierCommentaireQuestionEvaluation = $bdd->prepare('update tblEvaluationQuestionReponse set Commentaire= :Commentaire where IdEvaluation=:IdEvaluation AND IdQuestion = :IdQuestion;');
+
 
                 foreach($this->categories as $categorie)
                 {
                     foreach($reponses as $reponse)
                     {
-
                         if($reponse["type"] == "question")
                         {
                             $requeteModificationEvaluationQuestionReponse->execute(array('IdEvaluation'=>$this->id,'IdQuestion'=>$reponse["idQuestion"],'IdReponse'=>$reponse["value"]));
                         }
+                        else if($reponse["type"] == "commentaireEvaluation")
+                        {
+                            $requeteModifierCommentaireEvaluation->execute(array('IdEvaluation'=>$_REQUEST['idEvaluation'],'DateCompletee'=>date("Y-m-d"), 'Commentaire'=> $reponse["value"]));
+                        }
                         else
                         {
-                            $requeteModifierStatutEvaluation->execute(array('IdEvaluation'=>$_REQUEST['idEvaluation'],'DateCompletee'=>date("Y-m-d"), 'Commentaire'=> $reponse["value"]));
+                            $requeteModifierCommentaireQuestionEvaluation->execute(array('Commentaire'=>$reponse["value"],'IdEvaluation'=>$_REQUEST['idEvaluation'],'IdQuestion'=> $reponse["idQuestion"]));
                         }
                     }        
                 }
-           
 
         }
 
-        public function valideButton($reponses)
-        {
-            if(count($this->getQuestions()) == count($reponses))
-            {
-                return true;
-            }
-            else
-            {
-                //erreur:toutes les questions ne sont pas cochées
-                return false;
-            }
-        }
-        
         public function getCategories()
         {
             return $this->categories;
@@ -458,6 +605,11 @@
         public function getCommentaire()
         {
             return $this->commentaire;
+        }
+
+        public function getObjectifEval()
+        {
+            return $this->objectifEval;
         }
 
     }
