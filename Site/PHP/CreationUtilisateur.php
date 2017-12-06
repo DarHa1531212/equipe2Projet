@@ -69,16 +69,28 @@
                 <input type="text" value="" class="value" name = "posteTelEntreprise" id="posteTel" onchange="regexCreationUtilisateur();"/>
                 </div>
 
+                <div class = "champ" id = "courrielPersonnel">
+                <br>
+                <p class="label labelForInput">courriel personnel (facultatif) :</p>
+                <input type="text" value="" class="value" name = "courrielPersonnel" id="courrielPersonnel" onchange="regexCreationUtilisateur();"/>
+                </div>
+
+                <div class = "champ" id = "noTelPersonnel">
+                <br>
+                <p class="label labelForInput">Numéro de téléphone personnel (facultatif) :</p>
+                <input type="text" value="" class="value" name = "noTelPersonnel" id="noTelPersonnel" onchange="regexCreationUtilisateur();"/>
+                </div>
+
                 <div class = "champ" id="posteEntreprise">
                 <input type="checkbox" name="Superviseur" id = "chkSuperviseur" class = "value" value="superviseur" onchange = "checkSuperviseur(this);" name = "false"  > l\'eployé est un superviseur<br>
                 <input type="checkbox" name="Responsable" id = "chkResponsable" class = "value" value="Responsable" onchange = "checkResponsable(this);" name = "false">L\'employé est un responsable<br>
                 </div>
 
-        <br>
-        <input type="button" id="Save" class="bouton" value="Sauvegarder" onclick ="Post(AfficherPage, \'../PHP/TBNavigation.php?nomMenu=CreationUtilisateur.php&post\')" />
+
 
                 <br>
-                <input type="button" id="Save" class="bouton" value="Sauvegarder" onclick ="Post(testerRetour , \'../PHP/TBNavigation.php?nomMenu=CreationUtilisateur.php&post\')" />               
+                <input type="button" id="Save" class="bouton" value="Sauvegarder" onclick ="Post(testerRetour , \'../PHP/TBNavigation.php?nomMenu=CreationUtilisateur.php&post\')" />     
+                <input type="button" id="Cancel" class="bouton" value="Retour" onclick="Requete(AfficherPage, \'../PHP/TBNavigation.php?nomMenu=ListeUtilisateur.php\')" />            
             </div>
             </article>';
             return $content;

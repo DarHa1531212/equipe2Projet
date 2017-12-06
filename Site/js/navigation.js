@@ -5,6 +5,7 @@ function Requete(callback){
     $.ajax({
         type: "POST",
         url: Url(arguments) ,
+        async: false,
         success: function(data){
             history.pushState(JSON.parse(data), titrePage[0], titrePage[0]);
             callback(data);
@@ -33,60 +34,6 @@ function Post(callback){
     
     $.ajax({ 
         url: Url(arguments),  
-        dataType: 'text',   
-        cache: false, 
-        contentType: false, 
-        processData: false, 
-        data: form_data,                          
-        type: 'post', 
-        success: function(data){ 
-            callback(data); 
-        } 
-    }); 
-}
-
-//fonction pareille à Post, mais qui appelle une autre fonction avec le callback en paremèetre d'entrée.
-function PostCallback(callback){
-    var lstChamps = $(".value");
-    var tabChamp = [];
-    var champ = "";
-    var form_data = new FormData();
-    
-    for(var i = 0; i < lstChamps.length; i++){
-        champ = {
-            nom: lstChamps[i].name,
-            value: lstChamps[i].value
-        };
-        
-        tabChamp.push(champ);
-    }
-    
-    tabChamp = JSON.stringify(tabChamp);
-    form_data.append('tabChamp', tabChamp);
-    
-    $.ajax({ 
-        url: Url(arguments),  
-        dataType: 'text',   
-        cache: false, 
-        contentType: false, 
-        processData: false, 
-        data: form_data,                          
-        type: 'post', 
-        success: function(data){ 
-           testerRetour(data); 
-
-        } 
-    }); 
-}
-
-function test(callback, object, url){;
-    var form_data = new FormData();
-    
-    tabChamp = JSON.stringify(object);
-    form_data.append('objet', tabChamp);
-    
-    $.ajax({ 
-        url: url,  
         dataType: 'text',   
         cache: false, 
         contentType: false, 

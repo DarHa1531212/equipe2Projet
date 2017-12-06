@@ -15,6 +15,7 @@
 
     function afficherChampsEmployeEntreprise()
     {
+      // alert ("afficher champs employe");
         $(".champ").hide();
         $("#Prenom").show();
         $("#Nom").show();
@@ -40,6 +41,8 @@
          $("#Prenom").show();
          $("#Nom").show();
          $("#courriel").show();
+         $("#noTelPersonnel").show();
+         $("#courrielPersonnel").show();
     }
 
    function testerRetour (data)
@@ -52,7 +55,7 @@
         {
             //Mettre tous les champs à vide.
             alert ("l'utilisaateur à été ajouté");
-            Execute(1, '../PHP/TBNavigation.php?nomMenu=CreationUtilisateur.php');
+            Requete(AfficherPage, '../PHP/TBNavigation.php?nomMenu=CreationUtilisateur.php');
         }
     }
 

@@ -66,7 +66,7 @@
             <h2>Liste des Utilisateurs</h2>
         </div>
         
-        <input class="bouton left" type="button" value="Créer un Utilisateur" onclick="Requete(AfficherPage, \'../PHP/TBNavigation.php?nomMenu=CreationUtilisateur.php\')"/>
+        <input class="bouton left" type="button" value="Créer un Utilisateur" onclick="Requete(AfficherPage, \'../PHP/TBNavigation.php?nomMenu=CreationUtilisateur.php\' );afficherChampsEmployeEntreprise() "/>
         
         <table class="stage">
             <thead>
