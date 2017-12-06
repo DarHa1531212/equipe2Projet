@@ -29,17 +29,3 @@ window.addEventListener("click", function(){
     timeout = setTimeout(SessionTimeout, 300000);
 })
 
-//PLEIN D'UTILISATEUR N'ONT PAS D'ID D'UTILISATEUR.
-function PopulateListEmploye(data){
-    var option = "";
-    data = JSON.parse(data);
-    
-    for(var i = 0; i < data.length; i++)
-        option += "<option value=" + data[i].IdUtilisateur + ">" + data[i].Nom + "</option>";
-    
-    $("#superviseur").empty();
-    $("#responsable").empty();
-    $("#superviseur").append(option);
-    $("#responsable").append(option);
-}
-

@@ -36,30 +36,30 @@
 
         foreach($entreprises as $entreprise){
             $returnValue = $returnValue . '<option value= "' . $entreprise->Id . '">' . $entreprise->Nom . '</option>';
+
         }
         
         return $returnValue;
     }
 
-    //Requete pour rechercher les employes qui travaille pour l'entreprise sélectionnée et les insères dans les dropDownList.
-    if(isset($_REQUEST["populate"]))
-        return showEmployees($bdd);
-
     function showEmployees($bdd){
+        if(isset($_POST["tabChamp"])){
+            
+        }
         $champs = json_decode($_POST["tabChamp"]);
-        $entreprise = array();
-        $option = "";
+        $test = array();
+        
 
         foreach($champs as $champ){
-            $entreprise[$champ->nom] = $champ->value;
+            $test[$champ->nom] = $champ->value;
         }
         
-        $employes = $bdd->Request(" SELECT IdUtilisateur, CONCAT(Prenom, ' ', Nom) AS Nom
-                                    FROM vEmploye
-                                    WHERE IdEntreprise = :idEntreprise",
-                                    array("idEntreprise"=>$entreprise["Entreprise"]), "stdClass");
-
-        return $employes;
+        $superviseurs = $bdd->Request(" SELECT IdUtilisateur, CONCAT(Prenom, ' ', Nom) AS Nom
+                                        FROM vEmploye
+                                        WHERE IdEntreprise : idEntreprise",
+                                        array("idEntreprise"=>$test["Entreprise"]), "stdClass");
+            
+        var_dump($test);
     }
  
     //affiche les entreprises dans le dropdown menu
@@ -100,7 +100,7 @@
         <div class="blocInfo infoProfil">
             <div class="champ">
                 <p class="label labelForInput">Entreprise</p>
-                <select class="value" name = "Entreprise" onchange="Post(PopulateListEmploye, \'../PHP/TBNavigation.php?nomMenu=CreationStage.php&populate\')">
+                <select class="value" name = "Entreprise" onchange="Post(ExecuteQuery, \'../PHP/TBNavigation.php?nomMenu=CreationStage.php\')">
                     ' . showEnterprises($bdd) . '
                 </select>
             </div>
@@ -112,13 +112,13 @@
             </div>
             <div class="champ">
                 <p class="label labelForInput">Responsable</p>
-                <select class="value"  name = "Responsable" id="responsable">
+                <select class="value"  name = "Responsable">
                     <option value = "1">Responsable 1</option>
                 </select>
             </div>
             <div class="champ">
                 <p class="label labelForInput">Superviseur</p>
-                <select class="value"  name = "Superviseur" id="superviseur">
+                <select class="value"  name = "Superviseur">
                 <option value = "1">SUPERVISEUR 1</option>                
                 </select>
             </div>
