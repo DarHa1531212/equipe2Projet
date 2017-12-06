@@ -12,7 +12,7 @@
         function creationUtilisateur($bdd)
         {
         $champs = json_decode($_POST["tabChamp"]);
-                var_dump($_POST["tabChamp"]);
+               // var_dump($champs[3]->value);
 
         $entreprise = array();
         
@@ -20,22 +20,24 @@
             $entreprise[$champ->nom] = $champ->value;
         }
         
-        $bdd->Request(" INSERT INTO tblEntreprise (CourrielEntreprise, Nom, NumTel, NumCivique, Rue, Ville, Province, CodePostal, Logo) 
-                        VALUES (:courriel, :nom, :numTel, :numCivique, :rue, :ville, :province, :codePostal, :logo)",
-                        array(
-                        'courriel'=>$entreprise["courriel"],
-                        'nom'=>$entreprise["nom"],
-                        'numTel'=>$entreprise["numTel"],
-                        'numCivique'=>$entreprise["numCivique"],
-                        'rue'=>$entreprise["rue"],
-                        'ville'=>$entreprise["ville"],
-                        'province'=>$entreprise["province"],
-                        'codePostal'=>$entreprise["codePostal"],
-                        'logo'=>$entreprise["logo"]),
-                        'stdClass');
+        $bdd->Request(" INSERT into tblUtilisateur (Courriel, MotDePasse)
+                        values (:courriel , '$2y$10\$\J\/WmC4JWR42JtTeMp0yBpuTGd.Kc9D6lHlOtisNcOLZloa9ekK/Ee')",
+                        array('courriel'=>$champs[3]->value), 'stdClass');
     }
 
 
+    function showEnterprises($bdd)
+    {
+        $returnValue = "";
+        $entreprises = $bdd->Request("select Nom, Id from vEntreprise;", null, "stdClass");
+
+        foreach($entreprises as $entreprise){
+            $returnValue = $returnValue . '<option value= "' . $entreprise->Id . '">' . $entreprise->Nom . '</option>';
+
+        }
+                return $returnValue;
+
+    }
 
      $content =
             '
@@ -43,7 +45,7 @@
             <article class="stagiaire">
                 <div id="modifStagiaire" >
                      <p class="label labelForInput">Selectionnez le type d\'utilisateur</p>
-                            <select class="value" class = "infosStage"  onChange="changeUserType(this)">
+                            <select class="value" class = "infosStage" name = "userType" onChange="changeUserType(this); Utilisateur = \'EmployeEntreprise\';">
                                 <option disabled selected value> -- select an option -- </option>
                                 <option value = "5">Stagiaire</option>
                                 <option value = "2">Employé d\'entreprise</option>
@@ -52,44 +54,47 @@
                 <div class = "champ" id = "Prenom">
                     <br>
                     <p class="label labelForInput">Prenom :</p>
-                    <input type="text" value="" id="prenom" class="value"/>
+                    <input type="text" value="" id="prenom" class="value" name = "prenom" onchange="regexCreationUtilisateur();"/>
                 </div>
 
                <div class = "champ" id = "Nom">
                 <br>
                 <p class="label labelForInput">Nom :</p>
-                <input type="text" value="" class="value"/>
+                <input type="text" value="" class="value" name = "nom" id="nom" onchange="regexCreationUtilisateur();"/>
                 </div>
 
                 <div class = "champ" id = "courriel">
                  <br>
                 <p class="label labelForInput">Courriel :</p>
-                <input type="text" value="" class="value"/>
+                <input type="text" value="" class="value" name = "courriel" id="Courriel" onchange="regexCreationUtilisateur();"/>
                 </div>
-
+                    <div class="champ" id = "dropDownEntreprise">
+                        <p class="label labelForInput">Entreprise</p>
+                        <select class="value" name = "Entreprise" name = "entreprise">
+                            ' . showEnterprises($bdd) . '
+                        </select>
+                </div>
                 <div class = "champ" id = "noTelEntreprise">
                 <br>
                 <p class="label labelForInput">Numero de telephone entreprise :</p>
-                <input type="text" value="" class="value"/>
+                <input type="text" value="" class="value" name = "noTelEntreprise" id="numTelEntreprise" onchange="regexCreationUtilisateur();"/>
                 </div>
 
                 <div class = "champ" id = "posteTelEntreprise">
                 <br>
                 <p class="label labelForInput">Poste téléphonique :</p>
-                <input type="text" value="" class="value"/>
+                <input type="text" value="" class="value" name = "posteTelEntreprise" id="posteTel" onchange="regexCreationUtilisateur();"/>
                 </div>
 
                 <div class = "champ" id="posteEntreprise">
-                <input type="checkbox" name="Superviseur" value="superviseur"> l\'eployé est un superviseur<br>
-                <input type="checkbox" name="Responsable" value="Responsable" checked>L\'employé est un responsable<br>
+                <input type="checkbox" name="Superviseur" value="superviseur" name = "estSuperviseur"> l\'eployé est un superviseur<br>
+                <input type="checkbox" name="Responsable" value="Responsable" checked name = "estResponsable">L\'employé est un responsable<br>
                 </div>
 
 
                 <br>
                 <input type="button" id="Save" class="bouton" value="Sauvegarder" onclick ="Execute(5, \'../PHP/TBNavigation.php?nomMenu=CreationUtilisateur.php&post\')" />
                 
-
-                <input type="button" value = "Stgiaire" onclick="afficherChampsStagiaire();">
             </div>
             </article>';
             return $content;

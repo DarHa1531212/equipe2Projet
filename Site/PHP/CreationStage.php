@@ -125,7 +125,7 @@
             </div>
             <div class="champ">
                 <p class="label labelForInput">Heure / Semaine</p>
-                <input class="value" type="text"  name = "HeuresSemaine"/>
+                <input class="value" type="text"  name = "HeuresSemaine" id="heureSem" onchange="regexCreationStage();"/>
             </div>
             <div class="champ">
                 <p class="label labelForInput">Rémunéré</p>
@@ -138,7 +138,7 @@
             </div>
             <div class="champ">
                 <p class="label labelForInput">Salaire Horaire</p>
-                <input class="value" type="text"  name = "SalaireHoraire" id="salaire"/>
+                <input class="value" type="text"  name = "SalaireHoraire" id="salaire" onchange="regexCreationStage();"/>
             </div>
             <div class="champ">
                 <p class="label labelForInput">Date Début</p>
