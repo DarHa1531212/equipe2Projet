@@ -1,4 +1,3 @@
-//Petit refactoring a faire ici!!! Pour la modification du mot de passe a franck
 function RegexProfilStagiaire(){
 
 	var idNumTel = ['numTel', 'numEntreprise'];
@@ -316,6 +315,7 @@ function regexEmployeEntreprise()
 
 function regexSession()
 {
+	//Annee
 	var confirmAnnee = true;
 	var regexAnnee = /^[2][0][0-9]{2}$/;
 	var text = document.getElementById("annee");
@@ -343,23 +343,139 @@ function regexSession()
 	}
 }
 
-function regexCreationEntreprise()//???
+function regexCreationEntreprise()
 {
+	//Nom
+	var confirmNom = true;
+	var regexNom = /^[a-zA-Z0-9,_\.\077\010\*\+\&\#\'\~\;\-\!\@\;\s]{2,100}$/;
+	var text = document.getElementById("name");
+
+	if(regexNom.test(text.value))
+	{
+		changerCouleur(text, true);
+		confirmNom = true;
+	}
+	else
+	{
+		changerCouleur(text, false);
+		confirmNom = false;
+	}
 	//NumTell
 	var confirmNum = true;
 	var regexNumTel = /^[(]{1}[0-9]{3}[)]{1}[\s]{1}[0-9]{3}[-]{1}[0-9]{4}$/;
+	var text = document.getElementById("numTel");
+
+	if(regexNumTel.test(text.value))
+	{
+		changerCouleur(text, true);
+		confirmNum = true;
+	}
+	else
+	{
+		changerCouleur(text, false);
+		confirmNum = false;
+	}
 	//Num civique
 	var confirmCivique = true;
 	var regexCivique = /^[0-9]{1,5}$/;
-	//rue
+	var text = document.getElementById("numCivique");
+
+	if(regexCivique.test(text.value))
+	{
+		changerCouleur(text, true);
+		confirmCivique = true;
+	}
+	else
+	{
+		changerCouleur(text, false);
+		confirmCivique = false;
+	}
+	//Rue
 	var confirmStreet = true;
-	var regexStreet = /^[A-z]{0,}\s?[A-z]{0,}\s?[A-z]{0,}$/;
+	var regexStreet = /^[A-z]{1,}\s?[A-z]{0,}\s?[A-z]{0,}$/;
+	var text = document.getElementById("Street");
+
+	if (regexStreet.test(text.value)) 
+	{
+		changerCouleur(text, true);
+		confirmStreet = true;
+	}
+	else
+	{
+		changerCouleur(text, false);
+		confirmStreet = false;
+	}
 	//Ville
 	var confirmTown = true;
 	var regexTown = /^[A-Z][a-z]{1,}$/;
-	//code postal
+	var text = document.getElementById("town");
+
+	if(regexTown.test(text.value))
+	{
+		changerCouleur(text, true);
+		confirmTown = true;
+	}
+	else
+	{
+		changerCouleur(text, false);
+		confirmTown = false;
+	}
+	//Code postal
 	var confirmPostal = true;
 	var regexPostal = /^[A-Z][0-9][A-Z]\s[0-9][A-Z][0-9]$/;
+	var text = document.getElementById("codePostal");
+
+	if(regexPostal.test(text.value))
+	{
+		changerCouleur(text, true);
+		confirmPostal = true;
+	}
+	else
+	{
+		changerCouleur(text, false);
+		confirmPostal = false;
+	}
+	//Province
+	var confirmProvince = true;
+	var regexProvince = /^[a-zA-Z]{1,25}$/;
+	var text = document.getElementById("province");
+
+	if(regexProvince.test(text.value))
+	{
+		changerCouleur(text, true);
+		confirmProvince = true;
+	}
+	else
+	{
+		changerCouleur(text, false);
+		confirmProvince = false;
+	}
+	//Courriel
+	var confirmCourriel = true;
+	var regexCourriel = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+	var text = document.getElementById("email");
+
+	if(regexCourriel.test(text.value))
+	{
+		changerCouleur(text, true);
+		confirmCourriel = true;
+	}
+	else
+	{
+		changerCouleur(text, false);
+		confirmCourriel = false;
+	}
+
+	if(!confirmNom || !confirmNum || !confirmCivique || !confirmTown || !confirmStreet || !confirmPostal || !confirmProvince || !confirmCourriel)
+	{
+		document.getElementById('Save').disabled = true;
+        $("#Save").css("background-color", "#011f45");
+	}
+	else
+	{
+		document.getElementById('Save').disabled = false;
+        $("#Save").css('background-color', '');
+	}
 }
 
 function changerCouleur(text, etat)

@@ -40,35 +40,35 @@
         <div class="blocInfo infoProfil">
             <div class="champ">
                 <p class="label labelForInput">Nom</p>
-                <input type="text" name="nom" class="value"/>
+                <input type="text" name="nom" class="value" maxlength="100" id="name" onchange="regexCreationEntreprise();"/>
             </div>
             <div class="champ">
                 <p class="label labelForInput">Courriel</p>
-                <input type="email" name="courriel" class="value"/>
+                <input type="email" name="courriel" class="value" maxlength="320" id="email" onchange="regexCreationEntreprise();"/>
             </div>
             <div class="champ">
                 <p class="label labelForInput">No. Téléphone</p>
-                <input type="text" name="numTel" class="value"/>
+                <input type="text" name="numTel" class="value" maxlength ="14" id="numTel" onchange="regexCreationEntreprise();"/>
             </div>
             <div class="champ">
                 <p class="label labelForInput">Ville</p>
-                <input type="text" name="ville" class="value"/>
+                <input type="text" name="ville" class="value" maxlength="100" id="town" onchange="regexCreationEntreprise();"/>
             </div>
             <div class="champ">
                 <p class="label labelForInput">No. Civique</p>
-                <input type="text" name="numCivique" class="value"/>
+                <input type="text" name="numCivique" class="value" maxlength="5" id="numCivique" onchange="regexCreationEntreprise();"/>
             </div>
             <div class="champ">
                 <p class="label labelForInput">Rue</p>
-                <input type="text" name="rue" class="value"/>
+                <input type="text" name="rue" class="value" maxlength="100" id="Street" onchange="regexCreationEntreprise();"/>
             </div>
             <div class="champ">
                 <p class="label labelForInput">Province</p>
-                <input type="text" name="province" class="value"/>
+                <input type="text" name="province" class="value" maxlength="25" id="province" onchange="regexCreationEntreprise();"/>
             </div>
             <div class="champ">
                 <p class="label labelForInput">Code Postal</p>
-                <input type="text" name="codePostal" class="value"/>
+                <input type="text" name="codePostal" class="value" maxlength="7" id="codePostal" onchange="regexCreationEntreprise();"/>
             </div>
             <div class="champ">
                 <p class="label labelForInput">Logo</p>
