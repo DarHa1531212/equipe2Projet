@@ -26,21 +26,6 @@
                             'dateDebut'=>$stage["DateDebut"], 
                             'dateFin'=>$stage["DateFin"]), 
                             'stdClass');
-        
-        
-    /*     $bdd->Request(" INSERT INTO tblEntreprise (CourrielEntreprise, Nom, NumTel, NumCivique, Rue, Ville, Province, CodePostal, Logo) 
-                        VALUES (:courriel, :nom, :numTel, :numCivique, :rue, :ville, :province, :codePostal, :logo)",
-                        array(
-                        'courriel'=>$entreprise["courriel"],
-                        'nom'=>$entreprise["nom"],
-                        'numTel'=>$entreprise["numTel"],
-                        'numCivique'=>$entreprise["numCivique"],
-                        'rue'=>$entreprise["rue"],
-                        'ville'=>$entreprise["ville"],
-                        'province'=>$entreprise["province"],
-                        'codePostal'=>$entreprise["codePostal"],
-                        'logo'=>$entreprise["logo"]),
-                        'stdClass'); */
     }
 
     //affiche les entreprises dans le dropdown menu
@@ -52,10 +37,30 @@
         foreach($entreprises as $entreprise){
             $returnValue = $returnValue . '<option value= "' . $entreprise->Id . '">' . $entreprise->Nom . '</option>';
 
-        return $returnValue;
         }
+        
+        return $returnValue;
     }
 
+    function showEmployees($bdd){
+        if(isset($_POST["tabChamp"])){
+            
+        }
+        $champs = json_decode($_POST["tabChamp"]);
+        $test = array();
+        
+
+        foreach($champs as $champ){
+            $test[$champ->nom] = $champ->value;
+        }
+        
+        $superviseurs = $bdd->Request(" SELECT IdUtilisateur, CONCAT(Prenom, ' ', Nom) AS Nom
+                                        FROM vEmploye
+                                        WHERE IdEntreprise : idEntreprise",
+                                        array("idEntreprise"=>$test["Entreprise"]), "stdClass");
+            
+        var_dump($test);
+    }
  
     //affiche les entreprises dans le dropdown menu
     function showProfessors($bdd)
@@ -95,7 +100,7 @@
         <div class="blocInfo infoProfil">
             <div class="champ">
                 <p class="label labelForInput">Entreprise</p>
-                <select class="value" name = "Entreprise">
+                <select class="value" name = "Entreprise" onchange="Post(ExecuteQuery, \'../PHP/TBNavigation.php?nomMenu=CreationStage.php\')">
                     ' . showEnterprises($bdd) . '
                 </select>
             </div>
@@ -160,17 +165,14 @@
                 <textarea class="value" class="valueArea"  name = "CompetancesRecherchees"></textarea>
             </div>
 
-    <!--afficher les inforations détaillées d\'un stage -->
-  <div id="readStage"></div>
+        <!--afficher les inforations détaillées d\'un stage -->
+        <div id="readStage"></div>
 
 		<br>
-
-            <input class="bouton" type="button" style="width: 100px;" value="   Annuler   " onclick="Execute(1, \'../PHP/TBNavigation.php?nomMenu=ListeStage.php\')"/>
-           
-            <input class="bouton" type="button" id="Save" style="width: 100px;" value=" Sauvegarder " onclick= "Execute(5, \'../PHP/TBNavigation.php?&nomMenu=CreationStage.php&post\')"/>
-
+            <input class="bouton" type="button" style="width: 100px;" value="   Annuler   " onclick="Requete(AfficherPage, \'../PHP/TBNavigation.php?nomMenu=ListeStage.php\')"/>      
+            <input class="bouton" type="button" id="Save" style="width: 100px;" value=" Sauvegarder " onclick= "Post(AfficherPage, \'../PHP/TBNavigation.php?&nomMenu=CreationStage.php&post\')"/>
             <br/><br/>
-        </div>   
+    </div>   
     <br>
 
 <!-- Fin de section création de stage -->';

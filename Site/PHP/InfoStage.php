@@ -67,8 +67,8 @@
 
         <br/><br/>
 
-        <input class="bouton" type="button" style="width: 100px;" value="   Retour   " onclick="Execute(1, \'../PHP/TBNavigation.php?idEmploye='.$id.'&nomMenu=ListeStage.php\')"/>
-        <input class="bouton" type="button" style="width: 100px;" value="Supprimer" onclick= "Execute(2, \'../PHP/TBNavigation.php?nomMenu=InfoStage.php\',\'&idStage=\','.$stages[$_REQUEST["id"]]->IdStage.',\'&post=\',true);Execute(1, \'../PHP/TBNavigation.php?idstage=\','.$stages[$_REQUEST["id"]]->IdStage.',\'&nomMenu=ListeStage.php\'); "/>
+        <input class="bouton" type="button" style="width: 100px;" value="   Retour   " onclick="Requete(AfficherPage, \'../PHP/TBNavigation.php?idEmploye='.$id.'&nomMenu=ListeStage.php\')"/>
+        <input class="bouton" type="button" style="width: 100px;" value="Supprimer" onclick= "Requete(ExecuteQuery, \'../PHP/TBNavigation.php?nomMenu=InfoStage.php\',\'&idStage=\','.$stages[$_REQUEST["id"]]->IdStage.',\'&post=\',true);Requete(AfficherPage, \'../PHP/TBNavigation.php?idstage=\','.$stages[$_REQUEST["id"]]->IdStage.',\'&nomMenu=ListeStage.php\'); "/>
 
         </article>
     ';
@@ -79,7 +79,7 @@
     }
         
     function DeleteStage($bdd){
-        $data =$_REQUEST['idStage'];
+        $data = $_REQUEST['idStage'];
         $stage = array();
         $result = $bdd->Request(" DELETE FROM tblStage WHERE Id = :id;",
             array('id'=>$data),'stdClass');
