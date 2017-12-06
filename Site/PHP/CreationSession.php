@@ -13,7 +13,7 @@
         <div class="blocInfo infoProfil">
             <div class="champ">
                 <p class="label labelForInput">Année</p>
-                <input class="value" type="text">
+                <input class="value" type="text" maxlength="4" id="annee" onchange="regexSession();">
             </div>
             <div class="champ">
                 <p class="label labelForInput">Cahier Entreprise</p>
@@ -117,7 +117,7 @@
         <br/><br/>
         
         <input style="width: 120px;" class="bouton" type="button" value="Retour" onclick="Execute(1, \'../PHP/TBNavigation.php?idEmploye='.$id.'&nomMenu=Main\')"/>
-        <input style="width: 120px;" class="bouton" type="button" value="Créer"/>
+        <input style="width: 120px;" class="bouton" type="button" value="Créer" id="Save"/>
     </article>
     ';   
 

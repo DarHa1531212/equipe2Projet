@@ -83,7 +83,7 @@
                 <div class = "champ" id = "posteTelEntreprise">
                 <br>
                 <p class="label labelForInput">Poste téléphonique :</p>
-                <input type="text" value="" class="value" name = "posteTelEntreprise" id="posteTel" onchange="regexCreationUtilisateur();"/>
+                <input type="text" value="" class="value" name = "posteTelEntreprise" id="posteTel" maxlength="7" onchange="regexCreationUtilisateur();"/>
                 </div>
 
                 <div class = "champ" id="posteEntreprise">

@@ -267,7 +267,7 @@ function regexCreationUtilisateur()
 	{
 		document.getElementById('Save').disabled = false;
         $("#Save").css('background-color', '');
-	}	
+	}
 }
 
 function regexEmployeEntreprise()
@@ -314,7 +314,36 @@ function regexEmployeEntreprise()
 	}
 }
 
-function regexCreationEntreprise()
+function regexSession()
+{
+	var confirmAnnee = true;
+	var regexAnnee = /^[2][0][0-9]{2}$/;
+	var text = document.getElementById("annee");
+
+	if(regexAnnee.test(text.value))
+	{
+		changerCouleur(text, true);
+		confirmAnnee = true;
+	}
+	else
+	{
+		changerCouleur(text, false);
+		confirmAnnee = false;
+	}
+
+	if(!confirmAnnee)
+	{
+		document.getElementById('Save').disabled = true;
+        $("#Save").css("background-color", "#011f45");
+	}
+	else
+	{
+		document.getElementById('Save').disabled = false;
+        $("#Save").css('background-color', '');
+	}
+}
+
+function regexCreationEntreprise()//???
 {
 	//NumTell
 	var confirmNum = true;
