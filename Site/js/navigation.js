@@ -44,6 +44,40 @@ function Post(callback){
     }); 
 }
 
+//fonction pareille à Post, mais qui appelle une autre fonction avec le callback en paremèetre d'entrée.
+function PostCallback(callback){
+    var lstChamps = $(".value");
+    var tabChamp = [];
+    var champ = "";
+    var form_data = new FormData();
+    
+    for(var i = 0; i < lstChamps.length; i++){
+        champ = {
+            nom: lstChamps[i].name,
+            value: lstChamps[i].value
+        };
+        
+        tabChamp.push(champ);
+    }
+    
+    tabChamp = JSON.stringify(tabChamp);
+    form_data.append('tabChamp', tabChamp);
+    
+    $.ajax({ 
+        url: Url(arguments),  
+        dataType: 'text',   
+        cache: false, 
+        contentType: false, 
+        processData: false, 
+        data: form_data,                          
+        type: 'post', 
+        success: function(data){ 
+           testerRetour(data); 
+
+        } 
+    }); 
+}
+
 function test(callback, object, url){;
     var form_data = new FormData();
     
@@ -177,6 +211,8 @@ function Execute(choix){
         case 4: PostEval(ExecuteQuery, arguments);
             break;
         case 5: Post(AfficherPage, arguments);
+            break;
+        case 6: PostCallback(AfficherPage, arguments);
             break;
     }
 }

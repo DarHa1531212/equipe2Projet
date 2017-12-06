@@ -41,3 +41,34 @@
          $("#Nom").show();
          $("#courriel").show();
     }
+
+   function testerRetour (data)
+    {
+        if (data ==  -11)
+        {
+            alert ("Un utilisateur avec ce courriel existe déjà, veuillez utiliser un courriel différent");
+        }
+        else if (data == 1)
+        {
+            //Mettre tous les champs à vide.
+            alert ("l'utilisaateur à été ajouté");
+            Execute(1, '../PHP/TBNavigation.php?nomMenu=CreationUtilisateur.php');
+        }
+    }
+
+    function checkResponsable(element)
+    {
+      if (element.checked)
+        document.getElementById("chkResponsable").value="true";
+      else 
+        document.getElementById("chkResponsable").value="false";
+    }
+
+    function checkSuperviseur(element)
+    {
+      if (element.checked)
+        document.getElementById("chkSuperviseur").value="true";
+      else 
+        document.getElementById("chkSuperviseur").value="false";
+
+    }
