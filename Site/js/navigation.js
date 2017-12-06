@@ -12,7 +12,7 @@ function Requete(callback){
     });
 }
 
-function Post(callback){
+function Post(callback, arguments){
     var lstChamps = $(".value");
     var tabChamp = [];
     var champ = "";
@@ -103,7 +103,7 @@ function Url(){
     var url = "";
     var parametre = arguments[0][1];
     
-    for(var i = 1; i < parametre.length; i++){
+    for(var i = 0; i < parametre.length; i++){
         url += parametre[i];
         url = url.replace(/(?:\r\n|\r|\n)/g, '\\n');
     }

@@ -1,4 +1,5 @@
 <?php 
+
 $stages = $bdd-> Request (" SELECT 
                                 vStage.Id as 'IdStage',
                                 vStage.DescriptionStage as 'DescriptionStage', 
@@ -28,7 +29,7 @@ $stages = $bdd-> Request (" SELECT
     $id = 0;
     foreach ($stages as $stage) {
       $content = $content . 
-          '<tr class="itemHover" onclick="Execute(1,\'../PHP/TBNavigation.php?nomMenu=InfoStage.php&id=\', '.$id.')">
+          '<tr class="itemHover" onclick="Requete(AfficherPage, \'../PHP/TBNavigation.php?nomMenu=InfoStage.php&id='.$id.'\')">
                 <td>' . $stage->NomEntreprise . '</td>
                 <td>' . $stage->NomStagiaire . '</td>
                 <td>Lettre dentente</td>
@@ -46,7 +47,7 @@ $stages = $bdd-> Request (" SELECT
             <h2>Liste des Stages</h2>
         </div>
         
-        <input class="bouton left" type="button" value="Créer un Stage" onclick="Execute(1, \'../PHP/TBNavigation.php?nomMenu=CreationStage.php\')"/>
+        <input class="bouton left" type="button" value="Créer un Stage" onclick="Requete(AfficherPage, \'../PHP/TBNavigation.php?nomMenu=CreationStage.php\')"/>
         
         <table class="stage">
             <thead>
@@ -63,7 +64,7 @@ $stages = $bdd-> Request (" SELECT
         </table>
 
         
-        <input class="bouton" type="button" style="width: 100px;" value="   Retour   " onclick="Execute(1, \'../PHP/TBNavigation.php?nomMenu=ConsoleAdminMain.php\')"/>
+        <input class="bouton" type="button" style="width: 100px;" value="   Retour   " onclick="Requete(AfficherPage, \'../PHP/TBNavigation.php?nomMenu=ConsoleAdminMain.php\')"/>
     </article>';
 
     return $content;

@@ -37,8 +37,29 @@
         foreach($entreprises as $entreprise){
             $returnValue = $returnValue . '<option value= "' . $entreprise->Id . '">' . $entreprise->Nom . '</option>';
 
-        return $returnValue;
         }
+        
+        return $returnValue;
+    }
+
+    function showEmployees($bdd){
+        if(isset($_POST["tabChamp"])){
+            
+        }
+        $champs = json_decode($_POST["tabChamp"]);
+        $test = array();
+        
+
+        foreach($champs as $champ){
+            $test[$champ->nom] = $champ->value;
+        }
+        
+        $superviseurs = $bdd->Request(" SELECT IdUtilisateur, CONCAT(Prenom, ' ', Nom) AS Nom
+                                        FROM vEmploye
+                                        WHERE IdEntreprise : idEntreprise",
+                                        array("idEntreprise"=>$test["Entreprise"]), "stdClass");
+            
+        var_dump($test);
     }
  
     //affiche les entreprises dans le dropdown menu
@@ -79,7 +100,7 @@
         <div class="blocInfo infoProfil">
             <div class="champ">
                 <p class="label labelForInput">Entreprise</p>
-                <select class="value" name = "Entreprise">
+                <select class="value" name = "Entreprise" onchange="Post(ExecuteQuery, \'../PHP/TBNavigation.php?nomMenu=CreationStage.php\')">
                     ' . showEnterprises($bdd) . '
                 </select>
             </div>
@@ -148,8 +169,8 @@
         <div id="readStage"></div>
 
 		<br>
-            <input class="bouton" type="button" style="width: 100px;" value="   Annuler   " onclick="Execute(1, \'../PHP/TBNavigation.php?nomMenu=ListeStage.php\')"/>      
-            <input class="bouton" type="button" id="Save" style="width: 100px;" value=" Sauvegarder " onclick= "Execute(5, \'../PHP/TBNavigation.php?&nomMenu=CreationStage.php&post\')"/>
+            <input class="bouton" type="button" style="width: 100px;" value="   Annuler   " onclick="Requete(AfficherPage, \'../PHP/TBNavigation.php?nomMenu=ListeStage.php\')"/>      
+            <input class="bouton" type="button" id="Save" style="width: 100px;" value=" Sauvegarder " onclick= "Post(AfficherPage, \'../PHP/TBNavigation.php?&nomMenu=CreationStage.php&post\')"/>
             <br/><br/>
     </div>   
     <br>
