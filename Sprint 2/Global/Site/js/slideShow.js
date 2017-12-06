@@ -24,6 +24,7 @@ function CacherDiv()
     itemActu = 0;
 }
 
+
 //Change pour l'élément suivant ou précédent.
 function ChangerItem(element)
 {

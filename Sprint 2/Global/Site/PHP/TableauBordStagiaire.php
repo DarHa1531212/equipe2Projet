@@ -9,20 +9,25 @@
         <link rel="stylesheet" href="../CSS/StyleHeader.css">
         <link rel="stylesheet" href="../CSS/StyleFooter.css">
         <link rel="stylesheet" href="../CSS/Style.css">
+
         <?php include 'vTableauBord.php' ?>
+        
     </head>
     
-    <body>
+    <body onload="CacherDiv()">
+
         <script src="../js/jquery.min.js"></script>
         <script src="../js/navigation.js"></script>
         <script src="../js/regexProfilStag.js"></script>
         <script src="../js/image.js"></script>
         <script src="../js/slideShow.js"></script>
-        
+
         <?php include('Header.php'); ?>
         
         <section>
+
             <article class="ressources">
+
                 <div class="ressourceItem">
                     <a target="_blank" class="linkFill" href="../PDF/Cahier%20stagiaire%202017.pdf">
                         <div class="divImage imgPDF"></div>
@@ -42,19 +47,23 @@
                         <div class="divImage imgDOC"></div>
                         <p>Lettre d'entente</p>
                     </a>
-                </div>          
+                </div>
+
             </article>
             
             <div class="stagiaireContainer">
+
                 <?php 
                     include 'TBSMain.php';
                     echo $content;
                 ?>
+
             </div>
 
         </section>
         
         <?php include('Footer.php'); ?>
+
     </body>
     
 </html>

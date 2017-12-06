@@ -3,21 +3,64 @@
     $content = "";
 
     $query2 = $bdd->prepare("SELECT * FROM vInfoEvalGlobale
-                            WHERE IdStagiaire = :idStagiaire;");
+                            WHERE IdStage = :IdStage;");
+
+    function gestionStatutEvaluation($evaluation, $dateDebut, $dateLimite, $bdd)
+    {
+        $query3 = $bdd->prepare("update tblEvaluation set Statut=:Statut where Id=:IdEvaluation;");
+
+        if(date("Y-m-d") > $dateLimite) 
+        {
+            if(($evaluation->statut != 3) && ($evaluation->statut != 4))
+            {
+                //l'evaluation n'est ni soumise, ni validée
+                //update du statut de l'evaluation : il passe a en retard
+                $query3->execute(array('Statut'=>2, 'IdEvaluation'=> $evaluation->id));
+                $evaluation->statut = 2;
+            }
+        }
+        else if( date("Y-m-d") < $dateDebut)
+        {
+            //affichage de l'évaluation : le statut est supposé etre a pas accéssible
+        }
+        else //intervalle de l'évaluation
+        {
+            if( ($evaluation->statut != 3) && ($evaluation->statut != 4))
+            {
+                //l'evaluation n'est ni soumise, ni validée
+                //update du statut de l'evaluation : il passe a pas débuté
+                $query3->execute(array('Statut'=>1, 'IdEvaluation'=> $evaluation->id));
+                $evaluation->statut = 1;   
+            }
+        }
+
+    }
 
     //Vérifie si les évaluations précédentes sont complétées pour pouvoir appuyer sur la suivante.
     function VerifEvaluation($tblEvaluation, $profil, $bdd)
     {
         $listeStatut = array('Pas Accéssible','Pas Débuté','En Retard','Soumis ','Valide ');
-        $query3 = $bdd->prepare("update tblEvaluation set Statut=:Statut where Id=:IdEvaluation;");
-
+    
         $div = "";
         $eval1 = "";
         $eval2 = "";
 
         foreach ($tblEvaluation as $evaluation) 
         {
-            if(date("Y-m-d") > $evaluation->dateFin) 
+            
+            if($evaluation->idTypeEvaluation == 1)//evaluation mi-stage
+            {
+                gestionStatutEvaluation($evaluation, $profil["MiStageDebut"], $profil["MiStageLimite"], $bdd);
+            }
+            else if($evaluation->idTypeEvaluation == 2)//evaluation-finale
+            {
+                gestionStatutEvaluation($evaluation, $profil["FinaleDebut"], $profil["FinaleLimite"], $bdd);
+            }
+            else if($evaluation->idTypeEvaluation == 3)//evaluation de la formation
+            {
+                gestionStatutEvaluation($evaluation, $profil["FormationDebut"], $profil["FormationLimite"], $bdd);
+            }
+            /*if(date("Y-m-d") > $evaluation->dateFin) 
             {
                 if(($evaluation->statut != 3) && ($evaluation->statut != 4))
                 {
@@ -40,10 +83,9 @@
                     $query3->execute(array('Statut'=>1, 'IdEvaluation'=> $evaluation->id));
                      $evaluation->statut = 1;   
                 }
-            }
+            }*/
         }
 
-       
         if($tblEvaluation[0]->statut != '0')//le statut est different de pas accéssible
         {
             $div = '<tr class="itemHover" onclick="Execute(1, \'../PHP/TBNavigation.php?idStagiaire='.$profil["Id"].'&nomMenu=Eval\', \'&idStage=\', '.$tblEvaluation[0]->idStage.', \'&idEvaluation=\', '.$tblEvaluation[0]->id.', \'&typeEval=1\');">';
@@ -56,8 +98,8 @@
         $eval1 = $div.
             '<td>'.$tblEvaluation[0]->titre.'</td>
             <td>'.$listeStatut[$tblEvaluation[0]->statut].'</td>
-            <td>'.$tblEvaluation[0]->dateDebut.'</td>
-            <td>'.$tblEvaluation[0]->dateFin.'</td>
+            <td>'.$profil["MiStageDebut"].'</td>
+            <td>'.$profil["MiStageLimite"].'</td>
             <td>'.$tblEvaluation[0]->dateCompletee.'</td>
         </tr>';
 
@@ -73,8 +115,8 @@
         $eval2 = $div.
             '<td>'.$tblEvaluation[1]->titre.'</td>
             <td>'.$listeStatut[$tblEvaluation[1]->statut].'</td>
-            <td>'.$tblEvaluation[1]->dateDebut.'</td>
-            <td>'.$tblEvaluation[1]->dateFin.'</td>
+            <td>'.$profil["FinaleDebut"].'</td>
+            <td>'.$profil["FinaleLimite"].'</td>
             <td>'.$tblEvaluation[1]->dateCompletee.'</td>
         </tr>';
 
@@ -86,14 +128,12 @@
         {
             $div = '<tr>';
         }
-
-        //$div = '<tr class="itemHover" onclick="Execute(1, \'../PHP/TBNavigation.php?idStagiaire='.$profil["Id"].'&nomMenu=Eval\', \'&idStage=\', '.$tblEvaluation[2]->idStage.', \'&idEvaluation=\', '.$tblEvaluation[2]->id.', \'&typeEval=3\')">';
-        
+        //$di1v = '<tr class="itemHover" onclick="Execute(1, \'../PHP/TBNavigation.php?idStagiaire='.$profil["Id"].'&nomMenu=Eval\', \'&idStage=\', '.$tblEvaluation[2]->idStage.', \'&idEvaluation=\', '.$tblEvaluation[2]->id.', \'&typeEval=3\')">';
         $eval3 = $div.
             '<td>'.$tblEvaluation[2]->titre.'</td>
             <td>'.$listeStatut[$tblEvaluation[2]->statut].'</td>
-            <td>'.$tblEvaluation[2]->dateDebut.'</td>
-            <td>'.$tblEvaluation[2]->dateFin.'</td>
+            <td>'.$profil["FormationDebut"].'</td>
+            <td>'.$profil["FormationLimite"].'</td>
             <td>'.$tblEvaluation[2]->dateCompletee.'</td>
         </tr>';
         
@@ -104,10 +144,10 @@
 
     foreach($profils as $profil)
     {
-        $query2->execute(array('idStagiaire'=> $profil["Id"]));
+        $query2->execute(array('IdStage'=> $profil["IdStage"]));
         $evals = $query2->fetchAll();
         $tblEvaluation = array();
-        
+
             foreach($evals as $eval)
             {
                 $evaluation = (object)[];
@@ -119,9 +159,12 @@
                 $evaluation->dateDebut = $eval["DateDébut"];
                 $evaluation->dateFin = $eval["DateFin"];
                 $evaluation->dateCompletee = $eval["DateComplétée"];
+                $evaluation->idTypeEvaluation = $eval["IdTypeEvaluation"]; 
 
                 $tblEvaluation[] = $evaluation;
             }
+
+            //echo $profil["IdStage"].'&';
 
             $content = $content.
             '<article class="stagiaire">
@@ -174,7 +217,7 @@
                 </thead>
 
                 <tbody>
-                    '.VerifEvaluation($tblEvaluation, $profil, $bdd).'
+                    '.VerifEvaluation($tblEvaluation, $profil,$bdd).'
                 </tbody>
             </table>
 

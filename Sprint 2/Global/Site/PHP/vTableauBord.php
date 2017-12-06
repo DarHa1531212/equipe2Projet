@@ -5,7 +5,8 @@
     $id = $_SESSION["idConnecte"];
     $where = "";
     
-    switch($_SESSION["IdRole"]){
+    switch($_SESSION["IdRole"])
+    {
         case 2: $where = "IdResponsable";
             break;
         case 4: $where = "IdSuperviseur";
@@ -15,7 +16,6 @@
     }
 
 	$query = $bdd->prepare("SELECT * FROM vTableauBord WHERE $where = :id");
-
     $query->execute(array('id'=>$id));
     $profils = $query->fetchAll();
 

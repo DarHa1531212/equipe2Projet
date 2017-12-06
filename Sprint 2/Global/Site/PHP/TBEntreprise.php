@@ -13,6 +13,7 @@
     </head>
     
     <body onload="CacherDiv('stagiaire')">
+        
         <script src="../js/jquery.min.js"></script>
         <script src="../js/navigation.js"></script>
         <script src="../js/regexProfilStag.js"></script>
