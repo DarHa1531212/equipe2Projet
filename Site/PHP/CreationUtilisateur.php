@@ -74,9 +74,11 @@
                 <input type="checkbox" name="Responsable" id = "chkResponsable" class = "value" value="Responsable" onchange = "checkResponsable(this);" name = "false">L\'employé est un responsable<br>
                 </div>
 
+        <br>
+        <input type="button" id="Save" class="bouton" value="Sauvegarder" onclick ="Post(AfficherPage, \'../PHP/TBNavigation.php?nomMenu=CreationUtilisateur.php&post\')" />
 
                 <br>
-                <input type="button" id="Save" class="bouton" value="Sauvegarder" onclick ="Execute(6, \'../PHP/TBNavigation.php?nomMenu=CreationUtilisateur.php&post\')" />               
+                <input type="button" id="Save" class="bouton" value="Sauvegarder" onclick ="Post(testerRetour , \'../PHP/TBNavigation.php?nomMenu=CreationUtilisateur.php&post\')" />               
             </div>
             </article>';
             return $content;

@@ -12,6 +12,7 @@ function Requete(callback){
     });
 }
 
+//Prend tous les champs possédant la classe value et les envoie dans un tableau php avec un POST
 function Post(callback){
     var lstChamps = $(".value");
     var tabChamp = [];
@@ -152,15 +153,9 @@ function UploadFile(callback){
 	}); 
 } 
 
-//Construit l'URL selon les derniers paramètre de la fonction Execute.
-function Url(){
-    var url = "";
-    var parametre = arguments[0][1];
-    
-    for(var i = 1; i < parametre.length; i++){
-        url += parametre[i];
-        url = url.replace(/(?:\r\n|\r|\n)/g, '\\n');
-    }
+//Construit l'URL selon les derniers paramètres d'une fonctions.
+function Url(arguments){
+    var url = arguments[1];
     
     titrePage = url.split("nomMenu=");
     titrePage = titrePage[1].split("&");
@@ -179,8 +174,7 @@ function AfficherPage(xhttp){
         
     $(".stagiaireContainer").empty();
     $(".stagiaireContainer").append(page);
-        CacherDiv();//Juste si il y a des stagiaires a afficher ou des evaluations(Fix plus tard).
-  
+    CacherDiv();//Juste si il y a des stagiaires a afficher ou des evaluations(Fix plus tard).
 }
 
 window.onpopstate = function(){
@@ -195,24 +189,4 @@ window.addEventListener("load", function(){
 //Éxecute une page PHP sans l'afficher.
 function ExecuteQuery(xhttp){
 	$.parseJSON(xhttp);
-}
-
-//Selon le choix, éxecute la fonction demandé. C'est la fonction qui doit être appelée
-//sur les OnClicks. Tous les paramètres qui se trouvent après "choix" sont utilisés pour
-//construire l'url.
-function Execute(choix){
-    switch(choix){
-        case 1: Requete(AfficherPage, arguments);
-            break;
-        case 2: Requete(ExecuteQuery, arguments);
-            break;
-        case 3: UploadFile(ExecuteQuery, arguments);
-            break;
-        case 4: PostEval(ExecuteQuery, arguments);
-            break;
-        case 5: Post(AfficherPage, arguments);
-            break;
-        case 6: PostCallback(AfficherPage, arguments);
-            break;
-    }
 }

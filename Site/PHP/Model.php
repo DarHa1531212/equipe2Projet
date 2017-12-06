@@ -393,7 +393,24 @@
 
     class Profil{
         
-        protected $IdUtilisateur, $Nom, $Prenom, $NumTelEntreprise, $CodePermanent, $Poste, $CourrielEntreprise, $NomEntreprise;
+        protected $IdUtilisateur, $Nom, $Prenom, $NumTelEntreprise, $CodePermanent, $Poste, $CourrielEntreprise, $NomEntreprise, $IdRole;
+        
+        protected function UpdateUser($bdd, $motPasse, $courriel){
+            if($motPasse != "")
+            {
+                $motPasse = password_hash($motPasse, PASSWORD_DEFAULT);
+
+                $bdd->Request(" UPDATE tblUtilisateur SET MotDePasse = :motPasse WHERE Id LIKE :id;",
+                                array("motPasse"=>$motPasse, "id"=>$this->IdUtilisateur),
+                                "stdClass");
+            }
+            
+            if($courriel != ""){
+                $bdd->Request(" UPDATE tblUtilisateur SET Courriel = :courriel WHERE Id LIKE :id;",
+                                array("id"=>$this->IdUtilisateur, "courriel"=>$courriel),
+                                "stdClass");
+            }
+        }
         
         public function getId(){
             return $this->IdUtilisateur;
@@ -426,11 +443,13 @@
         public function getEntreprise(){
             return $this->NomEntreprise;
         }
+        
+        public function getIdRole(){
+               return $this->IdRole;
+        }
     }
 
     class ProfilEmploye extends Profil{
-        
-        private $IdRole;
         
         //Affiche les informations du profil.
         public function AfficherProfil(){
@@ -475,8 +494,83 @@
             return $content;
         }
         
-        public function getIdRole(){
-               return $this->IdRole;
+        public function ModifierProfil(){
+            $content =
+            '
+            <div class="blocInfo infoProfil">
+                    <div class="champ">
+                        <p class="label labelForInput">Prenom :</p>
+                        <input type="text" value="'.$this->getPrenom().'" class="value" disabled/>
+                    </div>
+
+                    <div class="champ">
+                        <p class="label labelForInput">Nom :</p>
+                        <input type="text" value="'.$this->getNom().'" class="value" disabled/>
+                    </div>
+
+                    <div class="champ">
+                        <p class="label labelForInput">Entreprise :</p>
+                        <input type="text" value="'.$this->getEntreprise().'" class="value" disabled/>
+                    </div>
+
+                    <div class="champ">
+                        <p class="label labelForInput">Courriel :</p>
+                        <input type="email" value="'.$this->getCourrielEntreprise().'" id="courrielEntreprise" name="courrielEntreprise" class="value" onexit="RegexProfilStagiaire()"/>
+
+                    </div>
+
+                    <div class="champ">
+                        <p class="label labelForInput">No. Téléphone :</p>
+                        <input type="text" value="'.$this->getNumTelEntreprise().'" id="numEntreprise" name="numEntreprise" class="value" onexit="RegexProfilStagiaire()"/>
+                        <img class="info" src="../Images/info.png" title="Le numéro de téléphone doit
+avoir ce format - (xxx) xxx-xxxx"/>
+                    </div>
+
+                    <div class="champ">
+                        <p class="label labelForInput">Poste :</p>
+                        <input type="text" value="'.$this->getPoste().'" name="poste" id="poste" class="value" onexit="RegexProfilStagiaire()"/>
+                    </div>
+            </div>
+
+            <div class="separateur">
+                <h3>Sécurité</h3>
+            </div>
+
+            <div class="blocInfo infoProfil">
+                    <div class="champ">
+                        <p class="label labelForInput">Nouveau mot de passe :</p>
+                        <input type="password" id="newPwd" class="value" name="nouveauPasse" onexit="RegexProfilStagiaire()"/>
+                        <img class="info" src="../Images/info.png" title="Le mot de passe doit contenir
+- 8 caractères minimum
+- Au moins une majuscule
+- Au moins un chiffre(0-9)"/>
+                    </div>
+
+                    <div class="champ">
+                        <p class="label labelForInput">Confirmer le mot de passe :</p>
+                        <input type="password" id="confirmationNewPwd" class="value" onexit="RegexProfilStagiaire()"/>
+                    </div>
+            </div>';
+
+            return $content;
+        }
+        
+        public function UpdateProfil($bdd, $champs){
+            $profil = array();
+
+            foreach($champs as $champ){
+                $profil[$champ->nom] = $champ->value;
+            }
+
+            $this->UpdateUser($bdd, $profil["nouveauPasse"], $profil["courrielEntreprise"]);
+
+            $bdd->Request(" UPDATE tblEmploye SET NumTelEntreprise = :numTelEntreprise, Poste = :poste, CourrielEntreprise = :courrielEntreprise WHERE IdUtilisateur = :id",
+                            array(
+                            "numTelEntreprise"=>$profil["numEntreprise"],
+                            "poste"=>$profil["poste"],
+                            "courrielEntreprise"=>$profil["courrielEntreprise"],
+                            "id"=>$this->IdUtilisateur),
+                            "stdClass");
         }
     }
 
@@ -526,7 +620,7 @@
 
                     <div class="champ">
                         <p class="label">Courriel :</p>
-                        <p class="value">'.$this->getCourrielPerso().'</p>
+                        <p class="value">'.$this->getCourrielEntreprise().'</p>
                     </div>
 
                     <div class="champ">
@@ -543,12 +637,184 @@
             return $content;
         }
         
+        public function ModifierProfil(){
+            $content =
+            '
+            <div class="separateur">
+                <h3>Informations Personnelles</h3>
+            </div>
+
+            <div class="blocInfo infoProfil">
+                    <div class="champ">
+                        <p class="label labelForInput">Prenom :</p>
+                        <input type="text" value="'.$this->getPrenom().'" class="value" disabled/>
+                    </div>
+
+                    <div class="champ">
+                        <p class="label labelForInput">Nom :</p>
+                        <input type="text" value="'.$this->getNom().'" class="value" disabled/>
+                    </div>
+
+                    <div class="champ">
+                        <p class="label labelForInput">No. Téléphone :</p>
+                        <input type="text" value="'.$this->getNumTelPerso().'" id="numTel" name="numTel" class="value" onexit="RegexProfilStagiaire()"/>
+                        <img class="info" src="../Images/info.png" title="Le numéro de téléphone doit
+avoir ce format - (xxx) xxx-xxxx"/>
+                    </div>
+
+                    <div class="champ">
+                        <p class="label labelForInput">Courriel :</p>
+                        <input type="email" value="'.$this->getCourrielPerso().'" id="courrielPersonnel" name="courrielPersonnel" class="value" onexit="RegexProfilStagiaire()"/>
+                    </div>
+            </div>
+
+            <div class="separateur">
+                <h3>Informations Professionnelles</h3>
+            </div>
+
+            <div class="blocInfo infoProfil">
+                    <div class="champ">
+                        <p class="label labelForInput">Entreprise :</p>
+                        <input type="text" value="'.$this->getEntreprise().'" class="value" disabled/>
+                    </div>
+
+                    <div class="champ">
+                        <p class="label labelForInput">Courriel :</p>
+                        <input type="email" value="'.$this->getCourrielEntreprise().'" id="courrielEntreprise" name="courrielEntreprise" class="value" onexit="RegexProfilStagiaire()"/>
+
+                    </div>
+
+                    <div class="champ">
+                        <p class="label labelForInput">No. Téléphone :</p>
+                        <input type="text" value="'.$this->getNumTelEntreprise().'" id="numEntreprise" name="numEntreprise" class="value" onexit="RegexProfilStagiaire()"/>
+                        <img class="info" src="../Images/info.png" title="Le numéro de téléphone doit
+avoir ce format - (xxx) xxx-xxxx"/>
+                    </div>
+
+                    <div class="champ">
+                        <p class="label labelForInput">Poste :</p>
+                        <input type="text" value="'.$this->getPoste().'" name="poste" id="poste" class="value" onexit="RegexProfilStagiaire()"/>
+                    </div>
+            </div>
+
+            <div class="separateur">
+                <h3>Sécurité</h3>
+            </div>
+
+            <div class="blocInfo infoProfil">
+                    <div class="champ">
+                        <p class="label labelForInput">Nouveau mot de passe :</p>
+                        <input type="password" id="newPwd" class="value" name="nouveauPasse" onexit="RegexProfilStagiaire()"/>
+                        <img class="info" src="../Images/info.png" title="Le mot de passe doit contenir
+- 8 caractères minimum
+- Au moins une majuscule
+- Au moins un chiffre(0-9)"/>
+                    </div>
+
+                    <div class="champ">
+                        <p class="label labelForInput">Confirmer le mot de passe :</p>
+                        <input type="password" id="confirmationNewPwd" class="value" onexit="RegexProfilStagiaire()"/>
+                    </div>
+            </div>';
+
+            return $content;
+        }
+        
+        public function UpdateProfil($bdd, $champs){
+            $profil = array();
+
+            foreach($champs as $champ){
+                $profil[$champ->nom] = $champ->value;
+            }
+
+            $this->UpdateUser($bdd, $profil["nouveauPasse"], $profil["courrielPersonnel"]);
+
+            $bdd->Request(" UPDATE tblStagiaire SET NumTel = :numTel, NumTelEntreprise = :numTelEntreprise, Poste = :poste, CourrielEntreprise = :courrielEntreprise, CourrielPersonnel = :courrielPerso WHERE IdUtilisateur = :id",
+                            array(
+                            "numTel"=>$profil["numTel"],
+                            "numTelEntreprise"=>$profil["numEntreprise"],
+                            "poste"=>$profil["poste"],
+                            "courrielEntreprise"=>$profil["courrielEntreprise"],
+                            "courrielPerso"=>$profil["courrielPersonnel"],
+                            "id"=>$this->IdUtilisateur),
+                            "stdClass");
+        }
+        
         public function getNumTelPerso(){
             return $this->NumTel;
         }
         
         public function getCourrielPerso(){
             return $this->CourrielPersonnel;
+        }
+    }
+
+    
+    class Entreprise{
+        private $Id, $CourrielEntreprise, $Nom, $NumTel, $NumCivique, $Rue, $Ville, $Province, $CodePostal, $Logo;
+        
+        public function Update($bdd, $champs){
+            $entreprise = array();
+
+            foreach($champs as $champ){
+                $entreprise[$champ->nom] = $champ->value;
+            }
+            
+            $bdd->Request(" UPDATE tblEntreprise SET CourrielEntreprise = :courriel, Nom = :nom, NumTel = :numTel,
+                            NumCivique = :numCivique, Rue = :rue, Ville = :ville, Province = :province, CodePostal = :codePostal,
+                            Logo = :logo WHERE Id = :id",
+                            array(  
+                            "courriel"=>$entreprise["courrielEntreprise"],
+                            "nom"=>$entreprise["nom"],
+                            "numTel"=>$entreprise["numEntreprise"],
+                            "numCivique"=>$entreprise["noCivique"],
+                            "rue"=>$entreprise["rue"],
+                            "ville"=>$entreprise["ville"],
+                            "province"=>$entreprise["province"],
+                            "codePostal"=>$entreprise["codePostal"],
+                            "logo"=>$entreprise["logo"],
+                            "id"=>$this->Id),
+                            "stdClass");
+        }
+        
+        public function getId(){
+            return $this->Id;
+        }
+        
+        public function getCourriel(){
+            return $this->CourrielEntreprise;
+        }
+        
+        public function getNom(){
+            return $this->Nom;
+        }
+        
+        public function getNumTel(){
+            return $this->NumTel;
+        }
+        
+        public function getNumCivique(){
+            return $this->NumCivique;
+        }
+        
+        public function getRue(){
+            return $this->Rue;
+        }
+        
+        public function getVille(){
+            return $this->Ville;
+        }
+        
+        public function getProvince(){
+            return $this->Province;
+        }
+        
+        public function getCodePostal(){
+            return $this->CodePostal;
+        }
+        
+        public function getLogo(){
+            return $this->Logo;
         }
     }
     

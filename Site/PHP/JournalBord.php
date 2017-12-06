@@ -1,7 +1,7 @@
 <?php
-
-    include 'ConnexionBD.php';
-
+    
+    $idStagiaire = $_REQUEST["id"];
+    
     function DateDifference($date_1 , $date_2 , $differenceFormat = '%a' ){
         $datetime1 = date_create($date_1);
         $datetime2 = date_create($date_2);
@@ -10,19 +10,11 @@
     }
 
     function DerniereEntree($bdd, $idStagiaire){
-        $derniereEntree = "";
+        $result = $bdd->Request("   SELECT Dates AS DateComplete FROM vJournalDeBord 
+                                    WHERE IdStagiaire = :idStagiaire ORDER BY datecomplete DESC LIMIT 1;",
+                                    array("idStagiaire"=>$idStagiaire), "stdClass")[0];
         
-        $query = $bdd->prepare("SELECT Dates AS DateComplete FROM vJournalDeBord WHERE IdStagiaire LIKE $idStagiaire ORDER BY datecomplete DESC LIMIT 1;");
-        $query->execute(array());
-        
-        $results = $query->fetchall();
-        
-        foreach($results as $result){
-            $dateComplete = $result["DateComplete"];
-            $derniereEntree = DateDifference(date('Y-m-d h:i:s'), $dateComplete);
-        }
-        
-        return $derniereEntree;
+        return DateDifference(date('Y-m-d h:i:s'), $result->DateComplete);
     }
 
     function LineBreak($texte){
@@ -42,23 +34,22 @@
         if(isset($_REQUEST['nbEntree']))
             $limit = "LIMIT ".$_REQUEST['nbEntree'];
         
-        $query = $bdd->prepare("SELECT Id, Entree, Date_Format (Dates, '%d/%m/%Y') AS Dates, Dates AS DateComplete, Documents AS Fichier FROM vJournalDeBord WHERE IdStagiaire LIKE $idStagiaire ORDER BY datecomplete desc $limit;");
-        $query->execute(array());
-        
-        $entrees = $query->fetchAll();
+        $entrees = $bdd->Request("  SELECT Id, Entree, Date_Format (Dates, '%d/%m/%Y') AS Dates, Dates AS DateComplete, Documents AS Fichier 
+                                    FROM vJournalDeBord WHERE IdStagiaire LIKE :idStagiaire ORDER BY datecomplete desc $limit;",
+                                    array("idStagiaire"=>$idStagiaire), "stdClass");
         
         foreach($entrees as $entree){
-            $texte = $entree["Entree"];
-            $dates = $entree["Dates"];
-            $dateComplete = $entree["DateComplete"];
-            $document = $entree['Fichier'];
-            $id = $entree["Id"];
+            $texte = $entree->Entree;
+            $dates = $entree->Dates;
+            $dateComplete = $entree->DateComplete;
+            $document = $entree->Fichier;
+            $id = $entree->Id;
 
-            $div = $div.'<div class="entree"><h2>'.$dates.'</h2><div class="crdJournal"><span class="crdJournalM" onclick="modificationJournal = true; Execute(1, \'../PHP/TBNavigation.php?idStagiaire='.$idStagiaire.'&nomMenu=JournalBord.php\', \'&nbEntree=\', 5, \'&ajoutModif=\', true, \'&idEntree=\', '.$id.');">Modifier</span><span>&nbsp;|&nbsp;</span><span class="crdJournalD" onclick="if(ConfirmDelete()){Execute(3, \'../PHP/TBNavigation.php?idStagiaire='.$idStagiaire.'&nomMenu=JournalBord.php\', \'&delete=\', true, \'&idEntree=\', '.$id.'); Execute(1, \'../PHP/TBNavigation.php?idStagiaire='.$idStagiaire.'&nomMenu=JournalBord.php\', \'&nbEntree=\', 5);}">Supprimer</span></div><p>' .LineBreak($texte). '</p><p>' . PieceJointe($document) . '</p></div>';
+            $div = $div.'<div class="entree"><h2>'.$dates.'</h2><div class="crdJournal"><span class="crdJournalM" onclick="modificationJournal = true; Requete(AfficherPage, \'../PHP/TBNavigation.php?id='.$idStagiaire.'&nomMenu=JournalBord.php\&nbEntree=5&ajoutModif=true&idEntree='.$id.'\');">Modifier</span><span>&nbsp;|&nbsp;</span><span class="crdJournalD" onclick="if(ConfirmDelete()){UploadFile(ExecuteQuery, \'../PHP/TBNavigation.php?id='.$idStagiaire.'&nomMenu=JournalBord.php&delete=true&idEntree='.$id.'\'); Requete(AfficherPage, \'../PHP/TBNavigation.php?id='.$idStagiaire.'&nomMenu=JournalBord.php&nbEntree=5\');}">Supprimer</span></div><p>' .LineBreak($texte). '</p><p>' . PieceJointe($document) . '</p></div>';
         }
         
         if(isset($_REQUEST['nbEntree']))
-            $div = $div.'<input class="bouton" type="button" value="Voir toutes les entrées" onclick="Execute(1, \'../PHP/TBNavigation.php?idStagiaire='.$idStagiaire.'&nomMenu=JournalBord.php\')"/>';
+            $div = $div.'<input class="bouton" type="button" value="Voir toutes les entrées" onclick="Requete(AfficherPage, \'../PHP/TBNavigation.php?id='.$idStagiaire.'&nomMenu=JournalBord.php\')"/>';
 
         return $div;
     }
@@ -72,20 +63,19 @@
 
             if ($entree[0] != "" && isset($_FILES['file']) && $_FILES['file']['name'] != "")
             {
-                $query = $bdd->prepare("INSERT INTO tblJournalDeBord (Entree, idStagiaire, Dates, Documents) VALUES (:text, :id,'$date', :file);");
-                $query->bindValue( 'text', $entree[0], PDO::PARAM_STR );
-                $query->bindValue( 'id', $idStagiaire, PDO::PARAM_INT);
-                $query->bindValue( 'file', $fichier, PDO::PARAM_STR);
-                $query->execute();
+                $bdd->Request(" INSERT INTO tblJournalDeBord (Entree, idStagiaire, Dates, Documents) 
+                                VALUES (:text, :id, :date, :file);",
+                                array("text"=>$entree[0], "id"=>$idStagiaire, "date"=>$date, "file"=>$fichier),
+                                "stdClass");
             }
             else
             {
                 if($entree[0] != "")
                 {
-                    $query = $bdd->prepare("INSERT INTO tblJournalDeBord (Entree, idStagiaire, Dates) VALUES (:text, :id,'$date');");
-                    $query->bindValue( 'text', $entree[0], PDO::PARAM_STR );
-                    $query->bindValue( 'id', $idStagiaire, PDO::PARAM_INT);
-                    $query->execute();
+                    $bdd->Request(" INSERT INTO tblJournalDeBord (Entree, idStagiaire, Dates) 
+                                    VALUES (:text, :id, :date);",
+                                    array("text"=>$entree[0], "id"=>$idStagiaire, "date"=>$date),
+                                    "stdClass");
                 }
             }
         }
@@ -108,28 +98,25 @@
 
     function DeleteEntree($bdd, $idEntree)
     {
-        $query = $bdd->prepare("DELETE FROM tblJournalDeBord WHERE Id = :id");
-        $query->execute(array('id'=>$idEntree));
+        $bdd->Request(" DELETE FROM tblJournalDeBord WHERE Id = :id",
+                        array("id"=>$idEntree), "stdClass");
     }
 
     function UpdateEntree($bdd, $idEntree, $Entree)
     {
         $entree = array(htmlspecialchars($Entree));
-        $query = $bdd->prepare("UPDATE tblJournalDeBord SET Entree = :text WHERE Id = :id");
-        $query->bindValue( 'text', $entree[0], PDO::PARAM_STR );
-        $query->bindValue( 'id', $idEntree, PDO::PARAM_INT);
-        $query->execute();
+        $bdd->Request(" UPDATE tblJournalDeBord SET Entree = :text WHERE Id = :id",
+                        array("text"=>$entree[0], "Id"=>$idEntree), "stdClass");
     }
 
     function SelectEntreeModif($bdd, $idEntree)
     {
-        $query = $bdd->prepare("SELECT Entree FROM vJournalDeBord WHERE Id = :id");
-        $query->execute(array('id'=>$idEntree));
-        $entrees = $query->fetchAll();
+        $entrees = $bdd->Request("  SELECT Entree FROM vJournalDeBord WHERE Id = :id",
+                                    array("id"=>$idEntree), "stdClass");
 
         foreach($entrees as $entree)
         {
-            return $entree['Entree'];
+            return $entree->Entree;
         }
     }
 
@@ -172,6 +159,9 @@
                     $_SESSION['textModif'] = '';
                 }
                 
+                //////////////////////////////////////////////////////////////////////////////////////////////
+                //Fonction javascript pour l'url?????? Et implémentation de la fonction post pour les champs//
+                //////////////////////////////////////////////////////////////////////////////////////////////
                 $content=
                 '<article class="stagiaire">
                     <div class="infoStagiaire">
@@ -185,7 +175,9 @@
             <input class="inputFile" id="file" type="file" value="Envoyer" name="fichier" onchange="AfficherNom(this)"/>
 
             <br/>                                                                             
-            <input style="width: 120px;" class="bouton" type="button" value="Envoyer" onclick="if(modificationJournal){Execute(3, \'../PHP/TBNavigation.php?idStagiaire='.$idStagiaire.'&nomMenu=JournalBord.php\',\'&update=\', true, \'&contenu=\', contenu.value'.addId().'); Execute(1, \'../PHP/TBNavigation.php?idStagiaire='.$idStagiaire.'&nomMenu=JournalBord.php\', \'&nbEntree=\', 5); modificationJournal = false;}else{Execute(3, \'../PHP/TBNavigation.php?idStagiaire='.$idStagiaire.'&nomMenu=JournalBord.php\', \'&contenu=\', contenu.value); Execute(1, \'../PHP/TBNavigation.php?idStagiaire='.$idStagiaire.'&nomMenu=JournalBord.php\', \'&nbEntree=\', 5);}"/>
+            
+            <input style="width: 120px;" class="bouton" type="button" value="Envoyer" onclick="if(modificationJournal){UploadFile(ExecuteQuery, \'../PHP/TBNavigation.php?id='.$idStagiaire.'&nomMenu=JournalBord.php&update=true&contenu=contenu.value'.addId().'\'); Requete(AfficherPage, \'../PHP/TBNavigation.php?id='.$idStagiaire.'&nomMenu=JournalBord.php&nbEntree=5); modificationJournal = false;}else{UploadFile(ExecuteQuery, \'../PHP/TBNavigation.php?id='.$idStagiaire.'&nomMenu=JournalBord.php&contenu=\'contenu.value\'); Requete(AfficherPage, \'../PHP/TBNavigation.php?id='.$idStagiaire.'&nomMenu=JournalBord.php&nbEntree=5\');}"/>
+
             <label class="bouton labelFile" for="file">Pièce Jointe</label>
             <p id="nomPieceJointe"></p>
 
@@ -197,7 +189,7 @@
 
                     <br/><br/>
 
-                    <input class="bouton" type="button" value="   Retour   " onclick="Execute(1, \'../PHP/TBNavigation.php?idStagiaire='.$id.'&nomMenu=Main\')"/>
+                    <input class="bouton" type="button" value="   Retour   " onclick="Requete(AfficherPage, \'../PHP/TBNavigation.php?id='.$id.'&nomMenu=Main\')"/>
                 </article>';
 
                 return $content;
