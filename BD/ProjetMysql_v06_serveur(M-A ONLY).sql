@@ -137,11 +137,11 @@ CONCAT(IdEvaluation,IdStage) AS tag FROM tblEvaluationStage;
 DROP TABLE IF EXISTS tblStagiaire;
 CREATE TABLE tblStagiaire(
 	Id			 			INT				AUTO_INCREMENT,
-	CourrielScolaire 		VARCHAR(320)	NULL,
+	CourrielScolaire 		VARCHAR(320)	NOT NULL,
 	Nom 					VARCHAR(50)		NOT NULL,
 	Prenom 					VARCHAR(50)		NOT NULL,
 	NumTel		 			CHAR(14)		NULL,
-	CourrielPersonnel 		VARCHAR(320)	NOT NULL,
+	CourrielPersonnel 		VARCHAR(320)	NULL,
 	NumTelEntreprise 		CHAR(14)		NULL,
 	Poste 					VARCHAR(7)		NULL,
 	CourrielEntreprise	 	VARCHAR(320)	NULL,
@@ -239,7 +239,7 @@ CREATE TABLE tblStage(
 );
 
 DROP VIEW IF EXISTS vStage;
-CREATE VIEW vStage AS SELECT Id,DescriptionStage,CompetenceRecherche,HoraireTravail,NbHeureSemaine,
+CREATE VIEW vStage AS SELECT Id,RaisonSociale,DescriptionStage,CompetenceRecherche,HoraireTravail,NbHeureSemaine,
 SalaireHoraire,DateDebut,DateFin,LettreEntenteVide,LettreEntenteSignee,OffreStage,IdSession,CONCAT(IdResponsable,IdSuperviseur,IdStagiaire,IdEnseignant,DescriptionStage,CompetenceRecherche,HoraireTravail,NbHeureSemaine,
 SalaireHoraire,DateDebut,DateFin,LettreEntenteVide,LettreEntenteSignee,OffreStage)
 AS tag,IdResponsable,IdSuperviseur,IdStagiaire,IdEnseignant FROM tblStage;
@@ -302,7 +302,7 @@ CREATE TABLE tblEmploye(
 	CourrielEntreprise 		VARCHAR(320)	NOT NULL,
 	Nom 					VARCHAR(50)		NOT NULL,
 	Prenom 					VARCHAR(50)		NOt NULL,
-	NumTelEntreprise 		CHAR(14)		NOT NULL,
+	NumTel			 		CHAR(14)		NOT NULL,
 	Poste 					VARCHAR(7)		NULL,
 	CodePermanent			VARCHAR(12)		NULL,
 	PRIMARY KEY(Id),
@@ -313,8 +313,8 @@ CREATE TABLE tblEmploye(
 
 DROP VIEW IF EXISTS vEmploye;
 CREATE VIEW vEmploye AS SELECT Id,CourrielEntreprise,Nom,Prenom,
-NumTelEntreprise,Poste,CodePermanent,CONCAT(CourrielEntreprise,Nom,Prenom,
-NumTelEntreprise,IFNULL(Poste, ""),CodePermanent,IdEntreprise,IdUtilisateur) AS tag,IdEntreprise,IdUtilisateur FROM tblEmploye;
+NumTel,Poste,CodePermanent,CONCAT(CourrielEntreprise,Nom,Prenom,
+NumTel,IFNULL(Poste, ""),CodePermanent,IdEntreprise,IdUtilisateur) AS tag,IdEntreprise,IdUtilisateur FROM tblEmploye;
 
 
 -- Table Categorie Question
