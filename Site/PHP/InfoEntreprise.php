@@ -11,7 +11,7 @@
     <article class="stagiaire">
         <div class="infoStagiaire">
             <h2>Consultation de l\'Entreprise</h2>
-            <input class="bouton" type="button" value="Modifier" onclick="Execute(1, \'../PHP/TBNavigation.php?&nomMenu=ModifEntreprise.php&id='.$_REQUEST["id"].'\')"/>
+            <input class="bouton" type="button" value="Modifier" onclick="Requete(AfficherPage, \'../PHP/TBNavigation.php?&nomMenu=ModifEntreprise.php&id='.$_REQUEST["id"].'\')"/>
         </div>
 
         <div class="separateur">
@@ -61,7 +61,7 @@
         
         <br/><br/>
         
-        <input class="bouton" type="button" style="width: 100px;" value="   Retour   " onclick="Execute(1, \'../PHP/TBNavigation.php?nomMenu=ListeEntreprise.php\')"/>
+        <input class="bouton" type="button" style="width: 100px;" value="   Retour   " onclick="Requete(AfficherPage, \'../PHP/TBNavigation.php?nomMenu=ListeEntreprise.php\')"/>
         <input class="bouton" type="button" id="Save" style="width: 100px;" value="Supprimer"/>
             
     </article>

@@ -43,7 +43,7 @@
             
             $content = $content.
             '
-            <tr class="itemHover" onclick="Execute(1, \'../PHP/TBNavigation.php?nomMenu=Profil.php&id=\', '.$utilisateur->getId().')">
+            <tr class="itemHover" onclick="Requete(AfficherPage, \'../PHP/TBNavigation.php?nomMenu=Profil.php&id='.$utilisateur->getId().'\')">
                 <td>'.$utilisateur->getPrenom().'</td>
                 <td>'.$utilisateur->getNom().'</td>
                 <td>'.$courriel.'</td>
@@ -66,7 +66,7 @@
             <h2>Liste des Utilisateurs</h2>
         </div>
         
-        <input class="bouton left" type="button" value="Créer un Utilisateur" onclick="Execute(1, \'../PHP/TBNavigation.php?nomMenu=CreationUtilisateur.php\')"/>
+        <input class="bouton left" type="button" value="Créer un Utilisateur" onclick="Requete(AfficherPage, \'../PHP/TBNavigation.php?nomMenu=CreationUtilisateur.php\')"/>
         
         <table class="stage">
             <thead>
@@ -84,7 +84,7 @@
             '</tbody>
         </table>
         
-        <input class="bouton" type="button" value="   Retour   " onclick="Execute(1, \'../PHP/TBNavigation.php?nomMenu=Main\')"/>
+        <input class="bouton" type="button" value="   Retour   " onclick="Requete(AfficherPage, \'../PHP/TBNavigation.php?nomMenu=Main\')"/>
     </article>
     ';
         

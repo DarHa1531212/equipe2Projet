@@ -52,7 +52,7 @@
             
             if($_SESSION['IdRole'] == 5){
                 $content = $content.
-                '<input class="bouton" type="button" value="Modifier le profil" onclick="Execute(1, \'../PHP/TBNavigation.php?id='.$profil->getId().'&nomMenu=ModifProfil.php\')"/>';
+                '<input class="bouton" type="button" value="Modifier le profil" onclick="Requete(AfficherPage, \'../PHP/TBNavigation.php?id='.$profil->getId().'&nomMenu=ModifProfil.php\')"/>';
             }
         }
         else{
@@ -62,7 +62,7 @@
 
         if($_SESSION['IdRole'] == 1){
             $content = $content.
-            '<input class="bouton" type="button" value="Modifier le profil" onclick="Execute(1, \'../PHP/TBNavigation.php?id='.$profil->getId().'&nomMenu=ModifProfil.php\')"/>';
+            '<input class="bouton" type="button" value="Modifier le profil" onclick="Requete(AfficherPage, \'../PHP/TBNavigation.php?id='.$profil->getId().'&nomMenu=ModifProfil.php\')"/>';
         }
 
         $content = $content.
@@ -72,7 +72,7 @@
         $profil->AfficherProfil().
         '<br/><br/>
 
-        <input class="bouton" type="button" value="   Retour   ", onclick="Execute(1, \'../PHP/TBNavigation.php?id='.$profil->getId().'&nomMenu=Main\');"/>
+        <input class="bouton" type="button" value="   Retour   ", onclick="Requete(AfficherPage, \'../PHP/TBNavigation.php?id='.$profil->getId().'&nomMenu=Main\');"/>
     </article>';
     
     return $content;

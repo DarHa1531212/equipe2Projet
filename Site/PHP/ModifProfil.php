@@ -30,8 +30,8 @@ $content =
                 
     <br/><br/>
 
-    <input class="bouton" type="button" style="width: 100px;" value="   Annuler   " onclick="Execute(1, \'../PHP/TBNavigation.php?id='.$id.'&nomMenu=Main\')"/>
-    <input class="bouton" type="button" id="Save" style="width: 100px;" value="Sauvegarder" onclick="Execute(5, \'../PHP/TBNavigation.php?id='.$profil->getId().'&nomMenu=ModifProfil.php&post\'); Execute(1, \'../PHP/TBNavigation.php?id='.$id.'&nomMenu=Main\')"/>
+    <input class="bouton" type="button" style="width: 100px;" value="   Annuler   " onclick="Requete(AfficherPage, \'../PHP/TBNavigation.php?id='.$id.'&nomMenu=Main\')"/>
+    <input class="bouton" type="button" id="Save" style="width: 100px;" value="Sauvegarder" onclick="Post(ExecuteQuery, \'../PHP/TBNavigation.php?id='.$profil->getId().'&nomMenu=ModifProfil.php&post\'); Requete(AfficherPage, \'../PHP/TBNavigation.php?id='.$id.'&nomMenu=Main\')"/>
 </article>';
 
 return $content;

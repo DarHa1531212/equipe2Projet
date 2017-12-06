@@ -6,7 +6,7 @@
                     <img class="logoHeader" src="../Images/LogoDICJ2.png"/>
                 </a>
 
-                <div class="userHeader" onclick="Execute(1, \'../PHP/TBNavigation.php?id='.$_SESSION['idConnecte'].'&nomMenu=Profil.php\')">
+                <div class="userHeader" onclick="Requete(AfficherPage, \'../PHP/TBNavigation.php?id='.$_SESSION['idConnecte'].'&nomMenu=Profil.php\')">
                     <p>
                         Bonjour
                         <br/>
