@@ -136,7 +136,14 @@
                 $data = $_REQUEST['id'];
                 $stage = array();
                 $result = $bdd->Request("DELETE FROM tblUtilisateur WHERE Id = :id;",
+                    array('id'=>$data),'stdClass');       
+                $result = $bdd->Request("DELETE FROM tblEmploye WHERE IdUtilisateur = :id;",
+                    array('id'=>$data),'stdClass');       
+                $result = $bdd->Request("DELETE FROM tblStagiaire WHERE IdUtilisateur = :id;",
+                    array('id'=>$data),'stdClass');       
+                $result = $bdd->Request("DELETE FROM tblUtilisateurRole WHERE IdUtilisateur = :id;",
                     array('id'=>$data),'stdClass');
+
                 echo "-0";
             }
             else

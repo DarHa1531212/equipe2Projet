@@ -8,6 +8,7 @@
                 $utilisateurs[$champ->nom] = $champ->value;
             }
          //   var_dump($utilisateurs);
+               // var_dump($utilisateurs["userType"]);
 
             switch ($utilisateurs["userType"])
             {
@@ -146,6 +147,7 @@
 
             foreach($result as $resultat){
                $idUtilisateur =  $resultat->Id;
+               var_dump($idUtilisateur);
             }
 
             $bdd->Request(" INSERT into tblEmploye (CourrielEntreprise, Nom, Prenom, NumTelEntreprise, Poste, IdEntreprise, IdUtilisateur)

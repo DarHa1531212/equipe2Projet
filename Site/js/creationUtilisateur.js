@@ -54,7 +54,7 @@
         else if (data == 1)
         {
             //Mettre tous les champs à vide.
-            alert ("l'utilisaateur à été ajouté");
+            alert ("L'utilisaateur à été ajouté");
             Requete(AfficherPage, '../PHP/TBNavigation.php?nomMenu=CreationUtilisateur.php');
         }
     }
