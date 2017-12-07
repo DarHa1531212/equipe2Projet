@@ -157,7 +157,7 @@ DROP VIEW IF EXISTS vStagiaire;
 CREATE VIEW vStagiaire AS SELECT Id,CourrielScolaire,Nom,Prenom,NumTel
 ,NumTelEntreprise,Poste,CourrielEntreprise,CodePermanent,Adresse,
 CONCAT(CourrielScolaire,Nom,Prenom,NumTel
-,IFNULL(NumTelEntreprise,''),IFNULL(Poste,''),IFNULL(CourrielEntreprise,''),IdUtilisateur,CodePermanent) AS tag,
+,IFNULL(NumTelEntreprise,''),IFNULL(Poste,''),IFNULL(CourrielEntreprise,''),IdUtilisateur,IFNULL(CodePermanent, '')) AS tag,
 IdUtilisateur FROM tblStagiaire;
 
 -- Table tblUtilisateur
