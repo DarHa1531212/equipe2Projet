@@ -3,7 +3,8 @@
     require 'ListeStage.php';
 
     function DeleteStage($bdd){
-        $data = $_REQUEST['idStage'];
+        if(isset($_REQUEST['idStage']))
+            $data = $_REQUEST['idStage'];
         $stage = array();
         $result = $bdd->Request(" DELETE FROM tblStage WHERE Id = :id;",
         array('id'=>$data),'stdClass');

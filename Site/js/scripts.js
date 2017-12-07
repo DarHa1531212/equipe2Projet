@@ -12,8 +12,11 @@ function DisableSalaire(rad){
     
     if(rad.id == "oui")
         salaire.disabled = false;
-    else
+    else{
+        $("#salaire").val("");
         salaire.disabled = true;
+    }
+        
 }
 
 function SetTimeout(){

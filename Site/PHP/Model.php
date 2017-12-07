@@ -827,11 +827,34 @@ avoir ce format - (xxx) xxx-xxxx"/>
         private $IdStage, $DescriptionStage, $CompetenceRecherche, $HoraireTravail, $NbHeureSemaine,
                 $Remunere, $SalaireHoraire, $DateDebut, $DateFin, $LettreEntenteVide, 
                 $LettreEntenteSignee, $OffreStage, $NomResponsable, $NomSuperviseur, $NomStagiaire, 
-                $NomEnseignant, $NomEntreprise;
+                $NomEnseignant, $NomEntreprise, $IdEntreprise;
         
         //Met à jour le stage dans la BD.
         public function Update(){
-            
+            $champs = json_decode($_POST["tabChamp"]);
+            $stage = array();
+
+            foreach($champs as $champ){
+                $stage[$champ->nom] = $champ->value;
+            }
+
+            $bdd->Request(" UPDATE tblStage SET IdResponsable = :idResponsable, IdSuperviseur = :idSuperviseur, 
+                            IdStagiaire = :idStagiaire, IdEnseignant = :idEnseignant, DescriptionStage = :description,
+                            CompetenceRecherche = :competence, HoraireTravail = :horaire, NbHeureSemaine = :nbHeure,
+                            SalaireHoraire = :salaire, DateDebut = :dateDebut, DateFin = :dateFin)",
+                            array(
+                                'idResponsable'=>$stage["Responsable"], 
+                                'idSuperviseur'=>$stage["Superviseur"], 
+                                'idStagiaire'=>$stage["Stagiaire"], 
+                                'idEnseignant'=>$stage["Enseignant"],
+                                'description'=>$stage["DescStage"], 
+                                'competence'=>$stage["CompetancesRecherchees"], 
+                                'horaire'=>$stage["SalaireHoraire"], 
+                                'nbHeure'=>$stage["HeuresSemaine"],
+                                'salaire'=>$stage["SalaireHoraire"], 
+                                'dateDebut'=>$stage["DateDebut"], 
+                                'dateFin'=>$stage["DateFin"]), 
+                                'stdClass');
         }
         
         public function getIdStage(){
@@ -888,6 +911,10 @@ avoir ce format - (xxx) xxx-xxxx"/>
         
         public function getNomEntreprise(){
             return $this->NomEntreprise;
+        }
+        
+        public function getIdEntreprise(){
+            return $this->IdEntreprise;
         }
         
         public function getNomSuperviseur(){

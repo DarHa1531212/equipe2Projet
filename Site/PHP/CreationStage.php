@@ -158,11 +158,11 @@
 
             <div class="champArea">
                 <p class="label labelForInput labelArea">Description du stage</p>
-                <textarea class="value" class="valueArea"  name = "DescStage"></textarea>
+                <textarea class="value valueArea" name="DescStage"></textarea>
             </div>  
             <div class="champArea">
                 <p class="label labelForInput labelArea">Compétences recherchées</p>
-                <textarea class="value" class="valueArea"  name = "CompetancesRecherchees"></textarea>
+                <textarea class="value valueArea" name="CompetancesRecherchees"></textarea>
             </div>
 
         <!--afficher les inforations détaillées d\'un stage -->

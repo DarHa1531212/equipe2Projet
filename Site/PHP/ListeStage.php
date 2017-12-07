@@ -8,6 +8,7 @@
                                 vStage.SalaireHoraire as 'SalaireHoraire', 
                                 vStage.NbHeureSemaine as 'NbHeureSemaine' , 
                                 vEntreprise.Nom as 'NomEntreprise' ,
+                                vEntreprise.Id as 'IdEntreprise' ,
                                 concat(vStagiaire.Prenom, ' ' , vStagiaire.Nom)  as 'NomStagiaire' , 
                                 concat (vSuperviseur.Prenom, ' ', vSuperviseur.Nom) as 'NomSuperviseur', 
                                 concat (vResponsable.Prenom, ' ', vResponsable.Nom) as'NomResponsable', 
