@@ -30,7 +30,7 @@
         $index = 0;
         foreach ($stages as $stage) {
             $content = $content . 
-            '<tr class="itemHover" onclick="Requete(AfficherPage, \'../PHP/TBNavigation.php?nomMenu=InfoStage.php&id='.$index.'\')">
+            '<tr class="itemHover" onclick="Requete(AfficherPage, \'../PHP/TBNavigation.php?nomMenu=InfoStage.php&index='.$index.'\')">
                 <td>' . $stage->getNomEntreprise() . '</td>
                 <td>' . $stage->getNomStagiaire() . '</td>
                 <td>Lettre dentente</td>

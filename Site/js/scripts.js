@@ -29,7 +29,7 @@ window.addEventListener("click", function(){
     timeout = setTimeout(SessionTimeout, 300000);
 })
 
-//PLEIN D'UTILISATEUR N'ONT PAS D'ID D'UTILISATEUR.
+//PLEIN D'UTILISATEUR N'ONT PAS D'ID D'UTILISATEUR A VOIR DANS LA BD.
 function PopulateListEmploye(data){
     var option = "";
     data = JSON.parse(data);

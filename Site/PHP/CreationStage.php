@@ -87,7 +87,7 @@
     }
 
     $content =
-    '<script src="../js/creationStage.js"></script>
+    '
     <article class="stagiaire">
         <div class="infoStagiaire">
             <h2>Stages</h2>
