@@ -823,7 +823,7 @@ avoir ce format - (xxx) xxx-xxxx"/>
     }
 
 
-    class Stage{
+    class Stage implements JsonSerializable{
         private $IdStage, $DescriptionStage, $CompetenceRecherche, $HoraireTravail, $NbHeureSemaine,
                 $Remunere, $SalaireHoraire, $DateDebut, $DateFin, $LettreEntenteVide, 
                 $LettreEntenteSignee, $OffreStage, $NomResponsable, $NomSuperviseur, $NomStagiaire, 
@@ -855,6 +855,14 @@ avoir ce format - (xxx) xxx-xxxx"/>
                                 'dateDebut'=>$stage["DateDebut"], 
                                 'dateFin'=>$stage["DateFin"]), 
                                 'stdClass');
+        }
+        
+        public function expose(){
+            return get_object_vars($this);
+        }
+        
+        public function jsonSerialize(){
+            return get_object_vars($this);
         }
         
         public function getIdStage(){

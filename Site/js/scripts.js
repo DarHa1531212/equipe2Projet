@@ -46,3 +46,20 @@ function PopulateListEmploye(data){
     $("#responsable").append(option);
 }
 
+function PopulateTable(data){
+    var option = "";
+    data = JSON.parse(data);
+    
+    for(var i = 0; i < data.length; i++){
+        option +=   "<tr class=\"itemHover\" onclick=\"Requete(AfficherPage, \'../PHP/TBNavigation.php?nomMenu=InfoStage.php&index=\'.$index.\'\')\">" +
+                        "<td>" + data[i].NomEntreprise + "</td>" +
+                        "<td>" + data[i].NomStagiaire + "</td>" + 
+                        "<td>Lettre dentente</td>" +
+                    "</tr>";
+    }
+        
+    
+    $("table").empty();
+    $("table").append(option);
+}
+

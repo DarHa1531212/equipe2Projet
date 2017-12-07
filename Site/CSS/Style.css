@@ -104,13 +104,21 @@ section{
 
 .labelArea{vertical-align: top;}
 
-.value{display: inline-block;}
-
 .value{
     width: 200px;
     height: 20px;
     font-size: 17px;
     vertical-align: middle;
+    display: inline-block;
+}
+
+.recherche{
+    width: 95%;
+    margin-left: 2.5%;
+    margin-bottom: -20px;
+    margin-top: 75px;
+    vertical-align: inherit;
+    display: inherit;
 }
 
 .champ > div{
