@@ -2,10 +2,16 @@
     include 'ListeUtilisateur.php';
     $content = "";
     $role = "";
+    //var_dump($_REQUEST["id"]);
+
+  //  var_dump($_REQUEST["post"]);
 
 
      if(isset($_REQUEST["post"]))
+     {
+     //   var_dump($_REQUEST["id"]);
         DeleteUser($bdd);
+     }
     else{
 
         if(isset($_REQUEST["id"])){
@@ -61,10 +67,11 @@
                     }
                 }
                 else{
+                    //le bouton de supression de l\'utilisateur ne doit pas être affiché si l\'utilisateur consulte son propre profil
+                    $idUtilisateur = $_REQUEST["id"];
                     $content = $content.
                     '<h2>Profil de '.$profil->getPrenom().' '.$profil->getNom().' '.$role.'</h2>
-                    
-                    <input class="bouton" type="button" style="width: 100px;" value="Supprimer" onclick= "Requete(ExecuteQuery, \'../PHP/TBNavigation.php?nomMenu=InfoStage.php\',\'&idStage=\','.$stages[$_REQUEST["id"]]->IdStage.',\'&post=\',true);Requete(AfficherPage, \'../PHP/TBNavigation.php?idstage=\','.$stages[$_REQUEST["id"]]->IdStage.',\'&nomMenu=ListeStage.php\'); "/>
+                    <input class="bouton" type="button" style="width: 100px;" value="Supprimer" onclick= "Requete(testerRetourSupressionUtilisateur, \'../PHP/TBNavigation.php?nomMenu=profil.php&post=true&id=' . $idUtilisateur. '\'); "/>
 
                     ';
                 }
@@ -87,13 +94,59 @@
             return $content;
     }
 
-        function DeleteUser($bdd){
-        $data = $_REQUEST['idUtilisateur'];
-        $stage = array();
-        $result = $bdd->Request(" DELETE FROM tblStage WHERE Id = :id;",
-            array('id'=>$data),'stdClass');
+        function DeleteUser($bdd)
+        {
+            $nbStagesLies = 0;
+          //  var_dump($_REQUEST["id"]);
+            
 
-        return;
+            //vérifier si l'utilisateur est lié a un stage ou plus en tant que stagiaire, superviseur, responsable ou enseignant
+            $result = $bdd->Request(" SELECT count(*) as 'nbResponsables' from vStage where IdResponsable =  :idUtilisateur", array ('idUtilisateur'=>$_REQUEST["id"]), 'stdClass');
+
+            foreach($result as $resultat)
+            {
+                $nbStagesLies = $nbStagesLies + $resultat->nbResponsables;   
+            }
+
+            $result = $bdd->Request(" SELECT count(*) as 'nbSuperviseurs' from vStage where IdSuperviseur = :idUtilisateur", array ('idUtilisateur'=>$_REQUEST["id"]), 'stdClass');
+
+            foreach($result as $resultat)
+            {
+                $nbStagesLies = $nbStagesLies + $resultat->nbSuperviseurs;   
+            }
+            
+            $result = $bdd->Request(" SELECT count(*) as 'nbStagiaire' from vStage where IdStagiaire = :idUtilisateur", array ('idUtilisateur'=>$_REQUEST["id"]), 'stdClass');
+
+            foreach($result as $resultat)
+            {
+                $nbStagesLies = $nbStagesLies + $resultat->nbStagiaire;   
+            }
+            
+            $result = $bdd->Request("SELECT count(*) as 'nbEnseignant' from vStage where IdEnseignant :idUtilisateur", array ('idUtilisateur'=>$_REQUEST["id"]), 'stdClass');
+
+            foreach($result as $resultat)
+            {
+                $nbStagesLies = $nbStagesLies + $resultat->nbEnseignant;   
+            }
+
+          //  var_dump($nbStagesLies);
+
+            if ($nbStagesLies == 0)
+            {
+                $data = $_REQUEST['id'];
+                $stage = array();
+                $result = $bdd->Request("DELETE FROM tblUtilisateur WHERE Id = :id;",
+                    array('id'=>$data),'stdClass');
+                echo "-0";
+            }
+            else
+            {
+          //      var_dump($_REQUEST['id']);
+                echo "-1";
+            }
+
+      //  return(var_dump($_REQUEST["id"]));
+
     }
 
 

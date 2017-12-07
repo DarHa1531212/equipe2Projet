@@ -19,6 +19,8 @@
         <script src="../js/slideShow.js"></script>
         <script src="../js/scripts.js"></script>
         <script src="../js/creationUtilisateur.js"></script>
+        <script src="../js/supressionUtilisateur.js"></script>
+
 
         
         <?php 
