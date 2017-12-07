@@ -93,6 +93,8 @@
 
 
                 <br>
+                <input class="bouton" type="button" style="width: 100px;" value="   Annuler   " onclick="Execute(1, \'../PHP/TBNavigation.php?nomMenu=ConsoleAdminMain.php\')"/>
+
                 <input type="button" id="Save" class="bouton" value="Sauvegarder" onclick ="Execute(5, \'../PHP/TBNavigation.php?nomMenu=CreationUtilisateur.php&post\')" />
                 
             </div>
