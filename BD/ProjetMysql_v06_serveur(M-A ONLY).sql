@@ -270,7 +270,7 @@ CREATE TABLE tblEvaluation(
 
 DROP VIEW IF EXISTS vEvaluation;
 CREATE VIEW vEvaluation AS SELECT Id,Statut,DateComplétée,DateDébut,DateFin,Commentaire,
-CONCAT(Id,Statut,DateComplétée,DateDébut,DateFin,IdTypeEvaluation,IdTypeEvaluation,Statut,IFNULL(DateComplétée,''),Commentaire) AS tag,IdTypeEvaluation FROM tblEvaluation;
+CONCAT(Id,Statut,DateComplétée,DateDébut,DateFin,IdTypeEvaluation,IdTypeEvaluation,Statut,IFNULL(DateComplétée,'')) AS tag,IdTypeEvaluation FROM tblEvaluation;
 
 
 -- Table tblTypeEvaluation
@@ -309,23 +309,22 @@ CREATE TABLE tblStagiaire(
 	Nom 					VARCHAR(50)		NOT NULL,
 	Prenom 					VARCHAR(50)		NOT NULL,
 	NumTel		 			CHAR(14)		NULL,
-	CourrielPersonnel 		VARCHAR(320)	NULL,
 	NumTelEntreprise 		CHAR(14)		NULL,
 	Poste 					VARCHAR(7)		NULL,
 	CourrielEntreprise	 	VARCHAR(320)	NULL,
 	CodePermanent			VARCHAR(12)		NULL,
 	Adresse					VARCHAR(350)	NULL,
 	PRIMARY KEY(Id),
-	IdStage					INT				NULL,
 	IdUtilisateur			INT				NULL,
 	CONSTRAINT Constraint_UNIQUE_Stagiaire UNIQUE (CourrielScolaire)
 );
 
 DROP VIEW IF EXISTS vStagiaire;
-CREATE VIEW vStagiaire AS SELECT Id,CourrielScolaire,Nom,Prenom,NumTel,CourrielPersonnel
+CREATE VIEW vStagiaire AS SELECT Id,CourrielScolaire,Nom,Prenom,NumTel
 ,NumTelEntreprise,Poste,CourrielEntreprise,CodePermanent,Adresse,
-CONCAT(CourrielScolaire,Nom,Prenom,NumTel,CourrielPersonnel
-,IFNULL(NumTelEntreprise,''),IFNULL(Poste,''),IFNULL(CourrielEntreprise,''),IFNULL(IdStage,''),IdUtilisateur,CodePermanent) AS tag,IdStage,IdUtilisateur FROM tblStagiaire;
+CONCAT(CourrielScolaire,Nom,Prenom,NumTel
+,IFNULL(NumTelEntreprise,''),IFNULL(Poste,''),IFNULL(CourrielEntreprise,''),IdUtilisateur,CodePermanent) AS tag,
+IdUtilisateur FROM tblStagiaire;
 
 -- Table tblUtilisateur
 
@@ -437,7 +436,7 @@ CREATE TABLE tblSession(
 );
 
 DROP VIEW IF EXISTS vSession;
-CREATE VIEW vSession AS SELECT Id, Annee,Periode,CahierEntreprise,CahierStagiaire,MiStageDebut,MiStageLimite,FinaleDebut,FinaleLimite,
+CREATE VIEW vSession AS SELECT Id, Annee,Periode,CahierEntreprise,CahierStagiaire,MiStageDebut,MiStageLimite,FinaleDebut,FinaleLimite
 FormationDebut,FormationLimite,JanvierDebut,JanvierLimite,FevrierDebut,FevrierLimite,MarsDebut,MarsLimite FROM tblSession;
 
 
@@ -471,7 +470,6 @@ CREATE TABLE tblEmploye(
 	Nom 					VARCHAR(50)		NOT NULL,
 	Prenom 					VARCHAR(50)		NOt NULL,
 	NumTel			 		CHAR(14)		NOT NULL,
-	NumTelEntreprise		CHAR(14)		NOT NULL,
 	Poste 					VARCHAR(7)		NULL,
 	CourrielPersonnel 		VARCHAR(320)	NULL,
 	CodePermanent			VARCHAR(12)		NULL,
@@ -639,12 +637,6 @@ ADD FOREIGN KEY (IdEnseignant)
 REFERENCES
 tblEnseignant(Id);
 
-
-
-ALTER TABLE tblStagiaire
-ADD FOREIGN KEY (IdStage)
-REFERENCES
-tblStage(Id);
 
 
 ALTER TABLE tblJournalDeBord

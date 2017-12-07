@@ -219,7 +219,7 @@ ON Ent.Id = Emp.IdEntreprise;
 -- ------------------------------------------------
 DROP VIEW IF EXISTS vInfoStagiaire;
 CREATE VIEW vInfoStagiaire AS
-SELECT CONCAT(Prenom,' ',Nom) AS NomComplet,IdUtilisateur,Adresse AS  'AdresseStagiaire',NumTel AS NumTelStagiaire,CourrielPersonnel FROM vUtilisateur 
+SELECT CONCAT(Prenom,' ',Nom) AS NomComplet,IdUtilisateur,Adresse AS  'AdresseStagiaire',NumTel AS NumTelStagiaire,CourrielScolaire AS CourrielPersonnel FROM vUtilisateur 
 
 	JOIN vStagiaire
 	ON vStagiaire.IdUtilisateur = vUtilisateur.Id;
