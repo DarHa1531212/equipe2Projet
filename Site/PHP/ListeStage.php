@@ -1,6 +1,6 @@
 <?php 
 
-$stages = $bdd-> Request (" SELECT 
+    $stages = $bdd-> Request (" SELECT 
                                 vStage.Id as 'IdStage',
                                 vStage.DescriptionStage as 'DescriptionStage', 
                                 vStage.CompetenceRecherche as 'CompetenceRecherche', 
@@ -21,24 +21,25 @@ $stages = $bdd-> Request (" SELECT
                                 left join vResponsable on vResponsable.IdUtilisateur = vStage.IdResponsable     
                                 left join vEnseignant on vEnseignant.IdUtilisateur = vStage.IdEnseignant
                                 ORDER BY IdStage DESC", 
-                                null, "stdClass");
+                                null, "Stage");
 
-  function AfficherStages($stages)
-  {
-    $content = "";
-    $id = 0;
-    foreach ($stages as $stage) {
-      $content = $content . 
-          '<tr class="itemHover" onclick="Requete(AfficherPage, \'../PHP/TBNavigation.php?nomMenu=InfoStage.php&id='.$id.'\')">
-                <td>' . $stage->NomEntreprise . '</td>
-                <td>' . $stage->NomStagiaire . '</td>
+    //Affiche tous les stages.
+    function AfficherStages($stages)
+    {
+        $content = "";
+        $index = 0;
+        foreach ($stages as $stage) {
+            $content = $content . 
+            '<tr class="itemHover" onclick="Requete(AfficherPage, \'../PHP/TBNavigation.php?nomMenu=InfoStage.php&id='.$index.'\')">
+                <td>' . $stage->getNomEntreprise() . '</td>
+                <td>' . $stage->getNomStagiaire() . '</td>
                 <td>Lettre dentente</td>
             </tr>';
-            $id = $id + 1;
-      }
+            $index = $index + 1;
+        }
 
-      return $content;
-  }
+        return $content;
+    }
 
     $content =
     '

@@ -395,6 +395,7 @@
         
         protected $IdUtilisateur, $Nom, $Prenom, $NumTelEntreprise, $CodePermanent, $Poste, $CourrielEntreprise, $NomEntreprise, $IdRole;
         
+        //Met à jour l'utilisateur dans la BD.
         protected function UpdateUser($bdd, $motPasse, $courriel){
             if($motPasse != "")
             {
@@ -555,6 +556,7 @@ avoir ce format - (xxx) xxx-xxxx"/>
             return $content;
         }
         
+        //Met à jour le profil dans la BD.
         public function UpdateProfil($bdd, $champs){
             $profil = array();
 
@@ -720,6 +722,7 @@ avoir ce format - (xxx) xxx-xxxx"/>
             return $content;
         }
         
+        //Met à jour le profil dans la BD.
         public function UpdateProfil($bdd, $champs){
             $profil = array();
 
@@ -753,6 +756,7 @@ avoir ce format - (xxx) xxx-xxxx"/>
     class Entreprise{
         private $Id, $CourrielEntreprise, $Nom, $NumTel, $NumCivique, $Rue, $Ville, $Province, $CodePostal, $Logo;
         
+        //Met à jour un objet entreprise dans la BD.
         public function Update($bdd, $champs){
             $entreprise = array();
 
@@ -817,214 +821,85 @@ avoir ce format - (xxx) xxx-xxxx"/>
             return $this->Logo;
         }
     }
-    
-    /**********************************************************************************************
-    *   Classes: cUtilisateur, cStagiaire, cEmployeEntreprise, cEntreprise                        *
-    *   But: gérer le CRUD des utilisateurs                                                       *
-    *   Note: Va utiliser de l'héritage pour les champs des stagiaires vs des employes            *
-    *   Nom: Hans darmstadt-Bélanger                                                              *
-    *   date: 23 Novembre 2017                                                                    *
-    *   ******************************************************************************************/
 
 
-    
-
-    class cUtilisateur {
+    class Stage{
+        private $IdStage, $DescriptionStage, $CompetenceRecherche, $HoraireTravail, $NbHeureSemaine,
+                $Remunere, $SalaireHoraire, $DateDebut, $DateFin, $LettreEntenteVide, 
+                $LettreEntenteSignee, $OffreStage, $NomResponsable, $NomSuperviseur, $NomStagiaire, 
+                $NomEnseignant, $NomEntreprise;
         
-        public function __construct($id, $bdd){
-            $this->id = $id;
+        //Met à jour le stage dans la BD.
+        public function Update(){
+            
         }
-        private $courrielPrincipal, $id, $prenom, $nom, $noTelPrincipal, $posteTelEntreprise;
-
-        public function getCourrielPrincipal(){
-            return $this->courrielPrincipal;
-        }
-
-        public function getId(){
-            return $this->id;
-        }
-
-        public function getPrenom(){
-            return $this->prenom;
-        }
-
-        public function getNoTelPrincipal(){
-            return $this->noTelPrincipal;
-        }
-
-        public function getPosteTelEntreprise(){
-            return $this->posteTelEntreprise;
-        }
-
         
-     }   
-    class cStagiaire extends cUtilisateur {
-
-        private $noTelEntreprise, $courrielEntreprise, $courrielPersonnel, $codePermanent;
-
-        public function getNoTelEntreprise(){
-            return $this->noTelEntreprise;
+        public function getIdStage(){
+            return $this->IdStage;
         }
-
-        public function getCourrielEntreprise(){
-            return $this->courrielEntreprise;
+        
+        public function getDescriptionStage(){
+            return $this->DescriptionStage;
         }
-
-        public function getCourrielPersonnel(){
-            return $this->courrielPersonnel;
+        
+        public function getCompetenceRecherche(){
+            return $this->CompetenceRecherche;
         }
-
-        public function getCodePermanent(){
-            return $this->codePermanent;
+        
+        public function getHoraireTravail(){
+            return $this->HoraireTravail;
         }
-
-
-        protected function createUtilisateur($bdd,$dataArray)
-
-            {
-                $prenom = $dataArray[1]->value;
-                $nom = $dataArray[2]->value;
-                $courrielScolaire = $dataArray[3]->value;
-
-                $query = $bdd->prepare("insert into tblStagiaire (Prenom, Nom, CourrielScolaire) Values  ('$prenom' , '$nom' , '$courrielScolaire');");
-                $query->execute();
-            }
-
-        protected function readUtilisateur($bdd,$dataArray)
-        {
-
-            $idStagiaire =  intval ($dataArray[1]->value);
-            $returnData = array();
-
-            $query = $bdd->prepare("select 
-                                    vStagiaire.Nom as 'NomStagiaire', 
-                                    vStagiaire.Prenom as 'PrenomStagiaire'  , 
-                                    vStagiaire.CourrielScolaire as 'CourrieScolaire', 
-                                    vStagiaire.NumTelEntreprise as 'NumTelEntreprise',
-                                    vStagiaire.Poste as 'Poste',
-                                    vStagiaire.CourrielEntreprise as 'CourrielEntreprise', 
-                                    vStagiaire.CodePermanent as 'CodePermanent', 
-                                    vStagiaire.CourrielPersonnel as 'CourrielPersonnel', 
-                                    vStagiaire.NumTel as 'NumTelStagiaire', 
-                                    vEntreprise.Nom as 'NomEntreprise'
-                                    from vStagiaire 
-                                    join vStage on vStage.idStagiaire = vStagiaire.IdUtilisateur 
-                                    join vSuperviseur on vStage.IdSuperviseur = vSuperviseur.IdUtilisateur 
-                                    join vEntreprise on vEntreprise.Id = vSuperviseur.IdEntreprise 
-                                    where vStagiaire.IdUtilisateur like :idStagiaire");
-
-            $query->execute(array('idStagiaire'=> $idStagiaire));     
-            $entrees = $query->fetchAll();
-
-            foreach($entrees as $entree){
-
-                $NomStagiaire = $entree["NomStagiaire"];
-                $PrenomStagiaire = $entree["PrenomStagiaire"];
-                $CourrieScolaire = $entree["CourrieScolaire"];
-                $NumTelEntreprise = $entree["NumTelEntreprise"];
-                $Poste = $entree["Poste"];
-                $CourrielEntreprise = $entree["CourrielEntreprise"];
-                $CodePermanent = $entree["CodePermanent"];
-                $CourrielPersonnel = $entree["CourrielPersonnel"];
-                $NumTelStagiaire = $entree["NumTelStagiaire"];
-                $NomEntreprise = $entree["NomEntreprise"];
-
-                $returnData [0] = $NomStagiaire;
-                $returnData [1] = $PrenomStagiaire;
-                $returnData [2] = $CourrieScolaire;
-                $returnData [3] = $NumTelEntreprise;
-                $returnData [4] = $Poste;
-                $returnData [5] = $CourrielEntreprise;
-                $returnData [6] = $CodePermanent;
-                $returnData [7] = $CourrielPersonnel;
-                $returnData [8] = $NumTelStagiaire;
-                $returnData [9] = $NomEntreprise;  
-            }
-
-        return $returnData;
-
+        
+        public function getNbHeureSemaine(){
+            return $this->NbHeureSemaine;
         }
-
-
-
-    }
-    class cEmployeEntreprise extends cUtilisateur{
-
-        public function __construct($id, $bdd){     
-            parent::__construct($id, $bdd);
-            $this->Initialise($id, $bdd);
+        
+        public function getRemunere(){
+            return $this->Remunere;
         }
-
-        protected function createUtilisateur($bdd,$dataArray)
-        {
-            $prenom = $dataArray[1]->value;
-            $nom = $dataArray[2]->value;
-            $courrielEmploye = $dataArray[3]->value;
-            $telEmploye = $dataArray[4]->value;
-            $posteTelEmploye = $dataArray[5]->value;
-            $idEntreprise = $dataArray[6]->value;
-
-
-            $query = $bdd->prepare("INSERT IGNORE INTO tblEmploye (CourrielEntreprise,Nom,Prenom,NumTelEntreprise,Poste,IdEntreprise)VALUES($courrielEmploye,$nom,$prenom,$telEmploye,$posteTelEmploye,$idEntreprise);");
-            $query->execute();
-
+        
+        public function getSalaireHoraire(){
+            return $this->SalaireHoraire;
         }
-
-        protected function readUtilisateur ($bdd, $dataArray)
-        {
-            $idStagiaire =  intval ($dataArray[1]->value);
-            $returnData = array();
-
-            $query = $bdd->prepare("select 
-                                    vStagiaire.Nom as 'NomStagiaire', 
-                                    vStagiaire.Prenom as 'PrenomStagiaire'  , 
-                                    vStagiaire.CourrielScolaire as 'CourrieScolaire', 
-                                    vStagiaire.NumTelEntreprise as 'NumTelEntreprise',
-                                    vStagiaire.Poste as 'Poste',
-                                    vStagiaire.CourrielEntreprise as 'CourrielEntreprise', 
-                                    vStagiaire.CodePermanent as 'CodePermanent', 
-                                    vStagiaire.CourrielPersonnel as 'CourrielPersonnel', 
-                                    vStagiaire.NumTel as 'NumTelStagiaire', 
-                                    vEntreprise.Nom as 'NomEntreprise'
-                                    from vStagiaire 
-                                    join vStage on vStage.idStagiaire = vStagiaire.IdUtilisateur 
-                                    join vSuperviseur on vStage.IdSuperviseur = vSuperviseur.IdUtilisateur 
-                                    join vEntreprise on vEntreprise.Id = vSuperviseur.IdEntreprise 
-                                    where vStagiaire.IdUtilisateur like :idStagiaire");
-
-            $query->execute(array('idStagiaire'=> $idStagiaire));     
-            $entrees = $query->fetchAll();
-
-            foreach($entrees as $entree){
-
-
-                $NomStagiaire = $entree["NomStagiaire"];
-                $PrenomStagiaire = $entree["PrenomStagiaire"];
-                $CourrieScolaire = $entree["CourrieScolaire"];
-                $NumTelEntreprise = $entree["NumTelEntreprise"];
-                $Poste = $entree["Poste"];
-                $CourrielEntreprise = $entree["CourrielEntreprise"];
-                $CodePermanent = $entree["CodePermanent"];
-                $CourrielPersonnel = $entree["CourrielPersonnel"];
-                $NumTelStagiaire = $entree["NumTelStagiaire"];
-                $NomEntreprise = $entree["NomEntreprise"];
-
-                $returnData [0] = $NomStagiaire;
-                $returnData [1] = $PrenomStagiaire;
-                $returnData [2] = $CourrieScolaire;
-                $returnData [3] = $NumTelEntreprise;
-                $returnData [4] = $Poste;
-                $returnData [5] = $CourrielEntreprise;
-                $returnData [6] = $CodePermanent;
-                $returnData [7] = $CourrielPersonnel;
-                $returnData [8] = $NumTelStagiaire;
-                $returnData [9] = $NomEntreprise;  
-            }
-
-        return $returnData;
-
+        
+        public function getDateDebut(){
+            return $this->DateDebut;
+        }
+        
+        public function getDateFin(){
+            return $this->DateFin;
+        }
+        
+        public function getLettreEntenteVide(){
+            return $this->LettreEntenteVide;
+        }
+        
+        public function getLettreEntenteSignee(){
+            return $this->LettreEntenteSignee;
+        }
+        
+        public function getOffreStage(){
+            return $this->OffreStage;
+        }
+        
+        public function getNomResponsable(){
+            return $this->NomResponsable;
+        }
+        
+        public function getNomEntreprise(){
+            return $this->NomEntreprise;
+        }
+        
+        public function getNomSuperviseur(){
+            return $this->NomSuperviseur;
+        }
+        
+        public function getNomStagiaire(){
+            return $this->NomStagiaire;
+        }
+        
+        public function getNomEnseignant(){
+            return $this->NomEnseignant;
         }
     }
-
-
 ?>

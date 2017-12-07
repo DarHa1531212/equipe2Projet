@@ -2,16 +2,26 @@
 
     require 'ListeStage.php';
 
-     if(isset($_REQUEST["post"]))
+    function DeleteStage($bdd){
+        $data = $_REQUEST['idStage'];
+        $stage = array();
+        $result = $bdd->Request(" DELETE FROM tblStage WHERE Id = :id;",
+        array('id'=>$data),'stdClass');
+
+        return;
+    }
+
+    if(isset($_REQUEST["id"]))
+        $stage = $stages[$_REQUEST["id"]];
+
+    if(isset($_REQUEST["post"]))
         DeleteStage($bdd);
     else{
-
-
-   $content =
-       '<article class="stagiaire">
+        $content =
+        '<article class="stagiaire">
         <div class="infoStagiaire">
                 <h2>Consultation des stages</h2>
-                <input class="bouton" type="button" value="Modifier"/>
+                <input class="bouton" type="button" value="Modifier" onclick="Requete(AfficherPage, \'../PHP/TBNavigation.php?nomMenu=ModifStage.php\')"/>
             </div>
 
             <div class="separateur">
@@ -20,47 +30,47 @@
 
             <div class="blocInfo infoProfil">
         <div class="champ">
-        <p>Nom du stagiaire: ' . $stages[$_REQUEST["id"]]->NomStagiaire . '</p>
+        <p>Nom du stagiaire: ' . $stage->getNomStagiaire() . '</p>
         </div>
         <br>
         <div class="champ">
-        <p>Nom d\'entreprise: ' . $stages[$_REQUEST["id"]]->NomEntreprise . '</p>
+        <p>Nom d\'entreprise: ' . $stage->getNomEntreprise() . '</p>
         </div>
         <br>
         <div class="champ">
-        <p>Nom de l\'enseignant: ' . $stages[$_REQUEST["id"]]->NomEnseignant . '</p>
+        <p>Nom de l\'enseignant: ' . $stage->getNomEnseignant() . '</p>
         </div>
         <br>
         <div class="champ">
-        <p>Nom du superviseur: ' . $stages[$_REQUEST["id"]]->NomSuperviseur . '</p>
+        <p>Nom du superviseur: ' . $stage->getNomSuperviseur() . '</p>
         </div>
         <br> 
         <div class="champ">
-        <p>Horaire de travail: ' . $stages[$_REQUEST["id"]]->HoraireTravail . '</p>
+        <p>Horaire de travail: ' . $stage->getHoraireTravail() . '</p>
         </div>
         <br>
         <div class="champ">
-        <p>Salaire horaire: ' . $stages[$_REQUEST["id"]]->SalaireHoraire . '</p>
+        <p>Salaire horaire: ' . $stage->getSalaireHoraire() . '</p>
         </div>
         <br>
         <div class="champ">
-        <p>Nombre d\'heures par semaine: ' . $stages[$_REQUEST["id"]]->NbHeureSemaine . '</p> 
+        <p>Nombre d\'heures par semaine: ' . $stage->getNbHeureSemaine() . '</p> 
         </div>
         <br>
         <div class="champ">
-        <p>Compétences recherchées: ' . $stages[$_REQUEST["id"]]->CompetenceRecherche . '</p>
+        <p>Compétences recherchées: ' . $stage->getCompetenceRecherche() . '</p>
         </div>
         <br>
         <div class="champ">
-        <p>Description du stage: ' . $stages[$_REQUEST["id"]]->DescriptionStage . '</p>
+        <p>Description du stage: ' . $stage->getDescriptionStage() . '</p>
         </div>
         <br>
         <div class="champ">
-        <p>Date de début: ' . $stages[$_REQUEST["id"]]->DateDebut . '</p>
+        <p>Date de début: ' . $stage->getDateDebut() . '</p>
         </div>
         <br>
         <div class="champ">
-        <p>Date de fin: ' . $stages[$_REQUEST["id"]]->DateFin . '</p>
+        <p>Date de fin: ' . $stage->getDateFin() . '</p>
         </div>
         <br>
         </div>
@@ -68,24 +78,12 @@
         <br/><br/>
 
         <input class="bouton" type="button" style="width: 100px;" value="   Retour   " onclick="Requete(AfficherPage, \'../PHP/TBNavigation.php?idEmploye='.$id.'&nomMenu=ListeStage.php\')"/>
-        <input class="bouton" type="button" style="width: 100px;" value="Supprimer" onclick= "Requete(ExecuteQuery, \'../PHP/TBNavigation.php?nomMenu=InfoStage.php\',\'&idStage=\','.$stages[$_REQUEST["id"]]->IdStage.',\'&post=\',true);Requete(AfficherPage, \'../PHP/TBNavigation.php?idstage=\','.$stages[$_REQUEST["id"]]->IdStage.',\'&nomMenu=ListeStage.php\'); "/>
+        <input class="bouton" type="button" style="width: 100px;" value="Supprimer" onclick= "Requete(ExecuteQuery, \'../PHP/TBNavigation.php?nomMenu=InfoStage.php\',\'&idStage=\','.$stages[$_REQUEST["id"]]->getIdStage().',\'&post=\',true);Requete(AfficherPage, \'../PHP/TBNavigation.php?idstage=\','.$stages[$_REQUEST["id"]]->getIdStage().',\'&nomMenu=ListeStage.php\'); "/>
 
         </article>
-    ';
+        ';
     
-    return $content;
-
-        
+        return $content;
     }
-        
-    function DeleteStage($bdd){
-        $data = $_REQUEST['idStage'];
-        $stage = array();
-        $result = $bdd->Request(" DELETE FROM tblStage WHERE Id = :id;",
-            array('id'=>$data),'stdClass');
-
-        return;
-    }
-
 
 ?>
