@@ -56,4 +56,20 @@ FOR EACH ROW
 -- -------------------------------------------------
 END//	
 
+
+
+
+DELIMITER ;
+DROP TRIGGER IF EXISTS After_Insert_Entreprise;
+
+DELIMITER //
+CREATE TRIGGER After_Insert_Entreprise BEFORE INSERT
+ON tblEntreprise 
+FOR EACH ROW
+	BEGIN
+-- -------------------------------------------------
+		SET new.Logo = CONCAT('Entreprises/',new.Nom,new.NumCivique);
+-- -------------------------------------------------
+END//	
+
 DELIMITER ;
