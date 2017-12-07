@@ -97,12 +97,13 @@ CREATE TABLE tblEvaluation(
 	DateDébut				DATE			NULL,
 	DateFin					DATE			NULL,
 	DateComplétée			DATE			NULL,
+	Commentaire				VARCHAR(2000)	NULL,
 	PRIMARY KEY(Id),
 	IdTypeEvaluation		INT				NOT NULL
 );
 
 DROP VIEW IF EXISTS vEvaluation;
-CREATE VIEW vEvaluation AS SELECT Id,Statut,DateComplétée,DateDébut,DateFin,
+CREATE VIEW vEvaluation AS SELECT Id,Statut,DateComplétée,DateDébut,DateFin,Commentaire,
 CONCAT(Id,Statut,DateComplétée,DateDébut,DateFin,IdTypeEvaluation,IdTypeEvaluation,Statut,IFNULL(DateComplétée,'')) AS tag,IdTypeEvaluation FROM tblEvaluation;
 
 
@@ -114,11 +115,12 @@ CREATE TABLE tblTypeEvaluation(
 	Titre 					VARCHAR(40) 	NOT NULL,
 	DateLimite				DATE			NOT NULL,
 	Description				VARCHAR(300)	NULL,
+	Objectif				VARCHAR(300)	NULL,
 	PRIMARY KEY(Id)
 );
 
 DROP VIEW IF EXISTS vTypeEvaluation;
-CREATE VIEW vTypeEvaluation AS SELECT Id,Titre,DateLimite,Description,CONCAT(Titre,DateLimite,Description) AS tag FROM tblTypeEvaluation;
+CREATE VIEW vTypeEvaluation AS SELECT Id,Titre,DateLimite,Objectif,Description,CONCAT(Titre,DateLimite,Description) AS tag FROM tblTypeEvaluation;
 
 -- Table SuperviseurEvaluationStagiaireStage
 
@@ -141,23 +143,22 @@ CREATE TABLE tblStagiaire(
 	Nom 					VARCHAR(50)		NOT NULL,
 	Prenom 					VARCHAR(50)		NOT NULL,
 	NumTel		 			CHAR(14)		NULL,
-	CourrielPersonnel 		VARCHAR(320)	NULL,
 	NumTelEntreprise 		CHAR(14)		NULL,
 	Poste 					VARCHAR(7)		NULL,
 	CourrielEntreprise	 	VARCHAR(320)	NULL,
 	CodePermanent			VARCHAR(12)		NULL,
 	Adresse					VARCHAR(350)	NULL,
 	PRIMARY KEY(Id),
-	IdStage					INT				NULL,
 	IdUtilisateur			INT				NULL,
 	CONSTRAINT Constraint_UNIQUE_Stagiaire UNIQUE (CourrielScolaire)
 );
 
 DROP VIEW IF EXISTS vStagiaire;
-CREATE VIEW vStagiaire AS SELECT Id,CourrielScolaire,Nom,Prenom,NumTel,CourrielPersonnel
+CREATE VIEW vStagiaire AS SELECT Id,CourrielScolaire,Nom,Prenom,NumTel
 ,NumTelEntreprise,Poste,CourrielEntreprise,CodePermanent,Adresse,
-CONCAT(CourrielScolaire,Nom,Prenom,NumTel,CourrielPersonnel
-,IFNULL(NumTelEntreprise,''),IFNULL(Poste,''),IFNULL(CourrielEntreprise,''),IFNULL(IdStage,''),IdUtilisateur,CodePermanent) AS tag,IdStage,IdUtilisateur FROM tblStagiaire;
+CONCAT(CourrielScolaire,Nom,Prenom,NumTel
+,IFNULL(NumTelEntreprise,''),IFNULL(Poste,''),IFNULL(CourrielEntreprise,''),IdUtilisateur,CodePermanent) AS tag,
+IdUtilisateur FROM tblStagiaire;
 
 -- Table tblUtilisateur
 
@@ -471,12 +472,6 @@ ADD FOREIGN KEY (IdEnseignant)
 REFERENCES
 tblEnseignant(Id);
 
-
-
-ALTER TABLE tblStagiaire
-ADD FOREIGN KEY (IdStage)
-REFERENCES
-tblStage(Id);
 
 
 ALTER TABLE tblJournalDeBord
