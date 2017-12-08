@@ -1,13 +1,13 @@
--- USE BDProjet_equipe2V2;
+ USE BDProjet_equipe2V2;
 -- USE cegepjon_p2017_2_dev;
 -- USE cegepjon_p2017_2_prod;
- USE cegepjon_p2017_2_tests;
+-- USE cegepjon_p2017_2_tests;
 -- ------------------------------------------------
 -- Sélectionne tous les enseignants.
 -- ------------------------------------------------
 DROP VIEW IF EXISTS vEnseignant;
 CREATE VIEW vEnseignant AS 
-SELECT Util.Id AS IdUtilisateur, Emp.Id AS IdEnseignant, Prenom, Nom, NumTel, IdEntreprise, Poste, CourrielEntreprise, CodePermanent
+SELECT Util.Id AS IdUtilisateur, Emp.Id AS IdEnseignant, Prenom, Nom, NumTel, IdEntreprise, Poste, CourrielEntreprise
 FROM vEmploye AS Emp
 JOIN vUtilisateur AS Util
 ON Util.Id = Emp.IdUtilisateur
@@ -22,7 +22,7 @@ WHERE Role.Titre = 'Enseignant';
 -- ------------------------------------------------
 DROP VIEW IF EXISTS vGestionnaire;
 CREATE VIEW vGestionnaire AS 
-SELECT Util.Id AS IdUtilisateur, Emp.Id AS IdGestionnaire, Prenom, Nom, NumTel, IdEntreprise, Poste, CourrielEntreprise, CodePermanent
+SELECT Util.Id AS IdUtilisateur, Emp.Id AS IdGestionnaire, Prenom, Nom, NumTel, IdEntreprise, Poste, CourrielEntreprise
 FROM vEmploye AS Emp
 JOIN vUtilisateur AS Util
 ON Util.Id = Emp.IdUtilisateur
@@ -66,11 +66,14 @@ WHERE Role.Titre = 'Superviseur';
 -- Sélectionne tous les enseignants, superviseur et stagiaire lié au même stage.
 -- ------------------------------------------------
 DROP VIEW IF EXISTS vTableauBord;
-CREATE VIEW vTableauBord AS 
+CREATE VIEW vTableauBord AS
 SELECT 	Stagiaire.Id, Stagiaire.Prenom, Stagiaire.Nom, Stagiaire.NumTel,
 		Enseignant.IdUtilisateur AS 'IdEnseignant', Enseignant.Prenom AS 'PrenomEnseignant', Enseignant.Nom AS 'NomEnseignant', Enseignant.NumTel AS 'TelEnseignant',
         Sup.IdUtilisateur AS 'IdSuperviseur', Sup.Prenom AS 'PrenomSuperviseur', Sup.Nom AS 'NomSuperviseur', Sup.NumTel AS 'TelSuperviseur',
-		res.IdUtilisateur AS 'IdResponsable'
+		res.IdUtilisateur AS 'IdResponsable', Stage.Id AS 'IdStage', Session.Id AS 'IdSession', 
+        Session.JanvierDebut, Session.JanvierLimite, Session.FevrierDebut, Session.FevrierLimite, Session.MarsDebut,
+        Session.MarsLimite, Session.Annee, Session.Periode, Session.MiStageDebut, Session.MiStageLimite,
+        Session.FinaleDebut,Session.FinaleLimite,Session.FormationDebut,Session.FormationLimite
 FROM vStage AS Stage
 JOIN vStagiaire AS Stagiaire
 ON Stagiaire.IdUtilisateur = Stage.IdStagiaire
@@ -79,18 +82,21 @@ ON Enseignant.IdUtilisateur = Stage.IdEnseignant
 JOIN vSuperviseur AS Sup
 ON Sup.IdUtilisateur = Stage.IdSuperviseur
 JOIN vResponsable AS res
-ON res.IdUtilisateur = Stage.IdResponsable;
+ON res.IdUtilisateur = Stage.IdResponsable
+JOIN vsession AS Session
+ON Session.Id = Stage.IdSession;
 
 
 -- ------------------------------------------------
 -- Sélectionne les informations globales sur les évaluations de chaque stagiaire
 -- ------------------------------------------------
 
+
 DROP VIEW IF EXISTS vInfoEvalGlobale;
 CREATE VIEW vInfoEvalGlobale AS
 SELECT 	St.Id as 'IdStage', Eva.Id as 'IdEvaluation',Eva.DateComplétée as 'DateComplétée',Eva.Statut as 'Statut',
 		Eva.DateDébut as 'DateDébut',Eva.DateFin as 'DateFin',TE.Id as 'IdTypeEvaluation', TE.Titre as 'TitreTypeEvaluation',
-        St.IdStagiaire
+        St.IdStagiaire, St.Id as 'IdStage'
 FROM vEvaluation as Eva
 join vTypeEvaluation as TE
 on TE.Id = Eva.IdTypeEvaluation
@@ -98,6 +104,7 @@ JOIN vEvaluationStage as ES
 on Eva.Id = ES.IdEvaluation
 join vStage as St
 on St.Id = ES.IdStage;
+
 
 -- ------------------------------------------------
 -- Récupère toutes les évaluations des stagiaires selon leur ID et le type d'évaluation avec leurs réponses choisies.
@@ -231,7 +238,7 @@ CONCAT(Entreprise.NumCivique,' ',Entreprise.Rue) AS AdresseEntreprise
 	ON Superviseur.IdEntreprise = Entreprise.Id;
 
 DROP VIEW IF EXISTS vOffre;
-CREATE VIEW vOffre AS SELECT CONCAT('Session ',Periode, ' ', Annee) AS AnneeSession,HoraireTravail,DATE_FORMAT(DateDebut, "%d/%m/%Y") AS DateDebut,
+CREATE VIEW vOffre AS SELECT CONCAT('Session ',Periode, ' ', Annee) AS AnneeSession,DATE_FORMAT(DateDebut, "%d/%m/%Y") AS DateDebut,
 NbHeureSemaine,SalaireHoraire,CompetenceRecherche,Stage.DescriptionStage,Stage.ID AS IdStage,RaisonSociale,Entreprise.Nom AS NomEntreprise,SupEnt.CourrielEntreprise,
 SupEnt.NumTel,SupEnt.AdresseEntreprise,
 CONCAT(Employe.Prenom,' ',Employe.Nom) AS NomResponsable,SupEnt.NomSuperviseur FROM vStage AS Stage
