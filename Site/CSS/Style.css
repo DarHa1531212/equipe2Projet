@@ -397,3 +397,18 @@ input[type=file]{
     width: 80%;
     margin:auto;
 }
+
+.nicEdit-panel{
+    margin: auto;
+ /*   display: block; */
+
+}
+.nicEdit-main{
+    margin: auto;
+ /*   display: block; */
+}
+.nicEdit-panelContain{
+    display: relative;
+    margin: auto;
+
+}

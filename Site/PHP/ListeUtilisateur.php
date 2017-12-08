@@ -14,7 +14,7 @@
                                 JOIN vEmploye AS Emp
                                 ON Emp.IdUtilisateur = Stage.IdSuperviseur
                                 JOIN vEntreprise AS Ent
-                                ON Ent.Id = Emp.IdEntreprise", null, "stdClass")
+                                ON Ent.Id = Emp.IdEntreprise", null, "stdClass");
 
     $employes = $bdd->Request(" SELECT Emp.IdUtilisateur, Prenom, Emp.Nom, CourrielPersonnel, IdRole,
                                 Ent.Nom AS 'NomEntreprise', Emp.CourrielEntreprise, Emp.NumTelEntreprise, Poste, CodePermanent
@@ -28,7 +28,7 @@
 
 
         $courriel;
-        $entreprise;
+        $entreprise = "";
         $numTel;
         $typeId;
         $content = "";

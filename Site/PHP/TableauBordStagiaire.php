@@ -21,6 +21,8 @@
         <script src="../js/regex.js"></script>
         <script src="../js/Journal.js"></script>
         <script src="../js/scripts.js"></script>
+    <!--    <script src="../js/nicEdit.js"></script> -->
+        <script src="../js/journalBord.js"></script>
         
         <?php 
             include('Header.php'); 
