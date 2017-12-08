@@ -1,7 +1,7 @@
- USE BDProjet_equipe2V2;
+-- USE BDProjet_equipe2V2;
 -- USE cegepjon_p2017_2_dev;
 -- USE cegepjon_p2017_2_prod;
--- USE cegepjon_p2017_2_tests;
+ USE cegepjon_p2017_2_tests;
 -- ------------------------------------------------
 -- Sélectionne tous les enseignants.
 -- ------------------------------------------------

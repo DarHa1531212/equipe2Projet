@@ -7,8 +7,8 @@
 
 -- USE cegepjon_p2017_2_dev;
 -- USE cegepjon_p2017_2_prod;
--- USE cegepjon_p2017_2_tests;
- USE bdprojet_equipe2v2;
+ USE cegepjon_p2017_2_tests;
+-- USE bdprojet_equipe2v2;
 -- Table Reponsesss
 DROP TABLE IF EXISTS tblReponse;
 CREATE TABLE tblReponse(
@@ -113,9 +113,9 @@ DROP TABLE IF EXISTS tblTypeEvaluation;
 CREATE TABLE tblTypeEvaluation(
 	Id						INT				AUTO_INCREMENT,
 	Titre 					VARCHAR(40) 	NOT NULL,
-	DateLimite				DATE			NOT NULL,
+	DateLimite				DATE			NOT NULL DEFAULT '2010-01-01',
 	Description				VARCHAR(300)	NULL,
-	Objectif				VARCHAR(300)	NULL,
+	Objectif				VARCHAR(1000)	NULL,
 	PRIMARY KEY(Id)
 );
 
