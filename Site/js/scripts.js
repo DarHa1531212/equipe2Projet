@@ -35,3 +35,4 @@ window.addEventListener("click", function(){
     clearTimeout(timeout);
     timeout = setTimeout(SessionTimeout, 300000);
 })
+

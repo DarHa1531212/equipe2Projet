@@ -116,8 +116,8 @@
         
         <br/><br/>
         
-        <input style="width: 120px;" class="bouton" type="button" value="Retour" onclick="Execute(1, \'../PHP/TBNavigation.php?idEmploye='.$id.'&nomMenu=Main\')"/>
-        <input style="width: 120px;" class="bouton" type="button" value="Créer" id="Save"/>
+        <input style="width: 120px;" class="bouton" type="button" value="Retour" onclick="Requete(AfficherPage, \'../PHP/TBNavigation.php?idEmploye='.$id.'&nomMenu=Main\')"/>
+        <input style="width: 120px;" class="bouton" type="button" value="Créer"/>
     </article>
     ';   
 

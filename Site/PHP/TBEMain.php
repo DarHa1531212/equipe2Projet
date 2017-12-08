@@ -10,7 +10,7 @@
         
         if($tblEvaluation[0]->Statut != '0')//le statut est different de pas accéssible
         {
-            $div = '<tr class="itemHover" onclick="Execute(1, \'../PHP/TBNavigation.php?idStagiaire='.$profil->Id.'&nomMenu=Evaluation.php\', \'&idStage=\', '.$tblEvaluation[0]->IdStage.', \'&idEvaluation=\', '.$tblEvaluation[0]->IdEvaluation.', \'&typeEval=1\');">';
+            $div = '<tr class="itemHover" onclick="Requete(AfficherPage, \'../PHP/TBNavigation.php?id='.$profil->Id.'&nomMenu=Evaluation.php&idStage='.$tblEvaluation[0]->IdStage.'&idEvaluation='.$tblEvaluation[0]->IdEvaluation.'&typeEval=1\');">';
         }
         else
         {
@@ -27,7 +27,7 @@
         
         if(($tblEvaluation[1]->Statut != '0')&&(($tblEvaluation[0]->Statut == '3')||($tblEvaluation[0]->Statut == '4')))
         {
-            $div = '<tr class="itemHover" onclick="Execute(1, \'../PHP/TBNavigation.php?idStagiaire='.$profil->Id.'&nomMenu=Evaluation.php\', \'&idStage=\', '.$tblEvaluation[1]->IdStage.', \'&idEvaluation=\', '.$tblEvaluation[1]->IdEvaluation.', \'&typeEval=2\')">';
+            $div = '<tr class="itemHover" onclick="Requete(AfficherPage, \'../PHP/TBNavigation.php?id='.$profil->Id.'&nomMenu=Evaluation.php&idStage='.$tblEvaluation[1]->IdStage.'&idEvaluation='.$tblEvaluation[1]->IdEvaluation.'&typeEval=2\')">';
         }
         else
         {
@@ -57,12 +57,12 @@
         '<article class="stagiaire">
         <div class="infoStagiaire">
             <h2>'.$profil->Prenom.' '.$profil->Nom.'</h2>
-            <input class="bouton" type="button" value="Afficher le profil" onclick="Execute(1, \'../PHP/TBNavigation.php?idStagiaire='.$profil->Id.'&nomMenu=Profil.php\')"/>
+            <input class="bouton" type="button" value="Afficher le profil" onclick="Requete(AfficherPage, \'../PHP/TBNavigation.php?id='.$profil->Id.'&nomMenu=Profil.php\')"/>
             <h3>'.$profil->NumTel.'</h3>
         </div>
 
         <div class="blocInfo itemHover">
-            <a class="linkFill" onclick="Execute(1, \'../PHP/TBNavigation.php?idEmploye='.$profil->IdEnseignant.'&nomMenu=Profil.php\')">
+            <a class="linkFill" onclick="Requete(AfficherPage, \'../PHP/TBNavigation.php?id='.$profil->IdEnseignant.'&nomMenu=Profil.php\')">
                 <div class="entete">
                     <h2>Enseignant</h2>
                 </div>
@@ -78,7 +78,7 @@
             $content = $content.
             '
             <div class="blocInfo itemHover">
-                <a class="linkFill" onclick="Execute(1, \'../PHP/TBNavigation.php?idEmploye='.$profil->IdSuperviseur.'&nomMenu=Profil.php\')">
+                <a class="linkFill" onclick="Requete(AfficherPage, \'../PHP/TBNavigation.php?id='.$profil->IdSuperviseur.'&nomMenu=Profil.php\')">
                     <div class="entete">
                         <h2>Superviseur</h2>
                     </div>
@@ -112,7 +112,7 @@
         
         if(count($profils) > 1){//Si il y a plus qu'un stagiaire, affiche les flèches.
             $content = $content.
-            '<input class="bouton" type="button" value="Écrire un commentaire" onclick="Execute(1, \'../PHP/TBNavigation.php?idEmploye='.$profil->IdSuperviseur.'&nomMenu=AVenir.php\')"/>
+            '<input class="bouton" type="button" value="Écrire un commentaire" onclick="Requete(AfficherPage, \'../PHP/TBNavigation.php?id='.$profil->IdSuperviseur.'&nomMenu=AVenir.php\')"/>
 
             <div class="navigateur">
                 <div id="gauche" class="fleche flecheGauche" onclick="ChangerItem(this)"></div>
