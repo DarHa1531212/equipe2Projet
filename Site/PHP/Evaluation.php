@@ -6,11 +6,15 @@
         $eval = new EvaluationGrille($bdd, $_REQUEST["idEvaluation"]);
     else if($eval->getIdTypeEval() == 2)
         $eval = new EvaluationChoixReponse($bdd, $_REQUEST["idEvaluation"]);
+    else if($eval->getIdTypeEval() == 3)
+        $eval = new EvaluationGrilleFormation($bdd, $_REQUEST["idEvaluation"]);
+    else if($eval->getIdTypeEval() == 4)//auto-evaluation
+        $eval = new EvaluationGrilleMiStage($bdd, $_REQUEST["idEvaluation"]);
 
     function Identification($bdd){
         $identification = $bdd->Request('   SELECT * FROM vIdentification
-                                            WHERE IdStagiaire = :idStagiaire',
-                                            array('idStagiaire'=>$_REQUEST["id"]),
+                                            WHERE IdStage = :idStage',
+                                            array('idStage'=>$_REQUEST["idStage"]),
                                             "stdClass")[0];
         
         return 
@@ -24,7 +28,7 @@
 
                 <tr>
                     <td>Responsable technique</td>
-                    <td>'.$_SESSION['PrenomConnecte'].' '.$_SESSION['NomConnecte'].'</td>
+                    <td>'.$identification->PrenomResp.' '.$identification->NomResp.'</td>
                 </tr>
 
                 <tr>
@@ -46,8 +50,15 @@
         $content = "";
         
         foreach($eval->getCategories() as $categorie){
-            $content = $content.
-            '<input id="Cat'.$i++.'" type="button" value="'.$categorie->getLettre().'" class="lettreNav bouton" onclick="JumpTo('.($i-1).')"/>';
+
+            if(( $eval->getStatut() == 3 ) || ( $eval->getStatut() == 4)){
+                $content = $content.
+                    '<input id="Cat'.$i++.'" type="button" value="'.$categorie->getLettre().'" class="lettreNav bouton" onclick="JumpToConsultationEvaluation('.($i-1).')"/>';
+            }
+            else{
+                $content = $content.
+                    '<input id="Cat'.$i++.'" type="button" value="'.$categorie->getLettre().'" class="lettreNav bouton" onclick="JumpTo('.($i-1).')"/>';
+            }
         }
         
         return $content;

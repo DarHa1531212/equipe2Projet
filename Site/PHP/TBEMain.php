@@ -1,12 +1,58 @@
 <?php
     $content = "";
 
+    function gestionStatutEvaluation($evaluation, $dateDebut, $dateLimite, $bdd){
+        if(date("Y-m-d") > $dateLimite) 
+        {
+            if(($evaluation->Statut != 3) && ($evaluation->Statut != 4))
+            {
+                //l'evaluation n'est ni soumise, ni validée
+                //update du statut de l'evaluation : il passe a en retard
+                $bdd->Request(" update tblEvaluation set Statut=:Statut where Id=:IdEvaluation;",
+                                array('Statut'=>2, 'IdEvaluation'=> $evaluation->IdEvaluation), "stdClass");
+                $evaluation->Statut = 2;
+            }
+        }
+        else if( date("Y-m-d") < $dateDebut)
+        {
+            //affichage de l'évaluation : le statut est supposé etre a pas accéssible
+        }
+        else //intervalle de l'évaluation
+        {
+            if( ($evaluation->Statut != 3) && ($evaluation->Statut != 4))
+            {
+                //l'evaluation n'est ni soumise, ni validée
+                //update du statut de l'evaluation : il passe a pas débuté
+                $bdd->Request(" update tblEvaluation set Statut=:Statut where Id=:IdEvaluation;",
+                                array('Statut'=>1, 'IdEvaluation'=> $evaluation->IdEvaluation), "stdClass");
+                $evaluation->Statut = 1;   
+            }
+        }
+    }
+
     //Vérifie si les évaluations précédentes sont complétées pour pouvoir appuyer sur la suivante.
-    function VerifEvaluation($tblEvaluation, $profil){
+    function VerifEvaluation($tblEvaluation, $profil, $bdd){
         $listeStatut = array('Pas Accéssible','Pas Débuté','En Retard','Soumis ','Valide ');
         $div = "";
         $eval1 = "";
         $eval2 = "";
+        
+        foreach ($tblEvaluation as $evaluation) 
+        {
+            
+            if($evaluation->IdTypeEvaluation == 1)//evaluation mi-stage
+            {
+                gestionStatutEvaluation($evaluation, $evaluation->DateDébut, $evaluation->DateFin, $bdd);
+            }
+            else if($evaluation->IdTypeEvaluation == 2)//evaluation-finale
+            {
+                gestionStatutEvaluation($evaluation, $evaluation->DateDébut, $evaluation->DateFin, $bdd);
+            }
+            else if($evaluation->IdTypeEvaluation == 3)//evaluation de la formation
+            {
+                gestionStatutEvaluation($evaluation, $evaluation->DateDébut, $evaluation->DateFin, $bdd);
+            }
+        }
         
         if($tblEvaluation[0]->Statut != '0')//le statut est different de pas accéssible
         {
@@ -25,7 +71,7 @@
             <td>'.$tblEvaluation[0]->DateComplétée.'</td>
         </tr>';
         
-        if(($tblEvaluation[1]->Statut != '0')&&(($tblEvaluation[0]->Statut == '3')||($tblEvaluation[0]->Statut == '4')))
+        if(($tblEvaluation[1]->Statut != '0')&&(($tblEvaluation[0]->Statut == '3')||($tblEvaluation[0]->Statut == '4')))//statut different de pas accéssible et est soumis ou valide
         {
             $div = '<tr class="itemHover" onclick="Requete(AfficherPage, \'../PHP/TBNavigation.php?id='.$profil->Id.'&nomMenu=Evaluation.php&idStage='.$tblEvaluation[1]->IdStage.'&idEvaluation='.$tblEvaluation[1]->IdEvaluation.'&typeEval=2\')">';
         }
@@ -42,15 +88,32 @@
             <td>'.$tblEvaluation[1]->DateComplétée.'</td>
         </tr>';
         
-        $div = $eval1.$eval2;
+        if(($tblEvaluation[2]->Statut != '0')&&(($tblEvaluation[0]->Statut == '3')||($tblEvaluation[0]->Statut == '4'))&&(($tblEvaluation[1]->Statut == '3')||($tblEvaluation[1]->Statut == '4')))//statut different de pas accéssible et est soumis ou valide
+        {
+            $div = '<tr class="itemHover" onclick="Requete(AfficherPage, \'../PHP/TBNavigation.php?id='.$profil->Id.'&nomMenu=Evaluation.php&idStage='.$tblEvaluation[2]->IdStage.'&idEvaluation='.$tblEvaluation[2]->IdEvaluation.'&typeEval=3\')">';
+        }
+        else
+        {
+            $div = '<tr>';
+        }
+
+        $eval3 = $div.
+            '<td>'.$tblEvaluation[2]->TitreTypeEvaluation.'</td>
+            <td>'.$listeStatut[$tblEvaluation[2]->Statut].'</td>
+            <td>'.$tblEvaluation[2]->DateDébut.'</td>
+            <td>'.$tblEvaluation[2]->DateFin.'</td>
+            <td>'.$tblEvaluation[2]->DateComplétée.'</td>
+        </tr>';
+        
+        $div = $eval1.$eval2.$eval3;
         
         return $div;
     }
 
     foreach($profils as $profil){
         $evals = $bdd->Request("SELECT * FROM vInfoEvalGlobale
-                                WHERE IdStagiaire = :idStagiaire;",
-                                array('idStagiaire'=> $profil->Id),
+                                WHERE IdStage = :idStage;",
+                                array('idStage'=> $profil->IdStage),
                                 "stdClass");
         
         $content = $content.
@@ -104,7 +167,7 @@
             </thead>
 
             <tbody>
-                '.VerifEvaluation($evals, $profil).'
+                '.VerifEvaluation($evals, $profil, $bdd).'
             </tbody>
         </table>
 
