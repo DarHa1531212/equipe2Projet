@@ -2,7 +2,9 @@
 
 	if(isset($_FILES['file']))
 	{
-		$dossier = '../Upload/';
+		$result = $bdd->Request('SELECT Annee FROM vSession WHERE idStagiaire = :id', Array('id'=>$isStagiaire), 'stdClass');
+
+		$dossier = '..Sessions/'.$result->Annee.'/'.$idStagiaire.'/Files';
 		$fichier = basename($_FILES['file']['name']);
 		$tailleMax = 2000000;
 		$taille = filesize($_FILES['file']['tmp_name']);

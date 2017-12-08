@@ -58,6 +58,7 @@
         $date = date('Y-m-d h:i:s', time());
         
         if(isset($_REQUEST['contenu'])){
+            
             include 'UploadFile.php';
             $entree = array(htmlspecialchars($_REQUEST['contenu']));
 

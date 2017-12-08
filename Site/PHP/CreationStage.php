@@ -1,5 +1,7 @@
 <?php
     
+    include 'Arborescence.php';
+
     if(isset($_REQUEST["post"]))
         CreateStage($bdd);
         
@@ -10,6 +12,9 @@
         foreach($champs as $champ){
             $stage[$champ->nom] = $champ->value;
         }
+        $annee = substr($stage['DateDebut'],0,4);
+        creationDossierSession($annee);
+        creationDossierStage($annee,$stage['Stagiaire']);
 
         $bdd->Request(" INSERT INTO tblStage (IdResponsable, IdSuperviseur, IdStagiaire, IdEnseignant, DescriptionStage, CompetenceRecherche, HoraireTravail, NbHeureSemaine, SalaireHoraire, DateDebut, DateFin ) 
                         VALUES (:idResponsable, :idSuperviseur, :idStagiaire, :idEnseignant, :description, :competence, :horaire, :nbHeure, :salaire, :dateDebut, :dateFin);",
