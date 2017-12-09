@@ -1,8 +1,41 @@
 <?php
     $content = "";
 
+    //met a jour les statut des evaluations en fonction des dates
+    function gestionStatutEvaluation($evaluation, $dateDebut, $dateLimite, $bdd)
+    {
+        $query3 = $bdd->prepare("update tblEvaluation set Statut=:Statut where Id=:IdEvaluation;");
+
+        if(date("Y-m-d") > $dateLimite) 
+        {
+            if(($evaluation->statut != 3) && ($evaluation->statut != 4))
+            {
+                //l'evaluation n'est ni soumise, ni validée
+                //update du statut de l'evaluation : il passe a en retard
+                $query3->execute(array('Statut'=>2, 'IdEvaluation'=> $evaluation->id));
+                $evaluation->statut = 2;
+            }
+        }
+        else if( date("Y-m-d") < $dateDebut)
+        {
+            //affichage de l'évaluation : le statut est supposé etre a pas accéssible
+        }
+        else //intervalle de l'évaluation
+        {
+            if( ($evaluation->statut != 3) && ($evaluation->statut != 4))
+            {
+                //l'evaluation n'est ni soumise, ni validée
+                //update du statut de l'evaluation : il passe a pas débuté
+                $query3->execute(array('Statut'=>1, 'IdEvaluation'=> $evaluation->id));
+                $evaluation->statut = 1;   
+            }
+        }
+
+    }
+
     //Vérifie si les évaluations précédentes sont complétées pour pouvoir appuyer sur la suivante.
-    function VerifEvaluation($tblEvaluation, $profil){
+    function VerifEvaluation($tblEvaluation, $profil)
+    {
         $listeStatut = array('Pas Accéssible','Pas Débuté','En Retard','Soumis ','Valide ');
         $div = "";
         $eval1 = "";
@@ -43,11 +76,12 @@
         </tr>';
         
         $div = $eval1.$eval2;
-        
+
         return $div;
     }
 
-    foreach($profils as $profil){
+    foreach($profils as $profil)
+    {
         $evals = $bdd->Request("SELECT * FROM vInfoEvalGlobale
                                 WHERE IdStagiaire = :idStagiaire;",
                                 array('idStagiaire'=> $profil->Id),
@@ -74,7 +108,10 @@
             </a>
         </div>';
 
-        if($_SESSION['IdRole'] != 4){//Si l'utilisateur n'est pas superviseur, affiche les infos du superviseur.
+        if($_SESSION['IdRole'] != 4)
+        {   
+
+            //Si l'utilisateur n'est pas superviseur, affiche les infos du superviseur.
             $content = $content.
             '
             <div class="blocInfo itemHover">
@@ -110,7 +147,8 @@
 
         <br/><br/><br/>';
         
-        if(count($profils) > 1){//Si il y a plus qu'un stagiaire, affiche les flèches.
+        if(count($profils) > 1)
+        {//Si il y a plus qu'un stagiaire, affiche les flèches.
             $content = $content.
             '<input class="bouton" type="button" value="Écrire un commentaire" onclick="Requete(AfficherPage, \'../PHP/TBNavigation.php?id='.$profil->IdSuperviseur.'&nomMenu=AVenir.php\')"/>
 
