@@ -2,8 +2,8 @@
 -- CRÉÉE LE 06/09/2017 PAR MARC-ANTOINE DUCHESNE
 
 -- Création de la bd
--- DROP DATABASE IF EXISTS BDProjet_equipe2V2;
--- CREATE DATABASE BDProjet_equipe2V2;
+ DROP DATABASE IF EXISTS BDProjet_equipe2V2;
+ CREATE DATABASE BDProjet_equipe2V2;
 
 -- USE cegepjon_p2017_2_dev;
 -- USE cegepjon_p2017_2_prod;
@@ -41,8 +41,8 @@ CREATE VIEW vTypeQuestion AS SELECT Id,Description,CONCAT(Description) AS tag FR
 
 DROP TABLE IF EXISTS tblReponseQuestion;
 CREATE TABLE tblReponseQuestion(
-	IdReponse				INT				,
-	IdQuestion				INT				,
+	IdReponse				INT				NOT NULL,
+	IdQuestion				INT				NOT NULL,
 	PRIMARY KEY(IdReponse,IdQuestion)
 );
 
@@ -79,13 +79,14 @@ CREATE TABLE tblEvaluationQuestionReponse(
 	IdQuestion				INT				NOT NULL,
 	IdReponse				INT				NULL,
 	IdEvaluation			INT				NOT NULL,
+    Commentaire 			VARCHAR(3000)	NULL,
 	PRIMARY KEY(IdQuestion,IdEvaluation)
 );
 
 
 DROP VIEW IF EXISTS vEvaluationQuestionReponse;
-CREATE VIEW vEvaluationQuestionReponse AS SELECT IdQuestion,IdReponse,IdEvaluation,
-CONCAT(IdQuestion,IdReponse,IdEvaluation) AS tag FROM tblEvaluationQuestionReponse;
+CREATE VIEW vEvaluationQuestionReponse AS SELECT IdQuestion,IdReponse,IdEvaluation,Commentaire,
+CONCAT(Commentaire,IdQuestion,IdReponse,IdEvaluation) AS tag FROM tblEvaluationQuestionReponse;
 
 
 -- Table Evaluation
@@ -113,9 +114,9 @@ DROP TABLE IF EXISTS tblTypeEvaluation;
 CREATE TABLE tblTypeEvaluation(
 	Id						INT				AUTO_INCREMENT,
 	Titre 					VARCHAR(40) 	NOT NULL,
-	DateLimite				DATE			NOT NULL,
+	DateLimite				DATE			NOT NULL DEFAULT '2010-01-01',
 	Description				VARCHAR(300)	NULL,
-	Objectif				VARCHAR(300)	NULL,
+	Objectif				VARCHAR(1000)	NULL,
 	PRIMARY KEY(Id)
 );
 
@@ -140,6 +141,7 @@ DROP TABLE IF EXISTS tblStagiaire;
 CREATE TABLE tblStagiaire(
 	Id			 			INT				AUTO_INCREMENT,
 	CourrielScolaire 		VARCHAR(320)	NOT NULL,
+	CourrielPersonnel		VARCHAR(320)	NULL,
 	Nom 					VARCHAR(50)		NOT NULL,
 	Prenom 					VARCHAR(50)		NOT NULL,
 	NumTel		 			CHAR(14)		NULL,
@@ -154,10 +156,10 @@ CREATE TABLE tblStagiaire(
 );
 
 DROP VIEW IF EXISTS vStagiaire;
-CREATE VIEW vStagiaire AS SELECT Id,CourrielScolaire,Nom,Prenom,NumTel
+CREATE VIEW vStagiaire AS SELECT Id,CourrielScolaire,Nom,Prenom,NumTel,CourrielPersonnel
 ,NumTelEntreprise,Poste,CourrielEntreprise,CodePermanent,Adresse,
 CONCAT(CourrielScolaire,Nom,Prenom,NumTel
-,IFNULL(NumTelEntreprise,''),IFNULL(Poste,''),IFNULL(CourrielEntreprise,''),IdUtilisateur,IFNULL(CodePermanent, '')) AS tag,
+,IFNULL(NumTelEntreprise,''),IFNULL(Poste,''),IFNULL(CourrielEntreprise,''),IdUtilisateur,CodePermanent,CourrielPersonnel) AS tag,
 IdUtilisateur FROM tblStagiaire;
 
 -- Table tblUtilisateur
@@ -166,7 +168,7 @@ DROP TABLE IF EXISTS tblUtilisateur;
 CREATE TABLE tblUtilisateur(
 	Id			 			INT				AUTO_INCREMENT,
 	Courriel		 		VARCHAR(320)	NOT NULL,
-	MotDePasse				VARCHAR(250)		NOT NULL,
+	MotDePasse				VARCHAR(250)	NOT NULL,
 	PRIMARY KEY(Id)
 );
 
@@ -191,11 +193,11 @@ CREATE VIEW vUtilisateurRole AS SELECT IdUtilisateur,IdRole,CONCAT(IdUtilisateur
 DROP TABLE IF EXISTS tblJournalDeBord;
 CREATE TABLE tblJournalDeBord(
 	Id			 			INT				AUTO_INCREMENT,
-	Dates			 		DATETIME			NOT NULL,
-	Entree			 		VARCHAR(700)		NOT NULL,
-	Documents	 			VARCHAR(255)		NULL,
+	Dates			 		DATETIME		NOT NULL,
+	Entree			 		VARCHAR(700)	NOT NULL,
+	Documents	 			VARCHAR(255)	NULL,
 	PRIMARY KEY(Id),
-	IdStagiaire				INT					NOT NULL
+	IdStagiaire				INT				NOT NULL
 );
 
 DROP VIEW IF EXISTS vJournalDeBord;
@@ -207,7 +209,7 @@ CREATE VIEW vJournalDeBord AS SELECT Id,Dates,Entree,Documents,CONCAT(Dates,IFNU
 DROP TABLE IF EXISTS tblRole;
 CREATE TABLE tblRole(
 	Id			 			INT				AUTO_INCREMENT,
-	Titre			 		VARCHAR(100)		NOT NULL,
+	Titre			 		VARCHAR(100)	NOT NULL,
 	PRIMARY KEY(Id)
 );
 
@@ -220,28 +222,27 @@ FROM tblRole;
 DROP TABLE IF EXISTS tblStage;
 CREATE TABLE tblStage(
 	Id			 			INT				AUTO_INCREMENT,
-	DescriptionStage		VARCHAR(1000)		NULL,
-	CompetenceRecherche		VARCHAR(1000)		NULL,
-	RaisonSociale			VARCHAR(1000)		NULL,
-	HoraireTravail			VARCHAR(1000)		NULL,
-	NbHeureSemaine			INT					NULL,
-	SalaireHoraire			INT					NULL,
-	DateDebut				DATE				NULL,
-	DateFin					DATE				NULL,
-	LettreEntenteVide		VARCHAR(256)		NULL,
-	LettreEntenteSignee		VARCHAR(256)		NULL,
-	OffreStage				VARCHAR(256)		NULL,
+	DescriptionStage		VARCHAR(1000)	NULL,
+	CompetenceRecherche		VARCHAR(1000)	NULL,
+	RaisonSociale			VARCHAR(1000)	NULL,
+	NbHeureSemaine			INT				NULL,
+	SalaireHoraire			INT				NULL,
+	DateDebut				DATE			NULL,
+	DateFin					DATE			NULL,
+	LettreEntenteVide		VARCHAR(255)	NULL,
+	LettreEntenteSignee		VARCHAR(255)	NULL,
+	OffreStage				VARCHAR(255)	NULL,
 	PRIMARY KEY(Id),
-	IdResponsable			INT					NOT NULL,
-	IdSuperviseur			INT					NOT NULL,
-	IdStagiaire				INT					NULL,
-	IdSession				INT					NOT NULL DEFAULT 1,
-	IdEnseignant			INT					NULL
+	IdResponsable			INT				NOT NULL,
+	IdSuperviseur			INT				NOT NULL,
+	IdStagiaire				INT				NULL,
+	IdSession				INT				NOT NULL DEFAULT 1,
+	IdEnseignant			INT				NULL
 );
 
 DROP VIEW IF EXISTS vStage;
-CREATE VIEW vStage AS SELECT Id,RaisonSociale,DescriptionStage,CompetenceRecherche,HoraireTravail,NbHeureSemaine,
-SalaireHoraire,DateDebut,DateFin,LettreEntenteVide,LettreEntenteSignee,OffreStage,IdSession,CONCAT(IdResponsable,IdSuperviseur,IdStagiaire,IdEnseignant,DescriptionStage,CompetenceRecherche,HoraireTravail,NbHeureSemaine,
+CREATE VIEW vStage AS SELECT Id,RaisonSociale,DescriptionStage,CompetenceRecherche,NbHeureSemaine,
+SalaireHoraire,DateDebut,DateFin,LettreEntenteVide,LettreEntenteSignee,OffreStage,IdSession,CONCAT(IdResponsable,IdSuperviseur,IdStagiaire,IdEnseignant,DescriptionStage,CompetenceRecherche,NbHeureSemaine,
 SalaireHoraire,DateDebut,DateFin,LettreEntenteVide,LettreEntenteSignee,OffreStage)
 AS tag,IdResponsable,IdSuperviseur,IdStagiaire,IdEnseignant FROM tblStage;
 
@@ -250,8 +251,8 @@ AS tag,IdResponsable,IdSuperviseur,IdStagiaire,IdEnseignant FROM tblStage;
 DROP TABLE IF EXISTS tblSession;
 CREATE TABLE tblSession(
 	Id			 			INT				AUTO_INCREMENT,
-	Annee		 			YEAR(4)			NOT NULL,
-	Periode		 			VARCHAR(10)		NOT NULL,
+	Annee		 			YEAR(4)			NOT NULL, -- -----------------------------------------------
+	Periode		 			VARCHAR(10)		NOT NULL, -- -----------------------------------------------
 	CahierEntreprise		VARCHAR(255)	NULL,
 	CahierStagiaire			VARCHAR(255)	NULL,
 	MiStageDebut			DATE			NULL,
@@ -282,7 +283,7 @@ CREATE TABLE tblEntreprise(
 	CourrielEntreprise		VARCHAR(320)	NOT NULL,
 	Nom 					VARCHAR(100)	NOT NULL,
 	NumTel			 		CHAR(14) 		NOT NULL,
-	NumCivique 				CHAR(5)			NOT NULL,
+	NumCivique 				VARCHAR(10)		NOT NULL,
 	Rue				 		VARCHAR(100)	NOT NULL,
 	Ville			 		VARCHAR(100)	NOT NULL,
 	Province				VARCHAR(25)		NOT NULL,
@@ -305,7 +306,6 @@ CREATE TABLE tblEmploye(
 	Prenom 					VARCHAR(50)		NOt NULL,
 	NumTel			 		CHAR(14)		NOT NULL,
 	Poste 					VARCHAR(7)		NULL,
-	CodePermanent			VARCHAR(12)		NULL,
 	PRIMARY KEY(Id),
 	IdEntreprise			INT				NOT NULL,
 	IdUtilisateur			INT				NOT NULL,
@@ -314,8 +314,8 @@ CREATE TABLE tblEmploye(
 
 DROP VIEW IF EXISTS vEmploye;
 CREATE VIEW vEmploye AS SELECT Id,CourrielEntreprise,Nom,Prenom,
-NumTel,Poste,CodePermanent,CONCAT(CourrielEntreprise,Nom,Prenom,
-NumTel,IFNULL(Poste, ""),CodePermanent,IdEntreprise,IdUtilisateur) AS tag,IdEntreprise,IdUtilisateur FROM tblEmploye;
+NumTel,Poste,CONCAT(CourrielEntreprise,Nom,Prenom,
+NumTel,IFNULL(Poste, ""),IdEntreprise,IdUtilisateur) AS tag,IdEntreprise,IdUtilisateur FROM tblEmploye;
 
 
 -- Table Categorie Question
@@ -334,7 +334,162 @@ CREATE TABLE tblCategorieQuestion
 DROP VIEW IF EXISTS vCategorieQuestion;
 CREATE VIEW vCategorieQuestion AS SELECT Id,TitreCategorie,descriptionCategorie,Lettre,CONCAT(Id,TitreCategorie,descriptionCategorie,Lettre) AS tag FROM tblCategorieQuestion;
 
+-- ----------------
+ 
+ -- table typeEtatAvancement
+ 
+ DROP TABLE IF EXISTS tblTypeEtatAvancement;
+	CREATE TABLE tblTypeEtatAvancement
+	(
+		Id							INT				NOT NULL,
+		Description					VARCHAR(3000)	NULL,
+		PRIMARY KEY(Id)
+	);
+	
+DROP VIEW IF EXISTS vTypeEtatAvancement;
+CREATE VIEW vTypeEtatAvancement AS 
+SELECT Description,
+CONCAT(Description) AS tag FROM tblTypeEtatAvancement;
+ 
+-- Table Etat d'avancement
+	
+	DROP TABLE IF EXISTS tblEtatAvancement;
+	CREATE TABLE tblEtatAvancement
+	(
+		Id						INT				AUTO_INCREMENT,	
+		-- communs
+		EcheancierTachesAVenir	VARCHAR(3000)	NULL,	
+		AppreciationTravail		TINYINT(1)		NULL,
+		IntegrationMilieuStage	VARCHAR(3000)	NULL,
+		InteractionAvecAutres	VARCHAR(3000)	NULL,
+		FaconDeFaire			VARCHAR(3000)	NULL,
+		Statut					CHAR(1)			NOT NULL,
+		DateComplétée			DATE			NULL,
+		PRIMARY KEY(Id),
+		IdStage					INT				NOT NULL,
+		IdTypeEtatAvancement	INT				NOT NULL
+	);
+	
+DROP VIEW IF EXISTS vEtatAvancement;
+CREATE VIEW vEtatAvancement AS 
+SELECT EcheancierTachesAVenir,AppreciationTravail,IntegrationMilieuStage,InteractionAvecAutres,FaconDeFaire,Statut,DateComplétée,IdTypeEtatAvancement,
+CONCAT(EcheancierTachesAVenir,AppreciationTravail,IntegrationMilieuStage,InteractionAvecAutres,FaconDeFaire,Statut,DateComplétée) AS tag FROM tblEtatAvancement;
+	
+-- Table Etat d'avancement janvier
+	
+	DROP TABLE IF EXISTS tblEtatAvancementJanvier;
+	CREATE TABLE tblEtatAvancementJanvier
+	(
+		Id							INT				NOT NULL,
+		NomOrganisation 			VARCHAR(200) 	NULL,
+		MissionOrganisation			VARCHAR(3000)	NULL,
+		AcceuilDebutStage			TINYINT(1)		NULL,	
+		OrganigrammeOrganisation	VARCHAR(255)	NULL,
+		DescriptionApprentissage	VARCHAR(3000)	NULL,
+		TransitionAuTravail			VARCHAR(3000)	NULL,
+		DescriptionGeneralStage		VARCHAR(3000)	NULL,
+		PRIMARY KEY(Id)
+	);
+	
+		
+DROP VIEW IF EXISTS vEtatAvancementJanvier;
+CREATE VIEW vEtatAvancementJanvier AS 
+SELECT NomOrganisation, MissionOrganisation,AcceuilDebutStage,OrganigrammeOrganisation,DescriptionApprentissage,TransitionAuTravail,DescriptionGeneralStage,
+CONCAT(NomOrganisation, MissionOrganisation,AcceuilDebutStage,OrganigrammeOrganisation,DescriptionApprentissage,TransitionAuTravail,DescriptionGeneralStage) AS tag FROM tblEtatAvancementJanvier;
+		
+-- Table Etat d'avancement fevrier
 
+	
+	DROP TABLE IF EXISTS tblEtatAvancementFevrier;
+	CREATE TABLE tblEtatAvancementFevrier
+	(
+		Id							INT				NOT NULL,
+		apprentissageTechnique		VARCHAR(3000)	NULL,
+		apprentissageLogiciel		VARCHAR(3000)	NULL,
+		apprentissageEnvironement	VARCHAR(3000)	NULL,
+		
+		PRIMARY KEY(Id)
+	);
+	
+	
+DROP VIEW IF EXISTS vEtatAvancementFevrier;
+CREATE VIEW vEtatAvancementFevrier AS 
+SELECT apprentissageTechnique,apprentissageLogiciel,apprentissageEnvironement,
+CONCAT(apprentissageTechnique,apprentissageLogiciel,apprentissageEnvironement) AS tag FROM tblEtatAvancementFevrier;
+	
+	
+-- Table Etat d'avancement mars
+
+	
+	DROP TABLE IF EXISTS tblEtatAvancementMars;
+	CREATE TABLE tblEtatAvancementMars
+	(
+		Id							INT				NOT NULL,
+		apprentissageTechnique		VARCHAR(3000)	NULL,
+		apprentissageLogiciel		VARCHAR(3000)	NULL,
+		apprentissageEnvironement	VARCHAR(3000)	NULL,
+		
+		PRIMARY KEY(Id)
+	);
+	
+DROP VIEW IF EXISTS vEtatAvancementMars;
+CREATE VIEW vEtatAvancementMars AS 
+SELECT apprentissageTechnique,apprentissageLogiciel,apprentissageEnvironement,
+CONCAT(apprentissageTechnique,apprentissageLogiciel,apprentissageEnvironement) AS tag FROM tblEtatAvancementMars;
+	
+
+-- Table tacheEffectuee
+
+	DROP TABLE IF EXISTS tblTacheEffectuee;
+	CREATE TABLE tblTacheEffectuee
+	(
+		Id							INT				AUTO_INCREMENT,
+		DescriptionTache			VARCHAR(3000)	NOT NULL,
+		PRIMARY KEY(Id),
+		IdEtatAvancement			INT 			NOT NULL
+	);
+	
+DROP VIEW IF EXISTS vTacheEffectuee;
+CREATE VIEW vTacheEffectuee AS 
+SELECT DescriptionTache,
+CONCAT(DescriptionTache) AS tag FROM tblTacheEffectuee;
+	
+-- Table MembreEquipeStagiaire
+
+	DROP TABLE IF EXISTS tblMembreEquipeStagiaire;
+	CREATE TABLE tblMembreEquipeStagiaire
+	(
+		Id						INT					AUTO_INCREMENT,
+		Nom 					VARCHAR(100)		NOT NULL,
+		Prenom					VARCHAR(100)		NOT NULL,
+		Responsabilites			VARCHAR(3000)		NOT NULL,
+		PRIMARY KEY(Id),
+		IdEtatAvancementJanvier	INT 				NOT NULL
+	);
+	
+DROP VIEW IF EXISTS vMembreEquipeStagiaire;
+CREATE VIEW vMembreEquipeStagiaire AS 
+SELECT Nom,Prenom, Responsabilites,IdEtatAvancementJanvier,
+CONCAT(Nom,Prenom, Responsabilites,IdEtatAvancementJanvier) AS tag FROM tblMembreEquipeStagiaire;
+
+-- table TypeTache
+	
+	DROP TABLE IF EXISTS tblTypeTache;
+	CREATE TABLE tblTypeTache
+	(
+		Id						INT					AUTO_INCREMENT,
+		NomTypeTache			VARCHAR(200)		NOT NULL,			
+		Proportion				INT					NOT NULL,
+		PRIMARY KEY(Id),
+		IdEtatAvancementJanvier	INT 				NOT NULL
+	);
+	
+DROP VIEW IF EXISTS vTypeTache;
+CREATE VIEW vTypeTache AS 
+SELECT NomTypeTache, Proportion,IdEtatAvancementJanvier,
+CONCAT(NomTypeTache, Proportion,IdEtatAvancementJanvier) AS tag FROM tblTypeTache;
+
+-- ----------------
 
 -- Foreign key
 
@@ -484,4 +639,45 @@ ALTER TABLE tblEvaluationQuestionReponse
 ADD FOREIGN KEY (IdReponse)
 REFERENCES
 tblReponse(Id);
+
+ALTER TABLE tblEtatAvancement
+ADD FOREIGN KEY (IdStage)
+REFERENCES
+tblStage(Id);
+
+ALTER TABLE tblEtatAvancementJanvier
+ADD FOREIGN KEY (Id)
+REFERENCES
+tblEtatAvancement(Id);
+
+ALTER TABLE tblEtatAvancementFevrier
+ADD FOREIGN KEY (Id)
+REFERENCES
+tblEtatAvancement(Id);
+
+ALTER TABLE tblEtatAvancementMars
+ADD FOREIGN KEY (Id)
+REFERENCES
+tblEtatAvancement(Id);
+
+ALTER TABLE tblTacheEffectuee
+ADD FOREIGN KEY (IdEtatAvancement)
+REFERENCES
+tblEtatAvancement(Id); 
+
+ALTER TABLE tblMembreEquipeStagiaire
+ADD FOREIGN KEY (IdEtatAvancementJanvier)
+REFERENCES
+tblEtatAvancementJanvier(Id); 
+
+ALTER TABLE tblTypeTache
+ADD FOREIGN KEY (IdEtatAvancementJanvier)
+REFERENCES
+tblEtatAvancementJanvier(Id);
+
+ 
+ALTER TABLE tblEtatAvancement
+ADD FOREIGN KEY (IdTypeEtatAvancement)
+REFERENCES
+tblTypeEtatAvancement(Id); 
 
