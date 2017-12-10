@@ -156,10 +156,10 @@ CREATE TABLE tblStagiaire(
 );
 
 DROP VIEW IF EXISTS vStagiaire;
-CREATE VIEW vStagiaire AS SELECT Id,CourrielScolaire,Nom,Prenom,NumTel,CourrielPersonnel
+CREATE VIEW vStagiaire AS SELECT Id,CourrielScolaire,Nom,Prenom,NumTelPerso,CourrielPersonnel
 ,NumTelEntreprise,Poste,CourrielEntreprise,CodePermanent,Adresse,
-CONCAT(CourrielScolaire,Nom,Prenom,NumTel
-,IFNULL(NumTelEntreprise,''),IFNULL(Poste,''),IFNULL(CourrielEntreprise,''),IdUtilisateur,CodePermanent,CourrielPersonnel) AS tag,
+CONCAT(CourrielScolaire,Nom,Prenom,NumTelPerso
+,IFNULL(NumTelEntreprise,''),IFNULL(Poste,''),IFNULL(CourrielEntreprise,''),IdUtilisateur,IFNULL(CodePermanent, ''),IFNULL(CourrielPersonnel, '')) AS tag,
 IdUtilisateur FROM tblStagiaire;
 
 -- Table tblUtilisateur

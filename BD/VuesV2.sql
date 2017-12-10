@@ -7,7 +7,8 @@
 -- ------------------------------------------------
 DROP VIEW IF EXISTS vEnseignant;
 CREATE VIEW vEnseignant AS 
-SELECT Util.Id AS IdUtilisateur, Emp.Id AS IdEnseignant, Prenom, Nom, NumTelEntreprise, IdEntreprise, Poste, CourrielEntreprise
+SELECT Util.Id AS IdUtilisateur, Emp.Id AS IdEnseignant, Prenom, Nom, NumTelEntreprise, IdEntreprise, Poste, CourrielEntreprise,
+CONCAT(Prenom, Nom, NumTelEntreprise, IdEntreprise, Poste, CourrielEntreprise) AS Tag
 FROM vEmploye AS Emp
 JOIN vUtilisateur AS Util
 ON Util.Id = Emp.IdUtilisateur
@@ -22,7 +23,8 @@ WHERE Role.Titre = 'Enseignant';
 -- ------------------------------------------------
 DROP VIEW IF EXISTS vGestionnaire;
 CREATE VIEW vGestionnaire AS 
-SELECT Util.Id AS IdUtilisateur, Emp.Id AS IdGestionnaire, Prenom, Nom, NumTelEntreprise, IdEntreprise, Poste, CourrielEntreprise
+SELECT Util.Id AS IdUtilisateur, Emp.Id AS IdGestionnaire, Prenom, Nom, NumTelEntreprise, IdEntreprise, Poste, CourrielEntreprise,
+CONCAT(Prenom, Nom, NumTelEntreprise, IdEntreprise, Poste, CourrielEntreprise) AS Tag
 FROM vEmploye AS Emp
 JOIN vUtilisateur AS Util
 ON Util.Id = Emp.IdUtilisateur
@@ -37,7 +39,8 @@ WHERE Role.Titre = 'Gestionnaire';
 -- ------------------------------------------------
 DROP VIEW IF EXISTS vResponsable;
 CREATE VIEW vResponsable AS 
-SELECT Util.Id AS IdUtilisateur, Emp.Id AS IdResponsable, Prenom, Nom, NumTelEntreprise, IdEntreprise, Poste, CourrielEntreprise
+SELECT Util.Id AS IdUtilisateur, Emp.Id AS IdResponsable, Prenom, Nom, NumTelEntreprise, IdEntreprise, Poste, CourrielEntreprise,
+CONCAT(Prenom, Nom, NumTelEntreprise, IdEntreprise, Poste, CourrielEntreprise) AS Tag
 FROM vEmploye AS Emp
 JOIN vUtilisateur AS Util
 ON Util.Id = Emp.IdUtilisateur
@@ -52,7 +55,8 @@ WHERE Role.Titre = 'Responsable';
 -- ------------------------------------------------
 DROP VIEW IF EXISTS vSuperviseur;
 CREATE VIEW vSuperviseur AS 
-SELECT Util.Id AS IdUtilisateur, Emp.Id AS IdSuperviseur, Prenom, Nom, NumTelEntreprise, IdEntreprise, Poste, CourrielEntreprise
+SELECT Util.Id AS IdUtilisateur, Emp.Id AS IdSuperviseur, Prenom, Nom, NumTelEntreprise, IdEntreprise, Poste, CourrielEntreprise,
+CONCAT(Prenom, Nom, NumTelEntreprise, IdEntreprise, Poste, CourrielEntreprise) AS Tag
 FROM vEmploye AS Emp
 JOIN vUtilisateur AS Util
 ON Util.Id = Emp.IdUtilisateur
@@ -257,3 +261,32 @@ CONCAT(Employe.Prenom,' ',Employe.Nom) AS NomResponsable,SupEnt.NomSuperviseur F
 
 	JOIN vSession 
 	ON Stage.IdSession = vSession.Id;
+
+-- ------------------------------------------------
+-- Récupère toutes les informations des stages.
+-- ------------------------------------------------
+
+DROP VIEW IF EXISTS vListeStage;
+CREATE VIEW vListeStage AS 
+SELECT 
+vStage.Id as 'IdStage',
+vStage.DescriptionStage as 'DescriptionStage', 
+vStage.CompetenceRecherche as 'CompetenceRecherche', 
+vStage.SalaireHoraire as 'SalaireHoraire', 
+vStage.NbHeureSemaine as 'NbHeureSemaine', 
+vEntreprise.Nom as 'NomEntreprise' ,
+vEntreprise.Id as 'IdEntreprise' ,
+concat(vStagiaire.Prenom, ' ' , vStagiaire.Nom)  as 'NomStagiaire' , 
+concat (vSuperviseur.Prenom, ' ', vSuperviseur.Nom) as 'NomSuperviseur', 
+concat (vResponsable.Prenom, ' ', vResponsable.Nom) as'NomResponsable', 
+concat (vEnseignant.Prenom, ' ', vEnseignant.Nom) as 'NomEnseignant',
+concat(vStagiaire.Tag, vEntreprise.tag, vSuperviseur.Tag, vResponsable.Tag, vEnseignant.Tag) AS Tag,
+vStage.DateDebut as 'DateDebut',
+vStage.DateFin as 'DateFin'
+from vStage    
+left join vSuperviseur on  vSuperviseur.IdUtilisateur = vStage.IdSuperviseur    
+left join vEntreprise on vEntreprise.Id = vSuperviseur.IdEntreprise     
+left join vStagiaire on vStagiaire.IdUtilisateur = vStage.IdStagiaire     
+left join vResponsable on vResponsable.IdUtilisateur = vStage.IdResponsable     
+left join vEnseignant on vEnseignant.IdUtilisateur = vStage.IdEnseignant
+ORDER BY IdStage DESC;
