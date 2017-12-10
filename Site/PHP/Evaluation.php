@@ -11,6 +11,31 @@
     else if($eval->getIdTypeEval() == 4)//auto-evaluation
         $eval = new EvaluationGrilleMiStage($bdd, $_REQUEST["idEvaluation"]);
 
+    function zoneCommentaire($eval){
+        if( ( $eval->getStatut() == 3 ) || ( $eval->getStatut() == 4) ){
+            $zoneSaisieCommentaire = '<textarea id="commentaireEvaluation" rows="5" cols="100" maxlength="500" name="commentaireEvaluation" wrap="hard" readonly>'.$eval->getCommentaire().'</textarea>';
+        }
+        else{
+
+            $zoneSaisieCommentaire = '<textarea id="commentaireEvaluation" rows="5" cols="100" maxlength="500" name="commentaireEvaluation" wrap="hard"></textarea>';
+        }
+
+        return $zoneSaisieCommentaire;
+    }
+
+    function radioButtonValide(){
+        if(isset($_REQUEST["erreurRadioButton"])){  
+            $message = '<div class="messageErreurRadioButton">
+                        Confirmation impossible. Veuillez choisir une reponse pour toutes les questions.
+                        </div>';
+        }
+        else{
+            $message = '';
+        }
+
+        return $message;
+    }
+
     function Identification($bdd){
         $identification = $bdd->Request('   SELECT * FROM vIdentification
                                             WHERE IdStage = :idStage',
@@ -64,6 +89,25 @@
         return $content;
     }
 
+    if(( $eval->getStatut() == 3 ) || ( $eval->getStatut() == 4))
+    {
+        $boutonsNavigation = 
+        '<input id="gauche" class="bouton" style="width : 150px; float: left;" type="button" value="Précédent" onclick="ChangerItemConsultationEvaluation(this)"/>
+            '.LettreNav($bdd, $eval).'
+        <input id="droite" class="bouton" style="width : 150px; float: right" type="button" value="Suivant" onclick="ChangerItemConsultationEvaluation(this)"/>';
+
+    }
+    else
+    {
+        $boutonsNavigation = 
+
+        '<input id="gauche" class="bouton" style="width : 150px; float: left;" type="button" value="Précédent" onclick="ChangerItem(this)"/>
+            '.LettreNav($bdd, $eval).'
+        <input id="droite" class="bouton" style="width : 150px; float: right" type="button" value="Suivant" onclick="ChangerItem(this)"/>
+
+        <input id="confirmer" class="bouton" style="width : 150px; float: right" type="button" value="Confirmer" onclick="PostEval(ExecuteQuery, \'../PHP/TBNavigation.php?id='.$profils[0]->IdSuperviseur.'&nomMenu=Evaluation.php&post=true&idEvaluation='.$_REQUEST["idEvaluation"].'&id='.$_REQUEST["id"].'\'); Requete(AfficherPage, \'../PHP/TBNavigation.php?id='.$profils[0]->IdSuperviseur.'&nomMenu=Main\')" hidden/>';
+    }
+
     if(isset($_REQUEST["post"]))
         $eval->Submit($bdd);
 
@@ -75,11 +119,7 @@
 
         <div class="blocInfo infoProfil">
             <p>
-                La première évaluation servira à noter de façon générale l’élève stagiaire en vue
-                d\'un réajustement possible. Il serait grandement souhaitable que cette évaluation
-                se fasse conjointement avec l’élève stagiaire et que la démarche s\'effectue de
-                façon formative. Une fois complété, le formulaire devra être remis à votre
-                stagiaire qui se chargera de nous l\'expédier.
+                '.$eval->getObjectifEval().'
             </p>
         </div>
 
@@ -92,15 +132,23 @@
         
         $content = $content .
         '<div class="navigateurEval">
-            <input id="gauche" class="bouton" style="width : 150px; float: left;" type="button" value="Précédent" onclick="ChangerItem(this)"/>
-            '.LettreNav($bdd, $eval).'
-            <input id="droite" class="bouton" style="width : 150px; float: right" type="button" value="Suivant" onclick="ChangerItem(this)"/>
-            <input id="confirmer" class="bouton" style="width : 150px; float: right" type="button" value="Confirmer" onclick="PostEval(ExecuteQuery, \'../PHP/TBNavigation.php?id='.$profils[0]->IdSuperviseur.'&nomMenu=Evaluation.php&post=true&idEvaluation='.$_REQUEST["idEvaluation"].'&id='.$_REQUEST["id"].'\'); Requete(AfficherPage, \'../PHP/TBNavigation.php?id='.$profils[0]->IdSuperviseur.'&nomMenu=Main\')" hidden/>
+
+            '.$boutonsNavigation.'
+
+        </div>'.radioButtonValide().'
+
+        <div class="commentaireEvalMiStage">
+
+            <p>ÉVALUATION GLOBALE DE L’ÉLÈVE STAGIAIRE.</br> Donnez vos commentaires généraux.</p>
+                
+            '.zoneCommentaire($eval).'
+
         </div>
 
         <br/><br/>
 
-        <input class="bouton" type="button" value="   Retour   " onclick="Requete(AfficherPage, \'../PHP/TBNavigation.php?id='.$profils[0]->IdSuperviseur.'&nomMenu=Main\')"/>
+        <input class="bouton" type="button" value="   Retour   " onclick="Requete(AfficherPage, \'../PHP/TBNavigation.php?nomMenu=Main\')"/>
+    
     </article>';
 
     return $content;

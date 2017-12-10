@@ -221,15 +221,12 @@
         protected function SelectQuestionsByCategories($bdd, $idEvaluation, $idCategorie){
             $questionsDeLaCategorie = array();
 
-            $query = $bdd->prepare('SELECT DISTINCT(Id), Q.Texte
-                                    FROM vQuestion AS Q
-                                    JOIN vEvaluationQuestionReponse AS EQR
-                                    ON EQR.IdQuestion = Q.Id
-                                    WHERE EQR.IdEvaluation = :idEvaluation AND Q.IdCategorieQuestion = :idCategorieQuestion');
-            
-            $query->execute(array('idEvaluation'=>$idEvaluation, 'idCategorieQuestion'=>$idCategorie));
-            
-            $questions = $query->fetchAll();
+            $questions = $bdd->Request('SELECT DISTINCT(Id), Q.Texte
+                                        FROM vQuestion AS Q
+                                        JOIN vEvaluationQuestionReponse AS EQR
+                                        ON EQR.IdQuestion = Q.Id
+                                        WHERE EQR.IdEvaluation = :idEvaluation AND Q.IdCategorieQuestion = :idCategorieQuestion',
+                                        array('idEvaluation'=>$idEvaluation, 'idCategorieQuestion'=>$idCategorie),  "stdClass");
             
             foreach($questions as $question)
             {
@@ -244,15 +241,13 @@
 
             $this->questions = array();
 
-            $query = $bdd->prepare('SELECT DISTINCT(Id), Q.Texte
-                                    FROM vQuestion AS Q
-                                    JOIN vEvaluationQuestionReponse AS EQR
-                                    ON EQR.IdQuestion = Q.Id
-                                    WHERE EQR.IdEvaluation = :idEvaluation');
-            
-            $query->execute(array('idEvaluation'=>$idEvaluation));
-            
-            $questions = $query->fetchAll();
+            $questions = $bdd->Request('SELECT DISTINCT(Id), Q.Texte
+                                        FROM vQuestion AS Q
+                                        JOIN vEvaluationQuestionReponse AS EQR
+                                        ON EQR.IdQuestion = Q.Id
+                                        WHERE EQR.IdEvaluation = :idEvaluation',
+                                        array('idEvaluation'=>$idEvaluation),
+                                        "stdClass");
 
             foreach($questions as $question)
             {
@@ -359,7 +354,7 @@
         
             foreach($this->categories as $categorie)
             {
-                $questions = $this->SelectQuestionsByCategories($bdd, $this->id, $categorie->getId());
+                $questions = $this->SelectQuestions($bdd, $this->id, $categorie->getId());
                     
                 $content = $content.
                 '
@@ -810,7 +805,7 @@ avoir ce format - (xxx) xxx-xxxx"/>
 
     class ProfilStagiaire extends Profil{
         
-        private $NumTel, $CourrielPersonnel;
+        private $NumTelPerso, $CourrielPersonnel;
     
         //Affiche les informations du profil.
         public function AfficherProfil(){
@@ -964,9 +959,9 @@ avoir ce format - (xxx) xxx-xxxx"/>
 
             $this->UpdateUser($bdd, $profil["nouveauPasse"], $profil["courrielPersonnel"]);
 
-            $bdd->Request(" UPDATE tblStagiaire SET NumTel = :numTel, NumTelEntreprise = :numTelEntreprise, Poste = :poste, CourrielEntreprise = :courrielEntreprise, CourrielPersonnel = :courrielPerso WHERE IdUtilisateur = :id",
+            $bdd->Request(" UPDATE tblStagiaire SET NumTelPerso = :numTelPerso, NumTelEntreprise = :numTelEntreprise, Poste = :poste, CourrielEntreprise = :courrielEntreprise, CourrielPersonnel = :courrielPerso WHERE IdUtilisateur = :id",
                             array(
-                            "numTel"=>$profil["numTel"],
+                            "numTelPerso"=>$profil["numTel"],
                             "numTelEntreprise"=>$profil["numEntreprise"],
                             "poste"=>$profil["poste"],
                             "courrielEntreprise"=>$profil["courrielEntreprise"],
@@ -976,7 +971,7 @@ avoir ce format - (xxx) xxx-xxxx"/>
         }
         
         public function getNumTelPerso(){
-            return $this->NumTel;
+            return $this->NumTelPerso;
         }
         
         public function getCourrielPerso(){

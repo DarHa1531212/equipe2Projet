@@ -121,7 +121,7 @@
         <div class="infoStagiaire">
             <h2>'.$profil->Prenom.' '.$profil->Nom.'</h2>
             <input class="bouton" type="button" value="Afficher le profil" onclick="Requete(AfficherPage, \'../PHP/TBNavigation.php?id='.$profil->Id.'&nomMenu=Profil.php\')"/>
-            <h3>'.$profil->NumTel.'</h3>
+            <h3>'.$profil->NumTelPerso.'</h3>
         </div>
 
         <div class="blocInfo itemHover">

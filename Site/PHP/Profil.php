@@ -11,8 +11,8 @@
                                 WHERE IdUtilisateur = :id", array("id"=>$_REQUEST["id"]), "stdClass")[0];
         
         if($role->IdRole != 5){
-            $profil = $bdd->Request("   SELECT Emp.IdUtilisateur, Prenom, Emp.Nom, CourrielPersonnel, IdRole,
-                                        Ent.Nom AS 'NomEntreprise', Emp.CourrielEntreprise, Emp.NumTelEntreprise, Poste, CodePermanent
+            $profil = $bdd->Request("   SELECT Emp.IdUtilisateur, Prenom, Emp.Nom, IdRole,
+                                        Ent.Nom AS 'NomEntreprise', Emp.CourrielEntreprise, Emp.NumTelEntreprise, Poste
                                         FROM vEmploye AS Emp
                                         JOIN vEntreprise AS Ent
                                         ON Ent.Id = Emp.IdEntreprise
@@ -23,7 +23,7 @@
                                         "ProfilEmploye")[0];
         }
         else{
-            $profil = $bdd->Request("   SELECT Stagiaire.IdUtilisateur, Stagiaire.Prenom, Stagiaire.Nom, Stagiaire.NumTel, Stagiaire.CourrielPersonnel, Stagiaire.CodePermanent,
+            $profil = $bdd->Request("   SELECT Stagiaire.IdUtilisateur, Stagiaire.Prenom, Stagiaire.Nom, Stagiaire.NumTelPerso, Stagiaire.CourrielPersonnel, Stagiaire.CodePermanent,
                                         Stagiaire.CourrielEntreprise, Stagiaire.NumTelEntreprise, Stagiaire.Poste, Ent.Nom AS 'NomEntreprise', IdRole
                                         FROM vStage AS Stage
                                         JOIN vStagiaire AS Stagiaire
