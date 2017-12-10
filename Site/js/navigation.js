@@ -46,58 +46,79 @@ function Post(callback){
 }
 
 //Crée une liste des radios boutons et les encode en JSON pour le envoyer au PHP.
-function PostEval(callback){ 
-    var questions = $('input[type="radio"]:checked');   
-    var reponse = "";
-    var tabReponse = [];
-    var form_data = new FormData();                   
-    
-    for(var i = 0; i < questions.length; i++){
-        reponse={
-            nom: questions[i].name,
-            idQuestion: questions[i].name.substring(8, questions[i].name.length),
-            value: questions[i].value
-        };
+function PostEval(callback)
+{ 
+     var form_data = new FormData(); 
+
+   
+        var questions = $('input[type="radio"]:checked');   
+        var zoneCommentaireEvaluation = $('[name=commentaireEvaluation]');
+        var zoneCommentaireCategories = $(".commentaireCategorie");
+        var reponse = "";
+        var tabReponse = [];
         
-        tabReponse.push(reponse);
-    }
-    
-    tabReponse = JSON.stringify(tabReponse);
-    
-    form_data.append('tabReponse', tabReponse); 
-    
-    $.ajax({ 
-        url: Url(arguments),  
-        dataType: 'text',   
-        cache: false, 
-        contentType: false, 
-        processData: false, 
-        data: form_data,                          
-        type: 'post', 
-        success: function(data){ 
-            callback(data); 
-        } 
-    }); 
+                 
+        
+        for(var i = 0; i < questions.length; i++)
+        {
+            reponse=
+            {
+                nom: questions[i].name,
+                idQuestion: questions[i].name.substring(8, questions[i].name.length),
+                value: questions[i].value,
+                type:"question"
+            };
+            
+            tabReponse.push(reponse);
+        }
+
+        if(zoneCommentaireCategories.length != 0)
+        {
+            for(var i = 0; i < zoneCommentaireCategories.length; i++)
+            {
+                commentaireCategorie = 
+                {
+                    nom: zoneCommentaireCategories[i].name,
+                    idQuestion: zoneCommentaireCategories[i].name,
+                    value : zoneCommentaireCategories[i].value,
+                    type:"commentaireCategorie"
+                }
+
+                 tabReponse.push(commentaireCategorie);
+
+            }
+        }
+
+        commentaire = 
+        { 
+            nom: " ",
+            idQuestion: " ",
+            value : zoneCommentaireEvaluation.val(),
+            type:"commentaireEvaluation"
+        };
+
+        tabReponse.push(commentaire);
+
+        tabReponse = JSON.stringify(tabReponse);
+        
+        form_data.append('tabReponse', tabReponse);
+        
+        $.ajax({ 
+            url: Url(arguments),  
+            dataType: 'text',   
+            cache: false, 
+            contentType: false, 
+            processData: false, 
+            data: form_data,                          
+            type: 'post', 
+            success: function(data)
+            { 
+                callback(data); 
+            } 
+        }); 
+
 } 
 
-function UploadFile(callback){ 
-	var file_data = $('#file').prop('files')[0];    
-	var form_data = new FormData();                   
-	form_data.append('file', file_data); 
-	 
-	$.ajax({ 
-		url: Url(arguments),  
-		dataType: 'text',   
-		cache: false, 
-		contentType: false, 
-		processData: false, 
-		data: form_data,                          
-		type: 'post', 
-		success: function(data){ 
-			callback(data); 
-		} 
-	}); 
-} 
 
 //Construit l'URL selon les derniers paramètres d'une fonctions.
 function Url(arguments){
@@ -135,4 +156,22 @@ window.addEventListener("load", function(){
 //Éxecute une page PHP sans l'afficher.
 function ExecuteQuery(xhttp){
 	$.parseJSON(xhttp);
+}
+
+//fonction execute lors de la soumission des evaluations
+function submitEvaluation()
+{
+    if(($('.questions').length == $('input[type="radio"]:checked').length))
+    {
+        //PostEval(ExecuteQuery, arguments);
+        PostEval( ExecuteQuery, '../PHP/TBNavigation.php?idEmploye='+$("input[name=IdSuperviseur]").val() + '&nomMenu=Eval&post=true&idEvaluation='+ $("input[name=IdEvaluation]").val() +'&idStagiaire='+ $("input[name=IdStagiaire]").val() );
+        Requete( AfficherPage, '../PHP/TBNavigation.php?idEmploye='+ $("input[name=IdSuperviseur]").val() +'&nomMenu=Main' );
+    }
+    else
+    {
+        //AfficherPage('../TBNavigation.php?idEmploye=' + $("input[name=IdSuperviseur]").val() + '&nomMenu=Eval&erreurRadioButton=true&idEvaluation='+ $("input[name=IdEvaluation]").val() +'&idStagiaire='+ $("input[name=IdStagiaire]").val() );
+
+        Requete( AfficherPage, '../PHP/TBNavigation.php?idEmploye=' + $("input[name=IdSuperviseur]").val() + '&nomMenu=Eval&erreurRadioButton=true&idEvaluation='+ $("input[name=IdEvaluation]").val() +'&idStagiaire='+ $("input[name=IdStagiaire]").val() );
+        //Execute(1, '../PHP/TBNavigation.php?idEmploye='.$profil["IdSuperviseur"].'&nomMenu=Main');
+    }
 }

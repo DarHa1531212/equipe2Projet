@@ -125,19 +125,27 @@
             
             $questionsDeLaCategorie = array();
 
-            $query = $bdd->prepare('SELECT DISTINCT(Id), Q.Texte
+             $questions = $bdd->Request('SELECT DISTINCT(Id), Q.Texte
+                                    FROM vQuestion AS Q
+                                    JOIN vEvaluationQuestionReponse AS EQR
+                                    ON EQR.IdQuestion = Q.Id
+                                    WHERE EQR.IdEvaluation = :idEvaluation AND Q.IdCategorieQuestion = :idCategorieQuestion',
+                                            array('idEvaluation'=>$idEvaluation,'idCategorieQuestion'=>$idCategorie),
+                                            "stdClass");
+
+            /*$query = $bdd->prepare('SELECT DISTINCT(Id), Q.Texte
                                     FROM vQuestion AS Q
                                     JOIN vEvaluationQuestionReponse AS EQR
                                     ON EQR.IdQuestion = Q.Id
                                     WHERE EQR.IdEvaluation = :idEvaluation AND Q.IdCategorieQuestion = :idCategorieQuestion');
             
-            $query->execute(array('idEvaluation'=>$idEvaluation, 'idCategorieQuestion'=>$idCategorie));
+            $query->execute(array('idEvaluation'=>$idEvaluation, 'idCategorieQuestion'=>$idCategorie));*/
             
-            $questions = $query->fetchAll();
+            //$questions = $query->fetchAll();
             
             foreach($questions as $question)
             {
-                array_push($questionsDeLaCategorie, new Question($question["Id"], $question["Texte"]));
+                array_push($questionsDeLaCategorie, new Question($question->Id, $question->Texte));
             }
 
             return $questionsDeLaCategorie;
@@ -150,19 +158,17 @@
 
             $this->questions = array();
 
-            $query = $bdd->prepare('SELECT DISTINCT(Id), Q.Texte
+             $questions = $bdd->Request('SELECT DISTINCT(Id), Q.Texte
                                     FROM vQuestion AS Q
                                     JOIN vEvaluationQuestionReponse AS EQR
                                     ON EQR.IdQuestion = Q.Id
-                                    WHERE EQR.IdEvaluation = :idEvaluation');
-            
-            $query->execute(array('idEvaluation'=>$idEvaluation));
-            
-            $questions = $query->fetchAll();
+                                    WHERE EQR.IdEvaluation = :idEvaluation',
+                                            array('idEvaluation'=>$idEvaluation),
+                                            "stdClass");
 
             foreach($questions as $question)
             {
-                array_push($this->questions, new Question($question["Id"], $question["Texte"]));
+                array_push($this->questions, new Question($question->Id, $question->Texte));
             }
         }
         
@@ -264,17 +270,20 @@
 
         private function questionsHasComment($bdd, $questions)
         {
-            $query = $bdd->prepare('select *
-                                    from tblevaluationquestionreponse
-                                    where IdEvaluation = :IdEvaluation and IdQuestion = :IdQuestion;');
+            
 
             foreach ($questions as $question) 
             {
-                $query->execute( array('IdEvaluation'=>$this->getId(), 'IdQuestion'=>$question->getId() ) );
-            
+               
+                $resultat = $bdd->Request('select *
+                                    from tblevaluationquestionreponse
+                                    where IdEvaluation = :IdEvaluation and IdQuestion = :IdQuestion;',
+                                            array('IdEvaluation'=>$this->getId(), 'IdQuestion'=>$question->getId() ),
+                                            "stdClass");
+
                 $resultat = $query->fetchAll();
 
-                $commentaireQuestion = $resultat[0]["Commentaire"];
+                $commentaireQuestion = $resultat[0]->Commentaire;
 
                 if($commentaireQuestion != 'Aucun')
                 {
@@ -288,13 +297,13 @@
         {
             if( ( $this->statut == 3 ) || ( $this->statut == 4) )//evaluation soumise ou validée
             {
-                $query = $bdd->prepare('select * from tblEvaluationQuestionReponse where IdEvaluation=:IdEvaluation AND IdQuestion = :IdQuestion;');
+                 $commentaireCategorie = $bdd->Request('select *
+                                    from tblevaluationquestionreponse
+                                    where IdEvaluation = :IdEvaluation and IdQuestion = :IdQuestion;',
+                                            array('IdEvaluation'=>$this->id,'IdQuestion'=> $this->questionsHasComment($bdd, $questions)[0]),
+                                            "stdClass");
 
-                $query->execute(array('IdEvaluation'=>$this->id,'IdQuestion'=> $this->questionsHasComment($bdd, $questions)[0]));
-
-                $commentaireCategorie = $query->fetchAll();
-
-                return '<textarea class="commentaireCategorie" rows="" cols="" maxlength="500" wrap="hard" readonly>'. $commentaireCategorie[0]["Commentaire"] .'</textarea>';
+                return '<textarea class="commentaireCategorie" rows="" cols="" maxlength="500" wrap="hard" readonly>'. $commentaireCategorie[0]->Commentaire .'</textarea>';
             }
             else
             {
@@ -414,7 +423,7 @@
         protected $reponses = array();
         protected $categories = array();
         protected $reponsesChoisies = array();
-        protected $id, $statut, $titre, $dateCompletee, $dateDebut, $dateFin, $idTypeEval;
+        protected $id, $statut, $titre, $dateCompletee, $dateDebut, $dateFin, $idTypeEval, $commentaire, $objectifEval;
         
         public function __construct($bdd, $id){
             $this->id = $id;
@@ -438,7 +447,9 @@
                 $this->dateCompletee = $evaluation->DateComplétée;
                 $this->dateDebut = $evaluation->DateDébut;
                 $this->dateFin = $evaluation->DateFin;
-                $this->idTypeEval = $evaluation->IdTypeEvaluation;                
+                $this->idTypeEval = $evaluation->IdTypeEvaluation;
+                $this->commentaire = $evaluation->Commentaire;
+                $this->objectifEval = $evaluation->Objectif;                
             }
         }
         
@@ -526,6 +537,16 @@
         
         public function getIdTypeEval(){
             return $this->idTypeEval;
+        }
+
+          public function getCommentaire()
+        {
+            return $this->commentaire;
+        }
+
+        public function getObjectifEval()
+        {
+            return $this->objectifEval;
         }
     }
 

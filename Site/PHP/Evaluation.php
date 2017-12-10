@@ -12,37 +12,43 @@
         $eval = new EvaluationGrilleMiStage($bdd, $_REQUEST["idEvaluation"]);
 
     function Identification($bdd){
-        $identification = $bdd->Request('   SELECT * FROM vIdentification
-                                            WHERE IdStagiaire = :idStagiaire',
-                                            array('idStagiaire'=>$_REQUEST["id"]),
-                                            "stdClass")[0];
+        $identifications = $bdd->Request("SELECT * FROM vIdentification
+                                            WHERE IdStage = :IdStage",
+                                            array('IdStage'=>$_REQUEST["idStage"]),
+                                            "stdClass");
         
-        return 
-        '
-        <table class="identification">
-            <tbody>
-                <tr>
-                    <td>Organisation</td>
-                    <td>'.$identification->NomEnt.'</td>
-                </tr>
+        
+        foreach ($identifications as $identification) 
+        {
+            
+            return 
+            '
+            <table class="identification">
+                <tbody>
+                    <tr>
+                        <td>Organisation</td>
+                        <td>'.$identification->NomEnt.'</td>
+                    </tr>
 
-                <tr>
-                    <td>Responsable technique</td>
-                    <td>'.$_SESSION['PrenomConnecte'].' '.$_SESSION['NomConnecte'].'</td>
-                </tr>
+                    <tr>
+                        <td>Responsable technique</td>
+                        <td>'.$identification->PrenomResp.' '.$identification->NomResp.'</td>
+                    </tr>
 
-                <tr>
-                    <td>Responsable pédagogique</td>
-                    <td>'.$identification->PrenomEns.' '.$identification->NomEns.'</td>
-                </tr>
+                    <tr>
+                        <td>Responsable pédagogique</td>
+                        <td>'.$identification->PrenomEns.' '.$identification->NomEns.'</td>
+                    </tr>
 
-                <tr>
-                    <td>Élève stagiaire</td>
-                    <td>'.$identification->PrenomSta.' '.$identification->NomSta.'</td>
-                </tr>
-            </tbody>
-        </table>
-        ';
+                    <tr>
+                        <td>Élève stagiaire</td>
+                        <td>'.$identification->PrenomSta.' '.$identification->NomSta.'</td>
+                    </tr>
+                </tbody>
+            </table>
+            ';
+        }
+       
     }
 
      function zoneCommentaire($eval)
@@ -121,8 +127,8 @@
             '.LettreNav($bdd, $eval).'
         <input id="droite" class="bouton" style="width : 150px; float: right" type="button" value="Suivant" onclick="ChangerItem(this)"/>
 
-        <input id="confirmer" class="bouton" style="width : 150px; float: right" type="button" value="Confirmer" onclick="Execute(4, \'../PHP/TBNavigation.php?idEmploye='.$profil->IdSuperviseur.'&nomMenu=Eval\', \'&idEvaluation=\', '.$_REQUEST["idEvaluation"].', \'&idStagiaire=\', '.$_REQUEST["idStagiaire"].'); " hidden/>';
-        //$boutonValider = '<input id="confirmer" class="bouton" style="width : 150px; float: right" type="button" value="Confirmer" onclick="Execute(4, \'../PHP/TBNavigation.php?idEmploye='.$profil["IdSuperviseur"].'&nomMenu=Eval\', \'&post=true\', \'&idEvaluation=\', '.$_REQUEST["idEvaluation"].', \'&idStagiaire=\', '.$_REQUEST["idStagiaire"].'); Execute(1, \'../PHP/TBNavigation.php?idEmploye='.$profil["IdSuperviseur"].'&nomMenu=Main\')" hidden/>';
+        <input id="confirmer" class="bouton" style="width : 150px; float: right" type="button" value="Confirmer" onclick="submitEvaluation()" hidden/>';
+        //<input id="confirmer" class="bouton" style="width : 150px; float: right" type="button" value="Confirmer" onclick="Execute(4, \'../PHP/TBNavigation.php?idEmploye='.$profil->IdSuperviseur.'&nomMenu=Eval\', \'&idEvaluation=\', '.$_REQUEST["idEvaluation"].', \'&idStagiaire=\', '.$_REQUEST["idStagiaire"].'); " hidden/>
     }
 
     //$boutonValider = '<input id="confirmer" class="bouton" style="width : 150px; float: right" type="button" value="Confirmer" onclick="Execute(4, \'../PHP/TBNavigation.php?idEmploye='.$profil["IdSuperviseur"].'&nomMenu=Eval\', \'&post=true\', \'&idEvaluation=\', '.$_REQUEST["idEvaluation"].', \'&idStagiaire=\', '.$_REQUEST["idStagiaire"].') " hidden/>'; 
@@ -166,13 +172,13 @@
 
         <br/><br/>
 
-        <input class="bouton" type="button" value="   Retour   " onclick="Execute(1, \'../PHP/TBNavigation.php?idEmploye='.$profil->IdSuperviseur.'&nomMenu=Main\')"/>
+        <input class="bouton" type="button" value="   Retour   " onclick="Requete(AfficherPage, \'../PHP/TBNavigation.php?idEmploye='.$profils[0]->IdSuperviseur.'&nomMenu=Main\')"/>
 
-        <input type="hidden" name="IdSuperviseur" value="'.$profil->IdSuperviseur.'" />
+        <input type="hidden" name="IdSuperviseur" value="'.$profils[0]->IdSuperviseur.'" />
 
         <input type="hidden" name="IdEvaluation" value="'. $_REQUEST["idEvaluation"] .'" />
 
-        <input type="hidden" name="IdStagiaire" value="'. $_REQUEST["idStagiaire"] .'" />
+        <input type="hidden" name="IdStagiaire" value="'. $_REQUEST["id"] .'" />
     
     </article>';
 

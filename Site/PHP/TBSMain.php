@@ -1,6 +1,105 @@
 <?php
+
+     $listeStatut = array('Pas Accéssible','Pas Débuté','En Retard','Soumis ','Valide ');
+
+    
+
+    $content='';
+
+    foreach($profils as $profil)/*pour chaque stages au quel le stagiaire a participe*/
+    {
+        //echo count($profils);        
         
-    $content = 
+            //$query2->execute(array('IdStage'=> $profil["IdStage"]));
+
+            //$autoEvaluation = $query2->fetchAll();
+
+             $content = $content.
+                '<article class="stagiaire">
+            <div class="infoStagiaire">
+                <h2>'.$profil->Prenom.' '.$profil->Nom.'</h2>
+                <input class="bouton" type="button" value="Afficher le profil" onclick="Requete(AfficherPage, \'../PHP/TBNavigation.php?id='.$profil->Id.'&nomMenu=Profil.php\')"/>
+                <br /><br /><br /><br /><br /><br />
+            </div>
+
+            <div class="blocInfo itemHover">
+                <a class="linkFill" onclick="Requete(AfficherPage, \'../PHP/TBNavigation.php?id='.$profil->IdEnseignant.'&nomMenu=Profil.php\')">
+                    <div class="entete">
+                        <h2>Enseignant</h2>
+                    </div>
+
+                    <div>
+                        <p>'.$profil->PrenomEnseignant.' '.$profil->NomEnseignant.'</p>
+                        <p>'.$profil->TelEnseignant.'</p>
+                    </div>
+                </a>
+            </div>
+
+            <div class="blocInfo itemHover">
+                <a class="linkFill" onclick="Requete(AfficherPage, \'../PHP/TBNavigation.php?id='.$profil->IdSuperviseur.'&nomMenu=Profil.php\')">
+                    <div class="entete">
+                        <h2>Superviseur</h2>
+                    </div>
+
+                    <div>
+                        <p>'.$profil->PrenomSuperviseur.' '.$profil->NomSuperviseur.'</p>
+                        <p>'.$profil->TelSuperviseur.'</p>
+                    </div>
+                </a>
+            </div>
+
+            <br/><br/><br/><br/>
+
+            <table>
+                <thead>
+                    <th>Rapport</th>
+                    <th>Statut</th>
+                    <th>Date limite</th>
+                    <th>Date complétée</th>
+                </thead>
+
+                <tbody>
+                    <tr class="itemHover" onclick="Requete(AfficherPage, \'../PHP/TBNavigation.php?id='.$profil->Id.'&nomMenu=etatAvancement.php\')">
+                        <td>Etat avancement janvier</td>
+                        <td>Non complétée <span class="statutColor">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></td>
+                        <td>2017-02-15</td>
+                        <td></td>
+                    </tr>
+
+                    <tr class="itemHover" onclick="Requete(AfficherPage, \'../PHP/TBNavigation.php?id='.$profil->Id.'&nomMenu=etatAvancement.php\')">
+                        <td>Etat avancement fevrier</td>
+                        <td>complétée <span class="statutColor">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></td>
+                        <td>2017-03-30</td>
+                        <td>2017-03-25</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <br/><br/>
+
+            <table>
+                <thead>
+                    <th>Autre</th>
+                </thead>
+
+                <tbody>
+                    <tr class="itemHover" onclick="Requete(AfficherPage, \'../PHP/TBNavigation.php?id='.$profil->Id.'&nomMenu=JournalBord.php\', \'&nbEntree=\', 5) ">
+                        <td>Journal de bord</td>
+                    </tr>
+
+                    <tr class="itemHover" onclick="Requete(AfficherPage, \'../PHP/TBNavigation.php?id='.$profil->Id.'&nomMenu=AVenir.php\')">
+                        <td>Auto-Évaluation</td>
+                    </tr>
+                </tbody>
+            </table>
+
+        </article>';
+
+    }
+
+    return $content;
+        
+   /*$content = 
     '<article class="stagiaire">
         <div class="infoStagiaire">
             <h2>'.$profils[0]->Prenom.' '.$profils[0]->Nom.'</h2>
@@ -80,5 +179,5 @@
         </table>
     </article>';
 
-    return $content;
+    return $content;*/
 ?>
