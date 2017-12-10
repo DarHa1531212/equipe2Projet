@@ -3,6 +3,8 @@
 -- USE cegepjon_p2017_2_prod;
 -- USE cegepjon_p2017_2_tests;
  USE bdprojet_equipe2v2;
+ 
+ 
 
 INSERT IGNORE INTO `tblRole` (`Id`,`Titre`) VALUES (1,'Gestionnaire');
 INSERT IGNORE INTO `tblRole` (`Id`,`Titre`) VALUES (2,'Responsable');
@@ -1498,6 +1500,60 @@ INSERT IGNORE INTO `tblTypeQuestion` (`Id`,`Description`) VALUES (2,'Question à
 INSERT IGNORE INTO `tblTypeQuestion` (`Id`,`Description`) VALUES (3,'Question à réponse longue');
 
 
+-- table stage
+
+INSERT IGNORE INTO `tblStage` (`Id`,`IdResponsable`,`IdSuperviseur`,`IdStagiaire`,`IdEnseignant`) VALUES (1,101,51,1,131);
+INSERT IGNORE INTO `tblStage` (`Id`,`IdResponsable`,`IdSuperviseur`,`IdStagiaire`,`IdEnseignant`) VALUES (2,102,52,2,132);
+INSERT IGNORE INTO `tblStage` (`Id`,`IdResponsable`,`IdSuperviseur`,`IdStagiaire`,`IdEnseignant`) VALUES (3,103,53,3,133);
+INSERT IGNORE INTO `tblStage` (`Id`,`IdResponsable`,`IdSuperviseur`,`IdStagiaire`,`IdEnseignant`) VALUES (4,104,54,4,134);
+INSERT IGNORE INTO `tblStage` (`Id`,`IdResponsable`,`IdSuperviseur`,`IdStagiaire`,`IdEnseignant`) VALUES (5,105,55,5,135);
+INSERT IGNORE INTO `tblStage` (`Id`,`IdResponsable`,`IdSuperviseur`,`IdStagiaire`,`IdEnseignant`) VALUES (6,106,56,6,131);
+INSERT IGNORE INTO `tblStage` (`Id`,`IdResponsable`,`IdSuperviseur`,`IdStagiaire`,`IdEnseignant`) VALUES (7,107,57,7,132);
+INSERT IGNORE INTO `tblStage` (`Id`,`IdResponsable`,`IdSuperviseur`,`IdStagiaire`,`IdEnseignant`) VALUES (8,108,58,8,133);
+INSERT IGNORE INTO `tblStage` (`Id`,`IdResponsable`,`IdSuperviseur`,`IdStagiaire`,`IdEnseignant`) VALUES (9,109,59,9,134);
+INSERT IGNORE INTO `tblStage` (`Id`,`IdResponsable`,`IdSuperviseur`,`IdStagiaire`,`IdEnseignant`) VALUES (10,110,60,10,135);
+INSERT IGNORE INTO `tblStage` (`Id`,`IdResponsable`,`IdSuperviseur`,`IdStagiaire`,`IdEnseignant`) VALUES (11,111,61,11,131);
+INSERT IGNORE INTO `tblStage` (`Id`,`IdResponsable`,`IdSuperviseur`,`IdStagiaire`,`IdEnseignant`) VALUES (12,112,62,12,132);
+INSERT IGNORE INTO `tblStage` (`Id`,`IdResponsable`,`IdSuperviseur`,`IdStagiaire`,`IdEnseignant`) VALUES (13,113,63,13,133);
+INSERT IGNORE INTO `tblStage` (`Id`,`IdResponsable`,`IdSuperviseur`,`IdStagiaire`,`IdEnseignant`) VALUES (14,114,64,14,134);
+INSERT IGNORE INTO `tblStage` (`Id`,`IdResponsable`,`IdSuperviseur`,`IdStagiaire`,`IdEnseignant`) VALUES (15,115,65,15,135);
+INSERT IGNORE INTO `tblStage` (`Id`,`IdResponsable`,`IdSuperviseur`,`IdStagiaire`,`IdEnseignant`) VALUES (16,116,66,16,131);
+INSERT IGNORE INTO `tblStage` (`Id`,`IdResponsable`,`IdSuperviseur`,`IdStagiaire`,`IdEnseignant`) VALUES (17,117,67,17,132);
+INSERT IGNORE INTO `tblStage` (`Id`,`IdResponsable`,`IdSuperviseur`,`IdStagiaire`,`IdEnseignant`) VALUES (18,118,68,18,133);
+INSERT IGNORE INTO `tblStage` (`Id`,`IdResponsable`,`IdSuperviseur`,`IdStagiaire`,`IdEnseignant`) VALUES (19,119,69,19,134);
+INSERT IGNORE INTO `tblStage` (`Id`,`IdResponsable`,`IdSuperviseur`,`IdStagiaire`,`IdEnseignant`) VALUES (20,120,70,20,135);
+INSERT IGNORE INTO `tblStage` (`Id`,`IdResponsable`,`IdSuperviseur`,`IdStagiaire`,`IdEnseignant`) VALUES (21,101,71,21,131);
+INSERT IGNORE INTO `tblStage` (`Id`,`IdResponsable`,`IdSuperviseur`,`IdStagiaire`,`IdEnseignant`) VALUES (22,102,72,22,132);
+INSERT IGNORE INTO `tblStage` (`Id`,`IdResponsable`,`IdSuperviseur`,`IdStagiaire`,`IdEnseignant`) VALUES (23,103,73,23,133);
+INSERT IGNORE INTO `tblStage` (`Id`,`IdResponsable`,`IdSuperviseur`,`IdStagiaire`,`IdEnseignant`) VALUES (24,104,74,24,134);
+INSERT IGNORE INTO `tblStage` (`Id`,`IdResponsable`,`IdSuperviseur`,`IdStagiaire`,`IdEnseignant`) VALUES (25,105,75,25,135);
+INSERT IGNORE INTO `tblStage` (`Id`,`IdResponsable`,`IdSuperviseur`,`IdStagiaire`,`IdEnseignant`) VALUES (26,106,76,26,131);
+INSERT IGNORE INTO `tblStage` (`Id`,`IdResponsable`,`IdSuperviseur`,`IdStagiaire`,`IdEnseignant`) VALUES (27,107,77,27,132);
+INSERT IGNORE INTO `tblStage` (`Id`,`IdResponsable`,`IdSuperviseur`,`IdStagiaire`,`IdEnseignant`) VALUES (28,108,78,28,133);
+INSERT IGNORE INTO `tblStage` (`Id`,`IdResponsable`,`IdSuperviseur`,`IdStagiaire`,`IdEnseignant`) VALUES (29,109,79,29,134);
+INSERT IGNORE INTO `tblStage` (`Id`,`IdResponsable`,`IdSuperviseur`,`IdStagiaire`,`IdEnseignant`) VALUES (30,110,51,30,135);
+INSERT IGNORE INTO `tblStage` (`Id`,`IdResponsable`,`IdSuperviseur`,`IdStagiaire`,`IdEnseignant`) VALUES (31,111,52,31,131);
+INSERT IGNORE INTO `tblStage` (`Id`,`IdResponsable`,`IdSuperviseur`,`IdStagiaire`,`IdEnseignant`) VALUES (32,112,53,32,132);
+INSERT IGNORE INTO `tblStage` (`Id`,`IdResponsable`,`IdSuperviseur`,`IdStagiaire`,`IdEnseignant`) VALUES (33,113,54,33,133);
+INSERT IGNORE INTO `tblStage` (`Id`,`IdResponsable`,`IdSuperviseur`,`IdStagiaire`,`IdEnseignant`) VALUES (34,114,55,34,134);
+INSERT IGNORE INTO `tblStage` (`Id`,`IdResponsable`,`IdSuperviseur`,`IdStagiaire`,`IdEnseignant`) VALUES (35,115,56,35,135);
+INSERT IGNORE INTO `tblStage` (`Id`,`IdResponsable`,`IdSuperviseur`,`IdStagiaire`,`IdEnseignant`) VALUES (36,116,57,36,131);
+INSERT IGNORE INTO `tblStage` (`Id`,`IdResponsable`,`IdSuperviseur`,`IdStagiaire`,`IdEnseignant`) VALUES (37,117,58,37,132);
+INSERT IGNORE INTO `tblStage` (`Id`,`IdResponsable`,`IdSuperviseur`,`IdStagiaire`,`IdEnseignant`) VALUES (38,118,59,38,133);
+INSERT IGNORE INTO `tblStage` (`Id`,`IdResponsable`,`IdSuperviseur`,`IdStagiaire`,`IdEnseignant`) VALUES (39,119,60,39,134);
+INSERT IGNORE INTO `tblStage` (`Id`,`IdResponsable`,`IdSuperviseur`,`IdStagiaire`,`IdEnseignant`) VALUES (40,120,61,40,135);
+INSERT IGNORE INTO `tblStage` (`Id`,`IdResponsable`,`IdSuperviseur`,`IdStagiaire`,`IdEnseignant`) VALUES (41,101,62,41,131);
+INSERT IGNORE INTO `tblStage` (`Id`,`IdResponsable`,`IdSuperviseur`,`IdStagiaire`,`IdEnseignant`) VALUES (42,102,63,42,132);
+INSERT IGNORE INTO `tblStage` (`Id`,`IdResponsable`,`IdSuperviseur`,`IdStagiaire`,`IdEnseignant`) VALUES (43,103,64,43,133);
+INSERT IGNORE INTO `tblStage` (`Id`,`IdResponsable`,`IdSuperviseur`,`IdStagiaire`,`IdEnseignant`) VALUES (44,104,65,44,134);
+INSERT IGNORE INTO `tblStage` (`Id`,`IdResponsable`,`IdSuperviseur`,`IdStagiaire`,`IdEnseignant`) VALUES (45,105,66,45,135);
+INSERT IGNORE INTO `tblStage` (`Id`,`IdResponsable`,`IdSuperviseur`,`IdStagiaire`,`IdEnseignant`) VALUES (46,106,67,46,131);
+INSERT IGNORE INTO `tblStage` (`Id`,`IdResponsable`,`IdSuperviseur`,`IdStagiaire`,`IdEnseignant`) VALUES (47,107,68,47,132);
+INSERT IGNORE INTO `tblStage` (`Id`,`IdResponsable`,`IdSuperviseur`,`IdStagiaire`,`IdEnseignant`) VALUES (48,108,69,48,133);
+INSERT IGNORE INTO `tblStage` (`Id`,`IdResponsable`,`IdSuperviseur`,`IdStagiaire`,`IdEnseignant`) VALUES (49,109,70,49,134);
+INSERT IGNORE INTO `tblStage` (`Id`,`IdResponsable`,`IdSuperviseur`,`IdStagiaire`,`IdEnseignant`) VALUES (50,110,71,50,135);
+
+
 -- table session
 
 INSERT IGNORE INTO tblSession (Annee,Periode, JanvierDebut, JanvierLimite, FevrierDebut, FevrierLimite, MarsDebut, MarsLimite, MiStageDebut, MiStageLimite, FinaleDebut, FinaleLimite, FormationDebut, FormationLimite) 
@@ -1824,9 +1880,6 @@ INSERT INTO `tblEtatAvancementMars` (`Id`) VALUES (141);
 INSERT INTO `tblEtatAvancementMars` (`Id`) VALUES (144);
 INSERT INTO `tblEtatAvancementMars` (`Id`) VALUES (147);
 INSERT INTO `tblEtatAvancementMars` (`Id`) VALUES (150);
-
-
-
 
 
 

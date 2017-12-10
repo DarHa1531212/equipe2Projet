@@ -271,7 +271,7 @@ CREATE TABLE tblSession(
 );
 
 DROP VIEW IF EXISTS vSession;
-CREATE VIEW vSession AS SELECT Id, Annee,Periode,CahierEntreprise,CahierStagiaire,MiStageDebut,MiStageLimite,FinaleDebut,FinaleLimite
+CREATE VIEW vSession AS SELECT Id, Annee,Periode,CahierEntreprise,CahierStagiaire,MiStageDebut,MiStageLimite,FinaleDebut,FinaleLimite,
 FormationDebut,FormationLimite,JanvierDebut,JanvierLimite,FevrierDebut,FevrierLimite,MarsDebut,MarsLimite FROM tblSession;
 
 
@@ -528,7 +528,6 @@ ALTER TABLE tblStage
 ADD FOREIGN KEY (IdEnseignant)
 REFERENCES
 tblUtilisateur(Id);
-
 
 
 ALTER TABLE tblStage

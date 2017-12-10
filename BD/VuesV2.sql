@@ -96,7 +96,7 @@ DROP VIEW IF EXISTS vInfoEvalGlobale;
 CREATE VIEW vInfoEvalGlobale AS
 SELECT 	St.Id as 'IdStage', Eva.Id as 'IdEvaluation',Eva.DateComplétée as 'DateComplétée',Eva.Statut as 'Statut',
 		Eva.DateDébut as 'DateDébut',Eva.DateFin as 'DateFin',TE.Id as 'IdTypeEvaluation', TE.Titre as 'TitreTypeEvaluation',
-        St.IdStagiaire, St.Id as 'IdStage'
+        St.IdStagiaire
 FROM vEvaluation as Eva
 join vTypeEvaluation as TE
 on TE.Id = Eva.IdTypeEvaluation
