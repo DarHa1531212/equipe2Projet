@@ -33,7 +33,6 @@ function RegexProfilStagiaire(){
 				changerCouleur(text, true);
 				confirmSaveNum[i] = true;
 			}
-				
 		}
 	}
 

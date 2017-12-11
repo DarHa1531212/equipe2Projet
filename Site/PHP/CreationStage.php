@@ -6,6 +6,7 @@
         CreateStage($bdd);
         
     function CreateStage($bdd){
+        include 'UploadFile.phph';
         $champs = json_decode($_POST["tabChamp"]);
         $stage = array();
         
@@ -31,6 +32,8 @@
                             'dateDebut'=>$stage["DateDebut"], 
                             'dateFin'=>$stage["DateFin"]), 
                             'stdClass');
+
+        UploadFile('Stage', $bdd, $stage['Stagiaire']);
     }
 
     //affiche les entreprises dans le dropdown menu
@@ -175,7 +178,10 @@
 
 		<br>
             <input class="bouton" type="button" style="width: 100px;" value="   Annuler   " onclick="Requete(AfficherPage, \'../PHP/TBNavigation.php?nomMenu=ListeStage.php\')"/>      
-            <input class="bouton" type="button" id="Save" style="width: 100px;" value=" Sauvegarder " onclick= "Post(AfficherPage, \'../PHP/TBNavigation.php?&nomMenu=CreationStage.php&post\')"/>
+            <input class="bouton" type="button" id="Save" style="width: 100px;" value=" Sauvegarder " onclick= "UploadFile(ExecuteQuery); Post(AfficherPage, \'../PHP/TBNavigation.php?nomMenu=CreationStage.php&post\')"/>
+            <input type="hidden" name="maxFileSize" value="2000000">
+            <input class="inputFile" id="file" type="file" value="Envoyer" name="fichier" onchange="AfficherNom(this)"/>
+            <label class="bouton labelFile" for="file">Offre de stage</label>
             <br/><br/>
     </div>   
     <br>

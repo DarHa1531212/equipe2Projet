@@ -60,6 +60,7 @@
         if(isset($_REQUEST['contenu'])){
             
             include 'UploadFile.php';
+            UploadFile('Journal', $bdd, $idStagiaire);
             $entree = array(htmlspecialchars($_REQUEST['contenu']));
 
             if ($entree[0] != "" && isset($_FILES['file']) && $_FILES['file']['name'] != "")
