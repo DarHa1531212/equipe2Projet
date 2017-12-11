@@ -6,7 +6,7 @@
         CreateStage($bdd);
         
     function CreateStage($bdd){
-        include 'UploadFile.phph';
+        include 'UploadFile.php';
         $champs = json_decode($_POST["tabChamp"]);
         $stage = array();
         
@@ -15,7 +15,8 @@
         }
         $annee = substr($stage['DateDebut'],0,4);
         creationDossierSession($annee);
-        creationDossierStage($annee,$stage['Stagiaire']);
+        creationDossierStage($annee, $stage['Stagiaire']);
+        UploadFile('Stage', $bdd, $stage['Stagiaire']);
 
         $bdd->Request(" INSERT INTO tblStage (IdResponsable, IdSuperviseur, IdStagiaire, IdEnseignant, DescriptionStage, CompetenceRecherche, HoraireTravail, NbHeureSemaine, SalaireHoraire, DateDebut, DateFin ) 
                         VALUES (:idResponsable, :idSuperviseur, :idStagiaire, :idEnseignant, :description, :competence, :horaire, :nbHeure, :salaire, :dateDebut, :dateFin);",
@@ -32,8 +33,6 @@
                             'dateDebut'=>$stage["DateDebut"], 
                             'dateFin'=>$stage["DateFin"]), 
                             'stdClass');
-
-        UploadFile('Stage', $bdd, $stage['Stagiaire']);
     }
 
     //affiche les entreprises dans le dropdown menu
@@ -95,8 +94,7 @@
     }
 
     $content =
-    '<script src="../js/creationStage.js"></script>
-    <article class="stagiaire">
+    '<article class="stagiaire">
         <div class="infoStagiaire">
             <h2>Stages</h2>
         </div>
@@ -178,9 +176,9 @@
 
 		<br>
             <input class="bouton" type="button" style="width: 100px;" value="   Annuler   " onclick="Requete(AfficherPage, \'../PHP/TBNavigation.php?nomMenu=ListeStage.php\')"/>      
-            <input class="bouton" type="button" id="Save" style="width: 100px;" value=" Sauvegarder " onclick= "UploadFile(ExecuteQuery); Post(AfficherPage, \'../PHP/TBNavigation.php?nomMenu=CreationStage.php&post\')"/>
+            <input class="bouton" type="button" id="Save" style="width: 100px;" value=" Sauvegarder " onclick= "UploadFile(ExecuteQuery, \'../PHP/TBNavigation.php?nomMenu=CreationStage.php&post\'); Post(AfficherPage, \'../PHP/TBNavigation.php?nomMenu=CreationStage.php&post\')"/>
             <input type="hidden" name="maxFileSize" value="2000000">
-            <input class="inputFile" id="file" type="file" value="Envoyer" name="fichier" onchange="AfficherNom(this)"/>
+            <input class="inputFile" id="file" type="file" value="Envoyer" name="fichier"/>
             <label class="bouton labelFile" for="file">Offre de stage</label>
             <br/><br/>
     </div>   
