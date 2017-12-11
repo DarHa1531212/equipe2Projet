@@ -32,6 +32,8 @@
                 $bdd->Request("update tblEvaluation set Statut=:Statut where Id=:IdEvaluation;",
                                 array('IdEvaluation'=> $evaluation->IdEvaluation, 'Statut'=>1),
                                 "stdClass");
+
+                 $evaluation->Statut = 1;
             }
         }
 

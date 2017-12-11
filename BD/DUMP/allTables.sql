@@ -718,7 +718,7 @@ INSERT IGNORE INTO `tblEvaluationStage` (`IdEvaluation`,`IdStage`) VALUES (198,4
 INSERT IGNORE INTO `tblEvaluationStage` (`IdEvaluation`,`IdStage`) VALUES (199,49);
 INSERT IGNORE INTO `tblEvaluationStage` (`IdEvaluation`,`IdStage`) VALUES (200,50);
 
-INSERT INTO `tblEvaluation` (`Id`,`Statut`,`DateDébut`,`DateFin`,`DateComplétée`,`IdTypeEvaluation`) VALUES (1,'1', ' 2017-10-20 ', ' 2018-04-04 ',NULL,1);
+/*INSERT INTO `tblEvaluation` (`Id`,`Statut`,`DateDébut`,`DateFin`,`DateComplétée`,`IdTypeEvaluation`) VALUES (1,'1', ' 2017-10-20 ', ' 2018-04-04 ',NULL,1);
 INSERT INTO `tblEvaluation` (`Id`,`Statut`,`DateDébut`,`DateFin`,`DateComplétée`,`IdTypeEvaluation`) VALUES (2,'1', ' 2017-10-20 ', ' 2018-04-04 ',NULL,2);
 INSERT INTO `tblEvaluation` (`Id`,`Statut`,`DateDébut`,`DateFin`,`DateComplétée`,`IdTypeEvaluation`) VALUES (3,'1', ' 2017-10-20 ', ' 2018-04-04 ',NULL,3);
 INSERT INTO `tblEvaluation` (`Id`,`Statut`,`DateDébut`,`DateFin`,`DateComplétée`,`IdTypeEvaluation`) VALUES (4,'1', ' 2017-10-20 ', ' 2018-04-04 ',NULL,1);
@@ -918,7 +918,7 @@ INSERT INTO `tblEvaluation` (`Id`,`Statut`,`DateDébut`,`DateFin`,`DateComplét�
 INSERT INTO `tblEvaluation` (`Id`,`Statut`,`DateDébut`,`DateFin`,`DateComplétée`,`Commentaire`,`IdTypeEvaluation`) VALUES (197,'0','2017-10-20','2018-04-04',NULL,'',4);
 INSERT INTO `tblEvaluation` (`Id`,`Statut`,`DateDébut`,`DateFin`,`DateComplétée`,`Commentaire`,`IdTypeEvaluation`) VALUES (198,'0','2017-10-20','2018-04-04',NULL,'',4);
 INSERT INTO `tblEvaluation` (`Id`,`Statut`,`DateDébut`,`DateFin`,`DateComplétée`,`Commentaire`,`IdTypeEvaluation`) VALUES (199,'0','2017-10-20','2018-04-04',NULL,'',4);
-INSERT INTO `tblEvaluation` (`Id`,`Statut`,`DateDébut`,`DateFin`,`DateComplétée`,`Commentaire`,`IdTypeEvaluation`) VALUES (200,'0','2017-10-20','2018-04-04',NULL,'',4);
+INSERT INTO `tblEvaluation` (`Id`,`Statut`,`DateDébut`,`DateFin`,`DateComplétée`,`Commentaire`,`IdTypeEvaluation`) VALUES (200,'0','2017-10-20','2018-04-04',NULL,'',4);*/
 
 
 INSERT IGNORE INTO `tblTypeEvaluation` (`Id`,`Titre`,`Objectif`) VALUES (1,'Évaluation mi-stage','La première évaluation servira à noter de façon générale l’élève stagiaire en vue
@@ -1503,7 +1503,7 @@ INSERT IGNORE INTO `tblTypeQuestion` (`Id`,`Description`) VALUES (3,'Question à
 -- table stage
 
 INSERT IGNORE INTO `tblStage` (`Id`,`IdResponsable`,`IdSuperviseur`,`IdStagiaire`,`IdEnseignant`) VALUES (1,101,51,1,131);
-INSERT IGNORE INTO `tblStage` (`Id`,`IdResponsable`,`IdSuperviseur`,`IdStagiaire`,`IdEnseignant`) VALUES (2,102,52,2,132);
+INSERT IGNORE INTO `tblStage` (`Id`,`IdResponsable`,`IdSuperviseur`,`IdStagiaire`,`IdEnseignant`) VALUES (2,102,52,1,132);
 INSERT IGNORE INTO `tblStage` (`Id`,`IdResponsable`,`IdSuperviseur`,`IdStagiaire`,`IdEnseignant`) VALUES (3,103,53,3,133);
 INSERT IGNORE INTO `tblStage` (`Id`,`IdResponsable`,`IdSuperviseur`,`IdStagiaire`,`IdEnseignant`) VALUES (4,104,54,4,134);
 INSERT IGNORE INTO `tblStage` (`Id`,`IdResponsable`,`IdSuperviseur`,`IdStagiaire`,`IdEnseignant`) VALUES (5,105,55,5,135);

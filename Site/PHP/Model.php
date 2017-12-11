@@ -312,20 +312,26 @@
             foreach ($questions as $question) 
             {
                
-                $resultat = $bdd->Request('select *
+                /*$resultat = $bdd->Request('select *
                                     from tblevaluationquestionreponse
                                     where IdEvaluation = :IdEvaluation and IdQuestion = :IdQuestion;',
                                             array('IdEvaluation'=>$this->getId(), 'IdQuestion'=>$question->getId() ),
-                                            "stdClass");
+                                            "stdClass");*/
 
                 //$resultat = $query->fetchAll();
 
-                $commentaireQuestion = $resultat[0]->Commentaire;
+                //$commentaireQuestion = $resultat[0]->Commentaire;
 
-                if($commentaireQuestion != 'Aucun')
+                if(($question->getId() == 57)||($question->getId() == 59)||($question->getId() == 60)||($question->getId() == 62)|| ($question->getId() == 63) ||($question->getId() == 65))
                 {
                     return array($question->getId(),); 
                 }
+
+                /*if($commentaireQuestion != 'Aucun')
+                {
+                    return array($question->getId(),); 
+                }*/
+
             }
 
         }
