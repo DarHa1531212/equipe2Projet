@@ -54,7 +54,7 @@
                     
                 $content = $content.
                 '<div class="categories">
-                    <div class="separateur" id="question">
+                    <div class="separateur questions" id="question">
                         <h3>'.$this->categories[0]->getLettre().' '.$this->categories[0]->getTitre().'</h3>
                         <p> 
                             '.$question->getTexte().'
@@ -77,16 +77,53 @@
             
             $this->SelectReponses($bdd, $question->getId());
             
-            foreach($this->reponses as $reponse){   
-                $content = $content. 
-                '
-                    <tr class="itemHover" onclick="reponse'.$reponse->getId().'.checked = true;">
-                        <td>
-                            '.$reponse->getTexte().'
-                            <input type="radio" id="reponse'.$reponse->getId().'" name="question'.$question->getId().'" value="'.$reponse->getId().'"/>
-                        </td>
-                    </tr>
-                ';
+            foreach($this->reponses as $reponse)
+            {   
+
+
+                if(( $this->getStatut() == 3 )|| ( $this->getStatut() == 4))
+                {
+                     $this->SelectReponsesChoisies($bdd, $this->id, $question->getId());
+                    //evaluation soumise ou validée
+                    if($reponse->getId() == $this->reponsesChoisies[0]->getId())
+                    {
+                        //name="question'.$question->getId().'" value="'.$reponse->getid().'"
+                        $content = $content. 
+                            '
+                            <tr class="itemHover" onclick="reponse'.$reponse->getId().'.checked = true;" >
+                                <td>
+                                    '.$reponse->getTexte().'
+                                    <input type="radio" id="reponse'.$reponse->getId().'" name="question'.$question->getId().'" value="'.$reponse->getId().'" checked="checked"/>
+                                </td>
+                            </tr>
+                            ';
+                    }  
+                    else
+                    {
+                        $content = $content. 
+                            '
+                                <tr class="itemHover" onclick="reponse'.$reponse->getId().'.checked = true;" >
+                                    <td>
+                                        '.$reponse->getTexte().'
+                                        <input type="radio" id="reponse'.$reponse->getId().'" name="question'.$question->getId().'" value="'.$reponse->getId().'"/>
+                                    </td>
+                                </tr>
+                            ';
+                    }
+                        
+                }
+                else
+                {
+                      $content = $content. 
+                            '
+                                <tr class="itemHover" onclick="reponse'.$reponse->getId().'.checked = true;" >
+                                    <td>
+                                        '.$reponse->getTexte().'
+                                        <input type="radio" id="reponse'.$reponse->getId().'" name="question'.$question->getId().'" value="'.$reponse->getId().'"/>
+                                    </td>
+                                </tr>
+                            ';
+                }
             }
             
             return $content;
@@ -118,20 +155,56 @@
             }
         }
         
-        //Sélectionne toutes les questions pour la catégorie.
-        private function SelectQuestions($bdd, $idEvaluation, $idCategorie){
+        
+        protected function SelectQuestionsByCategories($bdd, $idEvaluation, $idCategorie)
+        {
+           
+            
+            $questionsDeLaCategorie = array();
+
+             $questions = $bdd->Request('SELECT DISTINCT(Id), Q.Texte
+                                    FROM vQuestion AS Q
+                                    JOIN vEvaluationQuestionReponse AS EQR
+                                    ON EQR.IdQuestion = Q.Id
+                                    WHERE EQR.IdEvaluation = :idEvaluation AND Q.IdCategorieQuestion = :idCategorieQuestion',
+                                            array('idEvaluation'=>$idEvaluation,'idCategorieQuestion'=>$idCategorie),
+                                            "stdClass");
+
+            /*$query = $bdd->prepare('SELECT DISTINCT(Id), Q.Texte
+                                    FROM vQuestion AS Q
+                                    JOIN vEvaluationQuestionReponse AS EQR
+                                    ON EQR.IdQuestion = Q.Id
+                                    WHERE EQR.IdEvaluation = :idEvaluation AND Q.IdCategorieQuestion = :idCategorieQuestion');
+            
+            $query->execute(array('idEvaluation'=>$idEvaluation, 'idCategorieQuestion'=>$idCategorie));*/
+            
+            //$questions = $query->fetchAll();
+            
+            foreach($questions as $question)
+            {
+                array_push($questionsDeLaCategorie, new Question($question->Id, $question->Texte));
+            }
+
+            return $questionsDeLaCategorie;
+        }
+
+
+        protected function SelectAllQuestions($bdd, $idEvaluation)
+        {
             unset($this->questions);
+
             $this->questions = array();
 
-            $questions = $bdd->Request('SELECT DISTINCT(Id), Q.Texte
-                                        FROM vQuestion AS Q
-                                        JOIN vEvaluationQuestionReponse AS EQR
-                                        ON EQR.IdQuestion = Q.Id
-                                        WHERE EQR.IdEvaluation = :idEvaluation AND Q.IdCategorieQuestion = :idCategorieQuestion',
-                                        array('idEvaluation'=>$idEvaluation, 'idCategorieQuestion'=>$idCategorie),
-                                        "stdClass");
-            
-            foreach($questions as $question){
+             $questions = $bdd->Request('SELECT DISTINCT(Id), Q.Texte
+                                    FROM vQuestion AS Q
+                                    JOIN vEvaluationQuestionReponse AS EQR
+                                    ON EQR.IdQuestion = Q.Id
+                                    WHERE EQR.IdEvaluation = :idEvaluation',
+                                            array('idEvaluation'=>$idEvaluation),
+                                            "stdClass");
+
+            foreach($questions as $question)
+            {
                 array_push($this->questions, new Question($question->Id, $question->Texte));
             }
         }
@@ -173,13 +246,15 @@
             return $content;
         }
         
-        //Affiche les questions.
-        private function AfficherQuestion($bdd){
+           //Affiche les questions.
+        protected function AfficherQuestion($bdd, $questions)
+        {
             $content = "";
             
-            foreach($this->questions as $question){
+            foreach($questions as $question)
+            {
                 $content = $content.
-                '<tr>
+                '<tr class="questions">
                     <td>'.$question->getTexte().'</td>
                     '.$this->AfficheReponse($bdd, $question).'
                 </tr>';
@@ -187,9 +262,11 @@
             
             return $content;
         }
-        
+
+     
         //Affiche les réponses.
-        protected function AfficheReponse($bdd, $question){
+        protected function AfficheReponse($bdd, $question)
+        {
             $content = "";
             
             $this->SelectReponses($bdd, $question->getId());
@@ -198,24 +275,24 @@
             {   
                 $this->SelectReponsesChoisies($bdd, $this->id, $question->getId());
 
-                if(( $this->getStatut() == 3 )|| ( $this->getStatut() == 4)){
+                if(( $this->getStatut() == 3 )|| ( $this->getStatut() == 4))
+                {
                     //evaluation soumise ou validée
                     if($reponse->getId() == $this->reponsesChoisies[0]->getId())
                         $content = $content.'<td><input type="radio" name="question'.$question->getId().'" value="'.$reponse->getid().'" checked = "checked" ></td>';
                     else
                         $content = $content.'<td><input type="radio" name="question'.$question->getId().'" value="'.$reponse->getid().'"></td>';
                 }
-                else{
+                else
+                {
                      $content = $content.'<td><input type="radio" name="question'.$question->getId().'" value="'.$reponse->getid().'"></td>';
                 }
+                
             }
             
             return $content;
         }
-        
-        ///////////////////////////////////////////////////////////////
-        //BESOIN DEXPLICATION POUR LINSTANT                          //
-        ///////////////////////////////////////////////////////////////
+
         
         //Sélectionne toutes les questions pour la catégorie.
         protected function SelectQuestionsByCategories($bdd, $idEvaluation, $idCategorie){
@@ -257,47 +334,51 @@
         
     }
 
-    class EvaluationGrilleFormation extends EvaluationGrille{
-        
-        public function __construct($bdd, $id){
+    class EvaluationGrilleFormation extends EvaluationGrille
+    {
+
+        public function __construct($bdd, $id)
+        {
             parent::__construct($bdd, $id);
         }
 
-        private function questionsHasComment($bdd, $questions){
-            foreach ($questions as $question) {
-                $resultat = $bdd->Request(' select *
-                                            from tblevaluationquestionreponse
-                                            where IdEvaluation = :IdEvaluation and IdQuestion = :IdQuestion;',
-                                            array('IdEvaluation'=>$this->getId(), 'IdQuestion'=>$question->getId() ), "stdClass")[0];
+        private function questionsHasComment($bdd, $questions)
+        {
+            foreach ($questions as $question) 
+            {
 
-                $commentaireQuestion = $resultat->Commentaire;
-
-                if($commentaireQuestion != 'Aucun')
+                if(($question->getId() == 57)||($question->getId() == 59)||($question->getId() == 60)||($question->getId() == 62)|| ($question->getId() == 63) ||($question->getId() == 65))
                 {
                     return array($question->getId(),); 
                 }
             }
         }
 
-        private function zoneCommentaireCategorie($bdd,  $questions){
+        private function zoneCommentaireCategorie($bdd,  $questions)
+        {
             if( ( $this->statut == 3 ) || ( $this->statut == 4) )//evaluation soumise ou validée
             {
-                $commentaireCategorie = $bdd->Request(' select * from tblEvaluationQuestionReponse 
-                                                        where IdEvaluation=:IdEvaluation AND IdQuestion = :IdQuestion;',
-                                                        array('IdEvaluation'=>$this->id,'IdQuestion'=> $this->questionsHasComment($bdd, $questions)[0]), "stdClass")[0];
+                 $commentaireCategorie = $bdd->Request('select *
+                                    from tblevaluationquestionreponse
+                                    where IdEvaluation = :IdEvaluation and IdQuestion = :IdQuestion;',
+                                            array('IdEvaluation'=>$this->id,'IdQuestion'=> $this->questionsHasComment($bdd, $questions)[0]),
+                                            "stdClass");
 
-                return '<textarea class="commentaireCategorie" rows="" cols="" maxlength="500" wrap="hard" readonly>'. $commentaireCategorie->Commentaire .'</textarea>';
+                return '<textarea class="commentaireCategorie" rows="" cols="" maxlength="500" wrap="hard" readonly>'. $commentaireCategorie[0]->Commentaire .'</textarea>';
             }
             else
             {
                 return '<textarea class="commentaireCategorie" rows="" cols="" maxlength="500" name="'.$this->questionsHasComment($bdd, $questions)[0].'" wrap="hard">Vos commentaires</textarea>';
             }
+
         }
 
-        public function DrawEvaluation($bdd){
+        public function DrawEvaluation($bdd)
+        {
             $content = "";
         
-            foreach($this->categories as $categorie){
+            foreach($this->categories as $categorie)
+            {
                 $questions = $this->SelectQuestionsByCategories($bdd, $this->id, $categorie->getId());
                     
                 $content = $content.
@@ -336,15 +417,18 @@
 
                     
                 </div>';
+
             }
 
             return $content;
         }
     }
 
-    class EvaluationGrilleMiStage extends EvaluationGrille{
+    class EvaluationGrilleMiStage extends EvaluationGrille
+    {
 
-        public function __construct($bdd, $id){
+        public function __construct($bdd, $id)
+        {
             parent::__construct($bdd, $id);
         }
 
@@ -354,7 +438,7 @@
         
             foreach($this->categories as $categorie)
             {
-                $questions = $this->SelectQuestions($bdd, $this->id, $categorie->getId());
+                $questions = $this->SelectQuestionsByCategories($bdd, $this->id, $categorie->getId());
                     
                 $content = $content.
                 '
@@ -389,7 +473,8 @@
         }
     }
 
-    class Evaluation{
+    class Evaluation
+    {
         protected $questions = array();
         protected $reponses = array();
         protected $categories = array();
@@ -411,18 +496,17 @@
                                             array('idEvaluation'=>$id),
                                             "stdClass");
             
-            foreach($evaluations as $evaluation){
+            foreach($evaluations as $evaluation)
+            {
                 $this->titre = $evaluation->Titre;
                 $this->statut = $evaluation->Statut;
                 $this->dateCompletee = $evaluation->DateComplétée;
                 $this->dateDebut = $evaluation->DateDébut;
                 $this->dateFin = $evaluation->DateFin;
-                $this->idTypeEval = $evaluation->IdTypeEvaluation; 
-                //////////////////////////////////////////////////////////////
-                //CHAMPS A AJOUTER DANS LA BD ET DANS LES VUES              //
-                //////////////////////////////////////////////////////////////
+
+                $this->idTypeEval = $evaluation->IdTypeEvaluation;
                 $this->commentaire = $evaluation->Commentaire;
-                $this->objectifEval = $evaluation->Objectif;    
+                $this->objectifEval = $evaluation->Objectif;                
             }
         }
         
@@ -463,45 +547,33 @@
                 array_push($this->reponsesChoisies, new Reponse($reponse->IdReponse, $reponse->Texte));
             }
         }
-        
-        //Sauvegarde les modifications dans la BD.
-        public function Submit($bdd){
+
+        public function Submit($bdd)
+        {
             $reponses = json_decode($_POST["tabReponse"], true);
 
-            foreach($this->categories as $categorie){
-                foreach($reponses as $reponse){
-                    if($reponse["type"] == "question"){
-                        $bdd->Request( 'update tblEvaluationQuestionReponse SET IdReponse = :IdReponse
-                                        WHERE IdEvaluation = :IdEvaluation AND IdQuestion = :IdQuestion;', 
-                                        array(
-                                            'IdEvaluation'=>$this->id,'IdQuestion'=>$reponse["idQuestion"],
-                                            'IdReponse'=>$reponse["value"]
-                                        ), 
-                                       "stdClass");
-                    }
-                    else if($reponse["type"] == "commentaireEvaluation"){
-                        $bdd->Request(' update tblEvaluation set Statut= \'3\',      
-                                        DateComplétée=:DateCompletee, 
-                                        Commentaire = :Commentaire where  Id=:IdEvaluation;',
-                                        array(
-                                            'IdEvaluation'=>$_REQUEST['idEvaluation'],
-                                            'DateCompletee'=>date("Y-m-d"), 
-                                            'Commentaire'=> $reponse["value"]
-                                        ), 
-                                        "stdClass");
-                    }
-                    else{
-                        $bdd->Request(' update tblEvaluationQuestionReponse set Commentaire= :Commentaire 
-                                        where IdEvaluation=:IdEvaluation AND IdQuestion = :IdQuestion;',
-                                        array(
-                                            'Commentaire'=>$reponse["value"],
-                                            'IdEvaluation'=>$_REQUEST['idEvaluation'],
-                                            'IdQuestion'=> $reponse["idQuestion"]
-                                        ),
-                                        "stdClass");
-                    }
-                }        
-            }
+            foreach($reponses as $reponse)
+            {
+                if($reponse["type"] == "question")
+                {
+                    $bdd->Request('update tblEvaluationQuestionReponse SET IdReponse = :IdReponse
+                                                                    WHERE IdEvaluation = :IdEvaluation AND IdQuestion = :IdQuestion;',
+                    array('IdEvaluation'=>$this->id,'IdQuestion'=>$reponse["idQuestion"],'IdReponse'=>$reponse["value"]),
+                    "stdClass");
+                }
+                else if($reponse["type"] == "commentaireEvaluation")
+                {
+                    $bdd->Request('update tblEvaluation set Statut= \'3\', DateComplétée=:DateCompletee, Commentaire = :Commentaire where Id=:IdEvaluation;',
+                    array('IdEvaluation'=>$_REQUEST['idEvaluation'],'DateCompletee'=>date("Y-m-d"), 'Commentaire'=> $reponse["value"]),
+                    "stdClass");
+                }
+                else
+                {
+                    $bdd->Request('update tblEvaluationQuestionReponse set Commentaire= :Commentaire where IdEvaluation=:IdEvaluation AND IdQuestion = :IdQuestion;',
+                    array('Commentaire'=>$reponse["value"],'IdEvaluation'=>$_REQUEST['idEvaluation'],'IdQuestion'=> $reponse["idQuestion"]),
+                    "stdClass");
+                }
+            }        
         }   
         
         public function getCategories(){
@@ -535,8 +607,8 @@
         public function getIdTypeEval(){
             return $this->idTypeEval;
         }
-        
-         public function getQuestions()
+
+        public function getQuestions()
         {
             return $this->questions;
         }

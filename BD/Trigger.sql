@@ -23,7 +23,7 @@ FOR EACH ROW
 					INSERT IGNORE INTO `tblEvaluationQuestionReponse` (`IdQuestion`,`IdReponse`,`IdEvaluation`) VALUES (@X,1,@IDEVALUATION+1);
 					SET @X=@X+1;
 					END WHILE ;
-				INSERT IGNORE INTO `tblEvaluationQuestionReponse` (`IdQuestion`,`IdReponse`,`IdEvaluation`) VALUES (67,115,@IDEVALUATION+1);
+				-- INSERT IGNORE INTO `tblEvaluationQuestionReponse` (`IdQuestion`,`IdReponse`,`IdEvaluation`) VALUES (67,115,@IDEVALUATION+1);
 		
 
 		INSERT INTO `tblEvaluation` (`Statut`,`DateDébut`,`DateFin`,`DateComplétée`,`IdTypeEvaluation`) VALUES ('1', ' 2017-10-20 ', ' 2018-04-04 ',NULL,2);
@@ -33,7 +33,7 @@ FOR EACH ROW
 					INSERT IGNORE INTO `tblEvaluationQuestionReponse` (`IdQuestion`,`IdReponse`,`IdEvaluation`) VALUES (@X,(@X*5),@IDEVALUATION+2);
 					SET @X=@X+1;
 					END WHILE ;
-				INSERT IGNORE INTO `tblEvaluationQuestionReponse` (`IdQuestion`,`IdReponse`,`IdEvaluation`) VALUES (66,115,@IDEVALUATION+2);
+				-- INSERT IGNORE INTO `tblEvaluationQuestionReponse` (`IdQuestion`,`IdReponse`,`IdEvaluation`) VALUES (66,115,@IDEVALUATION+2);
 
 
 		INSERT INTO `tblEvaluation` (`Statut`,`DateDébut`,`DateFin`,`DateComplétée`,`IdTypeEvaluation`) VALUES ('1', ' 2017-10-20 ', ' 2018-04-04 ',NULL,3);
@@ -43,7 +43,7 @@ FOR EACH ROW
 					INSERT IGNORE INTO `tblEvaluationQuestionReponse` (`IdQuestion`,`IdReponse`,`IdEvaluation`) VALUES (@X,1,@IDEVALUATION+3);
 					SET @X=@X+1;
 					END WHILE ;
-		INSERT INTO `tblEvaluation` (`Statut`,`DateDébut`,`DateFin`,`DateComplétée`,`IdTypeEvaluation`) VALUES ('1', ' 2017-10-20 ', ' 2018-04-04 ',NULL,1);
+		INSERT INTO `tblEvaluation` (`Statut`,`DateDébut`,`DateFin`,`DateComplétée`,`IdTypeEvaluation`) VALUES ('1', ' 2017-10-20 ', ' 2018-04-04 ',NULL,4);
 			INSERT IGNORE INTO `tblEvaluationStage` (`IdEvaluation`,`IdStage`) VALUES (@IDEVALUATION+4,@IDSTAGE);
 				SET @X =  23;
 					WHILE @X < 57 DO

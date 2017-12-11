@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+
 <html>
     <head>
         <meta charset="utf-8">
@@ -13,7 +14,7 @@
         <?php include 'vTableauBord.php' ?>
     </head>
     
-    <body onload="SetTimeout()">
+    <body onload="CacherDiv(); SetTimeout()">
         <script src="../js/jquery.min.js"></script>
         <script src="../js/navigation.js"></script>
         <script src="../js/image.js"></script>
@@ -21,6 +22,7 @@
         <script src="../js/regex.js"></script>
         <script src="../js/Journal.js"></script>
         <script src="../js/scripts.js"></script>
+         <script src="../js/slideShow.js"></script>
         
         <?php 
             include('Header.php'); 
@@ -61,6 +63,7 @@
         </section>
         
         <?php include('Footer.php'); ?>
+
     </body>
     
 </html>

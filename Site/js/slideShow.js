@@ -4,28 +4,37 @@ var liste;
 var itemActu = 0;
 
 //Chache toutes les divs sauf la premiere.
-function CacherDiv(){
-    if(listStagiaire.length > 1){
+function CacherDiv()
+{
+    if(listStagiaire.length > 1)
+    {
         liste = listStagiaire;
     }
-    else if(listQuestion.length > 1){
+    else if(listQuestion.length > 1)
+    {
         liste = listQuestion;
         ChangerLettre(0);
     }
     
-    for(var i = 1; i < liste.length; i++){
+    for(var i = 1; i < liste.length; i++)
+    {
         $(liste[i]).hide();
     }
+
     itemActu = 0;
 }
 
+
 //Change pour l'élément suivant ou précédent.
-function ChangerItem(element){
-    if((element.id == "gauche") && ((itemActu - 1) >= 0)){
+function ChangerItem(element)
+{
+    if((element.id == "gauche") && ((itemActu - 1) >= 0))
+    {
         $(liste[itemActu]).hide();
         itemActu--;
     }
-    else if((element.id == "droite") && ((itemActu + 1) < liste.length)){
+    else if((element.id == "droite") && ((itemActu + 1) < liste.length))
+    {
         $(liste[itemActu]).hide();
         itemActu++;
     } 
@@ -35,8 +44,28 @@ function ChangerItem(element){
     $(liste[itemActu]).show();  
 }
 
+function ChangerItemConsultationEvaluation(element)
+{
+    if((element.id == "gauche") && ((itemActu - 1) >= 0))
+    {
+        $(liste[itemActu]).hide();
+        itemActu--;
+    }
+    else if((element.id == "droite") && ((itemActu + 1) < liste.length))
+    {
+        $(liste[itemActu]).hide();
+        itemActu++;
+    } 
+    
+   // ActualiseBtnEval(element);
+   ChangerLettre(itemActu);
+    
+    $(liste[itemActu]).show();  
+}
+
 //Va a la categorie selectionee.
-function JumpTo(position){
+function JumpTo(position)
+{
     ChangerLettre(position);
     $(liste[itemActu]).hide();
     itemActu = position;
@@ -45,10 +74,23 @@ function JumpTo(position){
     ActualiseBtnEval(document.getElementById("droite"));
 }
 
+function JumpToConsultationEvaluation(position)
+{
+    ChangerLettre(position);
+    $(liste[itemActu]).hide();
+    itemActu = position;
+    $(liste[itemActu]).show();
+    
+    //ActualiseBtnEval(document.getElementById("droite"));
+    ChangerLettre(itemActu);
+}
+
 //Modifie les propriétées des lettres de catégorie.
-function ChangerLettre(position){
+function ChangerLettre(position)
+{
     var lettres = document.getElementsByClassName("lettreNav");
-    for(var i = 0; i < lettres.length; i++){
+    for(var i = 0; i < lettres.length; i++)
+    {
         $(lettres[i]).css("background-color", "white");
         $(lettres[i]).css("color", "#0a3a7c");
     }
@@ -57,17 +99,23 @@ function ChangerLettre(position){
 }
 
 //Change la couleur des lettres et affiche le bouton "confirmer" si arriver a la derniere categorie.
-function ActualiseBtnEval(element){
-    if(element.parentElement.className == "navigateurEval"){
+function ActualiseBtnEval(element)
+{
+    if(element.parentElement.className == "navigateurEval")
+    {
         ChangerLettre(itemActu);
         
-        if(itemActu == liste.length - 1){
+        if(itemActu == liste.length - 1)
+        {
             $("#droite").hide();
             $("#confirmer").show();
         }
-        else if($("#confirmer").is(":visible")){
+        else
+        {
             $("#droite").show();
             $("#confirmer").hide();
         }
+
+        //else if($("#confirmer").is(":visible"))
     }
 }

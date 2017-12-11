@@ -1,21 +1,19 @@
 <?php
     $content = "";
 
-    function gestionStatutEvaluation($evaluation, $dateDebut, $dateLimite, $bdd){
+    //met a jour les statut des evaluations en fonction des dates
+    function gestionStatutEvaluation($evaluation, $dateDebut, $dateLimite, $bdd)
+    {  
         if(date("Y-m-d") > $dateLimite) 
         {
             if(($evaluation->Statut != 3) && ($evaluation->Statut != 4))
             {
-                //l'evaluation n'est ni soumise, ni validée
-                //update du statut de l'evaluation : il passe a en retard
-                $bdd->Request(" update tblEvaluation set Statut=:Statut where Id=:IdEvaluation;",
-                                array('Statut'=>2, 'IdEvaluation'=> $evaluation->IdEvaluation), "stdClass");
+                 $bdd->Request("update tblEvaluation set Statut=:Statut where Id=:IdEvaluation;",
+                                array('IdEvaluation'=> $evaluation->IdEvaluation, 'Statut'=>2),
+                                "stdClass");
+
                 $evaluation->Statut = 2;
             }
-        }
-        else if( date("Y-m-d") < $dateDebut)
-        {
-            //affichage de l'évaluation : le statut est supposé etre a pas accéssible
         }
         else //intervalle de l'évaluation
         {
@@ -31,32 +29,35 @@
     }
 
     //Vérifie si les évaluations précédentes sont complétées pour pouvoir appuyer sur la suivante.
-    function VerifEvaluation($tblEvaluation, $profil, $bdd){
+    function VerifEvaluation($tblEvaluation, $profil, $bdd)
+    {
         $listeStatut = array('Pas Accéssible','Pas Débuté','En Retard','Soumis ','Valide ');
         $div = "";
         $eval1 = "";
         $eval2 = "";
-        
+        $eval3 = "";
+
         foreach ($tblEvaluation as $evaluation) 
         {
             
             if($evaluation->IdTypeEvaluation == 1)//evaluation mi-stage
             {
-                gestionStatutEvaluation($evaluation, $evaluation->DateDébut, $evaluation->DateFin, $bdd);
+                gestionStatutEvaluation($evaluation,$profil->MiStageDebut,$profil->MiStageLimite, $bdd);
             }
             else if($evaluation->IdTypeEvaluation == 2)//evaluation-finale
             {
-                gestionStatutEvaluation($evaluation, $evaluation->DateDébut, $evaluation->DateFin, $bdd);
+                gestionStatutEvaluation($evaluation, $profil->FinaleDebut, $profil->FinaleLimite, $bdd);
             }
             else if($evaluation->IdTypeEvaluation == 3)//evaluation de la formation
             {
-                gestionStatutEvaluation($evaluation, $evaluation->DateDébut, $evaluation->DateFin, $bdd);
+                gestionStatutEvaluation($evaluation, $profil->FormationDebut, $profil->FormationLimite, $bdd);
             }
         }
         
         if($tblEvaluation[0]->Statut != '0')//le statut est different de pas accéssible
         {
             $div = '<tr class="itemHover" onclick="Requete(AfficherPage, \'../PHP/TBNavigation.php?id='.$profil->Id.'&nomMenu=Evaluation.php&idStage='.$tblEvaluation[0]->IdStage.'&idEvaluation='.$tblEvaluation[0]->IdEvaluation.'&typeEval=1\');">';
+            
         }
         else
         {
@@ -66,8 +67,8 @@
         $eval1 = $div.
             '<td>'.$tblEvaluation[0]->TitreTypeEvaluation.'</td>
             <td>'.$listeStatut[$tblEvaluation[0]->Statut].'</td>
-            <td>'.$tblEvaluation[0]->DateDébut.'</td>
-            <td>'.$tblEvaluation[0]->DateFin.'</td>
+            <td>'.$profil->MiStageDebut.'</td>
+            <td>'.$profil->MiStageLimite.'</td>
             <td>'.$tblEvaluation[0]->DateComplétée.'</td>
         </tr>';
         
@@ -83,14 +84,14 @@
         $eval2 = $div.
             '<td>'.$tblEvaluation[1]->TitreTypeEvaluation.'</td>
             <td>'.$listeStatut[$tblEvaluation[1]->Statut].'</td>
-            <td>'.$tblEvaluation[1]->DateDébut.'</td>
-            <td>'.$tblEvaluation[1]->DateFin.'</td>
+            <td>'.$profil->FinaleDebut.'</td>
+            <td>'.$profil->FinaleLimite.'</td>
             <td>'.$tblEvaluation[1]->DateComplétée.'</td>
         </tr>';
-        
+
         if(($tblEvaluation[2]->Statut != '0')&&(($tblEvaluation[0]->Statut == '3')||($tblEvaluation[0]->Statut == '4'))&&(($tblEvaluation[1]->Statut == '3')||($tblEvaluation[1]->Statut == '4')))//statut different de pas accéssible et est soumis ou valide
         {
-            $div = '<tr class="itemHover" onclick="Requete(AfficherPage, \'../PHP/TBNavigation.php?id='.$profil->Id.'&nomMenu=Evaluation.php&idStage='.$tblEvaluation[2]->IdStage.'&idEvaluation='.$tblEvaluation[2]->IdEvaluation.'&typeEval=3\')">';
+             $div = '<tr class="itemHover" onclick="Requete(AfficherPage, \'../PHP/TBNavigation.php?id='.$profil->Id.'&nomMenu=Evaluation.php&idStage='.$tblEvaluation[2]->IdStage.'&idEvaluation='.$tblEvaluation[2]->IdEvaluation.'&typeEval=3\')">';
         }
         else
         {
@@ -100,20 +101,21 @@
         $eval3 = $div.
             '<td>'.$tblEvaluation[2]->TitreTypeEvaluation.'</td>
             <td>'.$listeStatut[$tblEvaluation[2]->Statut].'</td>
-            <td>'.$tblEvaluation[2]->DateDébut.'</td>
-            <td>'.$tblEvaluation[2]->DateFin.'</td>
+            <td>'.$profil->FormationDebut.'</td>
+            <td>'.$profil->FormationLimite.'</td>
             <td>'.$tblEvaluation[2]->DateComplétée.'</td>
         </tr>';
-        
+
         $div = $eval1.$eval2.$eval3;
         
         return $div;
     }
 
-    foreach($profils as $profil){
+    foreach($profils as $profil)
+    {
         $evals = $bdd->Request("SELECT * FROM vInfoEvalGlobale
-                                WHERE IdStage = :idStage;",
-                                array('idStage'=> $profil->IdStage),
+                                WHERE IdStage = :IdStage;",
+                                array('IdStage'=> $profil->IdStage),
                                 "stdClass");
         
         $content = $content.
@@ -137,7 +139,10 @@
             </a>
         </div>';
 
-        if($_SESSION['IdRole'] != 4){//Si l'utilisateur n'est pas superviseur, affiche les infos du superviseur.
+        if($_SESSION['IdRole'] != 4)
+        {   
+
+            //Si l'utilisateur n'est pas superviseur, affiche les infos du superviseur.
             $content = $content.
             '
             <div class="blocInfo itemHover">
@@ -173,7 +178,8 @@
 
         <br/><br/><br/>';
         
-        if(count($profils) > 1){//Si il y a plus qu'un stagiaire, affiche les flèches.
+        if(count($profils) > 1)
+        {//Si il y a plus qu'un stagiaire, affiche les flèches.
             $content = $content.
             '<input class="bouton" type="button" value="Écrire un commentaire" onclick="Requete(AfficherPage, \'../PHP/TBNavigation.php?id='.$profil->IdSuperviseur.'&nomMenu=AVenir.php\')"/>
 

@@ -405,3 +405,40 @@ input[type=file]{
     width: 80%;
     margin:auto;
 }
+
+/*evaluations*/
+
+.commentaireEvalMiStage
+{
+    margin-top: 10px;
+    width: 90%;
+    margin: auto;
+}
+
+.commentaireEvalMiStage p
+{
+    float: left;
+}
+
+.commentaireEvalFinale
+{
+    width: 100%;
+   height: auto;
+   margin: auto;
+   margin-top: 10px;
+}
+
+.commentaireEvalFinale textarea
+{
+    width: 80%;
+    height: 100px;
+}
+
+
+.messageErreurRadioButton
+{
+    width: 90%;
+    margin: auto;
+    margin-top: 10px;
+    color: red;
+}
