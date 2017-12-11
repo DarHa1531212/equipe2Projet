@@ -1,5 +1,5 @@
- USE BDProjet_equipe2V2;
--- USE cegepjon_p2017_2_dev;
+-- USE BDProjet_equipe2V2;
+ USE cegepjon_p2017_2_dev;
 -- USE cegepjon_p2017_2_prod;
 -- USE cegepjon_p2017_2_tests;
 -- ------------------------------------------------
@@ -7,7 +7,7 @@
 -- ------------------------------------------------
 DROP VIEW IF EXISTS vEnseignant;
 CREATE VIEW vEnseignant AS 
-SELECT Util.Id AS IdUtilisateur, Emp.Id AS IdEnseignant, Prenom, Nom, NumTelEntreprise, IdEntreprise, Poste, CourrielEntreprise,
+SELECT Util.Id AS IdUtilisateur, Emp.Id AS IdEnseignant, Prenom, Nom, NumTelEntreprise, IdEntreprise, Poste, Emp.CourrielEntreprise,
 CONCAT(Prenom, Nom, NumTelEntreprise, IdEntreprise, Poste, CourrielEntreprise) AS Tag
 FROM vEmploye AS Emp
 JOIN vUtilisateur AS Util
@@ -148,7 +148,6 @@ JOIN vSuperviseur AS Superviseur
 ON Superviseur.IdUtilisateur = Stage.IdSuperviseur
 JOIN vEntreprise AS Entreprise
 ON Entreprise.Id = Superviseur.IdEntreprise;
-
 -- ------------------------------------------------
 -- Récupère toutes les évaluations des stagiaires selon leur ID et le type d'évaluation avec leurs réponses choisies.
 -- ------------------------------------------------

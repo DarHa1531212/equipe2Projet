@@ -1,8 +1,8 @@
 
--- USE cegepjon_p2017_2_dev;
+ USE cegepjon_p2017_2_dev;
 -- USE cegepjon_p2017_2_prod;
 -- USE cegepjon_p2017_2_tests;
- USE bdprojet_equipe2v2;
+-- USE bdprojet_equipe2v2;
 
 INSERT IGNORE INTO `tblRole` (`Id`,`Titre`) VALUES (1,'Gestionnaire');
 INSERT IGNORE INTO `tblRole` (`Id`,`Titre`) VALUES (2,'Responsable');
@@ -1873,13 +1873,3 @@ INSERT INTO `tblEtatAvancementMars` (`Id`) VALUES (141);
 INSERT INTO `tblEtatAvancementMars` (`Id`) VALUES (144);
 INSERT INTO `tblEtatAvancementMars` (`Id`) VALUES (147);
 INSERT INTO `tblEtatAvancementMars` (`Id`) VALUES (150);
-
-
-
-
-
-
-
-
-
-
