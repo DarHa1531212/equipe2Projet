@@ -147,7 +147,7 @@ CREATE TABLE tblStagiaire(
 	NumTelPerso		 		CHAR(14)		NULL,
 	NumTelEntreprise 		CHAR(14)		NULL,
 	Poste 					VARCHAR(7)		NULL,
-	CourrielEntreprise	 	VARCHAR(320)	NULL,
+	CourrielEntreprise	 	VARCHAR(320)	NULL default NULL,
 	CodePermanent			VARCHAR(12)		NULL,
 	Adresse					VARCHAR(350)	NULL,
 	PRIMARY KEY(Id),
