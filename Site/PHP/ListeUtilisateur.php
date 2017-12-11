@@ -10,9 +10,7 @@
                                 JOIN vEmploye AS Emp
                                 ON Emp.IdUtilisateur = Stage.IdSuperviseur
                                 JOIN vEntreprise AS Ent
-                                ON Ent.Id = Emp.IdEntreprise
-                                JOIN vUtilisateurRole AS UR
-                                ON UR.IdUtilisateur = Stagiaire.IdUtilisateur", null, "ProfilStagiaire");
+                                ON Ent.Id = Emp.IdEntreprise", null, "stdClass");
 
     $employes = $bdd->Request(" SELECT Emp.IdUtilisateur, Prenom, Emp.Nom, IdRole,
                                 Ent.Nom AS 'NomEntreprise', Emp.CourrielEntreprise, Emp.NumTelEntreprise, Poste
@@ -23,7 +21,10 @@
                                 ON UR.IdUtilisateur = Emp.IdUtilisateur", null, "ProfilEmploye");
 
     function AfficherUtilisateur($utilisateurs){
+
+
         $courriel;
+        $entreprise = "";
         $numTel;
         $typeId;
         $content = "";
@@ -33,12 +34,18 @@
         
         foreach($utilisateurs as $utilisateur){
             if(get_class($utilisateur) == "ProfilStagiaire"){
+                //si l'utilisateur est un stagiaire
+                //récupérer le nom entreprise et l'ID stagiaire
+                //boucler la liste d'utilisateur
+                //trouver l'id correspondant
+                //ajouter la propriété entreprise
                 $courriel = $utilisateur->getCourrielPerso();
                 $numTel = $utilisateur->getNumTelPerso();
             }
             else{
                 $courriel = $utilisateur->getCourrielEntreprise();
-                $numTel = $utilisateur->getNumTelEntreprise();   
+                $numTel = $utilisateur->getNumTelEntreprise(); 
+                $entreprise = $utilisateur->getEntreprise();  
             }
             
             $content = $content.
@@ -48,7 +55,7 @@
                 <td>'.$utilisateur->getNom().'</td>
                 <td>'.$courriel.'</td>
                 <td>'.$numTel.'</td>
-                <td>'.$utilisateur->getEntreprise().'</td>
+                <td>'.$entreprise.'</td>
                 <td>'.$nomRole[$utilisateur->getIdRole()].'</td>
             </tr>
             ';
@@ -66,7 +73,7 @@
             <h2>Liste des Utilisateurs</h2>
         </div>
         
-        <input class="bouton left" type="button" value="Créer un Utilisateur" onclick="Requete(AfficherPage, \'../PHP/TBNavigation.php?nomMenu=CreationUtilisateur.php\')"/>
+        <input class="bouton left" type="button" value="Créer un Utilisateur" onclick="Requete(AfficherPage, \'../PHP/TBNavigation.php?nomMenu=CreationUtilisateur.php\' );afficherChampsEmployeEntreprise() "/>
         
         <table class="stage">
             <thead>

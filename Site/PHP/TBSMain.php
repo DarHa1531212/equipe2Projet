@@ -103,7 +103,7 @@
         {
             $div = '<tr>';
         }
-        //$di1v = '<tr class="itemHover" onclick="Execute(1, \'../PHP/TBNavigation.php?idStagiaire='.$profil["Id"].'&nomMenu=Eval\', \'&idStage=\', '.$tblEvaluation[2]->idStage.', \'&idEvaluation=\', '.$tblEvaluation[2]->id.', \'&typeEval=3\')">';
+
         $etat3 = $div.
             '<td>'.$etatAvancements[2]->TitreTypeEtat.'</td>
             <td>'.$listeStatut[$etatAvancements[2]->Statut].'</td>
@@ -119,23 +119,20 @@
 
     }
 
-     
-    
-
     $content='';
 
     foreach($profils as $profil)/*pour chaque stages au quel le stagiaire a participe*/
     {
             $autoEvaluation = $bdd->Request('select *
-                                        from vinfoevalglobale
-                                        where IdStage = :IdStage and IdTypeEvaluation = 4;',
+                                            from vinfoevalglobale
+                                            where IdStage = :IdStage and IdTypeEvaluation = 4;',
                                             array('IdStage'=>$profil->IdStage),
                                             "stdClass");
 
-            $etatAvancements = $bdd->Request('select * from vInfoEtatAvancement
+            $etatAvancements = $bdd->Request('  select * from vInfoEtatAvancement
                                                 where IdStage = :IdStage;',
-                                            array('IdStage'=>$profil->IdStage),
-                                            "stdClass");
+                                                array('IdStage'=>$profil->IdStage),
+                                                "stdClass");
 
              $content = $content.
                 '<article class="stagiaire">

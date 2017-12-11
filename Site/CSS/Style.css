@@ -442,3 +442,15 @@ input[type=file]{
     margin-top: 10px;
     color: red;
 }
+
+.nicEdit-panel{
+    margin: auto;
+
+}
+.nicEdit-main{
+    margin: auto;
+}
+.nicEdit-panelContain{
+    display: relative;
+    margin: auto;
+}
