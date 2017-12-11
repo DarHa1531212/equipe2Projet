@@ -144,7 +144,7 @@ CREATE TABLE tblStagiaire(
 	CourrielPersonnel		VARCHAR(320)	NULL,
 	Nom 					VARCHAR(50)		NOT NULL,
 	Prenom 					VARCHAR(50)		NOT NULL,
-	NumTel		 			CHAR(14)		NULL,
+	NumTelPerso		 		CHAR(14)		NULL,
 	NumTelEntreprise 		CHAR(14)		NULL,
 	Poste 					VARCHAR(7)		NULL,
 	CourrielEntreprise	 	VARCHAR(320)	NULL,
@@ -304,7 +304,7 @@ CREATE TABLE tblEmploye(
 	CourrielEntreprise 		VARCHAR(320)	NOT NULL,
 	Nom 					VARCHAR(50)		NOT NULL,
 	Prenom 					VARCHAR(50)		NOt NULL,
-	NumTel			 		CHAR(14)		NOT NULL,
+	NumTelEntreprise		CHAR(14)		NOT NULL,
 	Poste 					VARCHAR(7)		NULL,
 	PRIMARY KEY(Id),
 	IdEntreprise			INT				NOT NULL,
@@ -314,8 +314,8 @@ CREATE TABLE tblEmploye(
 
 DROP VIEW IF EXISTS vEmploye;
 CREATE VIEW vEmploye AS SELECT Id,CourrielEntreprise,Nom,Prenom,
-NumTel,Poste,CONCAT(CourrielEntreprise,Nom,Prenom,
-NumTel,IFNULL(Poste, ""),IdEntreprise,IdUtilisateur) AS tag,IdEntreprise,IdUtilisateur FROM tblEmploye;
+NumTelEntreprise,Poste,CONCAT(CourrielEntreprise,Nom,Prenom,
+NumTelEntrprise,IFNULL(Poste, ""),IdEntreprise,IdUtilisateur) AS tag,IdEntreprise,IdUtilisateur FROM tblEmploye;
 
 
 -- Table Categorie Question

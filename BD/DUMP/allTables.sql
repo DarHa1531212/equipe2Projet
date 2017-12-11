@@ -1873,13 +1873,3 @@ INSERT INTO `tblEtatAvancementMars` (`Id`) VALUES (141);
 INSERT INTO `tblEtatAvancementMars` (`Id`) VALUES (144);
 INSERT INTO `tblEtatAvancementMars` (`Id`) VALUES (147);
 INSERT INTO `tblEtatAvancementMars` (`Id`) VALUES (150);
-
-
-
-
-
-
-
-
-
-

@@ -2,7 +2,7 @@
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     //FAIRE UNE REQUETE DE ROLE COMME DANS LA PAGE PROFIL, ENLEVER LES ID DES URL POUR ENVOYER LOBJET DIRECTEMENT, METTRE LES ROLES DANS LA TABLE STAGIAIRE AUSSI.//
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-    $stagiaires = $bdd->Request("SELECT Stagiaire.IdUtilisateur, Stagiaire.Prenom, Stagiaire.Nom, Stagiaire.NumTel, Stagiaire.CourrielPersonnel, Stagiaire.CodePermanent,
+    $stagiaires = $bdd->Request("SELECT Stagiaire.IdUtilisateur, Stagiaire.Prenom, Stagiaire.Nom, Stagiaire.NumTelPerso, Stagiaire.CourrielPersonnel, Stagiaire.CodePermanent,
                                 Stagiaire.CourrielEntreprise, Stagiaire.NumTelEntreprise, Stagiaire.Poste, Ent.Nom AS 'NomEntreprise', IdRole
                                 FROM vStage AS Stage
                                 JOIN vStagiaire AS Stagiaire
@@ -14,8 +14,8 @@
                                 JOIN vUtilisateurRole AS UR
                                 ON UR.IdUtilisateur = Stagiaire.IdUtilisateur", null, "ProfilStagiaire");
 
-    $employes = $bdd->Request(" SELECT Emp.IdUtilisateur, Prenom, Emp.Nom, CourrielPersonnel, IdRole,
-                                Ent.Nom AS 'NomEntreprise', Emp.CourrielEntreprise, Emp.NumTelEntreprise, Poste, CodePermanent
+    $employes = $bdd->Request(" SELECT Emp.IdUtilisateur, Prenom, Emp.Nom, IdRole,
+                                Ent.Nom AS 'NomEntreprise', Emp.CourrielEntreprise, Emp.NumTelEntreprise, Poste
                                 FROM vEmploye AS Emp
                                 JOIN vEntreprise AS Ent
                                 ON Ent.Id = Emp.IdEntreprise
