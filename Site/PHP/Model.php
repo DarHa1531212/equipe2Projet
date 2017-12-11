@@ -54,7 +54,7 @@
                     
                 $content = $content.
                 '<div class="categories">
-                    <div class="separateur" id="question">
+                    <div class="separateur questions" id="question">
                         <h3>'.$this->categories[0]->getLettre().' '.$this->categories[0]->getTitre().'</h3>
                         <p> 
                             '.$question->getTexte().'
@@ -77,16 +77,53 @@
             
             $this->SelectReponses($bdd, $question->getId());
             
-            foreach($this->reponses as $reponse){   
-                $content = $content. 
-                '
-                    <tr class="itemHover" onclick="reponse'.$reponse->getId().'.checked = true;">
-                        <td>
-                            '.$reponse->getTexte().'
-                            <input type="radio" id="reponse'.$reponse->getId().'" name="question'.$question->getId().'" value="'.$reponse->getId().'"/>
-                        </td>
-                    </tr>
-                ';
+            foreach($this->reponses as $reponse)
+            {   
+
+
+                if(( $this->getStatut() == 3 )|| ( $this->getStatut() == 4))
+                {
+                     $this->SelectReponsesChoisies($bdd, $this->id, $question->getId());
+                    //evaluation soumise ou validée
+                    if($reponse->getId() == $this->reponsesChoisies[0]->getId())
+                    {
+                        //name="question'.$question->getId().'" value="'.$reponse->getid().'"
+                        $content = $content. 
+                            '
+                            <tr class="itemHover" onclick="reponse'.$reponse->getId().'.checked = true;" >
+                                <td>
+                                    '.$reponse->getTexte().'
+                                    <input type="radio" id="reponse'.$reponse->getId().'" name="question'.$question->getId().'" value="'.$reponse->getId().'" checked="checked"/>
+                                </td>
+                            </tr>
+                            ';
+                    }  
+                    else
+                    {
+                        $content = $content. 
+                            '
+                                <tr class="itemHover" onclick="reponse'.$reponse->getId().'.checked = true;" >
+                                    <td>
+                                        '.$reponse->getTexte().'
+                                        <input type="radio" id="reponse'.$reponse->getId().'" name="question'.$question->getId().'" value="'.$reponse->getId().'"/>
+                                    </td>
+                                </tr>
+                            ';
+                    }
+                        
+                }
+                else
+                {
+                      $content = $content. 
+                            '
+                                <tr class="itemHover" onclick="reponse'.$reponse->getId().'.checked = true;" >
+                                    <td>
+                                        '.$reponse->getTexte().'
+                                        <input type="radio" id="reponse'.$reponse->getId().'" name="question'.$question->getId().'" value="'.$reponse->getId().'"/>
+                                    </td>
+                                </tr>
+                            ';
+                }
             }
             
             return $content;
@@ -281,7 +318,7 @@
                                             array('IdEvaluation'=>$this->getId(), 'IdQuestion'=>$question->getId() ),
                                             "stdClass");
 
-                $resultat = $query->fetchAll();
+                //$resultat = $query->fetchAll();
 
                 $commentaireQuestion = $resultat[0]->Commentaire;
 
@@ -492,7 +529,8 @@
         }
         
         //Sauvegarde les modifications dans la BD.
-        public function Submit($bdd){
+        /*public function Submit($bdd)
+        {
             $reponses = json_decode($_POST["tabReponse"], true);
 
             $bdd->Request(' update tblEvaluation set Statut= \'3\', DateComplétée=:DateCompletee where Id=:IdEvaluation;',
@@ -505,7 +543,47 @@
                                 array('IdEvaluation'=>$this->id,'IdQuestion'=>$reponse["idQuestion"],'IdReponse'=>$reponse["value"]),
                                 "stdClass");
             }  
-        }    
+        } */
+
+        public function Submit($bdd)
+        {
+            $reponses = json_decode($_POST["tabReponse"], true);
+
+            //$requeteModificationEvaluationQuestionReponse = $bdd->prepare(  'update tblEvaluationQuestionReponse SET IdReponse = :IdReponse
+                                                                        //WHERE IdEvaluation = :IdEvaluation AND IdQuestion = :IdQuestion;');
+            //$requeteModifierCommentaireEvaluation = $bdd->prepare('update tblEvaluation set Statut= \'3\', DateComplétée=:DateCompletee, Commentaire = :Commentaire where Id=:IdEvaluation;');
+
+            //$requeteModifierCommentaireQuestionEvaluation = $bdd->prepare('update tblEvaluationQuestionReponse set Commentaire= :Commentaire where IdEvaluation=:IdEvaluation AND IdQuestion = :IdQuestion;');
+
+            foreach($reponses as $reponse)
+            {
+                if($reponse["type"] == "question")
+                {
+                    //$requeteModificationEvaluationQuestionReponse->execute(array('IdEvaluation'=>$this->id,'IdQuestion'=>$reponse["idQuestion"],'IdReponse'=>$reponse["value"]));
+
+                    $bdd->Request('update tblEvaluationQuestionReponse SET IdReponse = :IdReponse
+                                                                    WHERE IdEvaluation = :IdEvaluation AND IdQuestion = :IdQuestion;',
+                    array('IdEvaluation'=>$this->id,'IdQuestion'=>$reponse["idQuestion"],'IdReponse'=>$reponse["value"]),
+                    "stdClass");
+                }
+                else if($reponse["type"] == "commentaireEvaluation")
+                {
+                    //$requeteModifierCommentaireEvaluation->execute(array('IdEvaluation'=>$_REQUEST['idEvaluation'],'DateCompletee'=>date("Y-m-d"), 'Commentaire'=> $reponse["value"]));
+
+                    $bdd->Request('update tblEvaluation set Statut= \'3\', DateComplétée=:DateCompletee, Commentaire = :Commentaire where Id=:IdEvaluation;',
+                    array('IdEvaluation'=>$_REQUEST['idEvaluation'],'DateCompletee'=>date("Y-m-d"), 'Commentaire'=> $reponse["value"]),
+                    "stdClass");
+                }
+                else
+                {
+                    $bdd->Request('update tblEvaluationQuestionReponse set Commentaire= :Commentaire where IdEvaluation=:IdEvaluation AND IdQuestion = :IdQuestion;',
+                    array('Commentaire'=>$reponse["value"],'IdEvaluation'=>$_REQUEST['idEvaluation'],'IdQuestion'=> $reponse["idQuestion"]),
+                    "stdClass");
+                    //$requeteModifierCommentaireQuestionEvaluation->execute(array('Commentaire'=>$reponse["value"],'IdEvaluation'=>$_REQUEST['idEvaluation'],'IdQuestion'=> $reponse["idQuestion"]));
+                }
+            }        
+                
+        }   
         
         public function getCategories(){
             return $this->categories;

@@ -125,7 +125,7 @@
 
         if(($tblEvaluation[2]->Statut != '0')&&(($tblEvaluation[0]->Statut == '3')||($tblEvaluation[0]->Statut == '4'))&&(($tblEvaluation[1]->Statut == '3')||($tblEvaluation[1]->Statut == '4')))//statut different de pas accéssible et est soumis ou valide
         {
-            $div = '<tr class="itemHover" onclick="Requete(AfficherPage, \'../PHP/TBNavigation.php?idStagiaire='.$profil->Id.'&nomMenu=Eval\', \'&idStage=\', '.$tblEvaluation[2]->IdStage.', \'&idEvaluation=\', '.$tblEvaluation[2]->IdStage.', \'&typeEval=3\')">';
+             $div = '<tr class="itemHover" onclick="Requete(AfficherPage, \'../PHP/TBNavigation.php?id='.$profil->Id.'&nomMenu=Evaluation.php&idStage='.$tblEvaluation[2]->IdStage.'&idEvaluation='.$tblEvaluation[2]->IdEvaluation.'&typeEval=3\')">';
         }
         else
         {

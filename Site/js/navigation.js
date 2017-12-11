@@ -164,14 +164,14 @@ function submitEvaluation()
     if(($('.questions').length == $('input[type="radio"]:checked').length))
     {
         //PostEval(ExecuteQuery, arguments);
-        PostEval( ExecuteQuery, '../PHP/TBNavigation.php?idEmploye='+$("input[name=IdSuperviseur]").val() + '&nomMenu=Eval&post=true&idEvaluation='+ $("input[name=IdEvaluation]").val() +'&idStagiaire='+ $("input[name=IdStagiaire]").val() );
+        PostEval( ExecuteQuery, '../PHP/TBNavigation.php?idEmploye='+$("input[name=IdSuperviseur]").val() + '&nomMenu=Eval&post=true&idEvaluation='+ $("input[name=IdEvaluation]").val() +'&id='+ $("input[name=IdStagiaire]").val()+'&idStage='+ $("input[name=IdStage]").val() );
         Requete( AfficherPage, '../PHP/TBNavigation.php?idEmploye='+ $("input[name=IdSuperviseur]").val() +'&nomMenu=Main' );
     }
     else
     {
         //AfficherPage('../TBNavigation.php?idEmploye=' + $("input[name=IdSuperviseur]").val() + '&nomMenu=Eval&erreurRadioButton=true&idEvaluation='+ $("input[name=IdEvaluation]").val() +'&idStagiaire='+ $("input[name=IdStagiaire]").val() );
 
-        Requete( AfficherPage, '../PHP/TBNavigation.php?idEmploye=' + $("input[name=IdSuperviseur]").val() + '&nomMenu=Eval&erreurRadioButton=true&idEvaluation='+ $("input[name=IdEvaluation]").val() +'&idStagiaire='+ $("input[name=IdStagiaire]").val() );
+        Requete( AfficherPage, '../PHP/TBNavigation.php?idEmploye=' + $("input[name=IdSuperviseur]").val() + '&nomMenu=Eval&erreurRadioButton=true&idEvaluation='+ $("input[name=IdEvaluation]").val() +'&id='+ $("input[name=IdStagiaire]").val()+'&idStage='+ $("input[name=IdStage]").val());
         //Execute(1, '../PHP/TBNavigation.php?idEmploye='.$profil["IdSuperviseur"].'&nomMenu=Main');
     }
 }

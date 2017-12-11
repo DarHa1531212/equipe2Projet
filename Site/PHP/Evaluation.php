@@ -179,6 +179,8 @@
         <input type="hidden" name="IdEvaluation" value="'. $_REQUEST["idEvaluation"] .'" />
 
         <input type="hidden" name="IdStagiaire" value="'. $_REQUEST["id"] .'" />
+
+         <input type="hidden" name="IdStage" value="'. $_REQUEST["idStage"] .'" />
     
     </article>';
 
