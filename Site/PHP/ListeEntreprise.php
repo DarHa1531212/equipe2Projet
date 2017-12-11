@@ -1,6 +1,6 @@
 <?php
 
-    $entreprises = $bdd->Request("SELECT * FROM vEntreprise ORDER BY Id DESC", null, "Entreprise");
+    $entreprises = $bdd->Request("SELECT * FROM vEntreprise ORDER BY Id DESC", null, "stdClass");
 
     function AfficherEntreprise($entreprises){
         $content = "";
@@ -9,11 +9,11 @@
         foreach($entreprises as $entreprise){
             $content = $content.
             '
-            <tr class="itemHover" onclick="Requete(AfficherPage, \'../PHP/TBNavigation.php?nomMenu=InfoEntreprise.php&id='.$id.'\')">
-                <td>'.$entreprise->getNom().'</td>
-                <td>'.$entreprise->getNumTel().'</td>
-                <td>'.$entreprise->getCourriel().'</td>
-                <td>'.$entreprise->getVille().'</td>
+            <tr class="itemHover" onclick="Execute(1, \'../PHP/TBNavigation.php?nomMenu=InfoEntreprise.php&id=\', '.$id.')">
+                <td>'.$entreprise->Nom.'</td>
+                <td>'.$entreprise->NumTel.'</td>
+                <td>'.$entreprise->CourrielEntreprise.'</td>
+                <td>'.$entreprise->Ville.'</td>
             </tr>
             ';
             
@@ -30,7 +30,7 @@
             <h2>Liste des Entreprises</h2>
         </div>
         
-        <input class="bouton left" type="button" value="Créer une Entreprise" onclick="Requete(AfficherPage, \'../PHP/TBNavigation.php?nomMenu=CreationEntreprise.php\')"/>
+        <input class="bouton left" type="button" value="Créer une Entreprise" onclick="Execute(1, \'../PHP/TBNavigation.php?nomMenu=CreationEntreprise.php\')"/>
         
         <table class="stage">
             <thead>
@@ -45,7 +45,7 @@
             '</tbody>
         </table>
         
-        <input class="bouton" type="button" value="   Retour   " onclick="Requete(AfficherPage, \'../PHP/TBNavigation.php?nomMenu=Main\')"/>
+        <input class="bouton" type="button" value="   Retour   " onclick="Execute(1, \'../PHP/TBNavigation.php?nomMenu=Main\')"/>
     </article>
     ';
         

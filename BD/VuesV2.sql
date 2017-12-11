@@ -2,13 +2,13 @@
 -- USE cegepjon_p2017_2_dev;
 -- USE cegepjon_p2017_2_prod;
 -- USE cegepjon_p2017_2_tests;
-
 -- ------------------------------------------------
 -- Sélectionne tous les enseignants.
 -- ------------------------------------------------
 DROP VIEW IF EXISTS vEnseignant;
 CREATE VIEW vEnseignant AS 
-SELECT Util.Id AS IdUtilisateur, Emp.Id AS IdEnseignant, Prenom, Nom, NumTel, CourrielPersonnel, IdEntreprise, NumTelEntreprise, Poste, CourrielEntreprise, CodePermanent
+SELECT Util.Id AS IdUtilisateur, Emp.Id AS IdEnseignant, Prenom, Nom, NumTelEntreprise, IdEntreprise, Poste, CourrielEntreprise,
+CONCAT(Prenom, Nom, NumTelEntreprise, IdEntreprise, Poste, CourrielEntreprise) AS Tag
 FROM vEmploye AS Emp
 JOIN vUtilisateur AS Util
 ON Util.Id = Emp.IdUtilisateur
@@ -23,7 +23,8 @@ WHERE Role.Titre = 'Enseignant';
 -- ------------------------------------------------
 DROP VIEW IF EXISTS vGestionnaire;
 CREATE VIEW vGestionnaire AS 
-SELECT Util.Id AS IdUtilisateur, Emp.Id AS IdGestionnaire, Prenom, Nom, NumTel, CourrielPersonnel, IdEntreprise, NumTelEntreprise, Poste, CourrielEntreprise, CodePermanent
+SELECT Util.Id AS IdUtilisateur, Emp.Id AS IdGestionnaire, Prenom, Nom, NumTelEntreprise, IdEntreprise, Poste, CourrielEntreprise,
+CONCAT(Prenom, Nom, NumTelEntreprise, IdEntreprise, Poste, CourrielEntreprise) AS Tag
 FROM vEmploye AS Emp
 JOIN vUtilisateur AS Util
 ON Util.Id = Emp.IdUtilisateur
@@ -38,7 +39,8 @@ WHERE Role.Titre = 'Gestionnaire';
 -- ------------------------------------------------
 DROP VIEW IF EXISTS vResponsable;
 CREATE VIEW vResponsable AS 
-SELECT Util.Id AS IdUtilisateur, Emp.Id AS IdResponsable, Prenom, Nom, NumTel, CourrielPersonnel, IdEntreprise, NumTelEntreprise, Poste, CourrielEntreprise
+SELECT Util.Id AS IdUtilisateur, Emp.Id AS IdResponsable, Prenom, Nom, NumTelEntreprise, IdEntreprise, Poste, CourrielEntreprise,
+CONCAT(Prenom, Nom, NumTelEntreprise, IdEntreprise, Poste, CourrielEntreprise) AS Tag
 FROM vEmploye AS Emp
 JOIN vUtilisateur AS Util
 ON Util.Id = Emp.IdUtilisateur
@@ -53,7 +55,8 @@ WHERE Role.Titre = 'Responsable';
 -- ------------------------------------------------
 DROP VIEW IF EXISTS vSuperviseur;
 CREATE VIEW vSuperviseur AS 
-SELECT Util.Id AS IdUtilisateur, Emp.Id AS IdSuperviseur, Prenom, Nom, NumTel, CourrielPersonnel, IdEntreprise, NumTelEntreprise, Poste, CourrielEntreprise
+SELECT Util.Id AS IdUtilisateur, Emp.Id AS IdSuperviseur, Prenom, Nom, NumTelEntreprise, IdEntreprise, Poste, CourrielEntreprise,
+CONCAT(Prenom, Nom, NumTelEntreprise, IdEntreprise, Poste, CourrielEntreprise) AS Tag
 FROM vEmploye AS Emp
 JOIN vUtilisateur AS Util
 ON Util.Id = Emp.IdUtilisateur
@@ -67,11 +70,14 @@ WHERE Role.Titre = 'Superviseur';
 -- Sélectionne tous les enseignants, superviseur et stagiaire lié au même stage.
 -- ------------------------------------------------
 DROP VIEW IF EXISTS vTableauBord;
-CREATE VIEW vTableauBord AS 
-SELECT 	Stagiaire.Id, Stagiaire.Prenom, Stagiaire.Nom, Stagiaire.NumTel,
-		Enseignant.IdUtilisateur AS 'IdEnseignant', Enseignant.Prenom AS 'PrenomEnseignant', Enseignant.Nom AS 'NomEnseignant', Enseignant.NumTel AS 'TelEnseignant',
-        Sup.IdUtilisateur AS 'IdSuperviseur', Sup.Prenom AS 'PrenomSuperviseur', Sup.Nom AS 'NomSuperviseur', Sup.NumTel AS 'TelSuperviseur',
-		res.IdUtilisateur AS 'IdResponsable'
+CREATE VIEW vTableauBord AS
+SELECT 	Stagiaire.Id, Stagiaire.Prenom, Stagiaire.Nom, Stagiaire.NumTelPerso,
+		Enseignant.IdUtilisateur AS 'IdEnseignant', Enseignant.Prenom AS 'PrenomEnseignant', Enseignant.Nom AS 'NomEnseignant', Enseignant.NumTelEntreprise AS 'TelEnseignant',
+        Sup.IdUtilisateur AS 'IdSuperviseur', Sup.Prenom AS 'PrenomSuperviseur', Sup.Nom AS 'NomSuperviseur', Sup.NumTelEntreprise AS 'TelSuperviseur',
+		res.IdUtilisateur AS 'IdResponsable', Stage.Id AS 'IdStage', Session.Id AS 'IdSession', 
+        Session.JanvierDebut, Session.JanvierLimite, Session.FevrierDebut, Session.FevrierLimite, Session.MarsDebut,
+        Session.MarsLimite, Session.Annee, Session.Periode, Session.MiStageDebut, Session.MiStageLimite,
+        Session.FinaleDebut, Session.FinaleLimite, Session.FormationDebut, Session.FormationLimite
 FROM vStage AS Stage
 JOIN vStagiaire AS Stagiaire
 ON Stagiaire.IdUtilisateur = Stage.IdStagiaire
@@ -80,12 +86,15 @@ ON Enseignant.IdUtilisateur = Stage.IdEnseignant
 JOIN vSuperviseur AS Sup
 ON Sup.IdUtilisateur = Stage.IdSuperviseur
 JOIN vResponsable AS res
-ON res.IdUtilisateur = Stage.IdResponsable;
+ON res.IdUtilisateur = Stage.IdResponsable
+JOIN vSession AS Session
+ON Session.Id = Stage.IdSession;
 
 
 -- ------------------------------------------------
 -- Sélectionne les informations globales sur les évaluations de chaque stagiaire
 -- ------------------------------------------------
+
 
 DROP VIEW IF EXISTS vInfoEvalGlobale;
 CREATE VIEW vInfoEvalGlobale AS
@@ -100,6 +109,7 @@ on Eva.Id = ES.IdEvaluation
 join vStage as St
 on St.Id = ES.IdStage;
 
+
 -- ------------------------------------------------
 -- Récupère toutes les évaluations des stagiaires selon leur ID et le type d'évaluation avec leurs réponses choisies.
 -- ------------------------------------------------
@@ -108,7 +118,6 @@ CREATE VIEW vEvaluationCompletee AS
 SELECT Stagiaire.Id AS IdStagiaire, Stagiaire.Prenom, Stagiaire.Nom, Eval.Id AS IdEvaluation, 
 TypeEval.Titre AS Evaluation, Question.Texte AS Question,Lettre,TitreCategorie,DescriptionCategorie, EQR.IdReponse, Reponse.Texte AS Reponse,
 CONCAT(Enseignant.Prenom,' ',Enseignant.Nom) AS Enseignant,
--- CONCAT(Gestionnaire.Prenom,' ',Gestionnaire.Nom) AS Gestionnaire,
 CONCAT(Responsable.Prenom,' ',Responsable.Nom) AS Responsable,
 CONCAT(Superviseur.Prenom,' ',Superviseur.Nom) AS Superviseur,
 Entreprise.Nom AS Entreprise,TypeEval.Id AS TypeEvaluation, Competence
@@ -133,8 +142,6 @@ JOIN vReponse AS Reponse
 ON Reponse.Id = EQR.IdReponse
 JOIN vEnseignant AS Enseignant
 ON Enseignant.IdUtilisateur = Stage.IdEnseignant
-/*JOIN vGestionnaire AS Gestionnaire
-ON Gestionnaire.IdUtilisateur = Stage.IdGestionnaire*/
 JOIN vResponsable AS Responsable
 ON Responsable.IdUtilisateur = Stage.IdResponsable
 JOIN vSuperviseur AS Superviseur
@@ -179,7 +186,8 @@ SELECT	Sup.Prenom AS 'PrenomSup', Sup.Nom AS 'NomSup',
 		Ens.Prenom AS 'PrenomEns', Ens.Nom AS 'NomEns',
         Resp.Prenom AS 'PrenomResp', Resp.Nom AS 'NomResp',
         Sta.Prenom AS 'PrenomSta', Sta.Nom AS 'NomSta',
-        Ent.Nom AS 'NomEnt', Sta.IdUtilisateur AS 'IdStagiaire'
+        Ent.Nom AS 'NomEnt', Sta.IdUtilisateur AS 'IdStagiaire',
+        Stage.Id AS 'IdStage'
 FROM vStage AS Stage
 JOIN vSuperviseur AS Sup
 ON Sup.IdUtilisateur = Stage.IdSuperviseur
@@ -193,3 +201,92 @@ JOIN vEmploye AS Emp
 ON Emp.IdUtilisateur = Sup.IdUtilisateur
 JOIN vEntreprise AS Ent
 ON Ent.Id = Emp.IdEntreprise;
+
+-- ------------------------------------------------
+-- Récupère toutes les noms et les informations nécéssaires à la génération du pdf de la lettre d'entente
+-- ------------------------------------------------
+DROP VIEW IF EXISTS vInfoStagiaire;
+CREATE VIEW vInfoStagiaire AS
+SELECT CONCAT(Prenom,' ',Nom) AS NomComplet,IdUtilisateur,Adresse AS  'AdresseStagiaire',NumTelPerso AS NumTelStagiaire,CourrielScolaire AS CourrielPersonnel FROM vUtilisateur 
+
+	JOIN vStagiaire
+	ON vStagiaire.IdUtilisateur = vUtilisateur.Id;
+
+DROP VIEW IF EXISTS vEntente;
+CREATE VIEW vEntente AS 
+SELECT Annee,Periode,Stage.Id AS IdStage,Stagiaire.NomComplet,Stagiaire.IdUtilisateur,Stagiaire.AdresseStagiaire,Stagiaire.NumTelStagiaire,Stagiaire.CourrielPersonnel,
+Entreprise.nom AS NomEntreprise,CONCAT(Entreprise.NumCivique,' ',Entreprise.Rue) AS AdresseEntreprise,Entreprise.NumTel,
+Entreprise.CourrielEntreprise,DATE_FORMAT(DateDebut, "%d/%m/%Y") AS DateDebut,DATE_FORMAT(DateFin, "%d/%m/%Y") AS DateFin FROM vStage AS Stage
+	JOIN vUtilisateur AS Utilisateur
+	ON Stage.IdSuperviseur = Utilisateur.Id 
+
+	JOIN vEmploye AS Employe
+	ON Employe.IdUtilisateur = Utilisateur.Id
+
+	JOIN vEntreprise AS Entreprise
+	ON Entreprise.Id = Employe.IdEntreprise
+
+	JOIN vInfoStagiaire AS Stagiaire
+	ON Stage.IdStagiaire = Stagiaire.IdUtilisateur
+
+	JOIN vSession AS Sess
+	ON Stage.IdSession = Sess.Id;
+
+-- ------------------------------------------------
+-- Récupère toutes les informations nécéssaires à l'offre de stage.
+-- ------------------------------------------------
+DROP VIEW IF EXISTS vSuperviseurEntreprise;
+CREATE VIEW vSuperviseurEntreprise AS SELECT Superviseur.Id AS IdSuperviseur,CONCAT(Superviseur.Prenom,' ',Superviseur.Nom) AS NomSuperviseur,Entreprise.Id AS IdEntreprise,Entreprise.Nom AS NomEntreprise,Entreprise.CourrielEntreprise,Entreprise.NumTel,
+CONCAT(Entreprise.NumCivique,' ',Entreprise.Rue) AS AdresseEntreprise
+  FROM vEmploye AS Superviseur
+	JOIN vEntreprise AS Entreprise
+	ON Superviseur.IdEntreprise = Entreprise.Id;
+
+DROP VIEW IF EXISTS vOffre;
+CREATE VIEW vOffre AS SELECT CONCAT('Session ',Periode, ' ', Annee) AS AnneeSession,DATE_FORMAT(DateDebut, "%d/%m/%Y") AS DateDebut,
+NbHeureSemaine,SalaireHoraire,CompetenceRecherche,Stage.DescriptionStage,Stage.ID AS IdStage,RaisonSociale,Entreprise.Nom AS NomEntreprise,SupEnt.CourrielEntreprise,
+SupEnt.NumTel,SupEnt.AdresseEntreprise,
+CONCAT(Employe.Prenom,' ',Employe.Nom) AS NomResponsable,SupEnt.NomSuperviseur FROM vStage AS Stage
+	JOIN vSuperviseurEntreprise AS SupEnt
+	ON Stage.IdSuperviseur = SupEnt.IdSuperviseur
+
+	JOIN vUtilisateur AS Responsable
+	ON Responsable.Id = Stage.IdResponsable
+
+	JOIN vEmploye AS Employe
+	ON Employe.IdUtilisateur = Responsable.Id
+
+	JOIN vEntreprise AS Entreprise
+	ON Employe.IdEntreprise = Entreprise.Id
+
+	JOIN vSession 
+	ON Stage.IdSession = vSession.Id;
+
+-- ------------------------------------------------
+-- Récupère toutes les informations des stages.
+-- ------------------------------------------------
+
+DROP VIEW IF EXISTS vListeStage;
+CREATE VIEW vListeStage AS 
+SELECT 
+vStage.Id as 'IdStage',
+vStage.DescriptionStage as 'DescriptionStage', 
+vStage.CompetenceRecherche as 'CompetenceRecherche', 
+vStage.SalaireHoraire as 'SalaireHoraire', 
+vStage.NbHeureSemaine as 'NbHeureSemaine', 
+vEntreprise.Nom as 'NomEntreprise' ,
+vEntreprise.Id as 'IdEntreprise' ,
+concat(vStagiaire.Prenom, ' ' , vStagiaire.Nom)  as 'NomStagiaire' , 
+concat (vSuperviseur.Prenom, ' ', vSuperviseur.Nom) as 'NomSuperviseur', 
+concat (vResponsable.Prenom, ' ', vResponsable.Nom) as'NomResponsable', 
+concat (vEnseignant.Prenom, ' ', vEnseignant.Nom) as 'NomEnseignant',
+concat(vStagiaire.Tag, vEntreprise.tag, vSuperviseur.Tag, vResponsable.Tag, vEnseignant.Tag) AS Tag,
+vStage.DateDebut as 'DateDebut',
+vStage.DateFin as 'DateFin'
+from vStage    
+left join vSuperviseur on  vSuperviseur.IdUtilisateur = vStage.IdSuperviseur    
+left join vEntreprise on vEntreprise.Id = vSuperviseur.IdEntreprise     
+left join vStagiaire on vStagiaire.IdUtilisateur = vStage.IdStagiaire     
+left join vResponsable on vResponsable.IdUtilisateur = vStage.IdResponsable     
+left join vEnseignant on vEnseignant.IdUtilisateur = vStage.IdEnseignant
+ORDER BY IdStage DESC;
