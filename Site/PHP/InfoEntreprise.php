@@ -62,7 +62,7 @@
         <br/><br/>
         
         <input class="bouton" type="button" style="width: 100px;" value="   Retour   " onclick="Requete(AfficherPage, \'../PHP/TBNavigation.php?nomMenu=ListeEntreprise.php\')"/>
-        <input class="bouton" type="button" id="Save" style="width: 100px;" value="Supprimer"/>
+        <input class="bouton" type="button" id="Save" style="width: 100px;" value="Supprimer"   onclick= "Requete(ExecuteQuery, \'../PHP/TBNavigation.php?nomMenu=InfoEntreprise.php\',\'&idEntreprise =\','.$entreprises[$_REQUEST["id"]].',\'&post=\',true);/>
             
     </article>
     ';
