@@ -155,60 +155,6 @@
             }
         }
         
-        
-        protected function SelectQuestionsByCategories($bdd, $idEvaluation, $idCategorie)
-        {
-           
-            
-            $questionsDeLaCategorie = array();
-
-             $questions = $bdd->Request('SELECT DISTINCT(Id), Q.Texte
-                                    FROM vQuestion AS Q
-                                    JOIN vEvaluationQuestionReponse AS EQR
-                                    ON EQR.IdQuestion = Q.Id
-                                    WHERE EQR.IdEvaluation = :idEvaluation AND Q.IdCategorieQuestion = :idCategorieQuestion',
-                                            array('idEvaluation'=>$idEvaluation,'idCategorieQuestion'=>$idCategorie),
-                                            "stdClass");
-
-            /*$query = $bdd->prepare('SELECT DISTINCT(Id), Q.Texte
-                                    FROM vQuestion AS Q
-                                    JOIN vEvaluationQuestionReponse AS EQR
-                                    ON EQR.IdQuestion = Q.Id
-                                    WHERE EQR.IdEvaluation = :idEvaluation AND Q.IdCategorieQuestion = :idCategorieQuestion');
-            
-            $query->execute(array('idEvaluation'=>$idEvaluation, 'idCategorieQuestion'=>$idCategorie));*/
-            
-            //$questions = $query->fetchAll();
-            
-            foreach($questions as $question)
-            {
-                array_push($questionsDeLaCategorie, new Question($question->Id, $question->Texte));
-            }
-
-            return $questionsDeLaCategorie;
-        }
-
-
-        protected function SelectAllQuestions($bdd, $idEvaluation)
-        {
-            unset($this->questions);
-
-            $this->questions = array();
-
-             $questions = $bdd->Request('SELECT DISTINCT(Id), Q.Texte
-                                    FROM vQuestion AS Q
-                                    JOIN vEvaluationQuestionReponse AS EQR
-                                    ON EQR.IdQuestion = Q.Id
-                                    WHERE EQR.IdEvaluation = :idEvaluation',
-                                            array('idEvaluation'=>$idEvaluation),
-                                            "stdClass");
-
-            foreach($questions as $question)
-            {
-                array_push($this->questions, new Question($question->Id, $question->Texte));
-            }
-        }
-        
         //Affiche l'évaluation.
         public function DrawEvaluation($bdd){
             $content = "";
@@ -307,7 +253,7 @@
             
             foreach($questions as $question)
             {
-                array_push($questionsDeLaCategorie, new Question($question["Id"], $question["Texte"]));
+                array_push($questionsDeLaCategorie, new Question($question->Id, $question->Texte));
             }
 
             return $questionsDeLaCategorie;
@@ -328,7 +274,7 @@
 
             foreach($questions as $question)
             {
-                array_push($this->questions, new Question($question["Id"], $question["Texte"]));
+                array_push($this->questions, new Question($question->Id, $question->Texte));
             }
         }
         
