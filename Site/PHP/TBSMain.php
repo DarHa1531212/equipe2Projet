@@ -2,6 +2,7 @@
 
      $listeStatut = array('Pas Accéssible','Pas Débuté','En Retard','Soumis ','Valide ');
 
+     
     
 
     $content='';
@@ -13,6 +14,12 @@
             //$query2->execute(array('IdStage'=> $profil["IdStage"]));
 
             //$autoEvaluation = $query2->fetchAll();
+            $autoEvaluation = $bdd->Request('  select *
+                                        from vinfoevalglobale
+                                        where IdStage = :IdStage and IdTypeEvaluation = 4;',
+                                            array('IdStage'=>$profil->IdStage),
+                                            "stdClass");
+
 
              $content = $content.
                 '<article class="stagiaire">
@@ -87,8 +94,8 @@
                         <td>Journal de bord</td>
                     </tr>
 
-                    <tr class="itemHover" onclick="Requete(AfficherPage, \'../PHP/TBNavigation.php?id='.$profil->Id.'&nomMenu=AVenir.php\')">
-                        <td>Auto-Évaluation</td>
+                    <tr class="itemHover" onclick="Requete(AfficherPage, \'../PHP/TBNavigation.php?id='.$profil->Id.'&nomMenu=Evaluation.php&idStage='.$profil->IdStage.'&idEvaluation='.$autoEvaluation[0]->IdEvaluation.'&typeEval=4\')">
+                        <td>Auto-Évaluation'. $autoEvaluation[0]->IdEvaluation.'</td>
                     </tr>
                 </tbody>
             </table>
