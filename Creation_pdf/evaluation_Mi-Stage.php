@@ -1,7 +1,8 @@
 
 <?php
 require('fpdf.php');// Connexion et recherche de données
-$base = new PDO('mysql:host=localhost; dbname=bdprojet_equipe2V2', 'root', '');
+$base = new PDO('mysql:host=dicj.info; dbname=cegepjon_p2017_2_dev', 'cegepjon_p2017_2', 'madfpfadshdb');//bdd distante
+//$base = new PDO('mysql:host=localhost; dbname=bdprojet_equipe2V2', 'root', ''); //bdd locale
 $retour = $base->query("SELECT * FROM vEvaluationCompletee WHERE IdStagiaire = 15 AND TypeEvaluation = 1;");
 $x = 0;
 while ($data = $retour->fetch()){
