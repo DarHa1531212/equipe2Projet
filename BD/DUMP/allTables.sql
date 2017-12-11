@@ -516,7 +516,7 @@ INSERT IGNORE INTO `tblEntreprise` (`Id`,`CourrielEntreprise`,`Nom`,`NumTel`,`Nu
 INSERT IGNORE INTO `tblEntreprise` (`Id`,`CourrielEntreprise`,`Nom`,`NumTel`,`NumCivique`,`Rue`,`Ville`,`Province`,`CodePostal`,`Logo`) VALUES (50,'TiaIncr@hotmail.com','TiaIncr','(120) 850-8973','7710','Route','Tianjin','ON','60056','');
 INSERT IGNORE INTO `tblEntreprise` (`Id`,`CourrielEntreprise`,`Nom`,`NumTel`,`NumCivique`,`Rue`,`Ville`,`Province`,`CodePostal`,`Logo`) VALUES (51,'cegepJonquiere@cegepJonquiere.com','Cégep de Jonquière','(418) 547-2191','2505','Rue Saint-Hubert','Jonquière','QC','G7X 7W2','');
 
-INSERT IGNORE INTO `tblEvaluationStage` (`IdEvaluation`,`IdStage`) VALUES (1,1);
+/*INSERT IGNORE INTO `tblEvaluationStage` (`IdEvaluation`,`IdStage`) VALUES (1,1);
 INSERT IGNORE INTO `tblEvaluationStage` (`IdEvaluation`,`IdStage`) VALUES (2,1);
 INSERT IGNORE INTO `tblEvaluationStage` (`IdEvaluation`,`IdStage`) VALUES (3,1);
 INSERT IGNORE INTO `tblEvaluationStage` (`IdEvaluation`,`IdStage`) VALUES (4,2);
@@ -716,7 +716,7 @@ INSERT IGNORE INTO `tblEvaluationStage` (`IdEvaluation`,`IdStage`) VALUES (196,4
 INSERT IGNORE INTO `tblEvaluationStage` (`IdEvaluation`,`IdStage`) VALUES (197,47);
 INSERT IGNORE INTO `tblEvaluationStage` (`IdEvaluation`,`IdStage`) VALUES (198,48);
 INSERT IGNORE INTO `tblEvaluationStage` (`IdEvaluation`,`IdStage`) VALUES (199,49);
-INSERT IGNORE INTO `tblEvaluationStage` (`IdEvaluation`,`IdStage`) VALUES (200,50);
+INSERT IGNORE INTO `tblEvaluationStage` (`IdEvaluation`,`IdStage`) VALUES (200,50);*/
 
 /*INSERT INTO `tblEvaluation` (`Id`,`Statut`,`DateDébut`,`DateFin`,`DateComplétée`,`IdTypeEvaluation`) VALUES (1,'1', ' 2017-10-20 ', ' 2018-04-04 ',NULL,1);
 INSERT INTO `tblEvaluation` (`Id`,`Statut`,`DateDébut`,`DateFin`,`DateComplétée`,`IdTypeEvaluation`) VALUES (2,'1', ' 2017-10-20 ', ' 2018-04-04 ',NULL,2);
