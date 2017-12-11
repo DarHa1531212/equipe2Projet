@@ -1,5 +1,4 @@
 <?php
-    
     $idStagiaire = $_REQUEST["id"];
     
     function DateDifference($date_1 , $date_2 , $differenceFormat = '%a' ){
