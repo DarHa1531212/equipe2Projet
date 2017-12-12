@@ -64,11 +64,9 @@
             }
         }
 
-        //gestion du statut ici
-
         if($etatAvancements[0]->Statut != '0')//le statut est different de pas accéssible
         {
-            $div = '<tr class="itemHover" onclick="Requete(AfficherPage, \'../PHP/TBNavigation.php?id='.$profil->Id.'&nomMenu=AVenir.php&idStage='.$etatAvancements[0]->IdStage.'&idEtatAvancement='.$etatAvancements[0]->IdEtatAvancement.'\');">';
+            $div = '<tr class="itemHover" onclick="Requete(AfficherPage, \'../PHP/TBNavigation.php?id='.$profil->Id.'&nomMenu=etatAvancement.php&idStage='.$etatAvancements[0]->IdStage.'&idEtatAvancement='.$etatAvancements[0]->IdEtatAvancement.'\');">';
         }
         else
         {
@@ -131,103 +129,101 @@
 
     foreach($profils as $profil)/*pour chaque stages au quel le stagiaire a participe*/
     {
-        //echo count($profils);        
-        
-            //$query2->execute(array('IdStage'=> $profil["IdStage"]));
+        $autoEvaluation = $bdd->Request('select *
+                                    from vinfoevalglobale
+                                    where IdStage = :IdStage and IdTypeEvaluation = 4;',
+                                        array('IdStage'=>$profil->IdStage),
+                                        "stdClass");
 
-            //$autoEvaluation = $query2->fetchAll();
-            $autoEvaluation = $bdd->Request('select *
-                                        from vinfoevalglobale
-                                        where IdStage = :IdStage and IdTypeEvaluation = 4;',
-                                            array('IdStage'=>$profil->IdStage),
-                                            "stdClass");
+        $etatAvancements = $bdd->Request('select * from vInfoEtatAvancement
+                                            where IdStage = :IdStage;',
+                                        array('IdStage'=>$profil->IdStage),
+                                        "stdClass");
 
-            $etatAvancements = $bdd->Request('select * from vInfoEtatAvancement
-                                                where IdStage = 1;',
-                                            array('IdStage'=>$profil->IdStage),
-                                            "stdClass");
+         $content = $content.
+            '<article class="stagiaire">
+        <div class="infoStagiaire">
+            <h2>'.$profil->Prenom.' '.$profil->Nom.'</h2>
+            <input class="bouton" type="button" value="Afficher le profil" onclick="Requete(AfficherPage, \'../PHP/TBNavigation.php?id='.$profil->Id.'&nomMenu=Profil.php\')"/>
+            <br /><br /><br /><br /><br /><br />
+        </div>
 
-             $content = $content.
-                '<article class="stagiaire">
-            <div class="infoStagiaire">
-                <h2>'.$profil->Prenom.' '.$profil->Nom.'</h2>
-                <input class="bouton" type="button" value="Afficher le profil" onclick="Requete(AfficherPage, \'../PHP/TBNavigation.php?id='.$profil->Id.'&nomMenu=Profil.php\')"/>
-                <br /><br /><br /><br /><br /><br />
-            </div>
+        <div class="blocInfo itemHover">
+            <a class="linkFill" onclick="Requete(AfficherPage, \'../PHP/TBNavigation.php?id='.$profil->IdEnseignant.'&nomMenu=Profil.php\')">
+                <div class="entete">
+                    <h2>Enseignant</h2>
+                </div>
 
-            <div class="blocInfo itemHover">
-                <a class="linkFill" onclick="Requete(AfficherPage, \'../PHP/TBNavigation.php?id='.$profil->IdEnseignant.'&nomMenu=Profil.php\')">
-                    <div class="entete">
-                        <h2>Enseignant</h2>
-                    </div>
+                <div>
+                    <p>'.$profil->PrenomEnseignant.' '.$profil->NomEnseignant.'</p>
+                    <p>'.$profil->TelEnseignant.'</p>
+                </div>
+            </a>
+        </div>
 
-                    <div>
-                        <p>'.$profil->PrenomEnseignant.' '.$profil->NomEnseignant.'</p>
-                        <p>'.$profil->TelEnseignant.'</p>
-                    </div>
-                </a>
-            </div>
+        <div class="blocInfo itemHover">
+            <a class="linkFill" onclick="Requete(AfficherPage, \'../PHP/TBNavigation.php?id='.$profil->IdSuperviseur.'&nomMenu=Profil.php\')">
+                <div class="entete">
+                    <h2>Superviseur</h2>
+                </div>
 
-            <div class="blocInfo itemHover">
-                <a class="linkFill" onclick="Requete(AfficherPage, \'../PHP/TBNavigation.php?id='.$profil->IdSuperviseur.'&nomMenu=Profil.php\')">
-                    <div class="entete">
-                        <h2>Superviseur</h2>
-                    </div>
+                <div>
+                    <p>'.$profil->PrenomSuperviseur.' '.$profil->NomSuperviseur.'</p>
+                    <p>'.$profil->TelSuperviseur.'</p>
+                </div>
+            </a>
+        </div>
 
-                    <div>
-                        <p>'.$profil->PrenomSuperviseur.' '.$profil->NomSuperviseur.'</p>
-                        <p>'.$profil->TelSuperviseur.'</p>
-                    </div>
-                </a>
-            </div>
+        <br/><br/><br/><br/>
 
-            <br/><br/><br/><br/>
+        <table>
+            <thead>
+                <th>Rapport</th>
+                <th>Statut</th>
+                <th>Date début</th>
+                <th>Date limite</th>
+                <th>Date complétée</th>
+            </thead>
 
-            <table>
-                <thead>
-                    <th>Rapport</th>
-                    <th>Statut</th>
-                    <th>Date limite</th>
-                    <th>Date complétée</th>
-                </thead>
+            <tbody>
+                '.VerifEtatAvancement($etatAvancements, $profil, $bdd).'
+            </tbody>
+        </table>
 
-                <tbody>
-                    '.VerifEtatAvancement($etatAvancements, $profil, $bdd).'
-                </tbody>
-            </table>
+        <br/><br/>
 
-            <br/><br/>
+        <table>
+            <thead>
+                <th>Autre</th>
+            </thead>
 
-            <table>
-                <thead>
-                    <th>Autre</th>
-                </thead>
+            <tbody>
 
-                <tbody>
-                    <tr class="itemHover" onclick="Requete(AfficherPage, \'../PHP/TBNavigation.php?id='.$profil->Id.'&nomMenu=JournalBord.php\', \'&nbEntree=\', 5) ">
-                        <td>Journal de bord</td>
-                    </tr>
+                <tr class="itemHover" onclick="Requete(AfficherPage, \'../PHP/TBNavigation.php?id='.$profil->Id.'&nomMenu=JournalBord.php\', \'&nbEntree=\', 5) ">
+                    <td>Journal de bord</td>
+                </tr>
 
-                    <tr class="itemHover" onclick="Requete(AfficherPage, \'../PHP/TBNavigation.php?id='.$profil->Id.'&nomMenu=Evaluation.php&idStage='.$profil->IdStage.'&idEvaluation='.$autoEvaluation[0]->IdEvaluation.'&typeEval=4\')">
-                        <td>Auto-Évaluation</td>
-                    </tr>
-                </tbody>
-            </table>
+                <tr class="itemHover" onclick="Requete(AfficherPage, \'../PHP/TBNavigation.php?id='.$profil->Id.'&nomMenu=Evaluation.php&idStage='.$profil->IdStage.'&idEvaluation='.$autoEvaluation[0]->IdEvaluation.'&typeEval=4\')">
+                    <td>Auto-Évaluation</td>
+                </tr>
 
-            <br/><br/><br/>';
-                    
-            if(count($profils) > 1)
-            {
-                //Si il y a plus qu'un stagiaire, affiche les flèches.
-                $content = $content.
-                '<div class="navigateur">
-                    <div id="gauche" class="fleche flecheGauche" onclick="ChangerItem(this)"></div>
-                    <div id="droite" class="fleche flecheDroite" onclick="ChangerItem(this)"></div>
-                </div>';  
-            }
+            </tbody>
+        </table>
 
+        <br/><br/><br/>';
+                
+        if(count($profils) > 1)
+        {
+            //Si il y a plus qu'un stagiaire, affiche les flèches.
             $content = $content.
-            '</article>';
+            '<div class="navigateur">
+                <div id="gauche" class="fleche flecheGauche" onclick="ChangerItem(this)"></div>
+                <div id="droite" class="fleche flecheDroite" onclick="ChangerItem(this)"></div>
+            </div>';  
+        }
+        
+        $content = $content.
+        '</article>';
     }
 
     return $content;
