@@ -6,7 +6,6 @@
 
 function testerRetourSupressionUtilisateur(data)
 {
-	alert("i'm in");
 	//PHP envoie nativement 1, donc si j'envoie -1 dans ma fonction PHP, JS reçois -11
 	if(data == -11)
 	{

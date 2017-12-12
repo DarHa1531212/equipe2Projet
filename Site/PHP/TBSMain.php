@@ -1,6 +1,6 @@
 <?php
 
-     $listeStatut = array('Pas Accéssible','Pas Débuté','En Retard','Soumis ','Valide ');
+     $listeStatut = array('Pas Accessible','Pas Débuté','En Retard','Soumis ','Valide ');
 
     function gestionStatutEtatAvancement($etatAvancement, $dateDebut, $dateLimite, $bdd)
     {
