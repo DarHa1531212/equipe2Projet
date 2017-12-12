@@ -8,37 +8,32 @@
     
 
 
-    if (isset($_REQUEST["post"]))
+    if (isset($_REQUEST["idEntreprise"]))
         {
-       //  var_dump($_REQUEST["id"]);
-       $data = "";
-    //   var_dump($_REQUEST["id"]);
-    //   var_dump($entreprises);
-    //   var_dump($entreprises[$_REQUEST["id"]]->Id);
-        $nbStages = -1;
-        $result = $bdd->Request("SELECT count(*) as 'nbStages' from vSuperviseur 
-            join vStage on vStage.IdSuperviseur = vSuperviseur.IdUtilisateur
-            where IdEntreprise = :id;", array('id'=>$entreprises[$_REQUEST["id"]]->Id),'stdClass');
-                foreach($result as $resultat){
-                   $nbStages =  $resultat->nbStages;
-                }
-        
- 
-          //  var_dump($nbStages);
- 
-            if ($nbStages == 0)
-            {
-                $data =$entreprises[$_REQUEST["id"]]->Id;
-                $stage = array();
-                $result = $bdd->Request(" DELETE FROM tblEntreprise WHERE Id = :id;",
-                    array('id'=>$data),'stdClass');
-                echo'l\'entreprise a été suprimée';
-             }
+            $data = "";
+            $nbStages = -1;
+            $result = $bdd->Request("SELECT count(*) as 'nbStages' from vSuperviseur 
+                join vStage on vStage.IdSuperviseur = vSuperviseur.IdUtilisateur
+                where IdEntreprise = :id;", array('id'=>$_REQUEST["idEntreprise"]),'stdClass');
+                    foreach($result as $resultat){
+                       $nbStages =  $resultat->nbStages;
+                    }
 
-            else {
-                echo'l\'entreprise est liée à un stage et ne peut pas être supprimée';
-            }
-            
+                   // var_dump($nbStages);
+     
+                if ($nbStages == 0)
+                {
+                  //  $data =$entreprises[$_REQUEST["id"]]->Id;
+                    $stage = array();
+                    $result = $bdd->Request(" DELETE FROM tblEntreprise WHERE Id = :id;",
+                        array('id'=>$_REQUEST["idEntreprise"]),'stdClass');
+                    return "0" ;
+                 }
+
+                else {
+                    return"-1";
+                }
+                
        }
    
     else {
@@ -102,37 +97,12 @@
             <input class="bouton" type="button" style="width: 100px;" value="   Retour   " onclick="Requete(AfficherPage, \'../PHP/TBNavigation.php?nomMenu=ListeEntreprise.php\')"/>
            
 
-            <input class="bouton" type="button" id="Save" style="width: 100px;" value="  Supprimer  "   onclick= "Requete(ExecuteQuery,\'../PHP/TBNavigation.php?nomMenu=InfoEntreprise.php\',\'&id=\','.$_REQUEST["id"].',\'&post=\',true)" />
-
-           <!-- \'../PHP/TBNavigation.php?nomMenu=InfoEntreprise.php\',\'&idEntreprise =\','.$entreprise->getId().'\')"/> -->
-
-
-
-                
+            <input class="bouton" type="button" id="Save" style="width: 100px;" value="  Supprimer  "   onclick="Requete(testerRetourSupressionEntreprise, \'../PHP/TBNavigation.php?nomMenu=InfoEntreprise.php&idEntreprise='.$entreprise->getId().'\')" />                
         </article>
         ';
         
         return $content;
     }
-
-    
-
-    
-
-    function suprimerEntreprise($bdd, $idEntreprise)
-    { 
-      echo "i'm in";
-      /*$entreprise = $entreprises[$_REQUEST["id"]];
-      $data = [$_REQUEST["id"];
-      $idEntreprise = $data; */
-
-    }
-
-    function verifierStagesLies($bdd, $idEntreprise)
-    {
-
-    }
-
 ?>
 
 
