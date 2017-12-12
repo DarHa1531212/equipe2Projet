@@ -5,6 +5,16 @@
     function AfficherPage($bdd, $NomMenu){
         include 'vTableauBord.php';
         include 'Model.php';
+        $regxEmail = "[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$";
+        $regxPoste = "^[0-9]{0,7}$";
+        $regxPassword = "^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$";
+        $regxNumTel = "^[(]{1}[0-9]{3}[)]{1}[\s]{1}[0-9]{3}[-]{1}[0-9]{4}$";
+        $regxCodePostal = "^[A-Z][0-9][A-Z]\s[0-9][A-Z][0-9]$";
+        $regxNumCivique = "^[0-9]{1,5}$";
+        $regxNom = "^[A-Z][a-z]{1,}$";
+        $regxSalaire = "^[0-9][0-9],[0-9][0-9]$";
+        $regxHeure = "^[0-4][0-9],?[0-5]?[0]?$";
+        $regxAnnee = "^[2][0][0-9]{2}$";
         
         switch($NomMenu){
             case "Main":    

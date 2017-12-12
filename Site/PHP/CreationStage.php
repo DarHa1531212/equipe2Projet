@@ -113,24 +113,24 @@
             <div class="champ">
                 <p class="label labelForInput">Responsable</p>
                 <select class="value"  name = "Responsable" id="responsable">
-                    <option value = "1">Responsable 1</option>
+                    <option value = "1">Responsable</option>
                 </select>
             </div>
             <div class="champ">
                 <p class="label labelForInput">Superviseur</p>
                 <select class="value"  name = "Superviseur" id="superviseur">
-                <option value = "1">SUPERVISEUR 1</option>                
+                <option value = "1">Superviseur</option>                
                 </select>
             </div>
             <div class="champ">
                 <p class="label labelForInput">Enseignant</p>
                 <select class="value"  name = "Enseignant">
                     ' . showProfessors($bdd) . '
-                    </select>
+                </select>
             </div>
             <div class="champ">
                 <p class="label labelForInput">Heure / Semaine</p>
-                <input class="value" type="text"  name = "HeuresSemaine" id="heureSem" onchange="regexCreationStage();"/>
+                <input class="value" type="text"  name = "HeuresSemaine" id="heureSem" onblur="VerifierRegex(this);" pattern="'.$regxHeure.'"/>
             </div>
             <div class="champ">
                 <p class="label labelForInput">Rémunéré</p>
@@ -143,7 +143,7 @@
             </div>
             <div class="champ">
                 <p class="label labelForInput">Salaire Horaire</p>
-                <input class="value" type="text"  name = "SalaireHoraire" id="salaire" onchange="regexCreationStage();"/>
+                <input class="value" type="text"  name = "SalaireHoraire" id="salaire" onblur="VerifierRegex(this);" pattern="'.$regxSalaire.'"/>
             </div>
             <div class="champ">
                 <p class="label labelForInput">Date Début</p>

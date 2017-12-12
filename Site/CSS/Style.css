@@ -78,6 +78,13 @@ section{
 
 .bouton:active{background-color: #3262a4;}
 
+.bouton:disabled{background-color: #062653;}
+
+.bouton:disabled:hover{
+    background-color: #062653;
+    border-color: #0a3a7c;
+}
+
 .blocInfo{
     width: 49.5%;
     margin: auto;

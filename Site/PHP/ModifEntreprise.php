@@ -27,13 +27,13 @@ $content =
 
         <div class="champ">
             <p class="label labelForInput">Courriel :</p>
-            <input type="email" value="'.$entreprise->getCourriel().'" name="courrielEntreprise" class="value" onexit="RegexProfilStagiaire()"/>
+            <input type="email" value="'.$entreprise->getCourriel().'" name="courrielEntreprise" class="value" onblur="VerifierRegex(this);" pattern="'.$regxEmail.'"/>
 
         </div>
 
         <div class="champ">
             <p class="label labelForInput">No. Téléphone :</p>
-            <input type="text" value="'.$entreprise->getNumTel().'" name="numEntreprise" class="value" onexit="RegexProfilStagiaire()"/>
+            <input type="text" value="'.$entreprise->getNumTel().'" name="numEntreprise" class="value" onblur="VerifierRegex(this);" pattern="'.$regxNumTel.'"/>
             <img class="info" src="../Images/info.png" title="Le numéro de téléphone doit
 avoir ce format - (xxx) xxx-xxxx"/>
         </div>
@@ -59,11 +59,13 @@ avoir ce format - (xxx) xxx-xxxx"/>
         </div>
         <div class="champ">
             <p class="label labelForInput">Code Postal :</p>
-            <input type="text" value="'.$entreprise->getCodePostal().'" name="codePostal" class="value"/>
+            <input type="text" value="'.$entreprise->getCodePostal().'" name="codePostal" class="value"
+            onblur="VerifierRegex(this);" pattern="'.$regxCodePostal.'"/>
         </div>
         <div class="champ">
             <p class="label labelForInput">No. Civique :</p>
-            <input type="text" value="'.$entreprise->getNumCivique().'" name="noCivique" class="value"/>
+            <input type="text" value="'.$entreprise->getNumCivique().'" name="noCivique" class="value"
+            onblur="VerifierRegex(this);" pattern="'.$regxNumCivique.'"/>
         </div>
         <div class="champ">
             <p class="label labelForInput">Rue :</p>
