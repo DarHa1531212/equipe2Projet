@@ -1,5 +1,5 @@
--- USE BDProjet_equipe2V2;
- USE cegepjon_p2017_2_dev;
+ USE BDProjet_equipe2V2;
+-- USE cegepjon_p2017_2_dev;
 -- USE cegepjon_p2017_2_prod;
 -- USE cegepjon_p2017_2_tests;
 -- ------------------------------------------------
@@ -7,7 +7,7 @@
 -- ------------------------------------------------
 DROP VIEW IF EXISTS vEnseignant;
 CREATE VIEW vEnseignant AS 
-SELECT Util.Id AS IdUtilisateur, Emp.Id AS IdEnseignant, Prenom, Nom, NumTelEntreprise, IdEntreprise, Poste, Emp.CourrielEntreprise,
+SELECT Util.Id AS IdUtilisateur, Emp.Id AS IdEnseignant, Prenom, Nom, NumTelEntreprise, IdEntreprise, Poste, CourrielEntreprise,
 CONCAT(Prenom, Nom, NumTelEntreprise, IdEntreprise, Poste, CourrielEntreprise) AS Tag
 FROM vEmploye AS Emp
 JOIN vUtilisateur AS Util
@@ -109,6 +109,19 @@ on Eva.Id = ES.IdEvaluation
 join vStage as St
 on St.Id = ES.IdStage;
 
+----------------------------
+-- selectionne les informations des etats d'avancement globale
+-----------------------------
+
+DROP VIEW IF EXISTS vInfoEtatAvancement;
+CREATE VIEW vInfoEtatAvancement AS 
+select etat.Id as 'IdEtatAvancement',etat.Statut as 'Statut', DateComplétée as 'DateComplétée', sta.Id as 'IdStage', 
+		typeetat.Description as 'TitreTypeEtat', typeetat.Id as 'IdTypeEtatAvancement'
+from vEtatAvancement as etat
+join vStage as sta
+on sta.Id = etat.IdStage
+join vTypeEtatAvancement as typeetat
+on typeetat.Id = etat.IdTypeEtatAvancement;
 
 -- ------------------------------------------------
 -- Récupère toutes les évaluations des stagiaires selon leur ID et le type d'évaluation avec leurs réponses choisies.
@@ -148,6 +161,7 @@ JOIN vSuperviseur AS Superviseur
 ON Superviseur.IdUtilisateur = Stage.IdSuperviseur
 JOIN vEntreprise AS Entreprise
 ON Entreprise.Id = Superviseur.IdEntreprise;
+
 -- ------------------------------------------------
 -- Récupère toutes les évaluations des stagiaires selon leur ID et le type d'évaluation avec leurs réponses choisies.
 -- ------------------------------------------------

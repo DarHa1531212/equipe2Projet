@@ -2,13 +2,13 @@
 -- CRÉÉE LE 06/09/2017 PAR MARC-ANTOINE DUCHESNE
 
 -- Création de la bd
--- DROP DATABASE IF EXISTS BDProjet_equipe2V2;
--- CREATE DATABASE BDProjet_equipe2V2;
+ DROP DATABASE IF EXISTS BDProjet_equipe2V2;
+ CREATE DATABASE BDProjet_equipe2V2;
 
- USE cegepjon_p2017_2_dev;
+-- USE cegepjon_p2017_2_dev;
 -- USE cegepjon_p2017_2_prod;
 -- USE cegepjon_p2017_2_tests;
--- USE bdprojet_equipe2v2;
+ USE bdprojet_equipe2v2;
 -- Table Reponsesss
 DROP TABLE IF EXISTS tblReponse;
 CREATE TABLE tblReponse(
@@ -271,7 +271,7 @@ CREATE TABLE tblSession(
 );
 
 DROP VIEW IF EXISTS vSession;
-CREATE VIEW vSession AS SELECT Id, Annee,Periode,CahierEntreprise,CahierStagiaire,MiStageDebut,MiStageLimite,FinaleDebut,FinaleLimite
+CREATE VIEW vSession AS SELECT Id, Annee,Periode,CahierEntreprise,CahierStagiaire,MiStageDebut,MiStageLimite,FinaleDebut,FinaleLimite,
 FormationDebut,FormationLimite,JanvierDebut,JanvierLimite,FevrierDebut,FevrierLimite,MarsDebut,MarsLimite FROM tblSession;
 
 
@@ -348,7 +348,7 @@ CREATE VIEW vCategorieQuestion AS SELECT Id,TitreCategorie,descriptionCategorie,
 	
 DROP VIEW IF EXISTS vTypeEtatAvancement;
 CREATE VIEW vTypeEtatAvancement AS 
-SELECT Description,
+SELECT Id,Description,
 CONCAT(Description) AS tag FROM tblTypeEtatAvancement;
  
 -- Table Etat d'avancement
@@ -372,7 +372,7 @@ CONCAT(Description) AS tag FROM tblTypeEtatAvancement;
 	
 DROP VIEW IF EXISTS vEtatAvancement;
 CREATE VIEW vEtatAvancement AS 
-SELECT EcheancierTachesAVenir,AppreciationTravail,IntegrationMilieuStage,InteractionAvecAutres,FaconDeFaire,Statut,DateComplétée,IdTypeEtatAvancement,
+SELECT Id,EcheancierTachesAVenir,AppreciationTravail,IntegrationMilieuStage,InteractionAvecAutres,FaconDeFaire,Statut,DateComplétée,IdTypeEtatAvancement,IdStage,
 CONCAT(EcheancierTachesAVenir,AppreciationTravail,IntegrationMilieuStage,InteractionAvecAutres,FaconDeFaire,Statut,DateComplétée) AS tag FROM tblEtatAvancement;
 	
 -- Table Etat d'avancement janvier
@@ -394,7 +394,7 @@ CONCAT(EcheancierTachesAVenir,AppreciationTravail,IntegrationMilieuStage,Interac
 		
 DROP VIEW IF EXISTS vEtatAvancementJanvier;
 CREATE VIEW vEtatAvancementJanvier AS 
-SELECT NomOrganisation, MissionOrganisation,AcceuilDebutStage,OrganigrammeOrganisation,DescriptionApprentissage,TransitionAuTravail,DescriptionGeneralStage,
+SELECT Id,NomOrganisation, MissionOrganisation,AcceuilDebutStage,OrganigrammeOrganisation,DescriptionApprentissage,TransitionAuTravail,DescriptionGeneralStage,
 CONCAT(NomOrganisation, MissionOrganisation,AcceuilDebutStage,OrganigrammeOrganisation,DescriptionApprentissage,TransitionAuTravail,DescriptionGeneralStage) AS tag FROM tblEtatAvancementJanvier;
 		
 -- Table Etat d'avancement fevrier
@@ -414,7 +414,7 @@ CONCAT(NomOrganisation, MissionOrganisation,AcceuilDebutStage,OrganigrammeOrgani
 	
 DROP VIEW IF EXISTS vEtatAvancementFevrier;
 CREATE VIEW vEtatAvancementFevrier AS 
-SELECT apprentissageTechnique,apprentissageLogiciel,apprentissageEnvironement,
+SELECT Id,apprentissageTechnique,apprentissageLogiciel,apprentissageEnvironement,
 CONCAT(apprentissageTechnique,apprentissageLogiciel,apprentissageEnvironement) AS tag FROM tblEtatAvancementFevrier;
 	
 	
@@ -434,7 +434,7 @@ CONCAT(apprentissageTechnique,apprentissageLogiciel,apprentissageEnvironement) A
 	
 DROP VIEW IF EXISTS vEtatAvancementMars;
 CREATE VIEW vEtatAvancementMars AS 
-SELECT apprentissageTechnique,apprentissageLogiciel,apprentissageEnvironement,
+SELECT Id,apprentissageTechnique,apprentissageLogiciel,apprentissageEnvironement,
 CONCAT(apprentissageTechnique,apprentissageLogiciel,apprentissageEnvironement) AS tag FROM tblEtatAvancementMars;
 	
 
@@ -451,7 +451,7 @@ CONCAT(apprentissageTechnique,apprentissageLogiciel,apprentissageEnvironement) A
 	
 DROP VIEW IF EXISTS vTacheEffectuee;
 CREATE VIEW vTacheEffectuee AS 
-SELECT DescriptionTache,
+SELECT Id,DescriptionTache,
 CONCAT(DescriptionTache) AS tag FROM tblTacheEffectuee;
 	
 -- Table MembreEquipeStagiaire
@@ -469,7 +469,7 @@ CONCAT(DescriptionTache) AS tag FROM tblTacheEffectuee;
 	
 DROP VIEW IF EXISTS vMembreEquipeStagiaire;
 CREATE VIEW vMembreEquipeStagiaire AS 
-SELECT Nom,Prenom, Responsabilites,IdEtatAvancementJanvier,
+SELECT Id, Nom,Prenom, Responsabilites,IdEtatAvancementJanvier,
 CONCAT(Nom,Prenom, Responsabilites,IdEtatAvancementJanvier) AS tag FROM tblMembreEquipeStagiaire;
 
 -- table TypeTache
@@ -486,7 +486,7 @@ CONCAT(Nom,Prenom, Responsabilites,IdEtatAvancementJanvier) AS tag FROM tblMembr
 	
 DROP VIEW IF EXISTS vTypeTache;
 CREATE VIEW vTypeTache AS 
-SELECT NomTypeTache, Proportion,IdEtatAvancementJanvier,
+SELECT Id, NomTypeTache, Proportion,IdEtatAvancementJanvier,
 CONCAT(NomTypeTache, Proportion,IdEtatAvancementJanvier) AS tag FROM tblTypeTache;
 
 -- ----------------
@@ -528,7 +528,6 @@ ALTER TABLE tblStage
 ADD FOREIGN KEY (IdEnseignant)
 REFERENCES
 tblUtilisateur(Id);
-
 
 
 ALTER TABLE tblStage
@@ -680,4 +679,3 @@ ALTER TABLE tblEtatAvancement
 ADD FOREIGN KEY (IdTypeEtatAvancement)
 REFERENCES
 tblTypeEtatAvancement(Id); 
-

@@ -10,7 +10,9 @@
         foreach($champs as $champ){
             $entreprise[$champ->nom] = $champ->value;
         }
-        
+       if (!mkdir('Entreprises/'.$entreprise['nom'].$entreprise['nom'], 0777,false)) {
+            die('Echec lors de la création des répertoires...');
+         }
         $bdd->Request(" INSERT INTO tblEntreprise (CourrielEntreprise, Nom, NumTel, NumCivique, Rue, Ville, Province, CodePostal, Logo) 
                         VALUES (:courriel, :nom, :numTel, :numCivique, :rue, :ville, :province, :codePostal, :logo)",
                         array(
@@ -40,41 +42,41 @@
         <div class="blocInfo infoProfil">
             <div class="champ">
                 <p class="label labelForInput">Nom</p>
-                <input type="text" name="nom" class="value"/>
+                <input type="text" name="nom" value="estd" class="value"/>
             </div>
             <div class="champ">
                 <p class="label labelForInput">Courriel</p>
-                <input type="email" name="courriel" class="value"/>
+                <input type="email" name="courriel" value="test" class="value"/>
             </div>
             <div class="champ">
                 <p class="label labelForInput">No. Téléphone</p>
-                <input type="text" name="numTel" class="value"/>
+                <input type="text" name="numTel" value="tes" class="value"/>
             </div>
             <div class="champ">
                 <p class="label labelForInput">Ville</p>
-                <input type="text" name="ville" class="value"/>
+                <input type="text" name="ville" value="estd" class="value"/>
             </div>
             <div class="champ">
                 <p class="label labelForInput">No. Civique</p>
-                <input type="text" name="numCivique" class="value"/>
+                <input type="text" name="numCivique" value="1233" class="value"/>
             </div>
             <div class="champ">
                 <p class="label labelForInput">Rue</p>
-                <input type="text" name="rue" class="value"/>
+                <input type="text" name="rue" value="estd" class="value"/>
             </div>
             <div class="champ">
                 <p class="label labelForInput">Province</p>
-                <input type="text" name="province" class="value"/>
+                <input type="text" name="province" value="QC" class="value"/>
             </div>
             <div class="champ">
                 <p class="label labelForInput">Code Postal</p>
-                <input type="text" name="codePostal" class="value"/>
+                <input type="text" name="codePostal" value="G7X 7W2" class="value"/>
             </div>
             <div class="champ">
-                <p class="label labelForInput">Logo</p>
-                <input type="text" name="logo" class="value"/>
-            </div>
-            
+                <input type="hidden" name="maxFileSize" value="2000000">
+                <input class="bouton" id="file" type="file" value="Envoyer" name="fichier" onchange="AfficherNom(this)"/><label class="bouton labelFile" for="file">logo</label>
+                <p id="nomPieceJointe"></p>   
+            </div>            
 
             <br/><br/>
 

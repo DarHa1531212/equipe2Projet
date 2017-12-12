@@ -8,7 +8,7 @@
             </a>
         </div>
 
-        <div class="blocInfo itemHover onglet" onclick="Execute(1, \'../PHP/TBNavigation.php?nomMenu=CreationSession.php\')">
+        <div class="blocInfo itemHover onglet" onclick="Execute(1, \'../PHP/TBNavigation.php?nomMenu=ListeSession.php\')">
             <a class="linkFill">
                 <h1>Sessions</h1>
             </a>

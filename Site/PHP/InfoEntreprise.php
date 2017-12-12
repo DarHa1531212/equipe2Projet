@@ -1,31 +1,7 @@
 <?php
     
     require 'ListeEntreprise.php';
-    /*if(isset($_REQUEST["post"]))
-        CreateEntreprise($bdd);
-        
-    function CreateEntreprise($bdd){
-        $champs = json_decode($_POST["tabChamp"]);
-        $entreprise = array();
-        
-        foreach($champs as $champ){
-            $entreprise[$champ->nom] = $champ->value;
-        }
-        
-        $query = $bdd->prepare("INSERT INTO tblEntreprise (CourrielEntreprise, Nom, NumTel, NumCivique, Rue, Ville, Province, CodePostal, Logo) 
-                                VALUES (:courriel, :nom, :numTel, :numCivique, :rue, :ville, :province, :codePostal, :logo)");
-        
-        $query->execute(array(
-            "courriel"=>$entreprise["courriel"],
-            "nom"=>$entreprise["nom"],
-            "numTel"=>$entreprise["numTel"],
-            "numCivique"=>$entreprise["numCivique"],
-            "rue"=>$entreprise["rue"],
-            "ville"=>$entreprise["ville"],
-            "province"=>$entreprise["province"],
-            "codePostal"=>$entreprise["codePostal"],
-            "logo"=>$entreprise["logo"]));
-    }*/
+
 
     $content =
     '
