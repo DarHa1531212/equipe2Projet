@@ -38,19 +38,19 @@
                 <div class = "champ" id = "Prenom">
                     <br>
                     <p class="label labelForInput">Prenom :</p>
-                    <input type="text" value="" id="prenom" class="value" name = "prenom" onchange="regexCreationUtilisateur();"/>
+                    <input type="text" value="" id="prenom" class="value" name = "prenom" onblur="VerifierRegex(this);" pattern="'.$regxNom.'"/>
                 </div>
 
                <div class = "champ" id = "Nom">
                 <br>
                 <p class="label labelForInput">Nom :</p>
-                <input type="text" value="" class="value" name = "nom" id="nom" onchange="regexCreationUtilisateur();"/>
+                <input type="text" value="" class="value" name = "nom" id="nom" onblur="VerifierRegex(this);" pattern="'.$regxNom.'"/>
                 </div>
 
                 <div class = "champ" id = "courriel">
                  <br>
                 <p class="label labelForInput">Courriel :</p>
-                <input type="text" value="" class="value" name = "courriel" id="Courriel" onchange="regexCreationUtilisateur();"/>
+                <input type="text" value="" class="value" name = "courriel" id="Courriel" onblur="VerifierRegex(this);" pattern="'.$regxEmail.'"/>
                 </div>
                     <div class="champ" id = "dropDownEntreprise">
                         <p class="label labelForInput">Entreprise</p>
@@ -61,25 +61,25 @@
                 <div class = "champ" id = "noTelEntreprise">
                 <br>
                 <p class="label labelForInput">Numero de telephone entreprise :</p>
-                <input type="text" value="" class="value" name = "noTelEntreprise" id="numTelEntreprise" onchange="regexCreationUtilisateur();"/>
+                <input type="text" value="" class="value" name = "noTelEntreprise" id="numTelEntreprise" onblur="VerifierRegex(this);" pattern="'.$regxNumTel.'"/>
                 </div>
 
                 <div class = "champ" id = "posteTelEntreprise">
                 <br>
                 <p class="label labelForInput">Poste téléphonique :</p>
-                <input type="text" value="" class="value" name = "posteTelEntreprise" id="posteTel" onchange="regexCreationUtilisateur();"/>
+                <input type="text" value="" class="value" name = "posteTelEntreprise" id="posteTel" onblur="VerifierRegex(this);" pattern="'.$regxPoste.'"/>
                 </div>
 
                 <div class = "champ" id = "courrielPersonnel">
                 <br>
                 <p class="label labelForInput">courriel personnel (facultatif) :</p>
-                <input type="text" value="" class="value" name = "courrielPersonnel" id="courrielPersonnel" onchange="regexCreationUtilisateur();"/>
+                <input type="text" value="" class="value" name = "courrielPersonnel" id="courrielPersonnel" onblur="VerifierRegex(this);" pattern="'.$regxEmail.'"/>
                 </div>
 
                 <div class = "champ" id = "noTelPersonnel">
                 <br>
                 <p class="label labelForInput">Numéro de téléphone personnel (facultatif) :</p>
-                <input type="text" value="" class="value" name = "noTelPersonnel" id="noTelPersonnel" onchange="regexCreationUtilisateur();"/>
+                <input type="text" value="" class="value" name = "noTelPersonnel" id="noTelPersonnel" onblur="VerifierRegex(this);" pattern="'.$regxNumTel.'"/>
                 </div>
 
                 <div class = "champ" id="posteEntreprise">

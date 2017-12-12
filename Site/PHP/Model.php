@@ -54,7 +54,7 @@
                     
                 $content = $content.
                 '<div class="categories">
-                    <div class="separateur" id="question">
+                    <div class="separateur questions" id="question">
                         <h3>'.$this->categories[0]->getLettre().' '.$this->categories[0]->getTitre().'</h3>
                         <p> 
                             '.$question->getTexte().'
@@ -77,16 +77,53 @@
             
             $this->SelectReponses($bdd, $question->getId());
             
-            foreach($this->reponses as $reponse){   
-                $content = $content. 
-                '
-                    <tr class="itemHover" onclick="reponse'.$reponse->getId().'.checked = true;">
-                        <td>
-                            '.$reponse->getTexte().'
-                            <input type="radio" id="reponse'.$reponse->getId().'" name="question'.$question->getId().'" value="'.$reponse->getId().'"/>
-                        </td>
-                    </tr>
-                ';
+            foreach($this->reponses as $reponse)
+            {   
+
+
+                if(( $this->getStatut() == 3 )|| ( $this->getStatut() == 4))
+                {
+                     $this->SelectReponsesChoisies($bdd, $this->id, $question->getId());
+                    //evaluation soumise ou validée
+                    if($reponse->getId() == $this->reponsesChoisies[0]->getId())
+                    {
+                        //name="question'.$question->getId().'" value="'.$reponse->getid().'"
+                        $content = $content. 
+                            '
+                            <tr class="itemHover" onclick="reponse'.$reponse->getId().'.checked = true;" >
+                                <td>
+                                    '.$reponse->getTexte().'
+                                    <input type="radio" id="reponse'.$reponse->getId().'" name="question'.$question->getId().'" value="'.$reponse->getId().'" checked="checked"/>
+                                </td>
+                            </tr>
+                            ';
+                    }  
+                    else
+                    {
+                        $content = $content. 
+                            '
+                                <tr class="itemHover" onclick="reponse'.$reponse->getId().'.checked = true;" >
+                                    <td>
+                                        '.$reponse->getTexte().'
+                                        <input type="radio" id="reponse'.$reponse->getId().'" name="question'.$question->getId().'" value="'.$reponse->getId().'"/>
+                                    </td>
+                                </tr>
+                            ';
+                    }
+                        
+                }
+                else
+                {
+                      $content = $content. 
+                            '
+                                <tr class="itemHover" onclick="reponse'.$reponse->getId().'.checked = true;" >
+                                    <td>
+                                        '.$reponse->getTexte().'
+                                        <input type="radio" id="reponse'.$reponse->getId().'" name="question'.$question->getId().'" value="'.$reponse->getId().'"/>
+                                    </td>
+                                </tr>
+                            ';
+                }
             }
             
             return $content;
@@ -98,6 +135,7 @@
         public function __construct($bdd, $id){
             parent::__construct($bdd, $id);
             $this->SelectCategories($bdd, $id);
+            $this->SelectAllQuestions($bdd,$id);
         }
         
         //Sélectionne toutes les catégories pour l'évaluation.
@@ -114,24 +152,6 @@
 
             foreach($categories as $categorie){
                 array_push($this->categories, new CategorieQuestion($categorie->IdCategorie, $categorie->TitreCategorie, $categorie->Lettre, $categorie->descriptionCategorie));
-            }
-        }
-        
-        //Sélectionne toutes les questions pour la catégorie.
-        private function SelectQuestions($bdd, $idEvaluation, $idCategorie){
-            unset($this->questions);
-            $this->questions = array();
-
-            $questions = $bdd->Request('SELECT DISTINCT(Id), Q.Texte
-                                        FROM vQuestion AS Q
-                                        JOIN vEvaluationQuestionReponse AS EQR
-                                        ON EQR.IdQuestion = Q.Id
-                                        WHERE EQR.IdEvaluation = :idEvaluation AND Q.IdCategorieQuestion = :idCategorieQuestion',
-                                        array('idEvaluation'=>$idEvaluation, 'idCategorieQuestion'=>$idCategorie),
-                                        "stdClass");
-            
-            foreach($questions as $question){
-                array_push($this->questions, new Question($question->Id, $question->Texte));
             }
         }
         
@@ -172,13 +192,15 @@
             return $content;
         }
         
-        //Affiche les questions.
-        private function AfficherQuestion($bdd){
+           //Affiche les questions.
+        protected function AfficherQuestion($bdd, $questions)
+        {
             $content = "";
             
-            foreach($this->questions as $question){
+            foreach($questions as $question)
+            {
                 $content = $content.
-                '<tr>
+                '<tr class="questions">
                     <td>'.$question->getTexte().'</td>
                     '.$this->AfficheReponse($bdd, $question).'
                 </tr>';
@@ -186,32 +208,224 @@
             
             return $content;
         }
-        
+
+     
         //Affiche les réponses.
-        private function AfficheReponse($bdd, $question){
+        protected function AfficheReponse($bdd, $question)
+        {
             $content = "";
             
             $this->SelectReponses($bdd, $question->getId());
             
-            foreach($this->reponses as $reponse){   
+            foreach($this->reponses as $reponse)
+            {   
                 $this->SelectReponsesChoisies($bdd, $this->id, $question->getId());
-                
-                if($reponse->getId() == $this->reponsesChoisies[0]->getId())
-                    $content = $content.'<td><input type="radio" id="question'.$question->getId().'" name="question'.$question->getId().'" value="'.$reponse->getId().'" checked = "checked" ></td>';
+
+                if(( $this->getStatut() == 3 )|| ( $this->getStatut() == 4))
+                {
+                    //evaluation soumise ou validée
+                    if($reponse->getId() == $this->reponsesChoisies[0]->getId())
+                        $content = $content.'<td><input type="radio" name="question'.$question->getId().'" value="'.$reponse->getid().'" checked = "checked" ></td>';
+                    else
+                        $content = $content.'<td><input type="radio" name="question'.$question->getId().'" value="'.$reponse->getid().'"></td>';
+                }
                 else
-                    $content = $content.'<td><input type="radio" name="question'.$question->getId().'" value="'.$reponse->getid().'"></td>';
+                {
+                     $content = $content.'<td><input type="radio" name="question'.$question->getId().'" value="'.$reponse->getid().'"></td>';
+                }
+                
             }
             
             return $content;
         }
+
+        
+        //Sélectionne toutes les questions pour la catégorie.
+        protected function SelectQuestionsByCategories($bdd, $idEvaluation, $idCategorie){
+            $questionsDeLaCategorie = array();
+
+            $questions = $bdd->Request('SELECT DISTINCT(Id), Q.Texte
+                                        FROM vQuestion AS Q
+                                        JOIN vEvaluationQuestionReponse AS EQR
+                                        ON EQR.IdQuestion = Q.Id
+                                        WHERE EQR.IdEvaluation = :idEvaluation AND Q.IdCategorieQuestion = :idCategorieQuestion',
+                                        array('idEvaluation'=>$idEvaluation, 'idCategorieQuestion'=>$idCategorie),  "stdClass");
+            
+            foreach($questions as $question)
+            {
+                array_push($questionsDeLaCategorie, new Question($question->Id, $question->Texte));
+            }
+
+            return $questionsDeLaCategorie;
+        }
+        
+        protected function SelectAllQuestions($bdd, $idEvaluation){
+            unset($this->questions);
+
+            $this->questions = array();
+
+            $questions = $bdd->Request('SELECT DISTINCT(Id), Q.Texte
+                                        FROM vQuestion AS Q
+                                        JOIN vEvaluationQuestionReponse AS EQR
+                                        ON EQR.IdQuestion = Q.Id
+                                        WHERE EQR.IdEvaluation = :idEvaluation',
+                                        array('idEvaluation'=>$idEvaluation),
+                                        "stdClass");
+
+            foreach($questions as $question)
+            {
+                array_push($this->questions, new Question($question->Id, $question->Texte));
+            }
+        }
+        
     }
 
-    class Evaluation{
+    class EvaluationGrilleFormation extends EvaluationGrille
+    {
+
+        public function __construct($bdd, $id)
+        {
+            parent::__construct($bdd, $id);
+        }
+
+        private function questionsHasComment($bdd, $questions)
+        {
+            foreach ($questions as $question) 
+            {
+
+                if(($question->getId() == 57)||($question->getId() == 59)||($question->getId() == 60)||($question->getId() == 62)|| ($question->getId() == 63) ||($question->getId() == 65))
+                {
+                    return array($question->getId(),); 
+                }
+            }
+        }
+
+        private function zoneCommentaireCategorie($bdd,  $questions)
+        {
+            if( ( $this->statut == 3 ) || ( $this->statut == 4) )//evaluation soumise ou validée
+            {
+                 $commentaireCategorie = $bdd->Request('select *
+                                    from tblevaluationquestionreponse
+                                    where IdEvaluation = :IdEvaluation and IdQuestion = :IdQuestion;',
+                                            array('IdEvaluation'=>$this->id,'IdQuestion'=> $this->questionsHasComment($bdd, $questions)[0]),
+                                            "stdClass");
+
+                return '<textarea class="commentaireCategorie" rows="" cols="" maxlength="500" wrap="hard" readonly>'. $commentaireCategorie[0]->Commentaire .'</textarea>';
+            }
+            else
+            {
+                return '<textarea class="commentaireCategorie" rows="" cols="" maxlength="500" name="'.$this->questionsHasComment($bdd, $questions)[0].'" wrap="hard">Vos commentaires</textarea>';
+            }
+
+        }
+
+        public function DrawEvaluation($bdd)
+        {
+            $content = "";
+        
+            foreach($this->categories as $categorie)
+            {
+                $questions = $this->SelectQuestionsByCategories($bdd, $this->id, $categorie->getId());
+                    
+                $content = $content.
+                '
+                <div class="categories">
+
+                    <div class="separateur" id="question">
+                        <h3>'.$categorie->getLettre().'. '.$categorie->getTitre().'</h3>
+                        <p> 
+                            '.$categorie->getDescription().'
+                        </p>
+                    </div>
+
+                    <table class="evaluation">
+                    
+                        <thead>
+                             <th>Critères</th>
+                            <th>En accord</th>
+                            <th>Plutot en accord</th>
+                            <th>Plutot en désaccord</th>
+                            <th>En désaccord</th>
+                            <th>Ne s\'applique pas</th>
+                        </thead>
+
+                        <tbody>
+                            '.$this->AfficherQuestion($bdd, $questions).'
+                        </tbody>
+
+                    </table>
+
+                     <div class="commentaireEvalFinale">
+
+                        '.$this->zoneCommentaireCategorie($bdd, $questions).'
+
+                    </div>
+
+                    
+                </div>';
+
+            }
+
+            return $content;
+        }
+    }
+
+    class EvaluationGrilleMiStage extends EvaluationGrille
+    {
+
+        public function __construct($bdd, $id)
+        {
+            parent::__construct($bdd, $id);
+        }
+
+        public function DrawEvaluation($bdd)
+        {
+            $content = "";
+        
+            foreach($this->categories as $categorie)
+            {
+                $questions = $this->SelectQuestionsByCategories($bdd, $this->id, $categorie->getId());
+                    
+                $content = $content.
+                '
+                <div class="categories">
+                    <div class="separateur" id="question">
+                        <h3>'.$categorie->getLettre().'. '.$categorie->getTitre().'</h3>
+                        <p> 
+                            '.$categorie->getDescription().'
+                        </p>
+                    </div>
+
+                    <table class="evaluation">
+                    
+                        <thead>
+                            <th>Critères</th>
+                            <th>Généralement</th>
+                            <th>Souvent</th>
+                            <th>Parfois</th>
+                            <th>Rarement</th>
+                        </thead>
+
+                        <tbody>
+                            '.$this->AfficherQuestion($bdd, $questions).'
+                        </tbody>
+
+                    </table>
+
+                </div>';
+            }
+
+            return $content;
+        }
+    }
+
+    class Evaluation
+    {
         protected $questions = array();
         protected $reponses = array();
         protected $categories = array();
         protected $reponsesChoisies = array();
-        protected $id, $statut, $titre, $dateCompletee, $dateDebut, $dateFin, $idTypeEval;
+        protected $id, $statut, $titre, $dateCompletee, $dateDebut, $dateFin, $idTypeEval, $commentaire, $objectifEval;
         
         public function __construct($bdd, $id){
             $this->id = $id;
@@ -228,13 +442,17 @@
                                             array('idEvaluation'=>$id),
                                             "stdClass");
             
-            foreach($evaluations as $evaluation){
+            foreach($evaluations as $evaluation)
+            {
                 $this->titre = $evaluation->Titre;
                 $this->statut = $evaluation->Statut;
                 $this->dateCompletee = $evaluation->DateComplétée;
                 $this->dateDebut = $evaluation->DateDébut;
                 $this->dateFin = $evaluation->DateFin;
-                $this->idTypeEval = $evaluation->IdTypeEvaluation;                
+
+                $this->idTypeEval = $evaluation->IdTypeEvaluation;
+                $this->commentaire = $evaluation->Commentaire;
+                $this->objectifEval = $evaluation->Objectif;                
             }
         }
         
@@ -275,22 +493,34 @@
                 array_push($this->reponsesChoisies, new Reponse($reponse->IdReponse, $reponse->Texte));
             }
         }
-        
-        //Sauvegarde les modifications dans la BD.
-        public function Submit($bdd){
+
+        public function Submit($bdd)
+        {
             $reponses = json_decode($_POST["tabReponse"], true);
 
-            $bdd->Request(' update tblEvaluation set Statut= \'3\', DateComplétée=:DateCompletee where Id=:IdEvaluation;',
-                            array('IdEvaluation'=>$_REQUEST['idEvaluation'],'DateCompletee'=>date("Y-m-d")),
-                            "stdClass");
-
-            foreach($reponses as $reponse){
-                $bdd->Request(' UPDATE tblEvaluationQuestionReponse SET IdReponse = :IdReponse
-                                WHERE IdEvaluation = :IdEvaluation AND IdQuestion = :IdQuestion;',
-                                array('IdEvaluation'=>$this->id,'IdQuestion'=>$reponse["idQuestion"],'IdReponse'=>$reponse["value"]),
-                                "stdClass");
-            }  
-        }    
+            foreach($reponses as $reponse)
+            {
+                if($reponse["type"] == "question")
+                {
+                    $bdd->Request('update tblEvaluationQuestionReponse SET IdReponse = :IdReponse
+                                                                    WHERE IdEvaluation = :IdEvaluation AND IdQuestion = :IdQuestion;',
+                    array('IdEvaluation'=>$this->id,'IdQuestion'=>$reponse["idQuestion"],'IdReponse'=>$reponse["value"]),
+                    "stdClass");
+                }
+                else if($reponse["type"] == "commentaireEvaluation")
+                {
+                    $bdd->Request('update tblEvaluation set Statut= \'3\', DateComplétée=:DateCompletee, Commentaire = :Commentaire where Id=:IdEvaluation;',
+                    array('IdEvaluation'=>$_REQUEST['idEvaluation'],'DateCompletee'=>date("Y-m-d"), 'Commentaire'=> $reponse["value"]),
+                    "stdClass");
+                }
+                else
+                {
+                    $bdd->Request('update tblEvaluationQuestionReponse set Commentaire= :Commentaire where IdEvaluation=:IdEvaluation AND IdQuestion = :IdQuestion;',
+                    array('Commentaire'=>$reponse["value"],'IdEvaluation'=>$_REQUEST['idEvaluation'],'IdQuestion'=> $reponse["idQuestion"]),
+                    "stdClass");
+                }
+            }        
+        }   
         
         public function getCategories(){
             return $this->categories;
@@ -322,6 +552,21 @@
         
         public function getIdTypeEval(){
             return $this->idTypeEval;
+        }
+
+        public function getQuestions()
+        {
+            return $this->questions;
+        }
+
+        public function getCommentaire()
+        {
+            return $this->commentaire;
+        }
+
+        public function getObjectifEval()
+        {
+            return $this->objectifEval;
         }
     }
 
@@ -393,8 +638,14 @@
 
     class Profil{
         
-        protected $IdUtilisateur, $Nom, $Prenom, $NumTelEntreprise, $CodePermanent, $Poste, $CourrielEntreprise, $NomEntreprise, $IdRole;
+        protected 
+        $IdUtilisateur, $Nom, $Prenom, $NumTelEntreprise, $CodePermanent, $Poste, $CourrielEntreprise, $NomEntreprise, $IdRole,
+        $regxEmail = "[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$",
+        $regxPoste = "^[0-9]{0,7}$",
+        $regxPassword = "^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$",
+        $regxNumTel = "^[(]{1}[0-9]{3}[)]{1}[\s]{1}[0-9]{3}[-]{1}[0-9]{4}$";
         
+        //Met à jour l'utilisateur dans la BD.
         protected function UpdateUser($bdd, $motPasse, $courriel){
             if($motPasse != "")
             {
@@ -515,20 +766,20 @@
 
                     <div class="champ">
                         <p class="label labelForInput">Courriel :</p>
-                        <input type="email" value="'.$this->getCourrielEntreprise().'" id="courrielEntreprise" name="courrielEntreprise" class="value" onexit="RegexProfilStagiaire()"/>
+                        <input type="email" value="'.$this->getCourrielEntreprise().'" id="courrielEntreprise" name="courrielEntreprise" class="value" pattern="'.$this->regxEmail.'" onblur="VerifierRegex(this)"/>
 
                     </div>
 
                     <div class="champ">
                         <p class="label labelForInput">No. Téléphone :</p>
-                        <input type="text" value="'.$this->getNumTelEntreprise().'" id="numEntreprise" name="numEntreprise" class="value" onexit="RegexProfilStagiaire()"/>
+                        <input type="text" value="'.$this->getNumTelEntreprise().'" id="numEntreprise" name="numEntreprise" class="value" onblur="VerifierRegex(this)" pattern="'.$this->regxNumTel.'"/>
                         <img class="info" src="../Images/info.png" title="Le numéro de téléphone doit
 avoir ce format - (xxx) xxx-xxxx"/>
                     </div>
 
                     <div class="champ">
                         <p class="label labelForInput">Poste :</p>
-                        <input type="text" value="'.$this->getPoste().'" name="poste" id="poste" class="value" onexit="RegexProfilStagiaire()"/>
+                        <input type="text" value="'.$this->getPoste().'" name="poste" id="poste" pattern="'.$this->regxPoste.'" onblur="VerifierRegex(this)" class="value"/>
                     </div>
             </div>
 
@@ -539,7 +790,7 @@ avoir ce format - (xxx) xxx-xxxx"/>
             <div class="blocInfo infoProfil">
                     <div class="champ">
                         <p class="label labelForInput">Nouveau mot de passe :</p>
-                        <input type="password" id="newPwd" class="value" name="nouveauPasse" onexit="RegexProfilStagiaire()"/>
+                        <input type="password" id="newPwd" class="value" name="nouveauPasse" pattern="'.$this->regxPassword.'" onblur="VerifierRegex(this)"/>
                         <img class="info" src="../Images/info.png" title="Le mot de passe doit contenir
 - 8 caractères minimum
 - Au moins une majuscule
@@ -548,13 +799,14 @@ avoir ce format - (xxx) xxx-xxxx"/>
 
                     <div class="champ">
                         <p class="label labelForInput">Confirmer le mot de passe :</p>
-                        <input type="password" id="confirmationNewPwd" class="value" onexit="RegexProfilStagiaire()"/>
+                        <input type="password" id="confirmationNewPwd" class="value" onblur="DoubleVerif(newPwd, this)"/>
                     </div>
             </div>';
 
             return $content;
         }
         
+        //Met à jour le profil dans la BD.
         public function UpdateProfil($bdd, $champs){
             $profil = array();
 
@@ -576,7 +828,7 @@ avoir ce format - (xxx) xxx-xxxx"/>
 
     class ProfilStagiaire extends Profil{
         
-        private $NumTel, $CourrielPersonnel;
+        protected $NumTelPerso, $CourrielPersonnel, $CourrielScolaire;
     
         //Affiche les informations du profil.
         public function AfficherProfil(){
@@ -605,6 +857,11 @@ avoir ce format - (xxx) xxx-xxxx"/>
                     <div class="champ">
                         <p class="label">Courriel :</p>
                         <p class="value">'.$this->getCourrielPerso().'</p>
+                    </div>
+
+                    <div class="champ">
+                        <p class="label">Courriel Scolaire:</p>
+                        <p class="value">'.$this->getCourrielScolaire().'</p>
                     </div>
             </div>
 
@@ -657,16 +914,27 @@ avoir ce format - (xxx) xxx-xxxx"/>
 
                     <div class="champ">
                         <p class="label labelForInput">No. Téléphone :</p>
-                        <input type="text" value="'.$this->getNumTelPerso().'" id="numTel" name="numTel" class="value" onexit="RegexProfilStagiaire()"/>
+                        <input type="text" value="'.$this->getNumTelPerso().'" id="numTel" name="numTel" class="value" onblur="VerifierRegex(this)" pattern="'.$this->regxNumTel.'"/>
                         <img class="info" src="../Images/info.png" title="Le numéro de téléphone doit
 avoir ce format - (xxx) xxx-xxxx"/>
                     </div>
 
                     <div class="champ">
                         <p class="label labelForInput">Courriel :</p>
-                        <input type="email" value="'.$this->getCourrielPerso().'" id="courrielPersonnel" name="courrielPersonnel" class="value" onexit="RegexProfilStagiaire()"/>
-                    </div>
-            </div>
+                        <input type="email" value="'.$this->getCourrielPerso().'" id="courrielPersonnel" name="courrielPersonnel" class="value" onblur="VerifierRegex(this)" pattern="'.$this->regxEmail.'"/>
+                    </div>';
+
+            if($_SESSION["IdRole"] == 1){
+                $content = $content.
+                '<div class="champ">
+                    <p class="label labelForInput">Courriel Scolaire :</p>
+                    <input type="email" value="'.$this->getCourrielScolaire().'" id="courrielScolaire" name="courrielScolaire" class="value" onblur="VerifierRegex(this)" pattern="'.$this->regxEmail.'"/>
+                </div>';
+            }
+                    
+                            
+            $content = $content.
+            '</div>
 
             <div class="separateur">
                 <h3>Informations Professionnelles</h3>
@@ -680,20 +948,19 @@ avoir ce format - (xxx) xxx-xxxx"/>
 
                     <div class="champ">
                         <p class="label labelForInput">Courriel :</p>
-                        <input type="email" value="'.$this->getCourrielEntreprise().'" id="courrielEntreprise" name="courrielEntreprise" class="value" onexit="RegexProfilStagiaire()"/>
-
+                        <input type="email" value="'.$this->getCourrielEntreprise().'" id="courrielEntreprise" name="courrielEntreprise" class="value" onblur="VerifierRegex(this)" pattern="'.$this->regxEmail.'"/>
                     </div>
 
                     <div class="champ">
                         <p class="label labelForInput">No. Téléphone :</p>
-                        <input type="text" value="'.$this->getNumTelEntreprise().'" id="numEntreprise" name="numEntreprise" class="value" onexit="RegexProfilStagiaire()"/>
+                        <input type="text" value="'.$this->getNumTelEntreprise().'" id="numEntreprise" name="numEntreprise" class="value" onblur="VerifierRegex(this)" pattern="'.$this->regxNumTel.'"/>
                         <img class="info" src="../Images/info.png" title="Le numéro de téléphone doit
 avoir ce format - (xxx) xxx-xxxx"/>
                     </div>
 
                     <div class="champ">
                         <p class="label labelForInput">Poste :</p>
-                        <input type="text" value="'.$this->getPoste().'" name="poste" id="poste" class="value" onexit="RegexProfilStagiaire()"/>
+                        <input type="text" value="'.$this->getPoste().'" name="poste" id="poste" class="value" onblur="VerifierRegex(this)" pattern="'.$this->regxPoste.'"/>
                     </div>
             </div>
 
@@ -704,7 +971,7 @@ avoir ce format - (xxx) xxx-xxxx"/>
             <div class="blocInfo infoProfil">
                     <div class="champ">
                         <p class="label labelForInput">Nouveau mot de passe :</p>
-                        <input type="password" id="newPwd" class="value" name="nouveauPasse" onexit="RegexProfilStagiaire()"/>
+                        <input type="password" id="newPwd" class="value" name="nouveauPasse" onblur="VerifierRegex(this)" pattern="'.$this->regxPassword.'"/>
                         <img class="info" src="../Images/info.png" title="Le mot de passe doit contenir
 - 8 caractères minimum
 - Au moins une majuscule
@@ -713,13 +980,14 @@ avoir ce format - (xxx) xxx-xxxx"/>
 
                     <div class="champ">
                         <p class="label labelForInput">Confirmer le mot de passe :</p>
-                        <input type="password" id="confirmationNewPwd" class="value" onexit="RegexProfilStagiaire()"/>
+                        <input type="password" id="confirmationNewPwd" class="value" onblur="DoubleVerif(newPwd.value, this)"/>
                     </div>
             </div>';
 
             return $content;
         }
         
+        //Met à jour le profil dans la BD.
         public function UpdateProfil($bdd, $champs){
             $profil = array();
 
@@ -727,11 +995,11 @@ avoir ce format - (xxx) xxx-xxxx"/>
                 $profil[$champ->nom] = $champ->value;
             }
 
-            $this->UpdateUser($bdd, $profil["nouveauPasse"], $profil["courrielPersonnel"]);
+            $this->UpdateUser($bdd, $profil["nouveauPasse"], $profil["courrielScolaire"]);
 
-            $bdd->Request(" UPDATE tblStagiaire SET NumTel = :numTel, NumTelEntreprise = :numTelEntreprise, Poste = :poste, CourrielEntreprise = :courrielEntreprise, CourrielPersonnel = :courrielPerso WHERE IdUtilisateur = :id",
+            $bdd->Request(" UPDATE tblStagiaire SET NumTelPerso = :numTelPerso, NumTelEntreprise = :numTelEntreprise, Poste = :poste, CourrielEntreprise = :courrielEntreprise, CourrielPersonnel = :courrielPerso WHERE IdUtilisateur = :id",
                             array(
-                            "numTel"=>$profil["numTel"],
+                            "numTelPerso"=>$profil["numTel"],
                             "numTelEntreprise"=>$profil["numEntreprise"],
                             "poste"=>$profil["poste"],
                             "courrielEntreprise"=>$profil["courrielEntreprise"],
@@ -741,11 +1009,15 @@ avoir ce format - (xxx) xxx-xxxx"/>
         }
         
         public function getNumTelPerso(){
-            return $this->NumTel;
+            return $this->NumTelPerso;
         }
         
         public function getCourrielPerso(){
             return $this->CourrielPersonnel;
+        }
+        
+        public function getCourrielScolaire(){
+            return $this->CourrielScolaire;
         }
     }
 
@@ -753,6 +1025,7 @@ avoir ce format - (xxx) xxx-xxxx"/>
     class Entreprise{
         private $Id, $CourrielEntreprise, $Nom, $NumTel, $NumCivique, $Rue, $Ville, $Province, $CodePostal, $Logo;
         
+        //Met à jour un objet entreprise dans la BD.
         public function Update($bdd, $champs){
             $entreprise = array();
 
@@ -817,5 +1090,120 @@ avoir ce format - (xxx) xxx-xxxx"/>
             return $this->Logo;
         }
     }
-    
+
+
+    class Stage implements JsonSerializable{
+        private $IdStage, $DescriptionStage, $CompetenceRecherche, $HoraireTravail, $NbHeureSemaine,
+                $Remunere, $SalaireHoraire, $DateDebut, $DateFin, $LettreEntenteVide, 
+                $LettreEntenteSignee, $OffreStage, $NomResponsable, $NomSuperviseur, $NomStagiaire, 
+                $NomEnseignant, $NomEntreprise, $IdEntreprise;
+        
+        //Met à jour le stage dans la BD.
+        public function Update(){
+            $champs = json_decode($_POST["tabChamp"]);
+            $stage = array();
+
+            foreach($champs as $champ){
+                $stage[$champ->nom] = $champ->value;
+            }
+
+            $bdd->Request(" UPDATE tblStage SET IdResponsable = :idResponsable, IdSuperviseur = :idSuperviseur, 
+                            IdStagiaire = :idStagiaire, IdEnseignant = :idEnseignant, DescriptionStage = :description,
+                            CompetenceRecherche = :competence, HoraireTravail = :horaire, NbHeureSemaine = :nbHeure,
+                            SalaireHoraire = :salaire, DateDebut = :dateDebut, DateFin = :dateFin)",
+                            array(
+                                'idResponsable'=>$stage["Responsable"], 
+                                'idSuperviseur'=>$stage["Superviseur"], 
+                                'idStagiaire'=>$stage["Stagiaire"], 
+                                'idEnseignant'=>$stage["Enseignant"],
+                                'description'=>$stage["DescStage"], 
+                                'competence'=>$stage["CompetancesRecherchees"], 
+                                'horaire'=>$stage["SalaireHoraire"], 
+                                'nbHeure'=>$stage["HeuresSemaine"],
+                                'salaire'=>$stage["SalaireHoraire"], 
+                                'dateDebut'=>$stage["DateDebut"], 
+                                'dateFin'=>$stage["DateFin"]), 
+                                'stdClass');
+        }
+        
+        public function expose(){
+            return get_object_vars($this);
+        }
+        
+        public function jsonSerialize(){
+            return get_object_vars($this);
+        }
+        
+        public function getIdStage(){
+            return $this->IdStage;
+        }
+        
+        public function getDescriptionStage(){
+            return $this->DescriptionStage;
+        }
+        
+        public function getCompetenceRecherche(){
+            return $this->CompetenceRecherche;
+        }
+        
+        public function getHoraireTravail(){
+            return $this->HoraireTravail;
+        }
+        
+        public function getNbHeureSemaine(){
+            return $this->NbHeureSemaine;
+        }
+        
+        public function getRemunere(){
+            return $this->Remunere;
+        }
+        
+        public function getSalaireHoraire(){
+            return $this->SalaireHoraire;
+        }
+        
+        public function getDateDebut(){
+            return $this->DateDebut;
+        }
+        
+        public function getDateFin(){
+            return $this->DateFin;
+        }
+        
+        public function getLettreEntenteVide(){
+            return $this->LettreEntenteVide;
+        }
+        
+        public function getLettreEntenteSignee(){
+            return $this->LettreEntenteSignee;
+        }
+        
+        public function getOffreStage(){
+            return $this->OffreStage;
+        }
+        
+        public function getNomResponsable(){
+            return $this->NomResponsable;
+        }
+        
+        public function getNomEntreprise(){
+            return $this->NomEntreprise;
+        }
+        
+        public function getIdEntreprise(){
+            return $this->IdEntreprise;
+        }
+        
+        public function getNomSuperviseur(){
+            return $this->NomSuperviseur;
+        }
+        
+        public function getNomStagiaire(){
+            return $this->NomStagiaire;
+        }
+        
+        public function getNomEnseignant(){
+            return $this->NomEnseignant;
+        }
+    }
 ?>

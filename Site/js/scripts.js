@@ -36,3 +36,34 @@ window.addEventListener("click", function(){
     timeout = setTimeout(SessionTimeout, 300000);
 })
 
+//PLEIN D'UTILISATEUR N'ONT PAS D'ID D'UTILISATEUR A VOIR DANS LA BD.
+function PopulateListEmploye(data){
+    var option = "";
+    data = JSON.parse(data);
+    
+    for(var i = 0; i < data.length; i++)
+        option += "<option value=" + data[i].IdUtilisateur + ">" + data[i].Nom + "</option>";
+    
+    $("#superviseur").empty();
+    $("#responsable").empty();
+    $("#superviseur").append(option);
+    $("#responsable").append(option);
+}
+
+function PopulateTable(data){
+    var option = "";
+    data = JSON.parse(data);
+    
+    for(var i = 0; i < data.length; i++){
+        option +=   "<tr class=\"itemHover\" onclick=\"Requete(AfficherPage, \'../PHP/TBNavigation.php?nomMenu=InfoStage.php&index=\'.$index.\'\')\">" +
+                        "<td>" + data[i].NomEntreprise + "</td>" +
+                        "<td>" + data[i].NomStagiaire + "</td>" + 
+                        "<td>Lettre dentente</td>" +
+                    "</tr>";
+    }
+        
+    
+    $("table").empty();
+    $("table").append(option);
+}
+

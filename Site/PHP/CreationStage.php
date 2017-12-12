@@ -36,30 +36,30 @@
 
         foreach($entreprises as $entreprise){
             $returnValue = $returnValue . '<option value= "' . $entreprise->Id . '">' . $entreprise->Nom . '</option>';
-
         }
         
         return $returnValue;
     }
 
+    //Requete pour rechercher les employes qui travaille pour l'entreprise sélectionnée et les insères dans les dropDownList.
+    if(isset($_REQUEST["populate"]))
+        return showEmployees($bdd);
+
     function showEmployees($bdd){
-        if(isset($_POST["tabChamp"])){
-            
-        }
         $champs = json_decode($_POST["tabChamp"]);
-        $test = array();
-        
+        $entreprise = array();
+        $option = "";
 
         foreach($champs as $champ){
-            $test[$champ->nom] = $champ->value;
+            $entreprise[$champ->nom] = $champ->value;
         }
         
-        $superviseurs = $bdd->Request(" SELECT IdUtilisateur, CONCAT(Prenom, ' ', Nom) AS Nom
-                                        FROM vEmploye
-                                        WHERE IdEntreprise : idEntreprise",
-                                        array("idEntreprise"=>$test["Entreprise"]), "stdClass");
-            
-        var_dump($test);
+        $employes = $bdd->Request(" SELECT IdUtilisateur, CONCAT(Prenom, ' ', Nom) AS Nom
+                                    FROM vEmploye
+                                    WHERE IdEntreprise = :idEntreprise",
+                                    array("idEntreprise"=>$entreprise["Entreprise"]), "stdClass");
+
+        return $employes;
     }
  
     //affiche les entreprises dans le dropdown menu
@@ -87,7 +87,7 @@
     }
 
     $content =
-    '<script src="../js/creationStage.js"></script>
+    '
     <article class="stagiaire">
         <div class="infoStagiaire">
             <h2>Stages</h2>
@@ -100,7 +100,7 @@
         <div class="blocInfo infoProfil">
             <div class="champ">
                 <p class="label labelForInput">Entreprise</p>
-                <select class="value" name = "Entreprise" onchange="Post(ExecuteQuery, \'../PHP/TBNavigation.php?nomMenu=CreationStage.php\')">
+                <select class="value" name = "Entreprise" onchange="Post(PopulateListEmploye, \'../PHP/TBNavigation.php?nomMenu=CreationStage.php&populate\')">
                     ' . showEnterprises($bdd) . '
                 </select>
             </div>
@@ -112,25 +112,25 @@
             </div>
             <div class="champ">
                 <p class="label labelForInput">Responsable</p>
-                <select class="value"  name = "Responsable">
-                    <option value = "1">Responsable 1</option>
+                <select class="value"  name = "Responsable" id="responsable">
+                    <option value = "1">Responsable</option>
                 </select>
             </div>
             <div class="champ">
                 <p class="label labelForInput">Superviseur</p>
-                <select class="value"  name = "Superviseur">
-                <option value = "1">SUPERVISEUR 1</option>                
+                <select class="value"  name = "Superviseur" id="superviseur">
+                <option value = "1">Superviseur</option>                
                 </select>
             </div>
             <div class="champ">
                 <p class="label labelForInput">Enseignant</p>
                 <select class="value"  name = "Enseignant">
                     ' . showProfessors($bdd) . '
-                    </select>
+                </select>
             </div>
             <div class="champ">
                 <p class="label labelForInput">Heure / Semaine</p>
-                <input class="value" type="text"  name = "HeuresSemaine" id="heureSem" onchange="regexCreationStage();"/>
+                <input class="value" type="text"  name = "HeuresSemaine" id="heureSem" onblur="VerifierRegex(this);" pattern="'.$regxHeure.'"/>
             </div>
             <div class="champ">
                 <p class="label labelForInput">Rémunéré</p>
@@ -143,7 +143,7 @@
             </div>
             <div class="champ">
                 <p class="label labelForInput">Salaire Horaire</p>
-                <input class="value" type="text"  name = "SalaireHoraire" id="salaire" onchange="regexCreationStage();"/>
+                <input class="value" type="text"  name = "SalaireHoraire" id="salaire" onblur="VerifierRegex(this);" pattern="'.$regxSalaire.'"/>
             </div>
             <div class="champ">
                 <p class="label labelForInput">Date Début</p>
@@ -158,11 +158,11 @@
 
             <div class="champArea">
                 <p class="label labelForInput labelArea">Description du stage</p>
-                <textarea class="value" class="valueArea"  name = "DescStage"></textarea>
+                <textarea class="value valueArea" name="DescStage"></textarea>
             </div>  
             <div class="champArea">
                 <p class="label labelForInput labelArea">Compétences recherchées</p>
-                <textarea class="value" class="valueArea"  name = "CompetancesRecherchees"></textarea>
+                <textarea class="value valueArea" name="CompetancesRecherchees"></textarea>
             </div>
 
         <!--afficher les inforations détaillées d\'un stage -->

@@ -13,4 +13,5 @@
     }
 
 	$profils = $bdd->Request("SELECT * FROM vTableauBord WHERE $where = :id", array("id"=>$id), "stdClass");
+    
 ?>

@@ -44,11 +44,11 @@
             </div>
             <div class="champ">
                 <p class="label labelForInput">Courriel</p>
-                <input type="email" name="courriel" class="value"/>
+                <input type="email" name="courriel" class="value" onblur="VerifierRegex(this);" pattern="'.$regxEmail.'"/>
             </div>
             <div class="champ">
                 <p class="label labelForInput">No. Téléphone</p>
-                <input type="text" name="numTel" class="value"/>
+                <input type="text" name="numTel" class="value" onblur="VerifierRegex(this);" pattern="'.$regxNumTel.'"/>
             </div>
             <div class="champ">
                 <p class="label labelForInput">Ville</p>
@@ -56,7 +56,7 @@
             </div>
             <div class="champ">
                 <p class="label labelForInput">No. Civique</p>
-                <input type="text" name="numCivique" class="value"/>
+                <input type="text" name="numCivique" class="value" onblur="VerifierRegex(this);" pattern="'.$regxNumCivique.'"/>
             </div>
             <div class="champ">
                 <p class="label labelForInput">Rue</p>
@@ -68,7 +68,7 @@
             </div>
             <div class="champ">
                 <p class="label labelForInput">Code Postal</p>
-                <input type="text" name="codePostal" class="value"/>
+                <input type="text" name="codePostal" class="value" onblur="VerifierRegex(this);" pattern="'.$regxCodePostal.'"/>
             </div>
             <div class="champ">
                 <p class="label labelForInput">Logo</p>
