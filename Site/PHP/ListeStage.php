@@ -1,30 +1,46 @@
-<?php
-     //récupère les stages dans la BD et les affiche dans le tableau
-    function showInternships($bdd)
-    {
-       $returnData = "";
-       $stagiaires = $bdd->Request("SELECT CONCAT (vStagiaire.Prenom, ' ' , vStagiaire.Nom ) AS 'NomStagiaire',  vEntreprise.Nom AS 'Entreprise', vStage.Id AS IdStage FROM vStage
-                                    JOIN vStagiaire ON vStagiaire.IdUtilisateur = vStage.IdStagiaire
-                                    JOIN vSuperviseur ON vSuperviseur.IdUtilisateur = vStage.IdSuperviseur
-                                    JOIN vEntreprise ON vEntreprise.id = vSuperviseur.IdEntreprise;",
-                                    null, "stdClass");
+<?php 
 
-      foreach($stagiaires as $stagiaire){
-          $returnData = $returnData .  
+    $recherche = "%%";
 
-          '<tr  id="'. $stagiaire->IdStage . '" class="itemHover" onclick="Execute(1,\'../PHP/TBNavigation.php?nomMenu=InfoStage.php\',\'&idStage=\',this.id)">
-                  <td >' . $stagiaire->NomStagiaire . '</td>
+    if(isset($_REQUEST["recherche"])){
+        $champs = json_decode($_POST["tabChamp"]);
+        $stringRecherche = array();
+        
+        foreach($champs as $champ){
+            $stringRecherche[$champ->nom] = $champ->value;
+        }
+        
+        $recherche = '%'.$stringRecherche["recherche"].'%';
 
-                  <td' . $stagiaire->Entreprise . '</td>
-
-                  <td>Lettre dentente</td>
-                  <td>Offre de stage</td>
-            </tr>';
-      }      
-        return $returnData;
+        return SelectStage($bdd, $recherche);
     }
 
-    $internships = showInternships($bdd);
+    function SelectStage($bdd, $recherche){
+        $stages = $bdd-> Request (" SELECT * FROM vListeStage WHERE Tag LIKE :recherche", 
+                                    array("recherche"=>$recherche), "Stage");
+        
+        return $stages;
+    }
+    
+    $stages = SelectStage($bdd, $recherche);
+
+    //Affiche tous les stages.
+    function AfficherStages($stages)
+    {
+        $content = "";
+        $index = 0;
+        foreach ($stages as $stage) {
+            $content = $content . 
+            '<tr class="itemHover" onclick="Requete(AfficherPage, \'../PHP/TBNavigation.php?nomMenu=InfoStage.php&index='.$index.'\')">
+                <td>' . $stage->getNomEntreprise() . '</td>
+                <td>' . $stage->getNomStagiaire() . '</td>
+                <td>Lettre dentente</td>
+            </tr>';
+            $index = $index + 1;
+        }
+
+        return $content;
+    }
 
     $content =
     '
@@ -33,22 +49,26 @@
             <h2>Liste des Stages</h2>
         </div>
         
-        <input class="bouton left" type="button" value="Créer un Stage" onclick="Execute(1, \'../PHP/TBNavigation.php?nomMenu=CreationStage\')"/>
-        
+        <input class="bouton left" type="button" value="Créer un Stage" onclick="Requete(AfficherPage, \'../PHP/TBNavigation.php?nomMenu=CreationStage.php\')"/>
+        <input class="value recherche" type="text" name="recherche" placeholder="Recherche" onkeyup="Post(PopulateTable, \'../PHP/TBNavigation.php?nomMenu=ListeStage.php&recherche\')"/>
         <table class="stage">
             <thead>
                 <th>Entreprise </th>
                 <th>Stagiaire</th>
                 <th>Lettre d\'entente</th>
             </thead>
-
-             <tbody>
-                ' . $internships . '
+                
+            <tbody>
+           
+            ' . AfficherStages($stages). '
+           
             </tbody>
         </table>
+
+        
+        <input class="bouton" type="button" style="width: 100px;" value="   Retour   " onclick="Requete(AfficherPage, \'../PHP/TBNavigation.php?nomMenu=ConsoleAdminMain.php\')"/>
     </article>';
 
-                    
     return $content;
     
 ?>

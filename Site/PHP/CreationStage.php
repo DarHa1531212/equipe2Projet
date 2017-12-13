@@ -13,9 +13,19 @@
 
         $bdd->Request(" INSERT INTO tblStage (IdResponsable, IdSuperviseur, IdStagiaire, IdEnseignant, DescriptionStage, CompetenceRecherche, HoraireTravail, NbHeureSemaine, SalaireHoraire, DateDebut, DateFin ) 
                         VALUES (:idResponsable, :idSuperviseur, :idStagiaire, :idEnseignant, :description, :competence, :horaire, :nbHeure, :salaire, :dateDebut, :dateFin);",
-                        array("idResponsable"=>$stage["Responsable"], "idSuperviseur"=>$stage["Superviseur"], "idStagiaire"=>$stage["Stagiaire"], "idEnseignant"=>$stage["Enseignant"],
-                              "description"=>$stage["DescStage"], "competence"=>$stage["CompetancesRecherchees"], "horaire"=>$stage["SalaireHoraire"], "nbHeure"=>$stage["HeuresSemaine"],
-                              "salaire"=>["SalaireHoraire"], "dateDebut"=>["DateDebut"], "dateFin"=$stage["DateFin"]), "stdClass");
+                        array(
+                            'idResponsable'=>$stage["Responsable"], 
+                            'idSuperviseur'=>$stage["Superviseur"], 
+                            'idStagiaire'=>$stage["Stagiaire"], 
+                            'idEnseignant'=>$stage["Enseignant"],
+                            'description'=>$stage["DescStage"], 
+                            'competence'=>$stage["CompetancesRecherchees"], 
+                            'horaire'=>$stage["SalaireHoraire"], 
+                            'nbHeure'=>$stage["HeuresSemaine"],
+                            'salaire'=>$stage["SalaireHoraire"], 
+                            'dateDebut'=>$stage["DateDebut"], 
+                            'dateFin'=>$stage["DateFin"]), 
+                            'stdClass');
     }
 
     //affiche les entreprises dans le dropdown menu
@@ -26,8 +36,30 @@
 
         foreach($entreprises as $entreprise){
             $returnValue = $returnValue . '<option value= "' . $entreprise->Id . '">' . $entreprise->Nom . '</option>';
-
+        }
+        
         return $returnValue;
+    }
+
+    //Requete pour rechercher les employes qui travaille pour l'entreprise sélectionnée et les insères dans les dropDownList.
+    if(isset($_REQUEST["populate"]))
+        return showEmployees($bdd);
+
+    function showEmployees($bdd){
+        $champs = json_decode($_POST["tabChamp"]);
+        $entreprise = array();
+        $option = "";
+
+        foreach($champs as $champ){
+            $entreprise[$champ->nom] = $champ->value;
+        }
+        
+        $employes = $bdd->Request(" SELECT IdUtilisateur, CONCAT(Prenom, ' ', Nom) AS Nom
+                                    FROM vEmploye
+                                    WHERE IdEntreprise = :idEntreprise",
+                                    array("idEntreprise"=>$entreprise["Entreprise"]), "stdClass");
+
+        return $employes;
     }
  
     //affiche les entreprises dans le dropdown menu
@@ -55,7 +87,7 @@
     }
 
     $content =
-    '<script src="../js/creationStage.js"></script>
+    '
     <article class="stagiaire">
         <div class="infoStagiaire">
             <h2>Stages</h2>
@@ -68,7 +100,7 @@
         <div class="blocInfo infoProfil">
             <div class="champ">
                 <p class="label labelForInput">Entreprise</p>
-                <select class="value" name = "Entreprise">
+                <select class="value" name = "Entreprise" onchange="Post(PopulateListEmploye, \'../PHP/TBNavigation.php?nomMenu=CreationStage.php&populate\')">
                     ' . showEnterprises($bdd) . '
                 </select>
             </div>
@@ -80,25 +112,25 @@
             </div>
             <div class="champ">
                 <p class="label labelForInput">Responsable</p>
-                <select class="value"  name = "Responsable">
-                    <option value = "1">Responsable 1</option>
+                <select class="value"  name = "Responsable" id="responsable">
+                    <option value = "1">Responsable</option>
                 </select>
             </div>
             <div class="champ">
                 <p class="label labelForInput">Superviseur</p>
-                <select class="value"  name = "Superviseur">
-                <option value = "1">SUPERVISEUR 1</option>                
+                <select class="value"  name = "Superviseur" id="superviseur">
+                <option value = "1">Superviseur</option>                
                 </select>
             </div>
             <div class="champ">
                 <p class="label labelForInput">Enseignant</p>
                 <select class="value"  name = "Enseignant">
                     ' . showProfessors($bdd) . '
-                    </select>
+                </select>
             </div>
             <div class="champ">
                 <p class="label labelForInput">Heure / Semaine</p>
-                <input class="value" type="text"  name = "HeuresSemaine"/>
+                <input class="value" type="text"  name = "HeuresSemaine" id="heureSem" onblur="VerifierRegex(this);" pattern="'.$regxHeure.'"/>
             </div>
             <div class="champ">
                 <p class="label labelForInput">Rémunéré</p>
@@ -111,7 +143,7 @@
             </div>
             <div class="champ">
                 <p class="label labelForInput">Salaire Horaire</p>
-                <input class="value" type="text"  name = "SalaireHoraire" id="salaire"/>
+                <input class="value" type="text"  name = "SalaireHoraire" id="salaire" onblur="VerifierRegex(this);" pattern="'.$regxSalaire.'"/>
             </div>
             <div class="champ">
                 <p class="label labelForInput">Date Début</p>
@@ -126,24 +158,21 @@
 
             <div class="champArea">
                 <p class="label labelForInput labelArea">Description du stage</p>
-                <textarea class="value" class="valueArea"  name = "DescStage"></textarea>
+                <textarea class="value valueArea" name="DescStage"></textarea>
             </div>  
             <div class="champArea">
                 <p class="label labelForInput labelArea">Compétences recherchées</p>
-                <textarea class="value" class="valueArea"  name = "CompetancesRecherchees"></textarea>
+                <textarea class="value valueArea" name="CompetancesRecherchees"></textarea>
             </div>
 
-    <!--afficher les inforations détaillées d\'un stage -->
-  <div id="readStage"></div>
+        <!--afficher les inforations détaillées d\'un stage -->
+        <div id="readStage"></div>
 
 		<br>
-
-            <input class="bouton" type="button" style="width: 100px;" value="   Annuler   " onclick="Execute(1, \'../PHP/TBNavigation.php?nomMenu=Stage\')"/>
-           
-            <input class="bouton" type="button" id="Save" style="width: 100px;" value=" Sauvegarder " onclick= "Execute(12, \'../PHP/TBNavigation.php?&nomMenu=CreationStage.php&post\')"/>
-
+            <input class="bouton" type="button" style="width: 100px;" value="   Annuler   " onclick="Requete(AfficherPage, \'../PHP/TBNavigation.php?nomMenu=ListeStage.php\')"/>      
+            <input class="bouton" type="button" id="Save" style="width: 100px;" value=" Sauvegarder " onclick= "Post(AfficherPage, \'../PHP/TBNavigation.php?&nomMenu=CreationStage.php&post\')"/>
             <br/><br/>
-        </div>   
+    </div>   
     <br>
 
 <!-- Fin de section création de stage -->';

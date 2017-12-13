@@ -1,61 +1,47 @@
 <?php
-	function UploadFile($page, $bdd, $idStagiaire)
+
+	if(isset($_FILES['file']))
 	{
-		if(isset($_FILES['file']))
+		$dossier = '../Upload/';
+		$fichier = basename($_FILES['file']['name']);
+		$tailleMax = 2000000;
+		$taille = filesize($_FILES['file']['tmp_name']);
+		$extensions = array('.png','.jpg','.jpeg','.docx','.pdf');
+		$extension = strchr($_FILES['file']['name'],'.');
+
+
+
+		if(!in_array($extension, $extensions))
 		{
-			$result = $bdd->Request('SELECT Annee FROM vStage JOIN vSession ON vStage.IdSession = vSession.Id WHERE idStagiaire = :id', Array('id'=>$idStagiaire), 'stdClass');
+			//Ne prend pas ce type de fichier
+		}
 
-			if($page == 'Journal')
+		if($taille > $tailleMax)
+		{
+			//Le fichier est trop volumineux...
+		}
+
+		if($fichier != "")
+		{
+			$verif = verificationDoublon($bdd, $fichier);
+
+			if(!isset($erreur) && $verif) //S'il n'y a pas d'erreur
 			{
-				$dossier = '../Sessions/'.$result->Annee.'/'.$idStagiaire.'/Files/';
-			}
-			else
-			{
-				if($page == 'Stage')
+				$fichier = strtr($fichier, 'ÀÁÂÃÄÅÇÈÉÊËÌÍÎÏÒÓÔÕÖÙÚÛÜÝàáâãäåçèéêëìíîïðòóôõöùúûüýÿ', 'AAAAAACEEEEIIIIOOOOOUUUUYaaaaaaceeeeiiiioooooouuuuyy');
+				$fichier = preg_replace('/([^.a-z0-9]+)/i','-', $fichier);
+				if(move_uploaded_file($_FILES['file']['tmp_name'], $dossier . $fichier))
 				{
-					$dossier = '../Sessions/'.$result->Annee.'/'.$idStagiaire.'/';
+					//echo'Upload Success';
+				}
+				else
+				{
+					//echo'Roger pas content';
 				}
 			}
-			$fichier = basename($_FILES['file']['name']);
-			$tailleMax = 2000000;
-			$taille = filesize($_FILES['file']['tmp_name']);
-			$extensions = array('.png','.jpg','.jpeg','.docx','.pdf');
-			$extension = strchr($_FILES['file']['name'],'.');
-
-
-
-			if(!in_array($extension, $extensions))
-			{
-				//Ne prend pas ce type de fichier
-			}
-
-			if($taille > $tailleMax)
-			{
-				//Le fichier est trop volumineux...
-			}
-
-			if($fichier != "")
-			{
-				if($page == 'Journal') {$verif = verificationDoublon($bdd, $fichier);}else{$verif = true;}
-
-				if(!isset($erreur) && $verif) //S'il n'y a pas d'erreur
-				{
-					$fichier = strtr($fichier, 'ÀÁÂÃÄÅÇÈÉÊËÌÍÎÏÒÓÔÕÖÙÚÛÜÝàáâãäåçèéêëìíîïðòóôõöùúûüýÿ', 'AAAAAACEEEEIIIIOOOOOUUUUYaaaaaaceeeeiiiioooooouuuuyy');
-					$fichier = preg_replace('/([^.a-z0-9]+)/i','-', $fichier);
-					if(move_uploaded_file($_FILES['file']['tmp_name'], $dossier . $fichier))
-					{
-						//echo'Upload Success';
-					}
-					else
-					{
-						//echo'Roger pas content';
-					}
-				}
-			}
-			else
-			{
-				$verif = true;
-			}
+		}
+		else
+		{
+			$verif = true;
 		}
 	}
 

@@ -15,17 +15,15 @@
     <body onload="SetTimeout()">
         <script src="../js/jquery.min.js"></script>
         <script src="../js/navigation.js"></script>
-        <script src="../js/regex.js"></script>
+        <script src="../js/regexProfilStag.js"></script>
         <script src="../js/slideShow.js"></script>
         <script src="../js/scripts.js"></script>
         <script src="../js/creationUtilisateur.js"></script>
-        <script src="../js/supressionUtilisateur.js"></script>
-
 
         
         <?php 
             include('Header.php'); 
-            AfficherHeader("Console d'administration", 185);
+            AfficherHeader("Etat avancement janvier", 185);
         ?>
     
         <section>
@@ -35,7 +33,7 @@
             
             <div class="stagiaireContainer">
                 <?php
-                    include 'ConsoleAdminMain.php';
+                    //include 'ConsoleAdminMain.php';
                     echo $content;
                 ?>         
             </div>
