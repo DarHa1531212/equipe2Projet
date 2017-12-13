@@ -185,14 +185,14 @@
 
     foreach($profils as $profil)/*pour chaque stages au quel le stagiaire a participe*/
     {
-            $autoEvaluation = $bdd->Request('select *
-                                            from vinfoevalglobale
-                                            where IdStage = :IdStage and IdTypeEvaluation = 4;',
+            $autoEvaluation = $bdd->Request('SELECT *
+                                            FROM vInfoEvalGlobale
+                                            WHERE IdStage = :IdStage AND IdTypeEvaluation = 4;',
                                             array('IdStage'=>$profil->IdStage),
                                             "stdClass");
 
-            $etatAvancements = $bdd->Request('  select * from vInfoEtatAvancement
-                                                where IdStage = :IdStage;',
+            $etatAvancements = $bdd->Request('SELECT * FROM vInfoEtatAvancement
+                                                WHERE IdStage = :IdStage;',
                                                 array('IdStage'=>$profil->IdStage),
                                                 "stdClass");
 
