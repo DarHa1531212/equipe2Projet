@@ -13,7 +13,7 @@
         <link rel="stylesheet" href="../CSS/Style.css">
     </head>
     
-    <body onload="affichFormulaire('milieuStage'); SetTimeout()">
+    <body onload="afficheFormulaire('milieuStage'); SetTimeout()">
         <script src="../js/jquery.min.js"></script>
         <script src="../js/navigation.js"></script>
         <script src="../js/regex.js"></script>

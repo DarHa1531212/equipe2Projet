@@ -1,14 +1,16 @@
-var contents = document.getElementsByClassName("tabContent");
+//var contents = document.getElementsByClassName("tabContent");
 
 function afficheFormulaire(idFormulaire)
 {
-	var formulaire = document.getElementById(idFormulaire);
+	var contents = document.getElementsByClassName("tabcontent");
+	//recupere 
+	//var formulaire = document.getElementById(idFormulaire);
 	
-	formulaire.style.display = 'block';
-	
-	for(var i = 0; i < contents.length-1; i++)
+	for(var i = 0; i < contents.length; i++)
     {
-        contents[i]style.display = 'none';;
+        contents[i].style.display = 'none';
+		//$(contents[i]).hide();
     }
+	document.getElementById(idFormulaire).style.display = 'block';
 	
 }
