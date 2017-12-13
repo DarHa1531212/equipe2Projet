@@ -117,10 +117,10 @@ DROP VIEW IF EXISTS vInfoEtatAvancement;
 CREATE VIEW vInfoEtatAvancement AS 
 select etat.Id as 'IdEtatAvancement',etat.Statut as 'Statut', DateComplétée as 'DateComplétée', sta.Id as 'IdStage', 
 		typeetat.Description as 'TitreTypeEtat', typeetat.Id as 'IdTypeEtatAvancement'
-from vetatavancement as etat
-join vstage as sta
+from vEtatAvancement as etat
+join vStage as sta
 on sta.Id = etat.IdStage
-join vtypeetatavancement as typeetat
+join vTypeEtatAvancement as typeetat
 on typeetat.Id = etat.IdTypeEtatAvancement;
 
 -- ------------------------------------------------
