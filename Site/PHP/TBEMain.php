@@ -15,8 +15,8 @@
                 $evaluation->Statut = 2;
             }
         }
-        else //intervalle de l'évaluation
-        {
+        else if((date("Y-m-d") > $dateDebut)&&( date("Y-m-d") < $dateLimite))//intervalle de l'évaluation
+        { 
             if( ($evaluation->Statut != 3) && ($evaluation->Statut != 4))
             {
                 //l'evaluation n'est ni soumise, ni validée
@@ -26,6 +26,7 @@
                 $evaluation->Statut = 1;   
             }
         }
+        
     }
 
     //Vérifie si les évaluations précédentes sont complétées pour pouvoir appuyer sur la suivante.

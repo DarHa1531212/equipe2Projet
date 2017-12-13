@@ -23,6 +23,7 @@
         <script src="../js/Journal.js"></script>
         <script src="../js/scripts.js"></script>
         <script src="../js/journalBord.js"></script>
+        <script src="../js/slideShow.js"></script>
         
         <?php 
             include('Header.php'); 
