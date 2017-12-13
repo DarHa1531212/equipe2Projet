@@ -34,7 +34,7 @@ function Required(champ){
 }
 
 function CheckAll(){
-    var champs = $(".value");
+    var champs = $(".value:visible");
     var nbCorrect = 0;
     
     for(var i = 0; i < champs.length; i++){

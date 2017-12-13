@@ -751,28 +751,28 @@
             <div class="blocInfo infoProfil">
                     <div class="champ">
                         <p class="label labelForInput">Prenom :</p>
-                        <input type="text" value="'.$this->getPrenom().'" class="value" disabled/>
+                        <input type="text" value="'.$this->getPrenom().'" class="value" disabled onblur="Required(this)" required/>
                     </div>
 
                     <div class="champ">
                         <p class="label labelForInput">Nom :</p>
-                        <input type="text" value="'.$this->getNom().'" class="value" disabled/>
+                        <input type="text" value="'.$this->getNom().'" class="value" disabled onblur="Required(this)" required/>
                     </div>
 
                     <div class="champ">
                         <p class="label labelForInput">Entreprise :</p>
-                        <input type="text" value="'.$this->getEntreprise().'" class="value" disabled/>
+                        <input type="text" value="'.$this->getEntreprise().'" class="value" disabled onblur="Required(this)" required/>
                     </div>
 
                     <div class="champ">
                         <p class="label labelForInput">Courriel :</p>
-                        <input type="email" value="'.$this->getCourrielEntreprise().'" id="courrielEntreprise" name="courrielEntreprise" class="value" pattern="'.$this->regxEmail.'" onblur="VerifierRegex(this)"/>
+                        <input type="email" value="'.$this->getCourrielEntreprise().'" id="courrielEntreprise" name="courrielEntreprise" class="value" pattern="'.$this->regxEmail.'" onblur="Required(this) required; VerifierRegex(this)"/>
 
                     </div>
 
                     <div class="champ">
                         <p class="label labelForInput">No. Téléphone :</p>
-                        <input type="text" value="'.$this->getNumTelEntreprise().'" id="numEntreprise" name="numEntreprise" class="value" onblur="VerifierRegex(this)" pattern="'.$this->regxNumTel.'"/>
+                        <input type="text" value="'.$this->getNumTelEntreprise().'" id="numEntreprise" name="numEntreprise" class="value" onblur="Required(this); VerifierRegex(this)" pattern="'.$this->regxNumTel.'" required/>
                         <img class="info" src="../Images/info.png" title="Le numéro de téléphone doit
 avoir ce format - (xxx) xxx-xxxx"/>
                     </div>
