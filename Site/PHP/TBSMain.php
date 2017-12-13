@@ -198,6 +198,7 @@
 
              $content = $content.
                 '<article class="stagiaire">
+                <script src="http://js.nicedit.com/nicEdit-latest.js" type="text/javascript"></script> 
             <div class="infoStagiaire">
                 <h2>'.$profil->Prenom.' '.$profil->Nom.'</h2>
                 <input class="bouton" type="button" value="Afficher le profil" onclick="Requete(AfficherPage, \'../PHP/TBNavigation.php?id='.$profil->Id.'&nomMenu=Profil.php\')"/>
@@ -254,7 +255,7 @@
                 </thead>
 
                 <tbody>
-                    <tr class="itemHover" onclick="Requete(AfficherPage, \'../PHP/TBNavigation.php?id='.$profil->Id.'&nomMenu=JournalBord.php\', \'&nbEntree=\', 5) ">
+                    <tr class="itemHover" onclick="Requete(AfficherPage, \'../PHP/TBNavigation.php?id='.$profil->Id.'&nomMenu=JournalBord.php\', \'&nbEntree=\', 5); addArea2() ">
                         <td>Journal de bord</td>
                     </tr>
 
