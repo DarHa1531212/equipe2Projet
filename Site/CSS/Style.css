@@ -354,10 +354,11 @@ input[type=file]{
 }
 
 .statutColor{
-    border-style: solid;
-    border-color: black;
+    border:1px; 
+    border-style: solid; 
+    border-color: black; 
     border-radius: 25px;
-    background-color: blue;
+    margin-right:5px;
 }
 
 /* ---------------------------------------------------*/
