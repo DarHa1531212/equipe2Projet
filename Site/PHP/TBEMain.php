@@ -1,6 +1,24 @@
 <?php
     $content = "";
 
+    function definirCouleur($Statut)//permet de definir la couleur des statut d'un evaluation
+    {
+        switch($Statut)//return la couleur qui sera ajouter en CSS
+        {
+            case 4:       return 'rgba(72, 229, 88, 1)'; //Green - Valide
+            break;
+            case 2:       return 'rgba(237, 7, 7, 1)'; //red - En retard
+            break;
+            case 0:       return 'rgba(248, 181, 99, 1)'; //Orange - Non Disponible
+            break;
+            case 3:       return 'rgba(255, 253, 112, 1)'; //Jaune - Soumis
+            break;
+            case 1:       return 'rgba(51, 43, 218, 1)'; //Bleu - Pas débuté
+            break;
+        }
+    }
+
+
     //met a jour les statut des evaluations en fonction des dates
     function gestionStatutEvaluation($evaluation, $dateDebut, $dateLimite, $bdd)
     {  
@@ -15,8 +33,8 @@
                 $evaluation->Statut = 2;
             }
         }
-        else //intervalle de l'évaluation
-        {
+        else if((date("Y-m-d") > $dateDebut)&&( date("Y-m-d") < $dateLimite))//intervalle de l'évaluation
+        { 
             if( ($evaluation->Statut != 3) && ($evaluation->Statut != 4))
             {
                 //l'evaluation n'est ni soumise, ni validée
@@ -26,6 +44,7 @@
                 $evaluation->Statut = 1;   
             }
         }
+        
     }
 
     //Vérifie si les évaluations précédentes sont complétées pour pouvoir appuyer sur la suivante.
@@ -66,7 +85,7 @@
 
         $eval1 = $div.
             '<td>'.$tblEvaluation[0]->TitreTypeEvaluation.'</td>
-            <td>'.$listeStatut[$tblEvaluation[0]->Statut].'</td>
+            <td> <span class="statutColor" style="background-color:' . definirCouleur($tblEvaluation[0]->Statut) . ';">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>'.$listeStatut[$tblEvaluation[0]->Statut].'</td>
             <td>'.$profil->MiStageDebut.'</td>
             <td>'.$profil->MiStageLimite.'</td>
             <td>'.$tblEvaluation[0]->DateComplétée.'</td>
@@ -83,7 +102,7 @@
         
         $eval2 = $div.
             '<td>'.$tblEvaluation[1]->TitreTypeEvaluation.'</td>
-            <td>'.$listeStatut[$tblEvaluation[1]->Statut].'</td>
+            <td> <span class="statutColor" style="background-color:' . definirCouleur($tblEvaluation[1]->Statut) . ';">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>'.$listeStatut[$tblEvaluation[1]->Statut].'</td>
             <td>'.$profil->FinaleDebut.'</td>
             <td>'.$profil->FinaleLimite.'</td>
             <td>'.$tblEvaluation[1]->DateComplétée.'</td>
@@ -100,7 +119,7 @@
 
         $eval3 = $div.
             '<td>'.$tblEvaluation[2]->TitreTypeEvaluation.'</td>
-            <td>'.$listeStatut[$tblEvaluation[2]->Statut].'</td>
+            <td> <span class="statutColor" style="background-color:' . definirCouleur($tblEvaluation[2]->Statut) . ';">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>'.$listeStatut[$tblEvaluation[2]->Statut].'</td>
             <td>'.$profil->FormationDebut.'</td>
             <td>'.$profil->FormationLimite.'</td>
             <td>'.$tblEvaluation[2]->DateComplétée.'</td>

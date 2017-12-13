@@ -1,7 +1,8 @@
 <?php
-    $idStagiaire = $_REQUEST["id"];
+    
 
-
+    if(isset($_REQUEST['id']))
+        $idStagiaire = $_REQUEST["id"];
     
     function DateDifference($date_1 , $date_2 , $differenceFormat = '%a' ){
         $datetime1 = date_create($date_1);
@@ -181,9 +182,7 @@
 
             <br/>                                                                             
             
-            
-            <input style="width: 120px;" class="bouton" type="button" value="Envoyer" onclick="if(modificationJournal){UploadFile(ExecuteQuery, \'../PHP/TBNavigation.php?id='.$idStagiaire.'&nomMenu=JournalBord.php&update=true&contenu=\',\'contenu.value\''.addId().');          Requete(AfficherPage, \'../PHP/TBNavigation.php?id='.$idStagiaire.'&nomMenu=JournalBord.php&nbEntree=5\'); modificationJournal = false;}else{UploadFile(ExecuteQuery, \'../PHP/TBNavigation.php?id='.$idStagiaire.'&nomMenu=JournalBord.php&contenu=\',\'contenu.value\'); Requete(AfficherPage, \'../PHP/TBNavigation.php?id='.$idStagiaire.'&nomMenu=JournalBord.php&nbEntree=5\');}"/>
- 
+            <input style="width: 120px;" class="bouton" type="button" value="Envoyer" onclick="if(modificationJournal){UploadFile(ExecuteQuery, \'../PHP/TBNavigation.php?id='.$idStagiaire.'&nomMenu=JournalBord.php&update=true&contenu=contenu.value'.addId().'\'); Requete(AfficherPage, \'../PHP/TBNavigation.php?id='.$idStagiaire.'&nomMenu=JournalBord.php&nbEntree=5); modificationJournal = false;}else{UploadFile(ExecuteQuery, \'../PHP/TBNavigation.php?id='.$idStagiaire.'&nomMenu=JournalBord.php&contenu=contenu.value\'); Requete(AfficherPage, \'../PHP/TBNavigation.php?id='.$idStagiaire.'&nomMenu=JournalBord.php&nbEntree=5\');}"/>
 
 
             <label class="bouton labelFile" for="file">Pièce Jointe</label>

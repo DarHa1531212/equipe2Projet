@@ -16,7 +16,7 @@
                 $etatAvancement->Statut = 2;
             }
         }
-        else //intervalle de l'évaluation
+        else if((date("Y-m-d") > $dateDebut)&&( date("Y-m-d") < $dateLimite))//intervalle de l'évaluation
         {
             if( ($etatAvancement->Statut != 3) && ($etatAvancement->Statut != 4))
             {
@@ -31,6 +31,68 @@
         }
 
     }
+
+    /*function gestionStatutAutoEvaluation($autoEvaluation, $dateDebut, $dateLimite, $bdd)
+    {
+        if(date("Y-m-d") > $dateLimite) 
+        {
+            if(($autoEvaluation->Statut != 3) && ($autoEvaluation->Statut != 4))
+            {
+                 $bdd->Request("update tblEvaluation set Statut=:Statut where Id=:IdEvaluation;",
+                                array('IdEvaluation'=> $autoEvaluation->IdEvaluation, 'Statut'=>2),
+                                "stdClass");
+
+                $autoEvaluation->Statut = 2;
+            }
+        }
+        else //intervalle de l'évaluation
+        {
+            if( ($etatAvancement->Statut != 3) && ($etatAvancement->Statut != 4))
+            {
+                //l'evaluation n'est ni soumise, ni validée
+                //update du statut de l'evaluation : il passe a pas débuté
+                $bdd->Request("update tblEtatAvancement set Statut=:Statut where Id=:IdEtatAvancement;",
+                                array('IdEtatAvancement'=> $etatAvancement->IdEtatAvancement, 'Statut'=>1),
+                                "stdClass");
+
+                $etatAvancement->Statut = 1;
+            }
+        }
+    }
+
+    function VerifAutoEvaluation($autoEvaluation, $profil, $bdd)
+    {
+        $listeStatut = array('Pas Accéssible','Pas Débuté','En Retard','Soumis ','Valide ');
+        $div = "";
+        $eval1 = "";
+     
+
+       
+        gestionStatutAutoEvaluation($evaluation, $profil->FormationDebut, $profil->FormationLimite, $bdd);
+
+        if($autoEvaluation->Statut != '0')//le statut est different de pas accéssible
+        {
+            $div = '<tr class="itemHover" onclick="Requete(AfficherPage, \'../PHP/TBNavigation.php?id='.$profil->Id.'&nomMenu=Evaluation.php&idStage='.$profil->IdStage.'&idEvaluation='.$autoEvaluation[0]->IdEvaluation.'&typeEval=4\')">';
+            
+        }
+        else
+        {
+            $div = '<tr>';
+        }
+
+        $eval1 = $div.
+            '<td>'.$autoEvaluation->TitreTypeEvaluation.'</td>
+            <td>'.$autoEvaluation->Statut].'</td>
+            <td>'.$profil->MiStageDebut.'</td>
+            <td>'.$profil->MiStageLimite.'</td>
+            <td>'.$autoEvaluation->DateComplétée.'</td>
+        </tr>';
+        
+     
+        $div = $eval1;
+        
+        return $div;
+    }*/
 
 
     function VerifEtatAvancement($etatAvancements, $profil, $bdd)
@@ -123,14 +185,14 @@
 
     foreach($profils as $profil)/*pour chaque stages au quel le stagiaire a participe*/
     {
-            $autoEvaluation = $bdd->Request('select *
-                                            from vinfoevalglobale
-                                            where IdStage = :IdStage and IdTypeEvaluation = 4;',
+            $autoEvaluation = $bdd->Request('SELECT *
+                                            FROM vInfoEvalGlobale
+                                            WHERE IdStage = :IdStage AND IdTypeEvaluation = 4;',
                                             array('IdStage'=>$profil->IdStage),
                                             "stdClass");
 
-            $etatAvancements = $bdd->Request('  select * from vInfoEtatAvancement
-                                                where IdStage = :IdStage;',
+            $etatAvancements = $bdd->Request('SELECT * FROM vInfoEtatAvancement
+                                                WHERE IdStage = :IdStage;',
                                                 array('IdStage'=>$profil->IdStage),
                                                 "stdClass");
 
@@ -174,6 +236,7 @@
                 <thead>
                     <th>Rapport</th>
                     <th>Statut</th>
+                    <th>Date début</th>
                     <th>Date limite</th>
                     <th>Date complétée</th>
                 </thead>
