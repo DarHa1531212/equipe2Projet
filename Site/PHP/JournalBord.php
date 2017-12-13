@@ -1,7 +1,9 @@
 <?php
+    include 'UploadFile.php';
     
-    $idStagiaire = $_REQUEST["id"];
-    
+    if(isset($_REQUEST["id"]))
+        $idStagiaire = $_REQUEST["id"];
+
     function DateDifference($date_1 , $date_2 , $differenceFormat = '%a' ){
         $datetime1 = date_create($date_1);
         $datetime2 = date_create($date_2);
@@ -10,6 +12,7 @@
     }
 
     function DerniereEntree($bdd, $idStagiaire){
+        
         $result = $bdd->Request("   SELECT Dates AS DateComplete FROM vJournalDeBord 
                                     WHERE IdStagiaire = :idStagiaire ORDER BY datecomplete DESC LIMIT 1;",
                                     array("idStagiaire"=>$idStagiaire), "stdClass")[0];
@@ -33,7 +36,6 @@
         $div = "";
         if(isset($_REQUEST['nbEntree']))
             $limit = "LIMIT ".$_REQUEST['nbEntree'];
-        
         $entrees = $bdd->Request("  SELECT Id, Entree, Date_Format (Dates, '%d/%m/%Y') AS Dates, Dates AS DateComplete, Documents AS Fichier 
                                     FROM vJournalDeBord WHERE IdStagiaire LIKE :idStagiaire ORDER BY datecomplete desc $limit;",
                                     array("idStagiaire"=>$idStagiaire), "stdClass");
@@ -59,7 +61,6 @@
         
         if(isset($_REQUEST['contenu'])){
             
-            include 'UploadFile.php';
             UploadFile('Journal', $bdd, $idStagiaire);
             $entree = array(htmlspecialchars($_REQUEST['contenu']));
 

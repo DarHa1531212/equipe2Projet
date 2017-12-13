@@ -1,22 +1,23 @@
 <?php
     
     include 'Arborescence.php';
-
+    include 'UploadFile.php';
+    
     if(isset($_REQUEST["post"]))
         CreateStage($bdd);
         
     function CreateStage($bdd){
-        include 'UploadFile.php';
         $champs = json_decode($_POST["tabChamp"]);
         $stage = array();
         
         foreach($champs as $champ){
             $stage[$champ->nom] = $champ->value;
         }
+
         $annee = substr($stage['DateDebut'],0,4);
         creationDossierSession($annee);
         creationDossierStage($annee, $stage['Stagiaire']);
-        UploadFile('Stage', $bdd, $stage['Stagiaire']);
+        UploadFile('Stage', $bdd, $stage['Stagiaire']);  
 
         $bdd->Request(" INSERT INTO tblStage (IdResponsable, IdSuperviseur, IdStagiaire, IdEnseignant, DescriptionStage, CompetenceRecherche, HoraireTravail, NbHeureSemaine, SalaireHoraire, DateDebut, DateFin ) 
                         VALUES (:idResponsable, :idSuperviseur, :idStagiaire, :idEnseignant, :description, :competence, :horaire, :nbHeure, :salaire, :dateDebut, :dateFin);",
@@ -39,7 +40,7 @@
     function showEnterprises($bdd)
     {
         $returnValue = "";
-        $entreprises = $bdd->Request("select Nom, Id from vEntreprise;", null, "stdClass");
+        $entreprises = $bdd->Request("SELECT Nom, Id FROM vEntreprise;", null, "stdClass");
 
         foreach($entreprises as $entreprise){
             $returnValue = $returnValue . '<option value= "' . $entreprise->Id . '">' . $entreprise->Nom . '</option>';
@@ -73,7 +74,7 @@
     function showProfessors($bdd)
     {
         $returnData = "";
-        $profs = $bdd->Request("select concat (Prenom, ' ' , Nom) as nomEnseignant, IdEnseignant from vEnseignant;", null, "stdClass");
+        $profs = $bdd->Request("SELECT concat (Prenom, ' ' , Nom) AS nomEnseignant, IdEnseignant FROM vEnseignant;", null, "stdClass");
 
         foreach($profs as $prof)
             $returnData = $returnData . '<option value= "' . $prof->IdEnseignant .'">' . $prof->nomEnseignant . '</option>';
@@ -85,7 +86,7 @@
     function showInterns($bdd)
     {
         $returnValue = "";
-        $stagiaires = $bdd->Request("select concat (Prenom, ' ' , Nom) as nomStagiaire, Id from vStagiaire;", null, "stdClass");
+        $stagiaires = $bdd->Request("SELECT concat (Prenom, ' ' , Nom) AS nomStagiaire, Id FROM vStagiaire;", null, "stdClass");
 
         foreach($stagiaires as $stagiaire)
             $returnValue = $returnValue . '<option value= "' . $stagiaire->Id . '">' . $stagiaire->nomStagiaire . '</option>';
@@ -176,10 +177,11 @@
 
 		<br>
             <input class="bouton" type="button" style="width: 100px;" value="   Annuler   " onclick="Requete(AfficherPage, \'../PHP/TBNavigation.php?nomMenu=ListeStage.php\')"/>      
-            <input class="bouton" type="button" id="Save" style="width: 100px;" value=" Sauvegarder " onclick= "UploadFile(ExecuteQuery, \'../PHP/TBNavigation.php?nomMenu=CreationStage.php&post\'); Post(AfficherPage, \'../PHP/TBNavigation.php?nomMenu=CreationStage.php&post\')"/>
+            <input class="bouton" type="button" id="Save" style="width: 100px;" value=" Sauvegarder " onclick= " Post(AfficherPage, \'../PHP/TBNavigation.php?nomMenu=CreationStage.php&post\'); UploadFile(ExecuteQuery, \'../PHP/TBNavigation.php?nomMenu=CreationStage.php&post\');"/>
             <input type="hidden" name="maxFileSize" value="2000000">
-            <input class="inputFile" id="file" type="file" value="Envoyer" name="fichier"/>
+            <input class="inputFile" id="file" type="file" value="Envoyer" name="file" onchange="AfficherNom(this)"/>
             <label class="bouton labelFile" for="file">Offre de stage</label>
+            <p id="nomPieceJointe"></p>
             <br/><br/>
     </div>   
     <br>

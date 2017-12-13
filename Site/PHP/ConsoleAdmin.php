@@ -1,3 +1,9 @@
+<?php
+if(session_id() == '' || !isset($_SESSION))
+    {
+        session_start();
+    }
+?>
 <!DOCTYPE html>
 <html>
     <head>
@@ -20,6 +26,7 @@
         <script src="../js/scripts.js"></script>
         <script src="../js/creationUtilisateur.js"></script>
         <script src="../js/supressionUtilisateur.js"></script>
+        <script src="../js/Journal.js"></script>
 
 
         

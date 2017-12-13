@@ -1,4 +1,4 @@
-var titrePage;
+ var titrePage;
 
 //Envoie la requete au serveur et retourne la réponse.
 function Requete(callback){

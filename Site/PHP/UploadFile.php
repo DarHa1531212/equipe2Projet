@@ -3,11 +3,11 @@
 	{
 		if(isset($_FILES['file']))
 		{
-			$result = $bdd->Request('SELECT Annee FROM vStage JOIN vSession ON vStage.IdSession = vSession.Id WHERE idStagiaire = :id', Array('id'=>$idStagiaire), 'stdClass');
+			$result = $bdd->Request('SELECT Annee FROM vSession JOIN vStage ON vStage.IdSession = vSession.Id WHERE IdStagiaire = :id', Array('id'=>$idStagiaire), 'stdClass')[0];
 
 			if($page == 'Journal')
 			{
-				$dossier = '../Sessions/'.$result->Annee.'/'.$idStagiaire.'/Files';
+				$dossier = '../Sessions/'.$result->Annee.'/'.$idStagiaire.'/Files/';
 			}
 			else
 			{
