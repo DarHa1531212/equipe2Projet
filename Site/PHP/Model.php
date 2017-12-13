@@ -638,7 +638,12 @@
 
     class Profil{
         
-        protected $IdUtilisateur, $Nom, $Prenom, $NumTelEntreprise, $CodePermanent, $Poste, $CourrielEntreprise, $NomEntreprise, $IdRole;
+        protected 
+        $IdUtilisateur, $Nom, $Prenom, $NumTelEntreprise, $CodePermanent, $Poste, $CourrielEntreprise, $NomEntreprise, $IdRole,
+        $regxEmail = "[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$",
+        $regxPoste = "^[0-9]{0,7}$",
+        $regxPassword = "^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$",
+        $regxNumTel = "^[(]{1}[0-9]{3}[)]{1}[\s]{1}[0-9]{3}[-]{1}[0-9]{4}$";
         
         //Met à jour l'utilisateur dans la BD.
         protected function UpdateUser($bdd, $motPasse, $courriel){
@@ -761,20 +766,20 @@
 
                     <div class="champ">
                         <p class="label labelForInput">Courriel :</p>
-                        <input type="email" value="'.$this->getCourrielEntreprise().'" id="courrielEntreprise" name="courrielEntreprise" class="value" onexit="RegexProfilStagiaire()"/>
+                        <input type="email" value="'.$this->getCourrielEntreprise().'" id="courrielEntreprise" name="courrielEntreprise" class="value" pattern="'.$this->regxEmail.'" onblur="VerifierRegex(this)"/>
 
                     </div>
 
                     <div class="champ">
                         <p class="label labelForInput">No. Téléphone :</p>
-                        <input type="text" value="'.$this->getNumTelEntreprise().'" id="numEntreprise" name="numEntreprise" class="value" onexit="RegexProfilStagiaire()"/>
+                        <input type="text" value="'.$this->getNumTelEntreprise().'" id="numEntreprise" name="numEntreprise" class="value" onblur="VerifierRegex(this)" pattern="'.$this->regxNumTel.'"/>
                         <img class="info" src="../Images/info.png" title="Le numéro de téléphone doit
 avoir ce format - (xxx) xxx-xxxx"/>
                     </div>
 
                     <div class="champ">
                         <p class="label labelForInput">Poste :</p>
-                        <input type="text" value="'.$this->getPoste().'" name="poste" id="poste" class="value" onexit="RegexProfilStagiaire()"/>
+                        <input type="text" value="'.$this->getPoste().'" name="poste" id="poste" pattern="'.$this->regxPoste.'" onblur="VerifierRegex(this)" class="value"/>
                     </div>
             </div>
 
@@ -785,7 +790,7 @@ avoir ce format - (xxx) xxx-xxxx"/>
             <div class="blocInfo infoProfil">
                     <div class="champ">
                         <p class="label labelForInput">Nouveau mot de passe :</p>
-                        <input type="password" id="newPwd" class="value" name="nouveauPasse" onexit="RegexProfilStagiaire()"/>
+                        <input type="password" id="newPwd" class="value" name="nouveauPasse" pattern="'.$this->regxPassword.'" onblur="VerifierRegex(this)"/>
                         <img class="info" src="../Images/info.png" title="Le mot de passe doit contenir
 - 8 caractères minimum
 - Au moins une majuscule
@@ -794,7 +799,7 @@ avoir ce format - (xxx) xxx-xxxx"/>
 
                     <div class="champ">
                         <p class="label labelForInput">Confirmer le mot de passe :</p>
-                        <input type="password" id="confirmationNewPwd" class="value" onexit="RegexProfilStagiaire()"/>
+                        <input type="password" id="confirmationNewPwd" class="value" onblur="DoubleVerif(newPwd, this)"/>
                     </div>
             </div>';
 
@@ -823,7 +828,7 @@ avoir ce format - (xxx) xxx-xxxx"/>
 
     class ProfilStagiaire extends Profil{
         
-        private $NumTelPerso, $CourrielPersonnel;
+        protected $NumTelPerso, $CourrielPersonnel, $CourrielScolaire;
     
         //Affiche les informations du profil.
         public function AfficherProfil(){
@@ -852,6 +857,11 @@ avoir ce format - (xxx) xxx-xxxx"/>
                     <div class="champ">
                         <p class="label">Courriel :</p>
                         <p class="value">'.$this->getCourrielPerso().'</p>
+                    </div>
+
+                    <div class="champ">
+                        <p class="label">Courriel Scolaire:</p>
+                        <p class="value">'.$this->getCourrielScolaire().'</p>
                     </div>
             </div>
 
@@ -904,16 +914,27 @@ avoir ce format - (xxx) xxx-xxxx"/>
 
                     <div class="champ">
                         <p class="label labelForInput">No. Téléphone :</p>
-                        <input type="text" value="'.$this->getNumTelPerso().'" id="numTel" name="numTel" class="value" onexit="RegexProfilStagiaire()"/>
+                        <input type="text" value="'.$this->getNumTelPerso().'" id="numTel" name="numTel" class="value" onblur="VerifierRegex(this)" pattern="'.$this->regxNumTel.'"/>
                         <img class="info" src="../Images/info.png" title="Le numéro de téléphone doit
 avoir ce format - (xxx) xxx-xxxx"/>
                     </div>
 
                     <div class="champ">
                         <p class="label labelForInput">Courriel :</p>
-                        <input type="email" value="'.$this->getCourrielPerso().'" id="courrielPersonnel" name="courrielPersonnel" class="value" onexit="RegexProfilStagiaire()"/>
-                    </div>
-            </div>
+                        <input type="email" value="'.$this->getCourrielPerso().'" id="courrielPersonnel" name="courrielPersonnel" class="value" onblur="VerifierRegex(this)" pattern="'.$this->regxEmail.'"/>
+                    </div>';
+
+            if($_SESSION["IdRole"] == 1){
+                $content = $content.
+                '<div class="champ">
+                    <p class="label labelForInput">Courriel Scolaire :</p>
+                    <input type="email" value="'.$this->getCourrielScolaire().'" id="courrielScolaire" name="courrielScolaire" class="value" onblur="VerifierRegex(this)" pattern="'.$this->regxEmail.'"/>
+                </div>';
+            }
+                    
+                            
+            $content = $content.
+            '</div>
 
             <div class="separateur">
                 <h3>Informations Professionnelles</h3>
@@ -927,20 +948,19 @@ avoir ce format - (xxx) xxx-xxxx"/>
 
                     <div class="champ">
                         <p class="label labelForInput">Courriel :</p>
-                        <input type="email" value="'.$this->getCourrielEntreprise().'" id="courrielEntreprise" name="courrielEntreprise" class="value" onexit="RegexProfilStagiaire()"/>
-
+                        <input type="email" value="'.$this->getCourrielEntreprise().'" id="courrielEntreprise" name="courrielEntreprise" class="value" onblur="VerifierRegex(this)" pattern="'.$this->regxEmail.'"/>
                     </div>
 
                     <div class="champ">
                         <p class="label labelForInput">No. Téléphone :</p>
-                        <input type="text" value="'.$this->getNumTelEntreprise().'" id="numEntreprise" name="numEntreprise" class="value" onexit="RegexProfilStagiaire()"/>
+                        <input type="text" value="'.$this->getNumTelEntreprise().'" id="numEntreprise" name="numEntreprise" class="value" onblur="VerifierRegex(this)" pattern="'.$this->regxNumTel.'"/>
                         <img class="info" src="../Images/info.png" title="Le numéro de téléphone doit
 avoir ce format - (xxx) xxx-xxxx"/>
                     </div>
 
                     <div class="champ">
                         <p class="label labelForInput">Poste :</p>
-                        <input type="text" value="'.$this->getPoste().'" name="poste" id="poste" class="value" onexit="RegexProfilStagiaire()"/>
+                        <input type="text" value="'.$this->getPoste().'" name="poste" id="poste" class="value" onblur="VerifierRegex(this)" pattern="'.$this->regxPoste.'"/>
                     </div>
             </div>
 
@@ -951,7 +971,7 @@ avoir ce format - (xxx) xxx-xxxx"/>
             <div class="blocInfo infoProfil">
                     <div class="champ">
                         <p class="label labelForInput">Nouveau mot de passe :</p>
-                        <input type="password" id="newPwd" class="value" name="nouveauPasse" onexit="RegexProfilStagiaire()"/>
+                        <input type="password" id="newPwd" class="value" name="nouveauPasse" onblur="VerifierRegex(this)" pattern="'.$this->regxPassword.'"/>
                         <img class="info" src="../Images/info.png" title="Le mot de passe doit contenir
 - 8 caractères minimum
 - Au moins une majuscule
@@ -960,7 +980,7 @@ avoir ce format - (xxx) xxx-xxxx"/>
 
                     <div class="champ">
                         <p class="label labelForInput">Confirmer le mot de passe :</p>
-                        <input type="password" id="confirmationNewPwd" class="value" onexit="RegexProfilStagiaire()"/>
+                        <input type="password" id="confirmationNewPwd" class="value" onblur="DoubleVerif(newPwd.value, this)"/>
                     </div>
             </div>';
 
@@ -975,7 +995,7 @@ avoir ce format - (xxx) xxx-xxxx"/>
                 $profil[$champ->nom] = $champ->value;
             }
 
-            $this->UpdateUser($bdd, $profil["nouveauPasse"], $profil["courrielPersonnel"]);
+            $this->UpdateUser($bdd, $profil["nouveauPasse"], $profil["courrielScolaire"]);
 
             $bdd->Request(" UPDATE tblStagiaire SET NumTelPerso = :numTelPerso, NumTelEntreprise = :numTelEntreprise, Poste = :poste, CourrielEntreprise = :courrielEntreprise, CourrielPersonnel = :courrielPerso WHERE IdUtilisateur = :id",
                             array(
@@ -994,6 +1014,10 @@ avoir ce format - (xxx) xxx-xxxx"/>
         
         public function getCourrielPerso(){
             return $this->CourrielPersonnel;
+        }
+        
+        public function getCourrielScolaire(){
+            return $this->CourrielScolaire;
         }
     }
 

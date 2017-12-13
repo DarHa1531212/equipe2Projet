@@ -1,20 +1,11 @@
  function changeUserType(userType){
-/* onclick= "Execute(12, \'../PHP/TBNavigation.php?&nomMenu=InsertStage\'
-2 = responsable
-3 = enseignant
-4 = superviseur
-5 = stagiaire */
-    alert (userType.value);
 
     switch(userType.value)
     {
         case "2":  
-            alert ("responsable choisi");
-            afficherChampsResponsable();
+            afficherChampsEmployeEntreprise();
             break;
         case "3": afficherChampsEnseignant();
-            break;
-        case "4": afficherChampsSuperviseur();
             break;
         case "5": afficherChampsStagiaire();
             break;
@@ -22,26 +13,65 @@
 
   }
 
-    function afficherChampsResponsable()
+    function afficherChampsEmployeEntreprise()
     {
+      // alert ("afficher champs employe");
+        $(".champ").hide();
+        $("#Prenom").show();
+        $("#Nom").show();
+        $("#courriel").show();
+        $("#dropDownEntreprise").show();
+        $("#posteEntreprise").show();
+        $("#noTelEntreprise").show();
+        $("#posteTelEntreprise").show();
 
-        alert("vous avez choisis un responsable");
     }
 
     function afficherChampsEnseignant()
     {
-        alert("vous avez choisi un enseignant");
-    }
-
-    function afficherChampsSuperviseur()
-    {
-        alert ("vous avec choisi un superviseur");
-    }
-    function afficherChampsStagiaire()
-    {
-        alert ("vous avec choisi un stagiaire");
          $(".champ").hide();
          $("#Prenom").show();
          $("#Nom").show();
          $("#courriel").show();
+
+    }
+    function afficherChampsStagiaire()
+    {
+         $(".champ").hide();
+         $("#Prenom").show();
+         $("#Nom").show();
+         $("#courriel").show();
+         $("#noTelPersonnel").show();
+         $("#courrielPersonnel").show();
+    }
+
+   function testerRetour (data)
+    {
+        if (data ==  -11)
+        {
+            alert ("Un utilisateur avec ce courriel existe déjà, veuillez utiliser un courriel différent");
+        }
+        else if (data == 1)
+        {
+            //Mettre tous les champs à vide.
+            alert ("L'utilisaateur à été ajouté");
+            Requete(AfficherPage, '../PHP/TBNavigation.php?nomMenu=CreationUtilisateur.php');
+        }
+    }
+
+    function checkResponsable(element)
+    {
+      if (element.checked)
+        document.getElementById("chkResponsable").value="true";
+      else 
+        document.getElementById("chkResponsable").value="false";
+    }
+
+    function checkSuperviseur(element)
+    {
+      if (element.checked)
+        document.getElementById("chkSuperviseur").value="true";
+      else 
+        document.getElementById("chkSuperviseur").value="false";
+
     }

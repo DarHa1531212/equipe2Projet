@@ -11,12 +11,16 @@ function DisableSalaire(rad){
     var salaire = document.getElementById("salaire");
     
     if(rad.id == "oui")
+    {
         salaire.disabled = false;
-    else{
-        $("#salaire").val("");
-        salaire.disabled = true;
+        salaire.style.backgroundColor = "#ffffff";
     }
-        
+    else
+    {
+        salaire.disabled = true;
+        salaire.style.backgroundColor = "#dddddd";
+        salaire.value = "";
+    }
 }
 
 function SetTimeout(){

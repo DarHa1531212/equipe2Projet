@@ -5,6 +5,7 @@ function Requete(callback){
     $.ajax({
         type: "POST",
         url: Url(arguments) ,
+        async: false,
         success: function(data){
             history.pushState(JSON.parse(data), titrePage[0], titrePage[0]);
             callback(data);

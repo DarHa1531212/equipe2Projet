@@ -172,6 +172,10 @@
                     </div>
                     <div id="imageJointe"></div>
 
+                <button class="bouton" onclick="addArea2();">Afficher les options RTF</button> <button class="bouton" onclick="removeArea2();">Cacher les options RTF</button> 
+                  </div> 
+                  <div style="clear: both;"></div>
+
             <textarea id="contenu" rows="5" cols="100" maxlength="500" name="contenu" wrap="hard">'.$_SESSION['textModif'].'</textarea>
             <input type="hidden" name="maxFileSize" value="2000000">
             <input class="inputFile" id="file" type="file" value="Envoyer" name="fichier" onchange="AfficherNom(this)"/>
