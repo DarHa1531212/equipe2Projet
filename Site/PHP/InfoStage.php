@@ -12,8 +12,12 @@
         return;
     }
 
+
     if(isset($_REQUEST["index"]))
         $stage = $stages[$_REQUEST["index"]];
+
+   // var_dump($stage->getNomStagiaire());
+
 
     if(isset($_REQUEST["post"]))
         DeleteStage($bdd);
@@ -31,47 +35,58 @@
 
         <div class="blocInfo infoProfil">
     <div class="champ">
-    <p>Nom du stagiaire: ' . $stage->getNomStagiaire() . '</p>
+        <p class="label labelForInput">Nom du stagiaire</p>
+        <p class = "value">' . $stage->getNomStagiaire() . '</p>
     </div>
     <br>
     <div class="champ">
-    <p>Nom d\'entreprise: ' . $stage->getNomEntreprise() . '</p>
+        <p class="label labelForInput">Nom d\'entreprise </p>
+        <p class = "value"> ' . $stage->getNomEntreprise() .'</p>
     </div>
     <br>
     <div class="champ">
-    <p>Nom de l\'enseignant: ' . $stage->getNomEnseignant() . '</p>
+        <p class="label labelForInput">Nom de l\'enseignant</p>
+        <p class = "value">' . $stage->getNomEnseignant() .'</p>
     </div>
     <br>
     <div class="champ">
-    <p>Nom du superviseur: ' . $stage->getNomSuperviseur() . '</p>
+        <p class="label labelForInput">Nom du superviseur</p>
+        <p class = "value">'.$stage->getNomSuperviseur().'</p>
     </div>
     <br> 
     <div class="champ">
-    <p>Horaire de travail: ' . $stage->getHoraireTravail() . '</p>
+        <p class="label labelForInput">Horaire de travail</p>
+        <p class = "value">' . $stage->getHoraireTravail() . '</p>
     </div>
     <br>
     <div class="champ">
-    <p>Salaire horaire: ' . $stage->getSalaireHoraire() . '</p>
+        <p class="label labelForInput">Salaire horaire</p>
+        <p class = "value">' . $stage->getSalaireHoraire() . '</p>
     </div>
     <br>
     <div class="champ">
-    <p>Nombre d\'heures par semaine: ' . $stage->getNbHeureSemaine() . '</p> 
+        <p class="label labelForInput">Nombre d\'heures par semaine</p> 
+        <p class = "value">' . $stage->getNbHeureSemaine() . '</p> 
     </div>
     <br>
     <div class="champ">
-    <p>Compétences recherchées: ' . $stage->getCompetenceRecherche() . '</p>
+        <p class="label labelForInput">Compétences recherchées:</p>
+        <p class = "value">' . $stage->getCompetenceRecherche() . '</p>
     </div>
     <br>
     <div class="champ">
-    <p>Description du stage: ' . $stage->getDescriptionStage() . '</p>
+        <p class="label labelForInput">Description du stage</p>
+        <p class = "value">' . $stage->getDescriptionStage() . '</p>
     </div>
     <br>
     <div class="champ">
-    <p>Date de début: ' . $stage->getDateDebut() . '</p>
+        <p class="label labelForInput">Date de début</p>
+        <p class = "value">' . $stage->getDateDebut() . '</p>
     </div>
     <br>
     <div class="champ">
-    <p>Date de fin: ' . $stage->getDateFin() . '</p>
+        <p class="label labelForInput">Date de fin</p>
+        <p class = "value">' . $stage->getDateFin() . '</p>
     </div>
     <br>
     </div>

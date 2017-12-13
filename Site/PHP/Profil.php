@@ -115,25 +115,25 @@
             $nbStagesLies = $nbStagesLies + $resultat->nbStagiaire;   
         }
 
-        $result = $bdd->Request("SELECT count(*) as 'nbEnseignant' from vStage where IdEnseignant :idUtilisateur", array ('idUtilisateur'=>$_REQUEST["id"]), 'stdClass');
+        $result = $bdd->Request("SELECT count(*) as 'nbEnseignant' from vStage where IdEnseignant = :idUtilisateur", array ('idUtilisateur'=>$_REQUEST["id"]), 'stdClass');
 
         foreach($result as $resultat)
         {
             $nbStagesLies = $nbStagesLies + $resultat->nbEnseignant;   
         }
+        //var_dump($nbStagesLies);
 
         if ($nbStagesLies == 0)
         {
-            $data = $_REQUEST['id'];
             $stage = array();
             $result = $bdd->Request("DELETE FROM tblUtilisateur WHERE Id = :id;",
-                array('id'=>$data),'stdClass');       
+                array('id'=>$_REQUEST['id']),'stdClass');       
             $result = $bdd->Request("DELETE FROM tblEmploye WHERE IdUtilisateur = :id;",
-                array('id'=>$data),'stdClass');       
+                array('id'=>$_REQUEST['id']),'stdClass');       
             $result = $bdd->Request("DELETE FROM tblStagiaire WHERE IdUtilisateur = :id;",
-                array('id'=>$data),'stdClass');       
+                array('id'=>$_REQUEST['id']),'stdClass');       
             $result = $bdd->Request("DELETE FROM tblUtilisateurRole WHERE IdUtilisateur = :id;",
-                array('id'=>$data),'stdClass');
+                array('id'=>$_REQUEST['id']),'stdClass');
 
             echo "-0";
         }
