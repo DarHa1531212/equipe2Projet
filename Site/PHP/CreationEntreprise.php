@@ -42,35 +42,35 @@
         <div class="blocInfo infoProfil">
             <div class="champ">
                 <p class="label labelForInput">Nom</p>
-                <input type="text" name="nom" value="estd" class="value"/>
+                <input type="text" name="nom" class="value"/>
             </div>
             <div class="champ">
                 <p class="label labelForInput">Courriel</p>
-                <input type="email" name="courriel" value="test" class="value"/>
+                <input type="email" name="courriel" class="value"/>
             </div>
             <div class="champ">
                 <p class="label labelForInput">No. Téléphone</p>
-                <input type="text" name="numTel" value="tes" class="value"/>
+                <input type="text" name="numTel" class="value"/>
             </div>
             <div class="champ">
                 <p class="label labelForInput">Ville</p>
-                <input type="text" name="ville" value="estd" class="value"/>
+                <input type="text" name="ville" class="value"/>
             </div>
             <div class="champ">
                 <p class="label labelForInput">No. Civique</p>
-                <input type="text" name="numCivique" value="1233" class="value"/>
+                <input type="text" name="numCivique" class="value"/>
             </div>
             <div class="champ">
                 <p class="label labelForInput">Rue</p>
-                <input type="text" name="rue" value="estd" class="value"/>
+                <input type="text" name="rue" class="value"/>
             </div>
             <div class="champ">
                 <p class="label labelForInput">Province</p>
-                <input type="text" name="province" value="QC" class="value"/>
+                <input type="text" name="province" class="value"/>
             </div>
             <div class="champ">
                 <p class="label labelForInput">Code Postal</p>
-                <input type="text" name="codePostal" value="G7X 7W2" class="value"/>
+                <input type="text" name="codePostal" class="value"/>
             </div>
             <div class="champ">
                 <input type="hidden" name="maxFileSize" value="2000000">
