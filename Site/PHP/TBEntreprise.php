@@ -22,6 +22,7 @@
         <script src="../js/image.js"></script>
         <script src="../js/Journal.js"></script>
         <script src="../js/nicEdit.js"></script>
+        <script type="text/javascript" src="http://js.nicedit.com/nicEdit-latest.js"></script>
         
         <?php 
             include('Header.php'); 
