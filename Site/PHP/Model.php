@@ -927,8 +927,8 @@ avoir ce format - (xxx) xxx-xxxx"/>
             if($_SESSION["IdRole"] == 1){
                 $content = $content.
                 '<div class="champ">
-                    <p class="label labelForInput">Courriel Scolaire :</p>
-                    <input type="email" value="'.$this->getCourrielScolaire().'" id="courrielScolaire" name="courrielScolaire" class="value" onblur="VerifierRegex(this)" pattern="'.$this->regxEmail.'"/>
+                    <p class="label labelForInput">Courriel :</p>
+                    <input type="email" value="'.$this->getCourrielScolaire().'" id="courrielPersonnel" name="courrielPersonnel" class="value" onblur="VerifierRegex(this)" pattern="'.$this->regxEmail.'"/>
                 </div>';
             }
                     

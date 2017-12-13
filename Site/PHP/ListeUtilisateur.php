@@ -22,7 +22,6 @@
 
     function AfficherUtilisateur($utilisateurs){
         $courriel;
-        $entreprise = "";
         $numTel;
         $typeId;
         $content = "";
@@ -42,8 +41,7 @@
             }
             else{
                 $courriel = $utilisateur->getCourrielEntreprise();
-                $numTel = $utilisateur->getNumTelEntreprise(); 
-                $entreprise = $utilisateur->getEntreprise();  
+                $numTel = $utilisateur->getNumTelEntreprise();  
             }
             
             $content = $content.
@@ -53,7 +51,7 @@
                 <td>'.$utilisateur->getNom().'</td>
                 <td>'.$courriel.'</td>
                 <td>'.$numTel.'</td>
-                <td>'.$entreprise.'</td>
+                <td>'.$utilisateur->getEntreprise().'</td>
                 <td>'.$nomRole[$utilisateur->getIdRole()].'</td>
             </tr>
             ';

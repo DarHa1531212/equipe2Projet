@@ -40,6 +40,7 @@ function Post(callback){
         processData: false, 
         data: form_data,                          
         type: 'post', 
+        async: false,
         success: function(data){ 
             callback(data); 
         } 
@@ -112,6 +113,7 @@ function PostEval(callback)
             processData: false, 
             data: form_data,                          
             type: 'post', 
+            async: false,
             success: function(data)
             { 
                 callback(data); 
