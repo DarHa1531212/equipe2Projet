@@ -63,7 +63,7 @@ function PopulateTable(data){
     }
         
     
-    $("table").empty();
-    $("table").append(option);
+    $("table>tbody").empty();
+    $("table>tbody").append(option);
 }
 
