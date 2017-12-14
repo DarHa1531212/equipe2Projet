@@ -137,6 +137,7 @@ section{
     width: calc(50% + 155px);
     height: 75px;
     overflow-x: hidden;
+    resize: none;
 }
 
 .info{
@@ -204,17 +205,19 @@ table > tbody>tr{border: solid 1px gainsboro;}
 
 .flecheDroite{float: right;}
 
-textarea{
+.textarea{
+    width: inherit;
     display: inline-block;
     width: 80%;
     height: 180px;
     resize: none;
     padding: 10px;
     white-space: pre-wrap;
+    background-color: inherit;
+    margin-bottom: 10px;
 }
 
 .entree{
-    position: relative;
     width: 80%;
     border: solid 1px #a9a9a9;
     margin: auto;
@@ -363,16 +366,22 @@ input[type=file]{
 
 /* ---------------------------------------------------*/
 
+.dateEntree{
+    display: inline-block;
+    margin-bottom: -10px;
+}
+
 .crdJournal{
-    position: absolute;
-    top: 8px;
-    right: 16px;
+    height: 20px;
+    float: right;
+    margin-top: 20px;
     font-size: 18px;
     display: none;
+    text-align: right;
 }
 
 .entree:hover .crdJournal{
-    display: block;
+    display: inline-block;
 }
 
 .crdJournalM{
@@ -410,7 +419,8 @@ input[type=file]{
     left:0;
     right:0;
     bottom:0;
-    width: 80%;
+    z-index: 1;
+    
     margin:auto;
 }
 

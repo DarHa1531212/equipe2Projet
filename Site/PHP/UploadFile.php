@@ -47,13 +47,11 @@
 
 	function verificationDoublon($bdd, $fichier)
 	{
-		$query = $bdd->prepare("SELECT Documents FROM vJournalDeBord");
-		$query->execute();
-		$files = $query->fetchAll();
+		$files = $bdd->Request("SELECT Documents FROM vJournalDeBord", null, "stdClass");
 
 		foreach($files as $file)
 		{
-			$doc = $file['Documents'];
+			$doc = $file->Documents;
 			if($doc == $fichier)
 			{
 				return false;
