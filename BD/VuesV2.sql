@@ -257,7 +257,7 @@ CONCAT(Entreprise.NumCivique,' ',Entreprise.Rue) AS AdresseEntreprise
 
 DROP VIEW IF EXISTS vOffre;
 CREATE VIEW vOffre AS SELECT CONCAT('Session ',Periode, ' ', Annee) AS AnneeSession,DATE_FORMAT(DateDebut, "%d/%m/%Y") AS DateDebut,
-NbHeureSemaine,SalaireHoraire,CompetenceRecherche,Stage.DescriptionStage,Stage.ID AS IdStage,Entreprise.Nom AS NomEntreprise,SupEnt.CourrielEntreprise,
+NbHeureSemaine,SalaireHoraire,CompetenceRecherche,Stage.DescriptionStage,Stage.ID AS IdStage,RaisonSociale,Entreprise.Nom AS NomEntreprise,SupEnt.CourrielEntreprise,
 SupEnt.NumTel,SupEnt.AdresseEntreprise,
 CONCAT(Employe.Prenom,' ',Employe.Nom) AS NomResponsable,SupEnt.NomSuperviseur FROM vStage AS Stage
 	JOIN vSuperviseurEntreprise AS SupEnt
