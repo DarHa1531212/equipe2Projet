@@ -767,7 +767,6 @@
                     <div class="champ">
                         <p class="label labelForInput">Courriel :</p>
                         <input type="email" value="'.$this->getCourrielEntreprise().'" id="courrielEntreprise" name="courrielEntreprise" class="value" pattern="'.$this->regxEmail.'" onblur="Required(this) required; VerifierRegex(this)"/>
-
                     </div>
 
                     <div class="champ">
@@ -1033,21 +1032,21 @@ avoir ce format - (xxx) xxx-xxxx"/>
                 $entreprise[$champ->nom] = $champ->value;
             }
             
-            $bdd->Request(" UPDATE tblEntreprise SET CourrielEntreprise = :courriel, Nom = :nom, NumTel = :numTel,
-                            NumCivique = :numCivique, Rue = :rue, Ville = :ville, Province = :province, CodePostal = :codePostal,
-                            Logo = :logo WHERE Id = :id",
-                            array(  
-                            "courriel"=>$entreprise["courrielEntreprise"],
-                            "nom"=>$entreprise["nom"],
-                            "numTel"=>$entreprise["numEntreprise"],
-                            "numCivique"=>$entreprise["noCivique"],
-                            "rue"=>$entreprise["rue"],
-                            "ville"=>$entreprise["ville"],
-                            "province"=>$entreprise["province"],
-                            "codePostal"=>$entreprise["codePostal"],
-                            "logo"=>$entreprise["logo"],
-                            "id"=>$this->Id),
-                            "stdClass");
+            return $bdd->Request("  UPDATE tblEntreprise SET CourrielEntreprise = :courriel, Nom = :nom, NumTel = :numTel,
+                                    NumCivique = :numCivique, Rue = :rue, Ville = :ville, Province = :province, CodePostal = :codePostal,
+                                    Logo = :logo WHERE Id = :id",
+                                    array(  
+                                    "courriel"=>$entreprise["courrielEntreprise"],
+                                    "nom"=>$entreprise["nom"],
+                                    "numTel"=>$entreprise["numEntreprise"],
+                                    "numCivique"=>$entreprise["noCivique"],
+                                    "rue"=>$entreprise["rue"],
+                                    "ville"=>$entreprise["ville"],
+                                    "province"=>$entreprise["province"],
+                                    "codePostal"=>$entreprise["codePostal"],
+                                    "logo"=>$entreprise["logo"],
+                                    "id"=>$this->Id),
+                                    "stdClass");
         }
         
         public function getId(){

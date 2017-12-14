@@ -3,17 +3,16 @@
 require 'InfoEntreprise.php';
 
 if(isset($_REQUEST["post"])){
-    $entreprise->Update($bdd, json_decode($_POST["tabChamp"]));
-    return;
+    return $entreprise->Update($bdd, json_decode($_POST["tabChamp"]));
 }
-    
 
 $content =
 '
 <script>
     function Submit(){
         if(CheckAll()){
-            Post(ExecuteQuery, \'../PHP/TBNavigation.php?idEmploye='.$id.'&nomMenu=CreationEntreprise.php&post\');
+            alert("L\'entreprise à bien été modifier.");
+            Post(ExecuteQuery, \'../PHP/TBNavigation.php?id='.$_REQUEST["id"].'&nomMenu=ModifEntreprise.php&post\');
             Requete(AfficherPage, \'../PHP/TBNavigation.php?idEmploye='.$id.'&nomMenu=ListeEntreprise.php\');
         }
     }

@@ -24,7 +24,6 @@
         $("#posteEntreprise").show();
         $("#noTelEntreprise").show();
         $("#posteTelEntreprise").show();
-
     }
 
     function afficherChampsEnseignant()
