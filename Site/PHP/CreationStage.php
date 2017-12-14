@@ -11,8 +11,10 @@
             $stage[$champ->nom] = $champ->value;
         }
 
-        $bdd->Request(" INSERT INTO tblStage (IdResponsable, IdSuperviseur, IdStagiaire, IdEnseignant, DescriptionStage, CompetenceRecherche, NbHeureSemaine, SalaireHoraire, DateDebut, DateFin, IdSession) 
-                        VALUES (:idResponsable, :idSuperviseur, :idStagiaire, :idEnseignant, :description, :competence, :horaire, :nbHeure, :salaire, :dateDebut, :dateFin, :idSession);",
+
+      //  var_dump($stage);
+
+        $bdd->Request(" INSERT INTO tblStage ( IdResponsable, IdSuperviseur, IdStagiaire, IdEnseignant, DescriptionStage, CompetenceRecherche, NbHeureSemaine, SalaireHoraire, DateDebut, DateFin, IdSession) VALUES (:idResponsable, :idSuperviseur, :idStagiaire, :idEnseignant, :description, :competence, :nbHeure, :salaire, :dateDebut, :dateFin, :idSession);",
                         array(
                             'idResponsable'=>$stage["Responsable"], 
                             'idSuperviseur'=>$stage["Superviseur"], 
@@ -20,7 +22,6 @@
                             'idEnseignant'=>$stage["Enseignant"],
                             'description'=>$stage["DescStage"], 
                             'competence'=>$stage["CompetancesRecherchees"], 
-                            'horaire'=>$stage["SalaireHoraire"], 
                             'nbHeure'=>$stage["HeuresSemaine"],
                             'salaire'=>$stage["SalaireHoraire"], 
                             'dateDebut'=>$stage["DateDebut"], 
