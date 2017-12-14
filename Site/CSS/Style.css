@@ -361,6 +361,20 @@ input[type=file]{
     margin-right:5px;
 }
 
+.posteBorder{
+    border:1px;
+    border-style: solid;
+    border-color: lightgray;
+    border-radius: 5px;
+    text-align:left;
+    width:375px;
+}
+
+.posteBorder > p{
+    text-align:center;
+    margin:0px;
+    margin-top:10px;
+}
 /* ---------------------------------------------------*/
 
 .crdJournal{

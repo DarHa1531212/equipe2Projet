@@ -29,12 +29,15 @@
 
             <article class="stagiaire">
                 <div id="modifStagiaire" >
-                     <p class="label labelForInput">Selectionnez le type d\'utilisateur</p>
-                            <select class="value" class = "infosStage" name = "userType" onChange="changeUserType(this)">
-                                <option value = "2">Employé d\'entreprise</option>
-                                <option value = "5">Stagiaire</option>
-                                <option value = "3">Enseignant</option>
-                            </select>
+                    <div class="champ" id="selectTypeUser">
+                        <p class="label labelForInput">Type d\'utilisateur</p>
+                        <select class="value" class = "infosStage" name = "userType" onChange="changeUserType(this)">
+                            <option value = "2">Employé d\'entreprise</option>
+                            <option value = "5">Stagiaire</option>
+                            <option value = "3">Enseignant</option>
+                        </select>
+                    </div>
+                     
                 <div class = "champ" id = "Prenom">
                     <br>
                     <p class="label labelForInput">Prenom :</p>
@@ -82,15 +85,19 @@
                 <input type="text" value="" class="value" name = "noTelPersonnel" id="noTelPersonnel" onblur="VerifierRegex(this);" pattern="'.$regxNumTel.'"/>
                 </div>
 
-                <div class = "champ" id="posteEntreprise">
-                <input type="checkbox" name="Superviseur" id = "chkSuperviseur" class = "value" value="superviseur" onchange = "checkSuperviseur(this);" name = "false"  > l\'eployé est un superviseur<br>
-                <input type="checkbox" name="Responsable" id = "chkResponsable" class = "value" value="Responsable" onchange = "checkResponsable(this);" name = "false">L\'employé est un responsable<br>
+                <div class="champ" id="posteEntreprise">
+                    <div class="posteBorder">
+                        <p>Rôle</p><br/>
+                        <input type="checkbox" name="Superviseur" id = "chkSuperviseur" class = "value" value="Superviseur" onchange = "checkSuperviseur(this);" name = "false">Superviseur<br>
+
+                        <input type="checkbox" name="Responsable" id = "chkResponsable" class = "value" value="Responsable" style="margin-bottom:20px;" onchange = "checkResponsable(this);" name = "false">Responsable<br>
+                    </div>
                 </div>
 
 
 
                 <br>
-                <input type="button" id="Save" class="bouton" value="Sauvegarder" onclick ="Post(testerRetour , \'../PHP/TBNavigation.php?nomMenu=CreationUtilisateur.php&post\')" />     
+                <input type="button" id="Save" class="bouton" value="Sauvegarder" onclick ="Post(testerRetour , \'../PHP/TBNavigation.php?nomMenu=CreationUtilisateur.php&post\')" style="margin-top:40px;"/>     
                 <input type="button" id="Cancel" class="bouton" value="Retour" onclick="Requete(AfficherPage, \'../PHP/TBNavigation.php?nomMenu=ListeUtilisateur.php\')" />            
             </div>
             </article>';
