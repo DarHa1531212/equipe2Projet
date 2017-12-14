@@ -367,7 +367,7 @@ input[type=file]{
     border-color: lightgray;
     border-radius: 5px;
     text-align:left;
-    width:375px;
+    width:375px !important;
 }
 
 .posteBorder > p{
