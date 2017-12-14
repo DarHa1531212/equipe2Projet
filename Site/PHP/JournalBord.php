@@ -166,13 +166,14 @@
                 //////////////////////////////////////////////////////////////////////////////////////////////
                 $content=
                 '<article class="stagiaire">
+                <script type="text/javascript" src="http://js.nicedit.com/nicEdit-latest.js"></script>
                     <div class="infoStagiaire">
+
                         <h2>Journal de bord</h2>
                         <h3>Dernière entrée il y a : '.DerniereEntree($bdd, $idStagiaire).' jour(s)</h3>
                     </div>
                     <div id="imageJointe"></div>
-
-                <button class="bouton" onclick="addArea2();">Afficher les options RTF</button> <button class="bouton" onclick="removeArea2();">Cacher les options RTF</button> 
+ 
                   </div> 
                   <div style="clear: both;"></div>
 
@@ -183,6 +184,7 @@
             <br/>                                                                             
             
             <input style="width: 120px;" class="bouton" type="button" value="Envoyer" onclick="if(modificationJournal){UploadFile(ExecuteQuery, \'../PHP/TBNavigation.php?id='.$idStagiaire.'&nomMenu=JournalBord.php&update=true&contenu=contenu.value'.addId().'\'); Requete(AfficherPage, \'../PHP/TBNavigation.php?id='.$idStagiaire.'&nomMenu=JournalBord.php&nbEntree=5); modificationJournal = false;}else{UploadFile(ExecuteQuery, \'../PHP/TBNavigation.php?id='.$idStagiaire.'&nomMenu=JournalBord.php&contenu=contenu.value\'); Requete(AfficherPage, \'../PHP/TBNavigation.php?id='.$idStagiaire.'&nomMenu=JournalBord.php&nbEntree=5\');}"/>
+
 
             <label class="bouton labelFile" for="file">Pièce Jointe</label>
             <p id="nomPieceJointe"></p>

@@ -1,7 +1,7 @@
 <?php
-
+ 
     $entreprises = $bdd->Request("SELECT * FROM vEntreprise ORDER BY Id DESC", null, "Entreprise");
-
+ 
     function AfficherEntreprise($entreprises){
         $content = "";
         $id = 0;
@@ -22,7 +22,7 @@
         
         return $content;
     }
-
+ 
     $content =
     '
     <article class="stagiaire">
@@ -39,7 +39,7 @@
                 <th>Courriel</th>
                 <th>Ville</th>
             </thead>
-
+ 
             <tbody>'
                 .AfficherEntreprise($entreprises).
             '</tbody>
