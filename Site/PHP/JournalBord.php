@@ -3,6 +3,9 @@
 
     if(isset($_REQUEST['id']))
         $idStagiaire = $_REQUEST["id"];
+
+    if(isset($_REQUEST['create']))
+        NouvelleEntree($bdd, $idStagiaire);
     
     function DateDifference($date_1 , $date_2 , $differenceFormat = '%a' ){
         $datetime1 = date_create($date_1);
@@ -57,29 +60,32 @@
     }
 
     function NouvelleEntree($bdd, $idStagiaire){
+        $champs = json_decode($_POST["tabChamp"]);
+        $entree = array();
+        
+        foreach($champs as $champ){
+            $entree[$champ->nom] = $champ->value;
+        }
+        
         $date = date('Y-m-d h:i:s', time());
         
-        if(isset($_REQUEST['contenu'])){
-            include 'UploadFile.php';
-            $entree = array(htmlspecialchars($_REQUEST['contenu']));
+        include 'UploadFile.php';
+        
+        
 
-            if ($entree[0] != "" && isset($_FILES['file']) && $_FILES['file']['name'] != "")
-            {
-                $bdd->Request(" INSERT INTO tblJournalDeBord (Entree, idStagiaire, Dates, Documents) 
-                                VALUES (:text, :id, :date, :file);",
-                                array("text"=>$entree[0], "id"=>$idStagiaire, "date"=>$date, "file"=>$fichier),
-                                "stdClass");
-            }
-            else
-            {
-                if($entree[0] != "")
-                {
-                    $bdd->Request(" INSERT INTO tblJournalDeBord (Entree, idStagiaire, Dates) 
-                                    VALUES (:text, :id, :date);",
-                                    array("text"=>$entree[0], "id"=>$idStagiaire, "date"=>$date),
-                                    "stdClass");
-                }
-            }
+        if ($entree["contenu"] != "" && isset($_FILES['file']) && $_FILES['file']['name'] != "")
+        {
+            $bdd->Request(" INSERT INTO tblJournalDeBord (Entree, idStagiaire, Dates, Documents) 
+                            VALUES (:text, :id, :date, :file);",
+                            array("text"=>$entree["contenu"], "id"=>$idStagiaire, "date"=>$date, "file"=>$fichier),
+                            "stdClass");
+        }
+        else
+        {
+            $bdd->Request(" INSERT INTO tblJournalDeBord (Entree, idStagiaire, Dates) 
+                            VALUES (:text, :id, :date);",
+                            array("text"=>$entree["contenu"], "id"=>$idStagiaire, "date"=>$date),
+                            "stdClass");
         }
     }
 
@@ -121,87 +127,52 @@
             return $entree->Entree;
         }
     }
-
-    function addId()
-    {
-        if(isset($_REQUEST['idEntree']))
-        {
-            return ', \'&idEntree=\', ' . $_REQUEST['idEntree'];
-        }
-        else
-        {
-            return '';
-        }
-    }
     
-    if(isset($_REQUEST['contenu']) && isset($_REQUEST['update']))
-    {
-        UpdateEntree($bdd, $_REQUEST['idEntree'], $_REQUEST['contenu']);
-    }
-    else
-    {
-        if(isset($_REQUEST['delete']))
-        {
-            DeleteEntree($bdd, $_REQUEST['idEntree']);
-        }
-        else
-        {
-            if(isset($_REQUEST['contenu']))
-            {
-                NouvelleEntree($bdd, $idStagiaire);
+    $content=
+    '
+    <script type="text/javascript" src="http://js.nicedit.com/nicEdit-latest.js"></script>
+    <script>
+        function Submit(){
+            if(CheckAll()){
+                Post(AfficherPage, \'../PHP/TBNavigation.php?id='.$id.'&nomMenu=JournalBord.php&nbEntree=5&create\');
             }
-            else
-            {
-                if(isset($_REQUEST['ajoutModif']))
-                {
-                    $_SESSION['textModif'] = SelectEntreeModif($bdd, $_REQUEST['idEntree']);
-                }
-                else
-                {
-                    $_SESSION['textModif'] = '';
-                }
-                
-                //////////////////////////////////////////////////////////////////////////////////////////////
-                //Fonction javascript pour l'url?????? Et implémentation de la fonction post pour les champs//
-                //////////////////////////////////////////////////////////////////////////////////////////////
-                $content=
-                '<article class="stagiaire">
-                <script type="text/javascript" src="http://js.nicedit.com/nicEdit-latest.js"></script>
-                    <div class="infoStagiaire">
+        }
+    </script>
+    
+    <article class="stagiaire">
+        
+        <div class="infoStagiaire">
+            <h2>Journal de bord</h2>
+            <h3>Dernière entrée il y a : '.DerniereEntree($bdd, $idStagiaire).' jour(s)</h3>
+        </div>
+        
+        <div id="imageJointe"></div>
 
-                        <h2>Journal de bord</h2>
-                        <h3>Dernière entrée il y a : '.DerniereEntree($bdd, $idStagiaire).' jour(s)</h3>
-                    </div>
-                    <div id="imageJointe"></div>
- 
-                  </div> 
-                  <div style="clear: both;"></div>
+        </div> 
+    
+        <div style="clear: both;"></div>
 
-            <textarea id="contenu" rows="5" cols="100" maxlength="500" name="contenu" wrap="hard">'.$_SESSION['textModif'].'</textarea>
+            <textarea class="value" id="contenu" rows="5" cols="100" maxlength="500" name="contenu" wrap="hard" onblur="Required(this)" required></textarea>
             <input type="hidden" name="maxFileSize" value="2000000">
             <input class="inputFile" id="file" type="file" value="Envoyer" name="fichier" onchange="AfficherNom(this)"/>
 
             <br/>                                                                             
-            
-            <input style="width: 120px;" class="bouton" type="button" value="Envoyer" onclick="if(modificationJournal){UploadFile(ExecuteQuery, \'../PHP/TBNavigation.php?id='.$idStagiaire.'&nomMenu=JournalBord.php&update=true&contenu=contenu.value'.addId().'\'); Requete(AfficherPage, \'../PHP/TBNavigation.php?id='.$idStagiaire.'&nomMenu=JournalBord.php&nbEntree=5); modificationJournal = false;}else{UploadFile(ExecuteQuery, \'../PHP/TBNavigation.php?id='.$idStagiaire.'&nomMenu=JournalBord.php&contenu=contenu.value\'); Requete(AfficherPage, \'../PHP/TBNavigation.php?id='.$idStagiaire.'&nomMenu=JournalBord.php&nbEntree=5\');}"/>
 
+            <input style="width: 120px;" class="bouton" id="Save" type="button" value="Envoyer" onclick="Submit()"/>
 
             <label class="bouton labelFile" for="file">Pièce Jointe</label>
             <p id="nomPieceJointe"></p>
 
-                    <div class="separateur">
-                        <h3>Toutes les entrées</h3>
-                    </div>
+            <div class="separateur">
+                <h3>Toutes les entrées</h3>
+            </div>
 
-                    '.SelectEntrees($bdd, $idStagiaire).'
+            '.SelectEntrees($bdd, $idStagiaire).'
 
-                    <br/><br/>
+            <br/><br/>
 
-                    <input class="bouton" type="button" value="   Retour   " onclick="Requete(AfficherPage, \'../PHP/TBNavigation.php?id='.$id.'&nomMenu=Main\')"/>
-                </article>';
+            <input class="bouton" type="button" value="   Retour   " onclick="Requete(AfficherPage, \'../PHP/TBNavigation.php?id='.$id.'&nomMenu=Main\')"/>
+    </article>';
 
-                return $content;
-            }
-        }
-    }
+    return $content;
 ?>

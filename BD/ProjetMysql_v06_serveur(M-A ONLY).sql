@@ -226,7 +226,7 @@ CREATE TABLE tblStage(
 	CompetenceRecherche		VARCHAR(1000)	NULL,
 	RaisonSociale			VARCHAR(1000)	NULL,
 	NbHeureSemaine			INT				NULL,
-	SalaireHoraire			INT				NULL,
+	SalaireHoraire			VARCHAR(20)		NULL,
 	DateDebut				DATE			NULL,
 	DateFin					DATE			NULL,
 	LettreEntenteVide		VARCHAR(255)	NULL,
