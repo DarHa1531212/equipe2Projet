@@ -314,7 +314,7 @@
             }
             else
             {
-                return '<textarea class="commentaireCategorie" rows="" cols="" maxlength="500" name="'.$this->questionsHasComment($bdd, $questions)[0].'" wrap="hard">Vos commentaires</textarea>';
+                return '<textarea class="commentaireCategorie" rows="" cols="" maxlength="500" name="'.$this->questionsHasComment($bdd, $questions)[0].'" wrap="hard" placeholder="Vos commentaires ici!"></textarea>';
             }
 
         }

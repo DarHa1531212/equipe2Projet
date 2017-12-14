@@ -59,7 +59,7 @@
         else
         {
 
-            $zoneSaisieCommentaire = '<textarea id="commentaireEvaluation" rows="5" cols="100" maxlength="500" name="commentaireEvaluation" wrap="hard"></textarea>';
+            $zoneSaisieCommentaire = '<textarea id="commentaireEvaluation" rows="5" cols="100" maxlength="500" name="commentaireEvaluation" wrap="hard" placeholder="Écrire un commantaire ici!"></textarea>';
         }
 
         return $zoneSaisieCommentaire;

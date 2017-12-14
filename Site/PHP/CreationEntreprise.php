@@ -57,7 +57,7 @@
             </div>
             <div class="champ">
                 <p class="label labelForInput">No. Téléphone</p>
-                <input type="text" name="numTel" class="value" onblur="Required(this); VerifierRegex(this);" pattern="'.$regxNumTel.'" required/>
+                <input type="text" maxlength="14" name="numTel" class="value" onblur="Required(this); VerifierRegex(this);" pattern="'.$regxNumTel.'" required/>
             </div>
             <div class="champ">
                 <p class="label labelForInput">Ville</p>
@@ -65,7 +65,7 @@
             </div>
             <div class="champ">
                 <p class="label labelForInput">No. Civique</p>
-                <input type="text" name="numCivique" class="value" onblur="Required(this); VerifierRegex(this);" pattern="'.$regxNumCivique.'" required/>
+                <input type="text" maxlength="10" name="numCivique" class="value" onblur="Required(this); VerifierRegex(this);" pattern="'.$regxNumCivique.'" required/>
             </div>
             <div class="champ">
                 <p class="label labelForInput">Rue</p>
@@ -77,7 +77,7 @@
             </div>
             <div class="champ">
                 <p class="label labelForInput">Code Postal</p>
-                <input type="text" name="codePostal" class="value" onblur="Required(this); VerifierRegex(this);" pattern="'.$regxCodePostal.'" required/>
+                <input type="text" maxlength="7" name="codePostal" class="value" onblur="Required(this); VerifierRegex(this);" pattern="'.$regxCodePostal.'" required/>
             </div>
             <div class="champ">
                 <p class="label labelForInput">Logo</p>
