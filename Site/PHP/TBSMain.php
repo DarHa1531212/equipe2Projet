@@ -121,11 +121,9 @@
             }
         }
 
-        //gestion du statut ici
-
         if($etatAvancements[0]->Statut != '0')//le statut est different de pas accéssible
         {
-            $div = '<tr class="itemHover" onclick="Requete(AfficherPage, \'../PHP/TBNavigation.php?id='.$profil->Id.'&nomMenu=AVenir.php&idStage='.$etatAvancements[0]->IdStage.'&idEtatAvancement='.$etatAvancements[0]->IdEtatAvancement.'\');">';
+            $div = '<tr class="itemHover" onclick="Requete(AfficherPage, \'../PHP/TBNavigation.php?id='.$profil->Id.'&nomMenu=etatAvancement.php&idStage='.$etatAvancements[0]->IdStage.'&idEtatAvancement='.$etatAvancements[0]->IdEtatAvancement.'\');">';
         }
         else
         {
@@ -276,9 +274,40 @@
                     <div id="droite" class="fleche flecheDroite" onclick="ChangerItem(this)"></div>
                 </div>';  
             }
+>>>>>>> Merge_Eval
 
+        <table>
+            <thead>
+                <th>Autre</th>
+            </thead>
+
+            <tbody>
+
+                <tr class="itemHover" onclick="Requete(AfficherPage, \'../PHP/TBNavigation.php?id='.$profil->Id.'&nomMenu=JournalBord.php\', \'&nbEntree=\', 5) ">
+                    <td>Journal de bord</td>
+                </tr>
+
+                <tr class="itemHover" onclick="Requete(AfficherPage, \'../PHP/TBNavigation.php?id='.$profil->Id.'&nomMenu=Evaluation.php&idStage='.$profil->IdStage.'&idEvaluation='.$autoEvaluation[0]->IdEvaluation.'&typeEval=4\')">
+                    <td>Auto-Évaluation</td>
+                </tr>
+
+            </tbody>
+        </table>
+
+        <br/><br/><br/>';
+                
+        if(count($profils) > 1)
+        {
+            //Si il y a plus qu'un stagiaire, affiche les flèches.
             $content = $content.
-            '</article>';
+            '<div class="navigateur">
+                <div id="gauche" class="fleche flecheGauche" onclick="ChangerItem(this)"></div>
+                <div id="droite" class="fleche flecheDroite" onclick="ChangerItem(this)"></div>
+            </div>';  
+        }
+        
+        $content = $content.
+        '</article>';
     }
 
     return $content;

@@ -1,5 +1,6 @@
 <?php
-    $stagiaires = $bdd->Request("   SELECT Stagiaire.IdUtilisateur, Stagiaire.Prenom, Stagiaire.Nom, Stagiaire.NumTelPerso, Stagiaire.CourrielPersonnel, Stagiaire.CourrielScolaire, 
+
+    $stagiairesAvecStage = $bdd->Request(" SELECT Stagiaire.IdUtilisateur, Stagiaire.Prenom, Stagiaire.Nom, Stagiaire.NumTelPerso, Stagiaire.CourrielPersonnel, Stagiaire.CourrielScolaire, 
                                     Stagiaire.CodePermanent, Stagiaire.CourrielEntreprise, Stagiaire.NumTelEntreprise, Stagiaire.Poste, Ent.Nom AS 'NomEntreprise', IdRole
                                     FROM vStage AS Stage
                                     JOIN vStagiaire AS Stagiaire
@@ -12,6 +13,19 @@
                                     ON UR.IdUtilisateur = Stagiaire.IdUtilisateur",
                                     null, "ProfilStagiaire");
 
+    $stagiairesSansStage = $bdd->Request("SELECT Stagiaire.IdUtilisateur, Stagiaire.Prenom, Stagiaire.Nom, Stagiaire.NumTelPerso, Stagiaire.CourrielPersonnel, Stagiaire.CourrielScolaire, 
+                                        Stagiaire.CodePermanent, Stagiaire.CourrielEntreprise, Stagiaire.NumTelEntreprise, Stagiaire.Poste,'Aucun' AS 'NomEntreprise', IdRole
+                                        FROM vStagiaire AS Stagiaire
+                                        JOIN vUtilisateurRole AS UR
+                                        ON UR.IdUtilisateur = Stagiaire.IdUtilisateur
+                                        WHERE Stagiaire.IdUtilisateur NOT IN 
+                                        (
+                                            SELECT IdStagiaire
+                                            FROM vStage
+                                        ); ",
+                                        null, "ProfilStagiaire");
+
+   
     $employes = $bdd->Request(" SELECT Emp.IdUtilisateur, Prenom, Emp.Nom, IdRole,
                                 Ent.Nom AS 'NomEntreprise', Emp.CourrielEntreprise, Emp.NumTelEntreprise, Poste
                                 FROM vEmploye AS Emp
@@ -24,6 +38,7 @@
         $courriel;
         $numTel;
         $typeId;
+        $entreprise;
         $content = "";
         $id = 0;
         $role = "";
@@ -38,10 +53,11 @@
                 //ajouter la propriété entreprise
                 $courriel = $utilisateur->getCourrielScolaire();//getCourrielPerso();
                 $numTel = $utilisateur->getNumTelPerso();
+                //$entreprise = $utilisateur->getEntreprise();
             }
-            else{
+            else if(get_class($utilisateur) == "ProfilEmploye"){
                 $courriel = $utilisateur->getCourrielEntreprise();
-                $numTel = $utilisateur->getNumTelEntreprise();  
+                $numTel = $utilisateur->getNumTelEntreprise();
             }
             
             $content = $content.
@@ -82,7 +98,8 @@
             </thead>
 
             <tbody>'
-                .AfficherUtilisateur($stagiaires).
+                .AfficherUtilisateur($stagiairesAvecStage).
+                 AfficherUtilisateur($stagiairesSansStage).
                  AfficherUtilisateur($employes).
             '</tbody>
         </table>
