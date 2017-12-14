@@ -12,12 +12,8 @@
         return "stage Supprimé";
     }
 
-
     if(isset($_REQUEST["index"]))
         $stage = $stages[$_REQUEST["index"]];
-
-   // var_dump($stage->getNomStagiaire());
-
 
     if(isset($_REQUEST["post"]))
         DeleteStage($bdd);
@@ -31,58 +27,6 @@
 
         <div class="separateur">
             <h3>Informations du Stage</h3>
-        </div>
-        <br>
-        <div class="champ">
-            <p class="label labelForInput">Nom d\'entreprise </p>
-            <p class = "value"> ' . $stage->getNomEntreprise() .'</p>
-        </div>
-        <br>
-        <div class="champ">
-            <p class="label labelForInput">Nom de l\'enseignant</p>
-            <p class = "value">' . $stage->getNomEnseignant() .'</p>
-        </div>
-        <br>
-        <div class="champ">
-            <p class="label labelForInput">Nom du superviseur</p>
-            <p class = "value">'.$stage->getNomSuperviseur().'</p>
-        </div>
-        <br> 
-        <div class="champ">
-            <p class="label labelForInput">Horaire de travail</p>
-            <p class = "value">' . $stage->getHoraireTravail() . '</p>
-        </div>
-        <br>
-        <div class="champ">
-            <p class="label labelForInput">Salaire horaire</p>
-            <p class = "value">' . $stage->getSalaireHoraire() . '</p>
-        </div>
-        <br>
-        <div class="champ">
-            <p class="label labelForInput">Nombre d\'heures par semaine</p> 
-            <p class = "value">' . $stage->getNbHeureSemaine() . '</p> 
-        </div>
-        <br>
-        <div class="champ">
-            <p class="label labelForInput">Compétences recherchées:</p>
-            <p class = "value">' . $stage->getCompetenceRecherche() . '</p>
-        </div>
-        <br>
-        <div class="champ">
-            <p class="label labelForInput">Description du stage</p>
-            <p class = "value">' . $stage->getDescriptionStage() . '</p>
-        </div>
-        <br>
-        <div class="champ">
-            <p class="label labelForInput">Date de début</p>
-            <p class = "value">' . $stage->getDateDebut() . '</p>
-        </div>
-        <br>
-        <div class="champ">
-            <p class="label labelForInput">Date de fin</p>
-            <p class = "value">' . $stage->getDateFin() . '</p>
-        </div>
-        <br>
         </div>
 
         <div class="blocInfo infoProfil">
@@ -141,12 +85,8 @@
     <br/><br/>
     
     <input class="bouton" type="button" style="width: 100px;" value="   Retour   " onclick="Requete(AfficherPage, \'../PHP/TBNavigation.php?nomMenu=ListeStage.php\')"/>
-    <input class="bouton" type="button" style="width: 100px;" value="Supprimer" onclick= "Requete(ExecuteQuery, \'../PHP/TBNavigation.php?nomMenu=InfoStage.php&idStage='.$stages[$_REQUEST["index"]]->getIdStage().'&post=true);Requete(AfficherPage, \'../PHP/TBNavigation.php?idstage='.$stages[$_REQUEST["index"]]->getIdStage().'&nomMenu=ListeStage.php\'); "/>
+    <input class="bouton" type="button" style="width: 100px;" value="Supprimer" onclick="Requete(ExecuteQuery, \'../PHP/TBNavigation.php?nomMenu=InfoStage.php&idStage='.$stages[$_REQUEST["index"]]->getIdStage().'&post=true);Requete(AfficherPage, \'../PHP/TBNavigation.php?idstage='.$stages[$_REQUEST["index"]]->getIdStage().'&nomMenu=ListeStage.php\'); "/>';
 
-        return $content;
-
-    }
-
- 
+    return $content;
 
 ?>
