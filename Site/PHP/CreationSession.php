@@ -1,4 +1,31 @@
 <?php
+
+    function createYear()
+    {
+        $choix = '<option value="default">Choisir une année</option>';
+        for($i = 2017; $i <= 2017+25; $i++)
+        {
+            $choix = $choix . '<option value="'.$i.'">'.$i.'</option>';
+        }
+
+        return '<select name="dateSelected" class="value" onchange="Post(setLimitDateSession, \'../PHP/TBNavigation.php?nomMenu=CreationSession.php&limit\')">'.$choix.'</select>';
+    }
+
+    if(isset($_REQUEST['limit']))
+        return createLimitYear();
+
+    function createLimitYear()
+    {
+        $champs = json_decode($_POST["tabChamp"]);
+        $date = array();
+
+        foreach($champs as $champ){
+            $date[$champ->nom] = $champ->value;
+        }
+        return $date['dateSelected'];
+
+    }
+
     $content = 
     '
     <article class="stagiaire">
@@ -13,7 +40,8 @@
         <div class="blocInfo infoProfil">
             <div class="champ">
                 <p class="label labelForInput">Année</p>
-                <input class="value" type="text">
+                '.createYear().'
+
             </div>
             <div class="champ">
                 <p class="label labelForInput">Cahier Entreprise</p>
@@ -43,31 +71,31 @@
                 <h4>Évaluation Mi-Stage</h4>
                 <div class="champ">
                     <p class="label labelForInput">Date Début</p>
-                    <input class="value" type="date">
+                    <input id="MiStageDebut" class="value" type="date">
                 </div>
                 <div class="champ">
                     <p class="label labelForInput">Date Limite</p>
-                    <input class="value" type="date">
+                    <input id="MiStageLimit" class="value" type="date">
                 </div>
                 
                 <h4>Évaluation Finale</h4>
                 <div class="champ">
                     <p class="label labelForInput">Date Début</p>
-                    <input class="value" type="date">
+                    <input id="EvalFinalDebut" class="value" type="date">
                 </div>
                 <div class="champ">
                     <p class="label labelForInput">Date Limite</p>
-                    <input class="value" type="date">
+                    <input id="EvalFinalLimit" class="value" type="date">
                 </div>
                 
                 <h4>Évaluation de la Formation</h4>
                 <div class="champ">
                     <p class="label labelForInput">Date Début</p>
-                    <input class="value" type="date">
+                    <input id="EvalFormDebut" class="value" type="date">
                 </div>
                 <div class="champ">
                     <p class="label labelForInput">Date Limite</p>
-                    <input class="value" type="date">
+                    <input id="EvalFormLimit" class="value" type="date">
                 </div>
                 
                 <br/><br/>
@@ -83,31 +111,31 @@
                 <h4>Rapport Janvier</h4>
                 <div class="champ">
                     <p class="label labelForInput">Date Début</p>
-                    <input class="value" type="date">
+                    <input id="JanvierDebut" class="value" type="date">
                 </div>
                 <div class="champ">
                     <p class="label labelForInput">Date Limite</p>
-                    <input class="value" type="date">
+                    <input id="JanvierLimit" class="value" type="date" >
                 </div>
                 
                 <h4>Rapport Février</h4>
                 <div class="champ">
                     <p class="label labelForInput">Date Début</p>
-                    <input class="value" type="date">
+                    <input id="FevrierDebut" class="value" type="date">
                 </div>
                 <div class="champ">
                     <p class="label labelForInput">Date Limite</p>
-                    <input class="value" type="date">
+                    <input id="FevrierLimit" class="value" type="date">
                 </div>
                 
                 <h4>Rapport Mars</h4>
                 <div class="champ">
                     <p class="label labelForInput">Date Début</p>
-                    <input class="value" type="date">
+                    <input id="MarsDebut" class="value" type="date">
                 </div>
                 <div class="champ">
                     <p class="label labelForInput">Date Limite</p>
-                    <input class="value" type="date">
+                    <input id="MarsLimit" class="value" type="date">
                 </div>
                 
                 <br/><br/>

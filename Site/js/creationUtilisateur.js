@@ -1,15 +1,15 @@
  function changeUserType(userType){
 
-    switch(userType.value)
-    {
-        case "2":  
-            afficherChampsEmployeEntreprise();
-            break;
-        case "3": afficherChampsEnseignant();
-            break;
-        case "5": afficherChampsStagiaire();
-            break;
-    }
+	switch(userType.value)
+	{
+		case "2":  
+			afficherChampsEmployeEntreprise();
+			break;
+		case "3": afficherChampsEnseignant();
+			break;
+		case "5": afficherChampsStagiaire();
+			break;
+	}
 
   }
 
@@ -28,7 +28,7 @@
         $("#checkResponsable").show();
         $("#checkSuperviseur").show();
 
-    }
+	}
 
     function afficherChampsEnseignant()
     {
@@ -64,19 +64,19 @@
         }
     }
 
-    function checkResponsable(element)
-    {
-      if (element.checked)
-        document.getElementById("chkResponsable").value="true";
-      else 
-        document.getElementById("chkResponsable").value="false";
-    }
+	function checkResponsable(element)
+	{
+	  if (element.checked)
+		document.getElementById("chkResponsable").value="true";
+	  else 
+		document.getElementById("chkResponsable").value="false";
+	}
 
-    function checkSuperviseur(element)
-    {
-      if (element.checked)
-        document.getElementById("chkSuperviseur").value="true";
-      else 
-        document.getElementById("chkSuperviseur").value="false";
+	function checkSuperviseur(element)
+	{
+	  if (element.checked)
+		document.getElementById("chkSuperviseur").value="true";
+	  else 
+		document.getElementById("chkSuperviseur").value="false";
 
-    }
+	}
