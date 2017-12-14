@@ -62,18 +62,18 @@
                 }
             }
             else{
-                //le bouton de supression de l\'utilisateur ne doit pas être affiché si l\'utilisateur consulte son propre profil
-                $idUtilisateur = $_REQUEST["id"];
                 $content = $content.
-                '<h2>Profil de '.$profil->getPrenom().' '.$profil->getNom().' '.$role.'</h2>
-                <input class="bouton" type="button" style="width: 100px;" value="Supprimer" onclick= "Requete(testerRetourSupressionUtilisateur, \'../PHP/TBNavigation.php?nomMenu=profil.php&post=true&id=' . $idUtilisateur. '\'); "/>
-
-                ';
+                '<h2>Profil de '.$profil->getPrenom().' '.$profil->getNom().' '.$role.'</h2>';
             }
 
             if($_SESSION['IdRole'] == 1){
                 $content = $content.
                 '<input class="bouton" type="button" value="Modifier le profil" onclick="Requete(AfficherPage, \'../PHP/TBNavigation.php?id='.$profil->getId().'&nomMenu=ModifProfil.php\')"/>';
+                
+                if($_SESSION["idConnecte"] != $profil->getId()){
+                    $content = $content.
+                    '<input class="bouton" type="button" style="width: 100px;" value="Supprimer" onclick= "Requete(testerRetourSupressionUtilisateur, \'../PHP/TBNavigation.php?nomMenu=profil.php&post=true&id=' . $_REQUEST["id"]. '\'); "/>';
+                }   
             }
 
             $content = $content.

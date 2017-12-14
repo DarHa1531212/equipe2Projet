@@ -751,28 +751,27 @@
             <div class="blocInfo infoProfil">
                     <div class="champ">
                         <p class="label labelForInput">Prenom :</p>
-                        <input type="text" value="'.$this->getPrenom().'" class="value" disabled/>
+                        <input type="text" value="'.$this->getPrenom().'" class="value" disabled onblur="Required(this)" required/>
                     </div>
 
                     <div class="champ">
                         <p class="label labelForInput">Nom :</p>
-                        <input type="text" value="'.$this->getNom().'" class="value" disabled/>
+                        <input type="text" value="'.$this->getNom().'" class="value" disabled onblur="Required(this)" required/>
                     </div>
 
                     <div class="champ">
                         <p class="label labelForInput">Entreprise :</p>
-                        <input type="text" value="'.$this->getEntreprise().'" class="value" disabled/>
+                        <input type="text" value="'.$this->getEntreprise().'" class="value" disabled onblur="Required(this)" required/>
                     </div>
 
                     <div class="champ">
                         <p class="label labelForInput">Courriel :</p>
-                        <input type="email" value="'.$this->getCourrielEntreprise().'" id="courrielEntreprise" name="courrielEntreprise" class="value" pattern="'.$this->regxEmail.'" onblur="VerifierRegex(this)"/>
-
+                        <input type="email" value="'.$this->getCourrielEntreprise().'" id="courrielEntreprise" name="courrielEntreprise" class="value" pattern="'.$this->regxEmail.'" onblur="Required(this) required; VerifierRegex(this)"/>
                     </div>
 
                     <div class="champ">
                         <p class="label labelForInput">No. Téléphone :</p>
-                        <input type="text" value="'.$this->getNumTelEntreprise().'" id="numEntreprise" name="numEntreprise" class="value" onblur="VerifierRegex(this)" pattern="'.$this->regxNumTel.'"/>
+                        <input type="text" value="'.$this->getNumTelEntreprise().'" id="numEntreprise" name="numEntreprise" class="value" onblur="Required(this); VerifierRegex(this)" pattern="'.$this->regxNumTel.'" required/>
                         <img class="info" src="../Images/info.png" title="Le numéro de téléphone doit
 avoir ce format - (xxx) xxx-xxxx"/>
                     </div>
@@ -1033,21 +1032,21 @@ avoir ce format - (xxx) xxx-xxxx"/>
                 $entreprise[$champ->nom] = $champ->value;
             }
             
-            $bdd->Request(" UPDATE tblEntreprise SET CourrielEntreprise = :courriel, Nom = :nom, NumTel = :numTel,
-                            NumCivique = :numCivique, Rue = :rue, Ville = :ville, Province = :province, CodePostal = :codePostal,
-                            Logo = :logo WHERE Id = :id",
-                            array(  
-                            "courriel"=>$entreprise["courrielEntreprise"],
-                            "nom"=>$entreprise["nom"],
-                            "numTel"=>$entreprise["numEntreprise"],
-                            "numCivique"=>$entreprise["noCivique"],
-                            "rue"=>$entreprise["rue"],
-                            "ville"=>$entreprise["ville"],
-                            "province"=>$entreprise["province"],
-                            "codePostal"=>$entreprise["codePostal"],
-                            "logo"=>$entreprise["logo"],
-                            "id"=>$this->Id),
-                            "stdClass");
+            return $bdd->Request("  UPDATE tblEntreprise SET CourrielEntreprise = :courriel, Nom = :nom, NumTel = :numTel,
+                                    NumCivique = :numCivique, Rue = :rue, Ville = :ville, Province = :province, CodePostal = :codePostal,
+                                    Logo = :logo WHERE Id = :id",
+                                    array(  
+                                    "courriel"=>$entreprise["courrielEntreprise"],
+                                    "nom"=>$entreprise["nom"],
+                                    "numTel"=>$entreprise["numEntreprise"],
+                                    "numCivique"=>$entreprise["noCivique"],
+                                    "rue"=>$entreprise["rue"],
+                                    "ville"=>$entreprise["ville"],
+                                    "province"=>$entreprise["province"],
+                                    "codePostal"=>$entreprise["codePostal"],
+                                    "logo"=>$entreprise["logo"],
+                                    "id"=>$this->Id),
+                                    "stdClass");
         }
         
         public function getId(){
