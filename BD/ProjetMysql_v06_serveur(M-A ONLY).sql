@@ -224,8 +224,9 @@ CREATE TABLE tblStage(
 	Id			 			INT				AUTO_INCREMENT,
 	DescriptionStage		VARCHAR(1000)	NULL,
 	CompetenceRecherche		VARCHAR(1000)	NULL,
+	RaisonSociale			VARCHAR(1000)	NULL,
 	NbHeureSemaine			INT				NULL,
-	SalaireHoraire			DECIMAL			NULL,
+	SalaireHoraire			VARCHAR(20)		NULL,
 	DateDebut				DATE			NULL,
 	DateFin					DATE			NULL,
 	LettreEntenteVide		VARCHAR(255)	NULL,
@@ -240,7 +241,7 @@ CREATE TABLE tblStage(
 );
 
 DROP VIEW IF EXISTS vStage;
-CREATE VIEW vStage AS SELECT Id,DescriptionStage,CompetenceRecherche,NbHeureSemaine,
+CREATE VIEW vStage AS SELECT Id,RaisonSociale,DescriptionStage,CompetenceRecherche,NbHeureSemaine,
 SalaireHoraire,DateDebut,DateFin,LettreEntenteVide,LettreEntenteSignee,OffreStage,IdSession,CONCAT(IdResponsable,IdSuperviseur,IdStagiaire,IdEnseignant,DescriptionStage,CompetenceRecherche,NbHeureSemaine,
 SalaireHoraire,DateDebut,DateFin,LettreEntenteVide,LettreEntenteSignee,OffreStage)
 AS tag,IdResponsable,IdSuperviseur,IdStagiaire,IdEnseignant FROM tblStage;

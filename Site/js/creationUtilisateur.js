@@ -24,7 +24,6 @@
         $("#posteEntreprise").show();
         $("#noTelEntreprise").show();
         $("#posteTelEntreprise").show();
-
     }
 
     function afficherChampsEnseignant()
@@ -51,10 +50,10 @@
         {
             alert ("Un utilisateur avec ce courriel existe déjà, veuillez utiliser un courriel différent");
         }
-        else if (data == 1)
+        else if (data.substr(data.length - 1) == 1)
         {
             //Mettre tous les champs à vide.
-            alert ("L'utilisaateur à été ajouté");
+            alert ("L'utilisateur à été ajouté");
             Requete(AfficherPage, '../PHP/TBNavigation.php?nomMenu=CreationUtilisateur.php');
         }
     }

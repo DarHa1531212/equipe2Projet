@@ -2,13 +2,10 @@
      if(isset($_REQUEST["post"]))
         {
             $champs = json_decode($_POST["tabChamp"]);
-         //   var_dump($champs);
             $utilisateurs = array();
             foreach($champs as $champ){
                 $utilisateurs[$champ->nom] = $champ->value;
             }
-         //   var_dump($utilisateurs);
-               // var_dump($utilisateurs["userType"]);
 
             switch ($utilisateurs["userType"])
             {
@@ -26,7 +23,14 @@
         else {
              $content =
             '
-
+            <script>
+                function Submit(){
+                    if(CheckAll()){
+                        Post(testerRetour , \'../PHP/TBNavigation.php?nomMenu=CreationUtilisateur.php&post\')
+                    }
+                }
+            </script>
+            
             <article class="stagiaire">
                 <div id="modifStagiaire" >
                      <p class="label labelForInput">Selectionnez le type d\'utilisateur</p>
@@ -38,19 +42,19 @@
                 <div class = "champ" id = "Prenom">
                     <br>
                     <p class="label labelForInput">Prenom :</p>
-                    <input type="text" value="" id="prenom" class="value" name = "prenom" onblur="VerifierRegex(this);" pattern="'.$regxNom.'"/>
+                    <input type="text" value="" id="prenom" class="value" name = "prenom" onblur="Required(this); VerifierRegex(this);" pattern="'.$regxNom.'" required/>
                 </div>
 
                <div class = "champ" id = "Nom">
                 <br>
                 <p class="label labelForInput">Nom :</p>
-                <input type="text" value="" class="value" name = "nom" id="nom" onblur="VerifierRegex(this);" pattern="'.$regxNom.'"/>
+                <input type="text" value="" class="value" name = "nom" id="nom" onblur="Required(this); VerifierRegex(this);" pattern="'.$regxNom.'" required/>
                 </div>
 
                 <div class = "champ" id = "courriel">
                  <br>
                 <p class="label labelForInput">Courriel :</p>
-                <input type="text" value="" class="value" name = "courriel" id="Courriel" onblur="VerifierRegex(this);" pattern="'.$regxEmail.'"/>
+                <input type="text" value="" class="value" name = "courriel" id="Courriel" onblur="Required(this); VerifierRegex(this);" pattern="'.$regxEmail.'" required/>
                 </div>
                     <div class="champ" id = "dropDownEntreprise">
                         <p class="label labelForInput">Entreprise</p>
@@ -61,7 +65,7 @@
                 <div class = "champ" id = "noTelEntreprise">
                 <br>
                 <p class="label labelForInput">Numero de telephone entreprise :</p>
-                <input type="text" value="" class="value" name = "noTelEntreprise" id="numTelEntreprise" onblur="VerifierRegex(this);" pattern="'.$regxNumTel.'"/>
+                <input type="text" value="" class="value" name = "noTelEntreprise" id="numTelEntreprise" onblur="Required(this); VerifierRegex(this);" pattern="'.$regxNumTel.'" required/>
                 </div>
 
                 <div class = "champ" id = "posteTelEntreprise">
@@ -87,10 +91,8 @@
                 <input type="checkbox" name="Responsable" id = "chkResponsable" class = "value" value="Responsable" onchange = "checkResponsable(this);" name = "false">L\'employé est un responsable<br>
                 </div>
 
-
-
                 <br>
-                <input type="button" id="Save" class="bouton" value="Sauvegarder" onclick ="Post(testerRetour , \'../PHP/TBNavigation.php?nomMenu=CreationUtilisateur.php&post\')" />     
+                <input type="button" id="Save" class="bouton" value="Sauvegarder" onclick ="Submit()" />     
                 <input type="button" id="Cancel" class="bouton" value="Retour" onclick="Requete(AfficherPage, \'../PHP/TBNavigation.php?nomMenu=ListeUtilisateur.php\')" />            
             </div>
             </article>';
@@ -101,8 +103,6 @@
 
     function creationStagiaire($bdd, $utilisateurs)
     {
-
-        
         if (validerCourrielUnique($bdd, $utilisateurs))
             {
                 insertionTblUtilisateur($bdd, $utilisateurs);
@@ -130,7 +130,6 @@
         {
                 echo '-1';            
         }
-        
     }
 
     function creationEmploye($bdd, $utilisateurs)
@@ -147,7 +146,7 @@
 
             foreach($result as $resultat){
                $idUtilisateur =  $resultat->Id;
-               var_dump($idUtilisateur);
+               //var_dump($idUtilisateur);
             }
 
             $bdd->Request(" INSERT into tblEmploye (CourrielEntreprise, Nom, Prenom, NumTelEntreprise, Poste, IdEntreprise, IdUtilisateur)

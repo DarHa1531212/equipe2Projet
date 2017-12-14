@@ -19,7 +19,7 @@ function DisableSalaire(rad){
     {
         salaire.disabled = true;
         salaire.style.backgroundColor = "#dddddd";
-        salaire.value = "";
+        salaire.value = "0,00";
     }
 }
 
@@ -63,7 +63,7 @@ function PopulateTable(data){
     }
         
     
-    $("table").empty();
-    $("table").append(option);
+    $("table>tbody").empty();
+    $("table>tbody").append(option);
 }
 
