@@ -6,6 +6,9 @@
 
     if(isset($_REQUEST['create']))
         NouvelleEntree($bdd, $idStagiaire);
+
+    if(isset($_REQUEST['delete']))
+        DeleteEntree($bdd, $_REQUEST['idEntree']);
     
     function DateDifference($date_1 , $date_2 , $differenceFormat = '%a' ){
         $datetime1 = date_create($date_1);
@@ -50,7 +53,17 @@
             $document = $entree->Fichier;
             $id = $entree->Id;
 
-            $div = $div.'<div class="entree"><h2>'.$dates.'</h2><div class="crdJournal"><span class="crdJournalM" onclick="modificationJournal = true; Requete(AfficherPage, \'../PHP/TBNavigation.php?id='.$idStagiaire.'&nomMenu=JournalBord.php\&nbEntree=5&ajoutModif=true&idEntree='.$id.'\');">Modifier</span><span>&nbsp;|&nbsp;</span><span class="crdJournalD" onclick="if(ConfirmDelete()){UploadFile(ExecuteQuery, \'../PHP/TBNavigation.php?id='.$idStagiaire.'&nomMenu=JournalBord.php&delete=true&idEntree='.$id.'\'); Requete(AfficherPage, \'../PHP/TBNavigation.php?id='.$idStagiaire.'&nomMenu=JournalBord.php&nbEntree=5\');}">Supprimer</span></div><p>' .LineBreak($texte). '</p><p>' . PieceJointe($document) . '</p></div>';
+            $div = $div.
+            '<div class="entree">
+                <h2>'.$dates.'</h2>
+                <div class="crdJournal">
+                    <span class="crdJournalM" onclick="modificationJournal = true; Requete(AfficherPage, \'../PHP/TBNavigation.php?id='.$idStagiaire.'&nomMenu=JournalBord.php\&nbEntree=5&idEntree='.$id.'\');">Modifier</span>
+                    <span>&nbsp;|&nbsp;</span>
+                    <span class="crdJournalD" onclick="Delete()">Supprimer</span>
+                    </div>
+                        <p>' .LineBreak($texte). '</p>
+                        <p>' . PieceJointe($document) . '</p>
+                    </div>';
         }
         
         if(isset($_REQUEST['nbEntree']))
@@ -136,6 +149,11 @@
             if(CheckAll()){
                 Post(AfficherPage, \'../PHP/TBNavigation.php?id='.$id.'&nomMenu=JournalBord.php&nbEntree=5&create\');
             }
+        }
+        
+        function Delete(){
+            Requete(ExecuteQuery, \'../PHP/TBNavigation.php?id='.$idStagiaire.'&nomMenu=JournalBord.php&idEntree='.$id.'&delete\');
+            Requete(AfficherPage, \'../PHP/TBNavigation.php?id='.$id.'&nomMenu=JournalBord.php&nbEntree=5\');
         }
     </script>
     
