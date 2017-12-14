@@ -60,7 +60,7 @@ function Erreur(etat, champ){
         bouton.disabled = false;
     }
     else{
-        $(champ).css("background-color", "red");   
+        $(champ).css("background-color", "#ff8080");   
         bouton.disabled = true;
     } 
 }

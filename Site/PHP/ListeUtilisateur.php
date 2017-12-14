@@ -51,7 +51,7 @@
                 //boucler la liste d'utilisateur
                 //trouver l'id correspondant
                 //ajouter la propriété entreprise
-                $courriel = $utilisateur->getCourrielPerso();
+                $courriel = $utilisateur->getCourrielScolaire();//getCourrielPerso();
                 $numTel = $utilisateur->getNumTelPerso();
                 //$entreprise = $utilisateur->getEntreprise();
             }

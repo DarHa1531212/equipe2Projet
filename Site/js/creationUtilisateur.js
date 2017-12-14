@@ -17,6 +17,7 @@
     {
       // alert ("afficher champs employe");
         $(".champ").hide();
+        $("#selectTypeUser").show();
         $("#Prenom").show();
         $("#Nom").show();
         $("#courriel").show();
@@ -24,11 +25,15 @@
         $("#posteEntreprise").show();
         $("#noTelEntreprise").show();
         $("#posteTelEntreprise").show();
+        $("#checkResponsable").show();
+        $("#checkSuperviseur").show();
+
     }
 
     function afficherChampsEnseignant()
     {
          $(".champ").hide();
+         $("#selectTypeUser").show();
          $("#Prenom").show();
          $("#Nom").show();
          $("#courriel").show();
@@ -37,6 +42,7 @@
     function afficherChampsStagiaire()
     {
          $(".champ").hide();
+         $("#selectTypeUser").show();
          $("#Prenom").show();
          $("#Nom").show();
          $("#courriel").show();
