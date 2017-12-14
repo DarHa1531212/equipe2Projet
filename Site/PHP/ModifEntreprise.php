@@ -2,9 +2,8 @@
 
 require 'InfoEntreprise.php';
 
-if(isset($_REQUEST["post"])){
+if(isset($_REQUEST["post"]))
     return $entreprise->Update($bdd, json_decode($_POST["tabChamp"]));
-}
 
 $content =
 '
@@ -13,7 +12,7 @@ $content =
         if(CheckAll()){
             alert("L\'entreprise à bien été modifier.");
             Post(ExecuteQuery, \'../PHP/TBNavigation.php?id='.$_REQUEST["id"].'&nomMenu=ModifEntreprise.php&post\');
-            Requete(AfficherPage, \'../PHP/TBNavigation.php?idEmploye='.$id.'&nomMenu=ListeEntreprise.php\');
+            Requete(AfficherPage, \'../PHP/TBNavigation.php?nomMenu=ListeEntreprise.php\');
         }
     }
 </script>

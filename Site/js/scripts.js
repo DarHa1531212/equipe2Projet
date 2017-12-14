@@ -19,7 +19,7 @@ function DisableSalaire(rad){
     {
         salaire.disabled = true;
         salaire.style.backgroundColor = "#dddddd";
-        salaire.value = "";
+        salaire.value = "0,00";
     }
 }
 

@@ -5,7 +5,6 @@
     if(isset($_REQUEST["id"]))
         $entreprise = $entreprises[$_REQUEST["id"]];
     
-
     $content =
     '
     <article class="stagiaire">
