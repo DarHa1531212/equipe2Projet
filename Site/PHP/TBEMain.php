@@ -1,13 +1,27 @@
 <?php
     $content = "";
 
+    function definirCouleur($Statut)//permet de definir la couleur des statut d'un evaluation
+    {
+        switch($Statut)//return la couleur qui sera ajouter en CSS
+        {
+            case 4:       return 'rgba(72, 229, 88, 1)'; //Green - Valide
+            break;
+            case 2:       return 'rgba(237, 7, 7, 1)'; //red - En retard
+            break;
+            case 0:       return 'rgba(248, 181, 99, 1)'; //Orange - Non Disponible
+            break;
+            case 3:       return 'rgba(255, 253, 112, 1)'; //Jaune - Soumis
+            break;
+            case 1:       return 'rgba(51, 43, 218, 1)'; //Bleu - Pas débuté
+            break;
+        }
+    }
+
+
     //met a jour les statut des evaluations en fonction des dates
     function gestionStatutEvaluation($evaluation, $dateDebut, $dateLimite, $bdd)
-    {
-       // $query3 = $bdd->prepare("update tblEvaluation set Statut=:Statut where Id=:IdEvaluation;");
-
-       
-
+    {  
         if(date("Y-m-d") > $dateLimite) 
         {
             if(($evaluation->Statut != 3) && ($evaluation->Statut != 4))
@@ -19,24 +33,18 @@
                 $evaluation->Statut = 2;
             }
         }
-        else if( date("Y-m-d") < $dateDebut)
-        {
-            //affichage de l'évaluation : le statut est supposé etre a pas accéssible
-        }
-        else //intervalle de l'évaluation
-        {
+        else if((date("Y-m-d") > $dateDebut)&&( date("Y-m-d") < $dateLimite))//intervalle de l'évaluation
+        { 
             if( ($evaluation->Statut != 3) && ($evaluation->Statut != 4))
             {
                 //l'evaluation n'est ni soumise, ni validée
                 //update du statut de l'evaluation : il passe a pas débuté
-                $bdd->Request("update tblEvaluation set Statut=:Statut where Id=:IdEvaluation;",
-                                array('IdEvaluation'=> $evaluation->IdEvaluation, 'Statut'=>1),
-                                "stdClass");
-
-                 $evaluation->Statut = 1;
+                $bdd->Request(" update tblEvaluation set Statut=:Statut where Id=:IdEvaluation;",
+                                array('Statut'=>1, 'IdEvaluation'=> $evaluation->IdEvaluation), "stdClass");
+                $evaluation->Statut = 1;   
             }
         }
-
+        
     }
 
     //Vérifie si les évaluations précédentes sont complétées pour pouvoir appuyer sur la suivante.
@@ -63,32 +71,7 @@
             {
                 gestionStatutEvaluation($evaluation, $profil->FormationDebut, $profil->FormationLimite, $bdd);
             }
-            /*if(date("Y-m-d") > $evaluation->dateFin) 
-            {
-                if(($evaluation->statut != 3) && ($evaluation->statut != 4))
-                {
-                    //l'evaluation n'est ni soumise, ni validée
-                    //update du statut de l'evaluation : il passe a en retard
-                    $query3->execute(array('Statut'=>2, 'IdEvaluation'=> $evaluation->id));
-                    $evaluation->statut = 2;
-                }
-            }
-            else if( date("Y-m-d") < $evaluation->dateDebut)
-            {
-                //affichage de l'évaluation : le statut est supposé etre a pas accéssible
-            }
-            else //intervalle de l'évaluation
-            {
-                if( ($evaluation->statut != 3) && ($evaluation->statut != 4))
-                {
-                    //l'evaluation n'est ni soumise, ni validée
-                    //update du statut de l'evaluation : il passe a pas débuté
-                    $query3->execute(array('Statut'=>1, 'IdEvaluation'=> $evaluation->id));
-                     $evaluation->statut = 1;   
-                }
-            }*/
         }
-
         
         if($tblEvaluation[0]->Statut != '0')//le statut est different de pas accéssible
         {
@@ -102,13 +85,13 @@
 
         $eval1 = $div.
             '<td>'.$tblEvaluation[0]->TitreTypeEvaluation.'</td>
-            <td>'.$listeStatut[$tblEvaluation[0]->Statut].'</td>
+            <td> <span class="statutColor" style="background-color:' . definirCouleur($tblEvaluation[0]->Statut) . ';">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>'.$listeStatut[$tblEvaluation[0]->Statut].'</td>
             <td>'.$profil->MiStageDebut.'</td>
             <td>'.$profil->MiStageLimite.'</td>
             <td>'.$tblEvaluation[0]->DateComplétée.'</td>
         </tr>';
         
-        if(($tblEvaluation[1]->Statut != '0')&&(($tblEvaluation[0]->Statut == '3')||($tblEvaluation[0]->Statut == '4')))
+        if(($tblEvaluation[1]->Statut != '0')&&(($tblEvaluation[0]->Statut == '3')||($tblEvaluation[0]->Statut == '4')))//statut different de pas accéssible et est soumis ou valide
         {
             $div = '<tr class="itemHover" onclick="Requete(AfficherPage, \'../PHP/TBNavigation.php?id='.$profil->Id.'&nomMenu=Evaluation.php&idStage='.$tblEvaluation[1]->IdStage.'&idEvaluation='.$tblEvaluation[1]->IdEvaluation.'&typeEval=2\')">';
         }
@@ -119,7 +102,7 @@
         
         $eval2 = $div.
             '<td>'.$tblEvaluation[1]->TitreTypeEvaluation.'</td>
-            <td>'.$listeStatut[$tblEvaluation[1]->Statut].'</td>
+            <td> <span class="statutColor" style="background-color:' . definirCouleur($tblEvaluation[1]->Statut) . ';">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>'.$listeStatut[$tblEvaluation[1]->Statut].'</td>
             <td>'.$profil->FinaleDebut.'</td>
             <td>'.$profil->FinaleLimite.'</td>
             <td>'.$tblEvaluation[1]->DateComplétée.'</td>
@@ -133,19 +116,17 @@
         {
             $div = '<tr>';
         }
-        //$di1v = '<tr class="itemHover" onclick="Execute(1, \'../PHP/TBNavigation.php?idStagiaire='.$profil["Id"].'&nomMenu=Eval\', \'&idStage=\', '.$tblEvaluation[2]->idStage.', \'&idEvaluation=\', '.$tblEvaluation[2]->id.', \'&typeEval=3\')">';
+
         $eval3 = $div.
             '<td>'.$tblEvaluation[2]->TitreTypeEvaluation.'</td>
-            <td>'.$listeStatut[$tblEvaluation[2]->Statut].'</td>
+            <td> <span class="statutColor" style="background-color:' . definirCouleur($tblEvaluation[2]->Statut) . ';">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>'.$listeStatut[$tblEvaluation[2]->Statut].'</td>
             <td>'.$profil->FormationDebut.'</td>
             <td>'.$profil->FormationLimite.'</td>
             <td>'.$tblEvaluation[2]->DateComplétée.'</td>
         </tr>';
 
-        
         $div = $eval1.$eval2.$eval3;
         
-
         return $div;
     }
 
@@ -161,7 +142,7 @@
         <div class="infoStagiaire">
             <h2>'.$profil->Prenom.' '.$profil->Nom.'</h2>
             <input class="bouton" type="button" value="Afficher le profil" onclick="Requete(AfficherPage, \'../PHP/TBNavigation.php?id='.$profil->Id.'&nomMenu=Profil.php\')"/>
-            <h3>'.$profil->NumTel.'</h3>
+            <h3>'.$profil->NumTelPerso.'</h3>
         </div>
 
         <div class="blocInfo itemHover">

@@ -135,6 +135,7 @@
         public function __construct($bdd, $id){
             parent::__construct($bdd, $id);
             $this->SelectCategories($bdd, $id);
+            $this->SelectAllQuestions($bdd,$id);
         }
         
         //Sélectionne toutes les catégories pour l'évaluation.
@@ -151,61 +152,6 @@
 
             foreach($categories as $categorie){
                 array_push($this->categories, new CategorieQuestion($categorie->IdCategorie, $categorie->TitreCategorie, $categorie->Lettre, $categorie->descriptionCategorie));
-            }
-        }
-        
-        
-
-         protected function SelectQuestionsByCategories($bdd, $idEvaluation, $idCategorie)
-        {
-           
-            
-            $questionsDeLaCategorie = array();
-
-             $questions = $bdd->Request('SELECT DISTINCT(Id), Q.Texte
-                                    FROM vQuestion AS Q
-                                    JOIN vEvaluationQuestionReponse AS EQR
-                                    ON EQR.IdQuestion = Q.Id
-                                    WHERE EQR.IdEvaluation = :idEvaluation AND Q.IdCategorieQuestion = :idCategorieQuestion',
-                                            array('idEvaluation'=>$idEvaluation,'idCategorieQuestion'=>$idCategorie),
-                                            "stdClass");
-
-            /*$query = $bdd->prepare('SELECT DISTINCT(Id), Q.Texte
-                                    FROM vQuestion AS Q
-                                    JOIN vEvaluationQuestionReponse AS EQR
-                                    ON EQR.IdQuestion = Q.Id
-                                    WHERE EQR.IdEvaluation = :idEvaluation AND Q.IdCategorieQuestion = :idCategorieQuestion');
-            
-            $query->execute(array('idEvaluation'=>$idEvaluation, 'idCategorieQuestion'=>$idCategorie));*/
-            
-            //$questions = $query->fetchAll();
-            
-            foreach($questions as $question)
-            {
-                array_push($questionsDeLaCategorie, new Question($question->Id, $question->Texte));
-            }
-
-            return $questionsDeLaCategorie;
-        }
-
-
-        protected function SelectAllQuestions($bdd, $idEvaluation)
-        {
-            unset($this->questions);
-
-            $this->questions = array();
-
-             $questions = $bdd->Request('SELECT DISTINCT(Id), Q.Texte
-                                    FROM vQuestion AS Q
-                                    JOIN vEvaluationQuestionReponse AS EQR
-                                    ON EQR.IdQuestion = Q.Id
-                                    WHERE EQR.IdEvaluation = :idEvaluation',
-                                            array('idEvaluation'=>$idEvaluation),
-                                            "stdClass");
-
-            foreach($questions as $question)
-            {
-                array_push($this->questions, new Question($question->Id, $question->Texte));
             }
         }
         
@@ -263,8 +209,7 @@
             return $content;
         }
 
-
-        
+     
         //Affiche les réponses.
         protected function AfficheReponse($bdd, $question)
         {
@@ -289,12 +234,50 @@
                      $content = $content.'<td><input type="radio" name="question'.$question->getId().'" value="'.$reponse->getid().'"></td>';
                 }
                 
-               
             }
             
             return $content;
         }
 
+        
+        //Sélectionne toutes les questions pour la catégorie.
+        protected function SelectQuestionsByCategories($bdd, $idEvaluation, $idCategorie){
+            $questionsDeLaCategorie = array();
+
+            $questions = $bdd->Request('SELECT DISTINCT(Id), Q.Texte
+                                        FROM vQuestion AS Q
+                                        JOIN vEvaluationQuestionReponse AS EQR
+                                        ON EQR.IdQuestion = Q.Id
+                                        WHERE EQR.IdEvaluation = :idEvaluation AND Q.IdCategorieQuestion = :idCategorieQuestion',
+                                        array('idEvaluation'=>$idEvaluation, 'idCategorieQuestion'=>$idCategorie),  "stdClass");
+            
+            foreach($questions as $question)
+            {
+                array_push($questionsDeLaCategorie, new Question($question->Id, $question->Texte));
+            }
+
+            return $questionsDeLaCategorie;
+        }
+        
+        protected function SelectAllQuestions($bdd, $idEvaluation){
+            unset($this->questions);
+
+            $this->questions = array();
+
+            $questions = $bdd->Request('SELECT DISTINCT(Id), Q.Texte
+                                        FROM vQuestion AS Q
+                                        JOIN vEvaluationQuestionReponse AS EQR
+                                        ON EQR.IdQuestion = Q.Id
+                                        WHERE EQR.IdEvaluation = :idEvaluation',
+                                        array('idEvaluation'=>$idEvaluation),
+                                        "stdClass");
+
+            foreach($questions as $question)
+            {
+                array_push($this->questions, new Question($question->Id, $question->Texte));
+            }
+        }
+        
     }
 
     class EvaluationGrilleFormation extends EvaluationGrille
@@ -307,33 +290,14 @@
 
         private function questionsHasComment($bdd, $questions)
         {
-            
-
             foreach ($questions as $question) 
             {
-               
-                /*$resultat = $bdd->Request('select *
-                                    from tblevaluationquestionreponse
-                                    where IdEvaluation = :IdEvaluation and IdQuestion = :IdQuestion;',
-                                            array('IdEvaluation'=>$this->getId(), 'IdQuestion'=>$question->getId() ),
-                                            "stdClass");*/
-
-                //$resultat = $query->fetchAll();
-
-                //$commentaireQuestion = $resultat[0]->Commentaire;
 
                 if(($question->getId() == 57)||($question->getId() == 59)||($question->getId() == 60)||($question->getId() == 62)|| ($question->getId() == 63) ||($question->getId() == 65))
                 {
                     return array($question->getId(),); 
                 }
-
-                /*if($commentaireQuestion != 'Aucun')
-                {
-                    return array($question->getId(),); 
-                }*/
-
             }
-
         }
 
         private function zoneCommentaireCategorie($bdd,  $questions)
@@ -350,11 +314,10 @@
             }
             else
             {
-                return '<textarea class="commentaireCategorie" rows="" cols="" maxlength="500" name="'.$this->questionsHasComment($bdd, $questions)[0].'" wrap="hard">Vos commentaires</textarea>';
+                return '<textarea class="commentaireCategorie" rows="" cols="" maxlength="500" name="'.$this->questionsHasComment($bdd, $questions)[0].'" wrap="hard" placeholder="Vos commentaires ici!"></textarea>';
             }
 
         }
-
 
         public function DrawEvaluation($bdd)
         {
@@ -404,11 +367,7 @@
             }
 
             return $content;
-
-            //<textarea class="commentaireCategorie" rows="" cols="" maxlength="500" name="'.$this->questionsHasComment($bdd, $questions)[0].'" wrap="hard">Vos commentaires</textarea>
         }
-
-
     }
 
     class EvaluationGrilleMiStage extends EvaluationGrille
@@ -490,6 +449,7 @@
                 $this->dateCompletee = $evaluation->DateComplétée;
                 $this->dateDebut = $evaluation->DateDébut;
                 $this->dateFin = $evaluation->DateFin;
+
                 $this->idTypeEval = $evaluation->IdTypeEvaluation;
                 $this->commentaire = $evaluation->Commentaire;
                 $this->objectifEval = $evaluation->Objectif;                
@@ -533,40 +493,15 @@
                 array_push($this->reponsesChoisies, new Reponse($reponse->IdReponse, $reponse->Texte));
             }
         }
-        
-        //Sauvegarde les modifications dans la BD.
-        /*public function Submit($bdd)
-        {
-            $reponses = json_decode($_POST["tabReponse"], true);
-
-            $bdd->Request(' update tblEvaluation set Statut= \'3\', DateComplétée=:DateCompletee where Id=:IdEvaluation;',
-                            array('IdEvaluation'=>$_REQUEST['idEvaluation'],'DateCompletee'=>date("Y-m-d")),
-                            "stdClass");
-
-            foreach($reponses as $reponse){
-                $bdd->Request(' UPDATE tblEvaluationQuestionReponse SET IdReponse = :IdReponse
-                                WHERE IdEvaluation = :IdEvaluation AND IdQuestion = :IdQuestion;',
-                                array('IdEvaluation'=>$this->id,'IdQuestion'=>$reponse["idQuestion"],'IdReponse'=>$reponse["value"]),
-                                "stdClass");
-            }  
-        } */
 
         public function Submit($bdd)
         {
             $reponses = json_decode($_POST["tabReponse"], true);
 
-            //$requeteModificationEvaluationQuestionReponse = $bdd->prepare(  'update tblEvaluationQuestionReponse SET IdReponse = :IdReponse
-                                                                        //WHERE IdEvaluation = :IdEvaluation AND IdQuestion = :IdQuestion;');
-            //$requeteModifierCommentaireEvaluation = $bdd->prepare('update tblEvaluation set Statut= \'3\', DateComplétée=:DateCompletee, Commentaire = :Commentaire where Id=:IdEvaluation;');
-
-            //$requeteModifierCommentaireQuestionEvaluation = $bdd->prepare('update tblEvaluationQuestionReponse set Commentaire= :Commentaire where IdEvaluation=:IdEvaluation AND IdQuestion = :IdQuestion;');
-
             foreach($reponses as $reponse)
             {
                 if($reponse["type"] == "question")
                 {
-                    //$requeteModificationEvaluationQuestionReponse->execute(array('IdEvaluation'=>$this->id,'IdQuestion'=>$reponse["idQuestion"],'IdReponse'=>$reponse["value"]));
-
                     $bdd->Request('update tblEvaluationQuestionReponse SET IdReponse = :IdReponse
                                                                     WHERE IdEvaluation = :IdEvaluation AND IdQuestion = :IdQuestion;',
                     array('IdEvaluation'=>$this->id,'IdQuestion'=>$reponse["idQuestion"],'IdReponse'=>$reponse["value"]),
@@ -574,8 +509,6 @@
                 }
                 else if($reponse["type"] == "commentaireEvaluation")
                 {
-                    //$requeteModifierCommentaireEvaluation->execute(array('IdEvaluation'=>$_REQUEST['idEvaluation'],'DateCompletee'=>date("Y-m-d"), 'Commentaire'=> $reponse["value"]));
-
                     $bdd->Request('update tblEvaluation set Statut= \'3\', DateComplétée=:DateCompletee, Commentaire = :Commentaire where Id=:IdEvaluation;',
                     array('IdEvaluation'=>$_REQUEST['idEvaluation'],'DateCompletee'=>date("Y-m-d"), 'Commentaire'=> $reponse["value"]),
                     "stdClass");
@@ -585,10 +518,8 @@
                     $bdd->Request('update tblEvaluationQuestionReponse set Commentaire= :Commentaire where IdEvaluation=:IdEvaluation AND IdQuestion = :IdQuestion;',
                     array('Commentaire'=>$reponse["value"],'IdEvaluation'=>$_REQUEST['idEvaluation'],'IdQuestion'=> $reponse["idQuestion"]),
                     "stdClass");
-                    //$requeteModifierCommentaireQuestionEvaluation->execute(array('Commentaire'=>$reponse["value"],'IdEvaluation'=>$_REQUEST['idEvaluation'],'IdQuestion'=> $reponse["idQuestion"]));
                 }
             }        
-                
         }   
         
         public function getCategories(){
@@ -623,7 +554,12 @@
             return $this->idTypeEval;
         }
 
-          public function getCommentaire()
+        public function getQuestions()
+        {
+            return $this->questions;
+        }
+
+        public function getCommentaire()
         {
             return $this->commentaire;
         }
@@ -702,7 +638,12 @@
 
     class Profil{
         
-        protected $IdUtilisateur, $Nom, $Prenom, $NumTelEntreprise, $CodePermanent, $Poste, $CourrielEntreprise, $NomEntreprise, $IdRole;
+        protected 
+        $IdUtilisateur, $Nom, $Prenom, $NumTelEntreprise, $CodePermanent, $Poste, $CourrielEntreprise, $NomEntreprise, $IdRole,
+        $regxEmail = "[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$",
+        $regxPoste = "^[0-9]{0,7}$",
+        $regxPassword = "^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$",
+        $regxNumTel = "^[(]{1}[0-9]{3}[)]{1}[\s]{1}[0-9]{3}[-]{1}[0-9]{4}$";
         
         //Met à jour l'utilisateur dans la BD.
         protected function UpdateUser($bdd, $motPasse, $courriel){
@@ -825,20 +766,20 @@
 
                     <div class="champ">
                         <p class="label labelForInput">Courriel :</p>
-                        <input type="email" value="'.$this->getCourrielEntreprise().'" id="courrielEntreprise" name="courrielEntreprise" class="value" onexit="RegexProfilStagiaire()"/>
+                        <input type="email" value="'.$this->getCourrielEntreprise().'" id="courrielEntreprise" name="courrielEntreprise" class="value" pattern="'.$this->regxEmail.'" onblur="VerifierRegex(this)"/>
 
                     </div>
 
                     <div class="champ">
                         <p class="label labelForInput">No. Téléphone :</p>
-                        <input type="text" value="'.$this->getNumTelEntreprise().'" id="numEntreprise" name="numEntreprise" class="value" onexit="RegexProfilStagiaire()"/>
+                        <input type="text" value="'.$this->getNumTelEntreprise().'" id="numEntreprise" name="numEntreprise" class="value" onblur="VerifierRegex(this)" pattern="'.$this->regxNumTel.'"/>
                         <img class="info" src="../Images/info.png" title="Le numéro de téléphone doit
 avoir ce format - (xxx) xxx-xxxx"/>
                     </div>
 
                     <div class="champ">
                         <p class="label labelForInput">Poste :</p>
-                        <input type="text" value="'.$this->getPoste().'" name="poste" id="poste" class="value" onexit="RegexProfilStagiaire()"/>
+                        <input type="text" value="'.$this->getPoste().'" name="poste" id="poste" pattern="'.$this->regxPoste.'" onblur="VerifierRegex(this)" class="value"/>
                     </div>
             </div>
 
@@ -849,7 +790,7 @@ avoir ce format - (xxx) xxx-xxxx"/>
             <div class="blocInfo infoProfil">
                     <div class="champ">
                         <p class="label labelForInput">Nouveau mot de passe :</p>
-                        <input type="password" id="newPwd" class="value" name="nouveauPasse" onexit="RegexProfilStagiaire()"/>
+                        <input type="password" id="newPwd" class="value" name="nouveauPasse" pattern="'.$this->regxPassword.'" onblur="VerifierRegex(this)"/>
                         <img class="info" src="../Images/info.png" title="Le mot de passe doit contenir
 - 8 caractères minimum
 - Au moins une majuscule
@@ -858,7 +799,7 @@ avoir ce format - (xxx) xxx-xxxx"/>
 
                     <div class="champ">
                         <p class="label labelForInput">Confirmer le mot de passe :</p>
-                        <input type="password" id="confirmationNewPwd" class="value" onexit="RegexProfilStagiaire()"/>
+                        <input type="password" id="confirmationNewPwd" class="value" onblur="DoubleVerif(newPwd, this)"/>
                     </div>
             </div>';
 
@@ -887,7 +828,7 @@ avoir ce format - (xxx) xxx-xxxx"/>
 
     class ProfilStagiaire extends Profil{
         
-        private $NumTel, $CourrielPersonnel;
+        protected $NumTelPerso, $CourrielPersonnel, $CourrielScolaire;
     
         //Affiche les informations du profil.
         public function AfficherProfil(){
@@ -916,6 +857,11 @@ avoir ce format - (xxx) xxx-xxxx"/>
                     <div class="champ">
                         <p class="label">Courriel :</p>
                         <p class="value">'.$this->getCourrielPerso().'</p>
+                    </div>
+
+                    <div class="champ">
+                        <p class="label">Courriel Scolaire:</p>
+                        <p class="value">'.$this->getCourrielScolaire().'</p>
                     </div>
             </div>
 
@@ -968,16 +914,27 @@ avoir ce format - (xxx) xxx-xxxx"/>
 
                     <div class="champ">
                         <p class="label labelForInput">No. Téléphone :</p>
-                        <input type="text" value="'.$this->getNumTelPerso().'" id="numTel" name="numTel" class="value" onexit="RegexProfilStagiaire()"/>
+                        <input type="text" value="'.$this->getNumTelPerso().'" id="numTel" name="numTel" class="value" onblur="VerifierRegex(this)" pattern="'.$this->regxNumTel.'"/>
                         <img class="info" src="../Images/info.png" title="Le numéro de téléphone doit
 avoir ce format - (xxx) xxx-xxxx"/>
                     </div>
 
                     <div class="champ">
                         <p class="label labelForInput">Courriel :</p>
-                        <input type="email" value="'.$this->getCourrielPerso().'" id="courrielPersonnel" name="courrielPersonnel" class="value" onexit="RegexProfilStagiaire()"/>
-                    </div>
-            </div>
+                        <input type="email" value="'.$this->getCourrielPerso().'" id="courrielPersonnel" name="courrielPersonnel" class="value" onblur="VerifierRegex(this)" pattern="'.$this->regxEmail.'"/>
+                    </div>';
+
+            if($_SESSION["IdRole"] == 1){
+                $content = $content.
+                '<div class="champ">
+                    <p class="label labelForInput">Courriel :</p>
+                    <input type="email" value="'.$this->getCourrielScolaire().'" id="courrielPersonnel" name="courrielPersonnel" class="value" onblur="VerifierRegex(this)" pattern="'.$this->regxEmail.'"/>
+                </div>';
+            }
+                    
+                            
+            $content = $content.
+            '</div>
 
             <div class="separateur">
                 <h3>Informations Professionnelles</h3>
@@ -991,20 +948,19 @@ avoir ce format - (xxx) xxx-xxxx"/>
 
                     <div class="champ">
                         <p class="label labelForInput">Courriel :</p>
-                        <input type="email" value="'.$this->getCourrielEntreprise().'" id="courrielEntreprise" name="courrielEntreprise" class="value" onexit="RegexProfilStagiaire()"/>
-
+                        <input type="email" value="'.$this->getCourrielEntreprise().'" id="courrielEntreprise" name="courrielEntreprise" class="value" onblur="VerifierRegex(this)" pattern="'.$this->regxEmail.'"/>
                     </div>
 
                     <div class="champ">
                         <p class="label labelForInput">No. Téléphone :</p>
-                        <input type="text" value="'.$this->getNumTelEntreprise().'" id="numEntreprise" name="numEntreprise" class="value" onexit="RegexProfilStagiaire()"/>
+                        <input type="text" value="'.$this->getNumTelEntreprise().'" id="numEntreprise" name="numEntreprise" class="value" onblur="VerifierRegex(this)" pattern="'.$this->regxNumTel.'"/>
                         <img class="info" src="../Images/info.png" title="Le numéro de téléphone doit
 avoir ce format - (xxx) xxx-xxxx"/>
                     </div>
 
                     <div class="champ">
                         <p class="label labelForInput">Poste :</p>
-                        <input type="text" value="'.$this->getPoste().'" name="poste" id="poste" class="value" onexit="RegexProfilStagiaire()"/>
+                        <input type="text" value="'.$this->getPoste().'" name="poste" id="poste" class="value" onblur="VerifierRegex(this)" pattern="'.$this->regxPoste.'"/>
                     </div>
             </div>
 
@@ -1015,7 +971,7 @@ avoir ce format - (xxx) xxx-xxxx"/>
             <div class="blocInfo infoProfil">
                     <div class="champ">
                         <p class="label labelForInput">Nouveau mot de passe :</p>
-                        <input type="password" id="newPwd" class="value" name="nouveauPasse" onexit="RegexProfilStagiaire()"/>
+                        <input type="password" id="newPwd" class="value" name="nouveauPasse" onblur="VerifierRegex(this)" pattern="'.$this->regxPassword.'"/>
                         <img class="info" src="../Images/info.png" title="Le mot de passe doit contenir
 - 8 caractères minimum
 - Au moins une majuscule
@@ -1024,7 +980,7 @@ avoir ce format - (xxx) xxx-xxxx"/>
 
                     <div class="champ">
                         <p class="label labelForInput">Confirmer le mot de passe :</p>
-                        <input type="password" id="confirmationNewPwd" class="value" onexit="RegexProfilStagiaire()"/>
+                        <input type="password" id="confirmationNewPwd" class="value" onblur="DoubleVerif(newPwd.value, this)"/>
                     </div>
             </div>';
 
@@ -1039,11 +995,11 @@ avoir ce format - (xxx) xxx-xxxx"/>
                 $profil[$champ->nom] = $champ->value;
             }
 
-            $this->UpdateUser($bdd, $profil["nouveauPasse"], $profil["courrielPersonnel"]);
+            $this->UpdateUser($bdd, $profil["nouveauPasse"], $profil["courrielScolaire"]);
 
-            $bdd->Request(" UPDATE tblStagiaire SET NumTel = :numTel, NumTelEntreprise = :numTelEntreprise, Poste = :poste, CourrielEntreprise = :courrielEntreprise, CourrielPersonnel = :courrielPerso WHERE IdUtilisateur = :id",
+            $bdd->Request(" UPDATE tblStagiaire SET NumTelPerso = :numTelPerso, NumTelEntreprise = :numTelEntreprise, Poste = :poste, CourrielEntreprise = :courrielEntreprise, CourrielPersonnel = :courrielPerso WHERE IdUtilisateur = :id",
                             array(
-                            "numTel"=>$profil["numTel"],
+                            "numTelPerso"=>$profil["numTel"],
                             "numTelEntreprise"=>$profil["numEntreprise"],
                             "poste"=>$profil["poste"],
                             "courrielEntreprise"=>$profil["courrielEntreprise"],
@@ -1053,11 +1009,15 @@ avoir ce format - (xxx) xxx-xxxx"/>
         }
         
         public function getNumTelPerso(){
-            return $this->NumTel;
+            return $this->NumTelPerso;
         }
         
         public function getCourrielPerso(){
             return $this->CourrielPersonnel;
+        }
+        
+        public function getCourrielScolaire(){
+            return $this->CourrielScolaire;
         }
     }
 

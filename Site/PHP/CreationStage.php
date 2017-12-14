@@ -11,8 +11,8 @@
             $stage[$champ->nom] = $champ->value;
         }
 
-        $bdd->Request(" INSERT INTO tblStage (IdResponsable, IdSuperviseur, IdStagiaire, IdEnseignant, DescriptionStage, CompetenceRecherche, HoraireTravail, NbHeureSemaine, SalaireHoraire, DateDebut, DateFin ) 
-                        VALUES (:idResponsable, :idSuperviseur, :idStagiaire, :idEnseignant, :description, :competence, :horaire, :nbHeure, :salaire, :dateDebut, :dateFin);",
+        $bdd->Request(" INSERT INTO tblStage (IdResponsable, IdSuperviseur, IdStagiaire, IdEnseignant, DescriptionStage, CompetenceRecherche, NbHeureSemaine, SalaireHoraire, DateDebut, DateFin, IdSession) 
+                        VALUES (:idResponsable, :idSuperviseur, :idStagiaire, :idEnseignant, :description, :competence, :horaire, :nbHeure, :salaire, :dateDebut, :dateFin, :idSession);",
                         array(
                             'idResponsable'=>$stage["Responsable"], 
                             'idSuperviseur'=>$stage["Superviseur"], 
@@ -24,7 +24,8 @@
                             'nbHeure'=>$stage["HeuresSemaine"],
                             'salaire'=>$stage["SalaireHoraire"], 
                             'dateDebut'=>$stage["DateDebut"], 
-                            'dateFin'=>$stage["DateFin"]), 
+                            'dateFin'=>$stage["DateFin"],
+                            'idSession'=>$stage["Session"]), 
                             'stdClass');
     }
 
@@ -32,12 +33,25 @@
     function showEnterprises($bdd)
     {
         $returnValue = "";
-        $entreprises = $bdd->Request("select Nom, Id from vEntreprise;", null, "stdClass");
+        $entreprises = $bdd->Request("SELECT Nom, Id from vEntreprise;", null, "stdClass");
 
         foreach($entreprises as $entreprise){
             $returnValue = $returnValue . '<option value= "' . $entreprise->Id . '">' . $entreprise->Nom . '</option>';
         }
         
+        return $returnValue;
+    }
+
+    function showSessions ($bdd)
+    {
+        $returnValue = "";
+        $sessions = $bdd->Request("SELECT concat (Periode, ' ' , Annee) as 'Session', Id from vSession;", null, "stdClass");
+
+        foreach ($sessions as $session) 
+        {
+            $returnValue = $returnValue.  '<option value= "' . $session->Id . '">' . $session->Session . '</option>';
+        }
+
         return $returnValue;
     }
 
@@ -98,40 +112,56 @@
         </div>
 
         <div class="blocInfo infoProfil">
+           
+
             <div class="champ">
                 <p class="label labelForInput">Entreprise</p>
                 <select class="value" name = "Entreprise" onchange="Post(PopulateListEmploye, \'../PHP/TBNavigation.php?nomMenu=CreationStage.php&populate\')">
                     ' . showEnterprises($bdd) . '
                 </select>
             </div>
+
             <div class="champ">
                 <p class="label labelForInput">Stagiaire</p>
                 <select class="value"  name = "Stagiaire">
                     ' . showInterns($bdd) . '
                 </select>
             </div>
+
+
+            <div class="champ">
+                <p class="label labelForInput">Session</p>
+                <select class="value"  name = "Session">
+                    ' . showSessions($bdd) . '
+                </select>
+            </div>
+
             <div class="champ">
                 <p class="label labelForInput">Responsable</p>
                 <select class="value"  name = "Responsable" id="responsable">
-                    <option value = "1">Responsable 1</option>
+                    <option value = "1">Responsable</option>
                 </select>
             </div>
+
             <div class="champ">
                 <p class="label labelForInput">Superviseur</p>
                 <select class="value"  name = "Superviseur" id="superviseur">
-                <option value = "1">SUPERVISEUR 1</option>                
+                <option value = "1">Superviseur</option>                
                 </select>
             </div>
+
             <div class="champ">
                 <p class="label labelForInput">Enseignant</p>
                 <select class="value"  name = "Enseignant">
                     ' . showProfessors($bdd) . '
-                    </select>
+                </select>
             </div>
+
             <div class="champ">
                 <p class="label labelForInput">Heure / Semaine</p>
-                <input class="value" type="text"  name = "HeuresSemaine"/>
+                <input class="value" type="text"  name = "HeuresSemaine" id="heureSem" onblur="VerifierRegex(this);" pattern="'.$regxHeure.'"/>
             </div>
+
             <div class="champ">
                 <p class="label labelForInput">Rémunéré</p>
                 <div>
@@ -140,10 +170,11 @@
                     <label for="non">Non</label>
                     <input id="non" type="radio" name="remunere" value="0" onclick="DisableSalaire(this)"/>
                 </div>
+
             </div>
             <div class="champ">
                 <p class="label labelForInput">Salaire Horaire</p>
-                <input class="value" type="text"  name = "SalaireHoraire" id="salaire"/>
+                <input class="value" type="text"  name = "SalaireHoraire" id="salaire" onblur="VerifierRegex(this);" pattern="'.$regxSalaire.'"/>
             </div>
             <div class="champ">
                 <p class="label labelForInput">Date Début</p>

@@ -144,10 +144,10 @@ CREATE TABLE tblStagiaire(
 	CourrielPersonnel		VARCHAR(320)	NULL,
 	Nom 					VARCHAR(50)		NOT NULL,
 	Prenom 					VARCHAR(50)		NOT NULL,
-	NumTel		 			CHAR(14)		NULL,
+	NumTelPerso		 		CHAR(14)		NULL,
 	NumTelEntreprise 		CHAR(14)		NULL,
 	Poste 					VARCHAR(7)		NULL,
-	CourrielEntreprise	 	VARCHAR(320)	NULL,
+	CourrielEntreprise	 	VARCHAR(320)	NULL default NULL,
 	CodePermanent			VARCHAR(12)		NULL,
 	Adresse					VARCHAR(350)	NULL,
 	PRIMARY KEY(Id),
@@ -156,10 +156,10 @@ CREATE TABLE tblStagiaire(
 );
 
 DROP VIEW IF EXISTS vStagiaire;
-CREATE VIEW vStagiaire AS SELECT Id,CourrielScolaire,Nom,Prenom,NumTel,CourrielPersonnel
+CREATE VIEW vStagiaire AS SELECT Id,CourrielScolaire,Nom,Prenom,NumTelPerso,CourrielPersonnel
 ,NumTelEntreprise,Poste,CourrielEntreprise,CodePermanent,Adresse,
-CONCAT(CourrielScolaire,Nom,Prenom,NumTel
-,IFNULL(NumTelEntreprise,''),IFNULL(Poste,''),IFNULL(CourrielEntreprise,''),IdUtilisateur,CodePermanent,CourrielPersonnel) AS tag,
+CONCAT(CourrielScolaire,Nom,Prenom,NumTelPerso
+,IFNULL(NumTelEntreprise,''),IFNULL(Poste,''),IFNULL(CourrielEntreprise,''),IdUtilisateur,IFNULL(CodePermanent, ''),IFNULL(CourrielPersonnel, '')) AS tag,
 IdUtilisateur FROM tblStagiaire;
 
 -- Table tblUtilisateur
@@ -224,9 +224,8 @@ CREATE TABLE tblStage(
 	Id			 			INT				AUTO_INCREMENT,
 	DescriptionStage		VARCHAR(1000)	NULL,
 	CompetenceRecherche		VARCHAR(1000)	NULL,
-	RaisonSociale			VARCHAR(1000)	NULL,
 	NbHeureSemaine			INT				NULL,
-	SalaireHoraire			INT				NULL,
+	SalaireHoraire			DECIMAL			NULL,
 	DateDebut				DATE			NULL,
 	DateFin					DATE			NULL,
 	LettreEntenteVide		VARCHAR(255)	NULL,
@@ -241,7 +240,7 @@ CREATE TABLE tblStage(
 );
 
 DROP VIEW IF EXISTS vStage;
-CREATE VIEW vStage AS SELECT Id,RaisonSociale,DescriptionStage,CompetenceRecherche,NbHeureSemaine,
+CREATE VIEW vStage AS SELECT Id,DescriptionStage,CompetenceRecherche,NbHeureSemaine,
 SalaireHoraire,DateDebut,DateFin,LettreEntenteVide,LettreEntenteSignee,OffreStage,IdSession,CONCAT(IdResponsable,IdSuperviseur,IdStagiaire,IdEnseignant,DescriptionStage,CompetenceRecherche,NbHeureSemaine,
 SalaireHoraire,DateDebut,DateFin,LettreEntenteVide,LettreEntenteSignee,OffreStage)
 AS tag,IdResponsable,IdSuperviseur,IdStagiaire,IdEnseignant FROM tblStage;
@@ -304,7 +303,7 @@ CREATE TABLE tblEmploye(
 	CourrielEntreprise 		VARCHAR(320)	NOT NULL,
 	Nom 					VARCHAR(50)		NOT NULL,
 	Prenom 					VARCHAR(50)		NOt NULL,
-	NumTel			 		CHAR(14)		NOT NULL,
+	NumTelEntreprise		CHAR(14)		NOT NULL,
 	Poste 					VARCHAR(7)		NULL,
 	PRIMARY KEY(Id),
 	IdEntreprise			INT				NOT NULL,
@@ -314,8 +313,8 @@ CREATE TABLE tblEmploye(
 
 DROP VIEW IF EXISTS vEmploye;
 CREATE VIEW vEmploye AS SELECT Id,CourrielEntreprise,Nom,Prenom,
-NumTel,Poste,CONCAT(CourrielEntreprise,Nom,Prenom,
-NumTel,IFNULL(Poste, ""),IdEntreprise,IdUtilisateur) AS tag,IdEntreprise,IdUtilisateur FROM tblEmploye;
+NumTelEntreprise,Poste,CONCAT(CourrielEntreprise,Nom,Prenom,
+NumTelEntreprise,IFNULL(Poste, ""),IdEntreprise,IdUtilisateur) AS tag,IdEntreprise,IdUtilisateur FROM tblEmploye;
 
 
 -- Table Categorie Question
@@ -679,4 +678,3 @@ ALTER TABLE tblEtatAvancement
 ADD FOREIGN KEY (IdTypeEtatAvancement)
 REFERENCES
 tblTypeEtatAvancement(Id); 
-

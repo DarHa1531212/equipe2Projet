@@ -5,6 +5,7 @@ function Requete(callback){
     $.ajax({
         type: "POST",
         url: Url(arguments) ,
+        async: false,
         success: function(data){
             history.pushState(JSON.parse(data), titrePage[0], titrePage[0]);
             callback(data);
@@ -39,6 +40,7 @@ function Post(callback){
         processData: false, 
         data: form_data,                          
         type: 'post', 
+        async: false,
         success: function(data){ 
             callback(data); 
         } 
@@ -111,6 +113,7 @@ function PostEval(callback)
             processData: false, 
             data: form_data,                          
             type: 'post', 
+            async: false,
             success: function(data)
             { 
                 callback(data); 

@@ -78,6 +78,13 @@ section{
 
 .bouton:active{background-color: #3262a4;}
 
+.bouton:disabled{background-color: #062653;}
+
+.bouton:disabled:hover{
+    background-color: #062653;
+    border-color: #0a3a7c;
+}
+
 .blocInfo{
     width: 49.5%;
     margin: auto;
@@ -347,10 +354,11 @@ input[type=file]{
 }
 
 .statutColor{
-    border-style: solid;
-    border-color: black;
+    border:1px; 
+    border-style: solid; 
+    border-color: black; 
     border-radius: 25px;
-    background-color: blue;
+    margin-right:5px;
 }
 
 /* ---------------------------------------------------*/
@@ -443,6 +451,7 @@ input[type=file]{
     color: red;
 }
 
+
 .tab {
     float: left;
     border: 1px solid #ccc;
@@ -484,4 +493,16 @@ input[type=file]{
     width: 80%;
     border-left: none;
     height: 300px;
+}
+
+.nicEdit-panel{
+    margin: auto;
+
+}
+.nicEdit-main{
+    margin: auto;
+}
+.nicEdit-panelContain{
+    display: relative;
+    margin: auto;
 }

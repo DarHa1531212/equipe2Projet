@@ -48,7 +48,6 @@
             </table>
             ';
         }
-       
     }
 
      function zoneCommentaire($eval)
@@ -60,7 +59,7 @@
         else
         {
 
-            $zoneSaisieCommentaire = '<textarea id="commentaireEvaluation" rows="5" cols="100" maxlength="500" name="commentaireEvaluation" wrap="hard"></textarea>';
+            $zoneSaisieCommentaire = '<textarea id="commentaireEvaluation" rows="5" cols="100" maxlength="500" name="commentaireEvaluation" wrap="hard" placeholder="Écrire un commantaire ici!"></textarea>';
         }
 
         return $zoneSaisieCommentaire;
@@ -71,7 +70,7 @@
     {
         $i = 0;
         $content = "";
-        
+
         foreach($eval->getCategories() as $categorie)
         {
 
@@ -88,6 +87,25 @@
         }
         
         return $content;
+    }
+
+    if(( $eval->getStatut() == 3 ) || ( $eval->getStatut() == 4))
+    {
+        $boutonsNavigation = 
+        '<input id="gauche" class="bouton" style="width : 150px; float: left;" type="button" value="Précédent" onclick="ChangerItemConsultationEvaluation(this)"/>
+            '.LettreNav($bdd, $eval).'
+        <input id="droite" class="bouton" style="width : 150px; float: right" type="button" value="Suivant" onclick="ChangerItemConsultationEvaluation(this)"/>';
+
+    }
+    else
+    {
+        $boutonsNavigation = 
+
+        '<input id="gauche" class="bouton" style="width : 150px; float: left;" type="button" value="Précédent" onclick="ChangerItem(this)"/>
+            '.LettreNav($bdd, $eval).'
+        <input id="droite" class="bouton" style="width : 150px; float: right" type="button" value="Suivant" onclick="ChangerItem(this)"/>
+
+        <input id="confirmer" class="bouton" style="width : 150px; float: right" type="button" value="Confirmer" onclick="PostEval(ExecuteQuery, \'../PHP/TBNavigation.php?id='.$profils[0]->IdSuperviseur.'&nomMenu=Evaluation.php&post=true&idEvaluation='.$_REQUEST["idEvaluation"].'&id='.$_REQUEST["id"].'\'); Requete(AfficherPage, \'../PHP/TBNavigation.php?id='.$profils[0]->IdSuperviseur.'&nomMenu=Main\')" hidden/>';
     }
 
     if(isset($_REQUEST["post"]))
@@ -128,12 +146,8 @@
         <input id="droite" class="bouton" style="width : 150px; float: right" type="button" value="Suivant" onclick="ChangerItem(this)"/>
 
         <input id="confirmer" class="bouton" style="width : 150px; float: right" type="button" value="Confirmer" onclick="submitEvaluation()" hidden/>';
-        //<input id="confirmer" class="bouton" style="width : 150px; float: right" type="button" value="Confirmer" onclick="Execute(4, \'../PHP/TBNavigation.php?idEmploye='.$profil->IdSuperviseur.'&nomMenu=Eval\', \'&idEvaluation=\', '.$_REQUEST["idEvaluation"].', \'&idStagiaire=\', '.$_REQUEST["idStagiaire"].'); " hidden/>
     }
 
-    //$boutonValider = '<input id="confirmer" class="bouton" style="width : 150px; float: right" type="button" value="Confirmer" onclick="Execute(4, \'../PHP/TBNavigation.php?idEmploye='.$profil["IdSuperviseur"].'&nomMenu=Eval\', \'&post=true\', \'&idEvaluation=\', '.$_REQUEST["idEvaluation"].', \'&idStagiaire=\', '.$_REQUEST["idStagiaire"].') " hidden/>'; 
-    
-    //$boutonValider = '<input id="confirmer" class="bouton" style="width : 150px; float: right" type="button" value="Confirmer" onclick="Execute(4, \'../PHP/TBNavigation.php?idEmploye='.$profil["IdSuperviseur"].'&nomMenu=Eval\', \'&idEvaluation=\', '.$_REQUEST["idEvaluation"].', \'&idStagiaire=\', '.$_REQUEST["idStagiaire"].'); " hidden/>';
 
     $content =
     '<article class="stagiaire">
@@ -180,7 +194,7 @@
 
         <input type="hidden" name="IdStagiaire" value="'. $_REQUEST["id"] .'" />
 
-         <input type="hidden" name="IdStage" value="'. $_REQUEST["idStage"] .'" />
+        <input type="hidden" name="IdStage" value="'. $_REQUEST["idStage"] .'" />
     
     </article>';
 

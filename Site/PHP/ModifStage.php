@@ -59,7 +59,7 @@ $content =
             </div>
             <div class="champ">
                 <p class="label labelForInput">Heure / Semaine</p>
-                <input class="value" type="text" value="'.$stage->getNbHeureSemaine().'" name="HeuresSemaine"/>
+                <input class="value" type="text" value="'.$stage->getNbHeureSemaine().'" name="HeuresSemaine" onblur="VerifierRegex(this);" pattern="'.$regxHeure.'"/>
             </div>
             <div class="champ">
                 <p class="label labelForInput">Rémunéré</p>
@@ -72,7 +72,7 @@ $content =
             </div>
             <div class="champ">
                 <p class="label labelForInput">Salaire Horaire</p>
-                <input class="value" type="text"  name = "SalaireHoraire" value="'.$stage->getSalaireHoraire().'" id="salaire"/>
+                <input class="value" type="text"  name = "SalaireHoraire" value="'.$stage->getSalaireHoraire().'" id="salaire" onblur="VerifierRegex(this);" pattern="'.$regxSalaire.'"/>
             </div>
             <div class="champ">
                 <p class="label labelForInput">Date Début</p>

@@ -1,6 +1,8 @@
 <?php
     
-    $idStagiaire = $_REQUEST["id"];
+
+    if(isset($_REQUEST['id']))
+        $idStagiaire = $_REQUEST["id"];
     
     function DateDifference($date_1 , $date_2 , $differenceFormat = '%a' ){
         $datetime1 = date_create($date_1);
@@ -164,11 +166,16 @@
                 //////////////////////////////////////////////////////////////////////////////////////////////
                 $content=
                 '<article class="stagiaire">
+                <script type="text/javascript" src="http://js.nicedit.com/nicEdit-latest.js"></script>
                     <div class="infoStagiaire">
+
                         <h2>Journal de bord</h2>
                         <h3>Dernière entrée il y a : '.DerniereEntree($bdd, $idStagiaire).' jour(s)</h3>
                     </div>
                     <div id="imageJointe"></div>
+ 
+                  </div> 
+                  <div style="clear: both;"></div>
 
             <textarea id="contenu" rows="5" cols="100" maxlength="500" name="contenu" wrap="hard">'.$_SESSION['textModif'].'</textarea>
             <input type="hidden" name="maxFileSize" value="2000000">
@@ -176,7 +183,8 @@
 
             <br/>                                                                             
             
-            <input style="width: 120px;" class="bouton" type="button" value="Envoyer" onclick="if(modificationJournal){UploadFile(ExecuteQuery, \'../PHP/TBNavigation.php?id='.$idStagiaire.'&nomMenu=JournalBord.php&update=true&contenu=contenu.value'.addId().'\'); Requete(AfficherPage, \'../PHP/TBNavigation.php?id='.$idStagiaire.'&nomMenu=JournalBord.php&nbEntree=5); modificationJournal = false;}else{UploadFile(ExecuteQuery, \'../PHP/TBNavigation.php?id='.$idStagiaire.'&nomMenu=JournalBord.php&contenu=\'contenu.value\'); Requete(AfficherPage, \'../PHP/TBNavigation.php?id='.$idStagiaire.'&nomMenu=JournalBord.php&nbEntree=5\');}"/>
+            <input style="width: 120px;" class="bouton" type="button" value="Envoyer" onclick="if(modificationJournal){UploadFile(ExecuteQuery, \'../PHP/TBNavigation.php?id='.$idStagiaire.'&nomMenu=JournalBord.php&update=true&contenu=contenu.value'.addId().'\'); Requete(AfficherPage, \'../PHP/TBNavigation.php?id='.$idStagiaire.'&nomMenu=JournalBord.php&nbEntree=5); modificationJournal = false;}else{UploadFile(ExecuteQuery, \'../PHP/TBNavigation.php?id='.$idStagiaire.'&nomMenu=JournalBord.php&contenu=contenu.value\'); Requete(AfficherPage, \'../PHP/TBNavigation.php?id='.$idStagiaire.'&nomMenu=JournalBord.php&nbEntree=5\');}"/>
+
 
             <label class="bouton labelFile" for="file">Pièce Jointe</label>
             <p id="nomPieceJointe"></p>

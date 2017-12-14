@@ -15,10 +15,13 @@
     <body onload="SetTimeout()">
         <script src="../js/jquery.min.js"></script>
         <script src="../js/navigation.js"></script>
-        <script src="../js/regexProfilStag.js"></script>
+        <script src="../js/regex.js"></script>
         <script src="../js/slideShow.js"></script>
         <script src="../js/scripts.js"></script>
         <script src="../js/creationUtilisateur.js"></script>
+        <script src="../js/supressionUtilisateur.js"></script>
+        <script src="../js/supressionEntreprise.js"></script>
+
 
         
         <?php 
