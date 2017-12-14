@@ -1,15 +1,15 @@
  function changeUserType(userType){
 
-    switch(userType.value)
-    {
-        case "2":  
-            afficherChampsEmployeEntreprise();
-            break;
-        case "3": afficherChampsEnseignant();
-            break;
-        case "5": afficherChampsStagiaire();
-            break;
-    }
+	switch(userType.value)
+	{
+		case "2":  
+			afficherChampsEmployeEntreprise();
+			break;
+		case "3": afficherChampsEnseignant();
+			break;
+		case "5": afficherChampsStagiaire();
+			break;
+	}
 
   }
 
@@ -17,6 +17,7 @@
     {
       // alert ("afficher champs employe");
         $(".champ").hide();
+        $("#selectTypeUser").show();
         $("#Prenom").show();
         $("#Nom").show();
         $("#courriel").show();
@@ -24,11 +25,15 @@
         $("#posteEntreprise").show();
         $("#noTelEntreprise").show();
         $("#posteTelEntreprise").show();
-    }
+        $("#checkResponsable").show();
+        $("#checkSuperviseur").show();
+
+	}
 
     function afficherChampsEnseignant()
     {
          $(".champ").hide();
+         $("#selectTypeUser").show();
          $("#Prenom").show();
          $("#Nom").show();
          $("#courriel").show();
@@ -37,6 +42,7 @@
     function afficherChampsStagiaire()
     {
          $(".champ").hide();
+         $("#selectTypeUser").show();
          $("#Prenom").show();
          $("#Nom").show();
          $("#courriel").show();
@@ -58,19 +64,19 @@
         }
     }
 
-    function checkResponsable(element)
-    {
-      if (element.checked)
-        document.getElementById("chkResponsable").value="true";
-      else 
-        document.getElementById("chkResponsable").value="false";
-    }
+	function checkResponsable(element)
+	{
+	  if (element.checked)
+		document.getElementById("chkResponsable").value="true";
+	  else 
+		document.getElementById("chkResponsable").value="false";
+	}
 
-    function checkSuperviseur(element)
-    {
-      if (element.checked)
-        document.getElementById("chkSuperviseur").value="true";
-      else 
-        document.getElementById("chkSuperviseur").value="false";
+	function checkSuperviseur(element)
+	{
+	  if (element.checked)
+		document.getElementById("chkSuperviseur").value="true";
+	  else 
+		document.getElementById("chkSuperviseur").value="false";
 
-    }
+	}

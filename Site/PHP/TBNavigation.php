@@ -34,6 +34,8 @@
                 break;
 
             default:    $menu = include $NomMenu;
+
+                    break;
         }
         
         echo json_encode($menu);

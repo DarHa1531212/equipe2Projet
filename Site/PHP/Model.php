@@ -766,7 +766,7 @@
 
                     <div class="champ">
                         <p class="label labelForInput">Courriel :</p>
-                        <input type="email" value="'.$this->getCourrielEntreprise().'" id="courrielEntreprise" name="courrielEntreprise" class="value" pattern="'.$this->regxEmail.'" onblur="Required(this) required; VerifierRegex(this)"/>
+                        <input type="email" value="'.$this->getCourrielEntreprise().'" id="courrielEntreprise" name="courrielEntreprise" class="value" pattern="'.$this->regxEmail.'" onblur="Required(this) required; VerifierRegex(this)" />
                     </div>
 
                     <div class="champ">
@@ -902,7 +902,7 @@ avoir ce format - (xxx) xxx-xxxx"/>
 
             <div class="blocInfo infoProfil">
                     <div class="champ">
-                        <p class="label labelForInput">Prenom :</p>
+                        <p class="label labelForInput">Prenom1 :</p>
                         <input type="text" value="'.$this->getPrenom().'" class="value" disabled/>
                     </div>
 
@@ -919,15 +919,15 @@ avoir ce format - (xxx) xxx-xxxx"/>
                     </div>
 
                     <div class="champ">
-                        <p class="label labelForInput">Courriel :</p>
-                        <input type="email" value="'.$this->getCourrielPerso().'" id="courrielPersonnel" name="courrielPersonnel" class="value" onblur="VerifierRegex(this)" pattern="'.$this->regxEmail.'"/>
+                        <p class="label labelForInput">Courriel personnel :</p>
+                        <input type="email" value="'.$this->getCourrielPerso().'" id="courrielPersonnel" maxlength="320" name="courrielPersonnel" class="value" onblur="VerifierRegex(this)" pattern="'.$this->regxEmail.'"/>
                     </div>';
 
             if($_SESSION["IdRole"] == 1){
                 $content = $content.
                 '<div class="champ">
-                    <p class="label labelForInput">Courriel :</p>
-                    <input type="email" value="'.$this->getCourrielScolaire().'" id="courrielPersonnel" name="courrielPersonnel" class="value" onblur="VerifierRegex(this)" pattern="'.$this->regxEmail.'"/>
+                    <p class="label labelForInput">Courriel scolaire :</p>
+                    <input type="email" value="'.$this->getCourrielScolaire().'" id="courrielScolaire" maxlength="320" name="courrielScolaire" class="value" onblur="VerifierRegex(this)" pattern="'.$this->regxEmail.'"/>
                 </div>';
             }
                     

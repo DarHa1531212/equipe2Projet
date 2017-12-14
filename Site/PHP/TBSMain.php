@@ -58,11 +58,9 @@
             }
         }
 
-        //gestion du statut ici
-
         if($etatAvancements[0]->Statut != '0')//le statut est different de pas accéssible
         {
-            $div = '<tr class="itemHover" onclick="Requete(AfficherPage, \'../PHP/TBNavigation.php?id='.$profil->Id.'&nomMenu=AVenir.php&idStage='.$etatAvancements[0]->IdStage.'&idEtatAvancement='.$etatAvancements[0]->IdEtatAvancement.'\');">';
+            $div = '<tr class="itemHover" onclick="Requete(AfficherPage, \'../PHP/TBNavigation.php?id='.$profil->Id.'&nomMenu=etatAvancement.php&idStage='.$etatAvancements[0]->IdStage.'&idEtatAvancement='.$etatAvancements[0]->IdEtatAvancement.'\');">';
         }
         else
         {
@@ -213,9 +211,9 @@
                     <div id="droite" class="fleche flecheDroite" onclick="ChangerItem(this)"></div>
                 </div>';  
             }
-
-            $content = $content.
-            '</article>';
+        
+        $content = $content.
+        '</article>';
     }
 
     return $content;

@@ -50,6 +50,79 @@ function PopulateListEmploye(data){
     $("#responsable").append(option);
 }
 
+function setLimitDateSession(data)
+{
+    data = JSON.parse(data);
+
+    //EVALUATION
+    //Mi-stage
+    $("#MiStageDebut").attr({
+        min : data + '-01-01',
+        max : data + '-12-31'
+    });
+
+    $("#MiStageLimit").attr({
+        min : data + '-01-01',
+        max : data + '-12-31'
+    });
+
+    //Finale
+    $("#EvalFinalDebut").attr({
+        min : data + '-01-01',
+        max : data + '-12-31'
+    });
+
+    $("#EvalFinalLimit").attr({
+        min : data + '-01-01',
+        max : data + '-12-31'
+    });
+
+    //Formation
+    $("#EvalFormDebut").attr({
+        min : data + '-01-01',
+        max : data + '-12-31'
+    });
+
+    $("#EvalFormLimit").attr({
+        min : data + '-01-01',
+        max : data + '-12-31'
+    });
+
+    //RAPORTS
+    //Janvier
+    $("#JanvierDebut").attr({
+        min : data + '-01-01',
+        max : data + '-01-31'
+    });
+
+    $("#JanvierLimit").attr({
+        min : data + '-01-01',
+        max : data + '-01-31'
+    });
+
+    //Février
+    $("#FevrierDebut").attr({
+        min : data + '-02-01',
+        max : data + '-02-28'
+    });
+
+    $("#FevrierLimit").attr({
+        min : data + '-02-01',
+        max : data + '-02-28'
+    });
+
+    //Mars
+    $("#MarsDebut").attr({
+        min : data + '-03-01',
+        max : data + '-03-31'
+    });
+
+    $("#MarsLimit").attr({
+        min : data + '-03-01',
+        max : data + '-03-31'
+    });
+}
+
 function PopulateTable(data){
     var option = "";
     data = JSON.parse(data);
