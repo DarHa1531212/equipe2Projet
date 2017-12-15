@@ -44,20 +44,20 @@
                      
                 <div class = "champ" id = "Prenom">
                     <br>
-                    <p class="label labelForInput">Prenom :</p>
-                    <input type="text" value="" id="prenom" class="value" name = "prenom" placeholder="Prenom" onblur="Required(this); VerifierRegex(this);" pattern="'.$regxNom.'" required/>
+                    <p class="label labelForInput"><span class="Obligatoire">*</span>Prenom :</p>
+                    <input type="text" value="" id="prenom" class="value" name = "prenom" onblur="Required(this); VerifierRegex(this);" pattern="'.$regxNom.'" required/>
                 </div>
 
                <div class = "champ" id = "Nom">
                 <br>
-                <p class="label labelForInput">Nom :</p>
-                <input type="text" value="" class="value" name = "nom" id="nom" placeholder="Nom" onblur="Required(this); VerifierRegex(this);" pattern="'.$regxNom.'" required/>
+                <p class="label labelForInput"><span class="Obligatoire">*</span>Nom :</p>
+                <input type="text" value="" class="value" name = "nom" id="nom" onblur="Required(this); VerifierRegex(this);" pattern="'.$regxNom.'" required/>
                 </div>
 
                 <div class = "champ" id = "courriel">
                  <br>
-                <p class="label labelForInput">Courriel :</p>
-                <input type="text" value="" class="value" name = "courriel" id="Courriel" placeholder="Courriel" onblur="Required(this); VerifierRegex(this);" pattern="'.$regxEmail.'" required/>
+                <p class="label labelForInput"><span class="Obligatoire">*</span>Courriel :</p>
+                <input type="text" value="" class="value" name = "courriel" id="Courriel" onblur="Required(this); VerifierRegex(this);" pattern="'.$regxEmail.'" required/>
                 </div>
                     <div class="champ" id = "dropDownEntreprise">
                         <p class="label labelForInput">Entreprise</p>
@@ -67,8 +67,8 @@
                 </div>
                 <div class = "champ" id = "noTelEntreprise">
                 <br>
-                <p class="label labelForInput">Numero de telephone entreprise :</p>
-                <input type="text" value="" class="value" name = "noTelEntreprise" id="numTelEntreprise" placeholder="(XXX) XXX-XXXX" onblur="Required(this); VerifierRegex(this);" pattern="'.$regxNumTel.'" required/>
+                <p class="label labelForInput"><span class="Obligatoire">*</span>Numero de telephone entreprise :</p>
+                <input type="text" value="" class="value" name = "noTelEntreprise" id="numTelEntreprise" onblur="Required(this); VerifierRegex(this);" pattern="'.$regxNumTel.'" required/>
                 </div>
 
                 <div class = "champ" id = "posteTelEntreprise">
