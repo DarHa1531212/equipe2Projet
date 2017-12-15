@@ -378,6 +378,10 @@ input[type=file]{
     margin:0px;
     margin-top:10px;
 }
+
+.Obligatoire{
+    color : red;
+}
 /* ---------------------------------------------------*/
 
 .dateEntree{

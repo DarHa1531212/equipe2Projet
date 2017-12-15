@@ -927,7 +927,7 @@ avoir ce format - (xxx) xxx-xxxx"/>
                 $content = $content.
                 '<div class="champ">
                     <p class="label labelForInput">Courriel scolaire :</p>
-                    <input type="email" value="'.$this->getCourrielScolaire().'" id="courrielScolaire" maxlength="320" name="courrielScolaire" class="value" onblur="VerifierRegex(this)" pattern="'.$this->regxEmail.'"/>
+                    <input type="email" value="'.$this->getCourrielScolaire().'" id="courrielScolaire" maxlength="320" name="courrielScolaire" class="value" onblur="VerifierRegex(this)" pattern="'.$this->regxEmail.'" disabled/>
                 </div>';
             }
                     

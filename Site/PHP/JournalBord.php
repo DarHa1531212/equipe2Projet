@@ -114,6 +114,15 @@
 
     function DeleteEntree($bdd, $idEntree)
     {
+        $result = $bdd->Request("SELECT Documents as Doc FROM vJournalDeBord WHERE Id = :id", array('id' => $idEntree),"stdClass");
+
+        foreach ($result as $res) {
+            $doc = $res->Doc;
+        }
+
+        if($doc != "")
+            unlink("../Upload/" . $doc);
+
         $bdd->Request(" DELETE FROM tblJournalDeBord WHERE Id = :id",
                         array("id"=>$idEntree), "stdClass");
     }
