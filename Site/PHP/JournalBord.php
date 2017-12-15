@@ -18,11 +18,15 @@
     }
 
     function DerniereEntree($bdd, $idStagiaire){
+
         $result = $bdd->Request("   SELECT Dates AS DateComplete FROM vJournalDeBord 
-                                    WHERE IdStagiaire = :idStagiaire ORDER BY datecomplete DESC LIMIT 1;",
-                                    array("idStagiaire"=>$idStagiaire), "stdClass")[0];
-        
-        return DateDifference(date('Y-m-d h:i:s'), $result->DateComplete);
+                                WHERE IdStagiaire = :idStagiaire ORDER BY datecomplete DESC LIMIT 1;",
+                                array("idStagiaire"=>$idStagiaire), "stdClass");
+
+        if(array_key_exists(0, $result))
+            return DateDifference(date('Y-m-d h:i:s'), $result[0]->DateComplete);
+        else
+            return '0';
     }
 
     function LineBreak($texte){
@@ -54,16 +58,7 @@
             $id = $entree->Id;
 
             $div = $div.
-            '<div class="entree">
-                <h2>'.$dates.'</h2>
-                <div class="crdJournal">
-                    <span class="crdJournalM" onclick="modificationJournal = true; Requete(AfficherPage, \'../PHP/TBNavigation.php?id='.$idStagiaire.'&nomMenu=JournalBord.php\&nbEntree=5&idEntree='.$id.'\');">Modifier</span>
-                    <span>&nbsp;|&nbsp;</span>
-                    <span class="crdJournalD" onclick="Delete()">Supprimer</span>
-                    </div>
-                        <p>' .LineBreak($texte). '</p>
-                        <p>' . PieceJointe($document) . '</p>
-                    </div>';
+            '<div class="entree"><h2 class="dateEntree">'.$dates.'</h2><div class="crdJournal"><span class="crdJournalM" onclick="Edit('.$id.')">Modifier</span><span>&nbsp;|&nbsp;</span><span class="crdJournalD" onclick="Delete('.$id.')">Supprimer</span></div><p>' .LineBreak($texte). '</p><p>' . PieceJointe($document) . '</p></div>';
         }
         
         if(isset($_REQUEST['nbEntree']))
@@ -143,7 +138,6 @@
     
     $content=
     '
-    <script type="text/javascript" src="http://js.nicedit.com/nicEdit-latest.js"></script>
     <script>
         function Submit(){
             if(CheckAll()){
@@ -151,9 +145,15 @@
             }
         }
         
-        function Delete(){
-            Requete(ExecuteQuery, \'../PHP/TBNavigation.php?id='.$idStagiaire.'&nomMenu=JournalBord.php&idEntree='.$id.'&delete\');
-            Requete(AfficherPage, \'../PHP/TBNavigation.php?id='.$id.'&nomMenu=JournalBord.php&nbEntree=5\');
+        function Delete(id){
+            if(confirm("Voulez-vous vraiment supprimer l\'entrée sélectionnée?")){
+                Requete(ExecuteQuery, \'../PHP/TBNavigation.php?id='.$id.'&nomMenu=JournalBord.php&idEntree=\' + id + \'&delete\');
+                Requete(AfficherPage, \'../PHP/TBNavigation.php?id='.$id.'&nomMenu=JournalBord.php&nbEntree=5\');
+            }
+        }
+        
+        function Edit(id){
+            Post
         }
     </script>
     
@@ -170,11 +170,11 @@
     
         <div style="clear: both;"></div>
 
-            <textarea class="value" id="contenu" rows="5" cols="100" maxlength="500" name="contenu" wrap="hard" onblur="Required(this)" required></textarea>
+            <textarea class="value textarea" id="contenu" rows="5" cols="100" maxlength="500" name="contenu" wrap="hard" onkeyup="Required(this)" required></textarea>
             <input type="hidden" name="maxFileSize" value="2000000">
             <input class="inputFile" id="file" type="file" value="Envoyer" name="fichier" onchange="AfficherNom(this)"/>
 
-            <br/>                                                                             
+            <br/>                           
 
             <input style="width: 120px;" class="bouton" id="Save" type="button" value="Envoyer" onclick="Submit()"/>
 

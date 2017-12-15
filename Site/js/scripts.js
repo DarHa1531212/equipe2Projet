@@ -139,4 +139,3 @@ function PopulateTable(data){
     $("table>tbody").empty();
     $("table>tbody").append(option);
 }
-

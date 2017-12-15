@@ -54,12 +54,12 @@
     {
         if( ( $eval->getStatut() == 3 ) || ( $eval->getStatut() == 4) )
         {
-            $zoneSaisieCommentaire = '<textarea id="commentaireEvaluation" rows="5" cols="100" maxlength="500" name="commentaireEvaluation" wrap="hard" readonly>'.$eval->getCommentaire().'</textarea>';
+            $zoneSaisieCommentaire = '<textarea class="textarea" id="commentaireEvaluation" rows="5" cols="100" maxlength="500" name="commentaireEvaluation" wrap="hard" readonly>'.$eval->getCommentaire().'</textarea>';
         }
         else
         {
 
-            $zoneSaisieCommentaire = '<textarea id="commentaireEvaluation" rows="5" cols="100" maxlength="500" name="commentaireEvaluation" wrap="hard" placeholder="Écrire un commantaire ici!"></textarea>';
+            $zoneSaisieCommentaire = '<textarea class="textarea" id="commentaireEvaluation" rows="5" cols="100" maxlength="500" name="commentaireEvaluation" wrap="hard" placeholder="Écrire un commantaire ici!"></textarea>';
         }
 
         return $zoneSaisieCommentaire;
