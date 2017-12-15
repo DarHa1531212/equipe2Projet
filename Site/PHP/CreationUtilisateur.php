@@ -74,19 +74,19 @@
                 <div class = "champ" id = "posteTelEntreprise">
                 <br>
                 <p class="label labelForInput">Poste téléphonique :</p>
-                <input type="text" value="" class="value" name = "posteTelEntreprise" id="posteTel" onblur="VerifierRegex(this);" pattern="'.$regxPoste.'"/>
+                <input type="text" value="" class="value" name = "posteTelEntreprise" id="posteTel" placeholder="Poste" onblur="VerifierRegex(this);" pattern="'.$regxPoste.'"/>
                 </div>
 
                 <div class = "champ" id = "courrielPersonnel">
                 <br>
                 <p class="label labelForInput">courriel personnel (facultatif) :</p>
-                <input type="text" value="" class="value" name = "courrielPersonnel" id="courrielPersonnel" onblur="VerifierRegex(this);" pattern="'.$regxEmail.'"/>
+                <input type="text" value="" class="value" name = "courrielPersonnel" id="courrielPersonnel" placeholder="Courriel" onblur="VerifierRegex(this);" pattern="'.$regxEmail.'"/>
                 </div>
 
                 <div class = "champ" id = "noTelPersonnel">
                 <br>
                 <p class="label labelForInput">Numéro de téléphone personnel (facultatif) :</p>
-                <input type="text" value="" class="value" name = "noTelPersonnel" id="noTelPersonnel" onblur="VerifierRegex(this);" pattern="'.$regxNumTel.'"/>
+                <input type="text" value="" class="value" name = "noTelPersonnel" id="noTelPersonnel" placeholder="(XXX) XXX-XXXX" onblur="VerifierRegex(this);" pattern="'.$regxNumTel.'"/>
                 </div>
 
                 <div class="champ" id="posteEntreprise">
