@@ -49,35 +49,35 @@
         <div class="blocInfo infoProfil">
             <div class="champ">
                 <p class="label labelForInput">Nom</p>
-                <input type="text" name="nom" onblur="Required(this);" class="value" required/>
+                <input type="text" name="nom" onblur="Required(this);" class="value" placeholder="Nom" required/>
             </div>
             <div class="champ">
                 <p class="label labelForInput">Courriel</p>
-                <input type="email" name="courriel" class="value" onblur="Required(this); VerifierRegex(this);" pattern="'.$regxEmail.'" required/>
+                <input type="email" name="courriel" placeholder="Courriel" class="value" onblur="Required(this); VerifierRegex(this);" pattern="'.$regxEmail.'" required/>
             </div>
             <div class="champ">
                 <p class="label labelForInput">No. Téléphone</p>
-                <input type="text" maxlength="14" name="numTel" class="value" onblur="Required(this); VerifierRegex(this);" pattern="'.$regxNumTel.'" required/>
+                <input type="text" maxlength="14" name="numTel" placeholder="(XXX) XXX-XXXX" class="value" onblur="Required(this); VerifierRegex(this);" pattern="'.$regxNumTel.'" required/>
             </div>
             <div class="champ">
                 <p class="label labelForInput">Ville</p>
-                <input type="text" name="ville" class="value" onblur="Required(this)" required/>
+                <input type="text" name="ville" class="value" onblur="Required(this)" placeholder="Ville" required/>
             </div>
             <div class="champ">
                 <p class="label labelForInput">No. Civique</p>
-                <input type="text" maxlength="10" name="numCivique" class="value" onblur="Required(this); VerifierRegex(this);" pattern="'.$regxNumCivique.'" required/>
+                <input type="text" maxlength="10" name="numCivique" class="value" placeholder="No. Civique" onblur="Required(this); VerifierRegex(this);" pattern="'.$regxNumCivique.'" required/>
             </div>
             <div class="champ">
                 <p class="label labelForInput">Rue</p>
-                <input type="text" name="rue" class="value" onblur="Required(this)" required/>
+                <input type="text" name="rue" class="value" placeholder="Rue" onblur="Required(this)" required/>
             </div>
             <div class="champ">
                 <p class="label labelForInput">Province</p>
-                <input type="text" name="province" class="value" onblur="Required(this)" required/>
+                <input type="text" name="province" class="value" placeholder="Province" onblur="Required(this)" required/>
             </div>
             <div class="champ">
                 <p class="label labelForInput">Code Postal</p>
-                <input type="text" maxlength="7" name="codePostal" class="value" onblur="Required(this); VerifierRegex(this);" pattern="'.$regxCodePostal.'" required/>
+                <input type="text" maxlength="7" name="codePostal" class="value" placeholder="A0A 0A0" onblur="Required(this); VerifierRegex(this);" pattern="'.$regxCodePostal.'" required/>
             </div>
             <div class="champ">
                 <p class="label labelForInput">Logo</p>
