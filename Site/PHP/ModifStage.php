@@ -7,12 +7,22 @@ include 'CreationStage.php';
 require 'InfoStage.php';
 
 if(isset($_REQUEST["post"])){
-    $stage->Update($bdd, json_decode($_POST["tabChamp"]));
-    return;
+    return $stage->Update($bdd, json_decode($_POST["tabChamp"]));
 }
 
 $content =
 '
+<script>
+        Post(PopulateListEmploye, \'../PHP/TBNavigation.php?nomMenu=CreationStage.php&populate\');
+        
+        function Submit(){
+            if(CheckAll()){
+                Post(AfficherPage, \'../PHP/TBNavigation.php?&nomMenu=ModifStage.php&index='.$_REQUEST["index"].'&post\')
+                alert("Le stage à bien été modifié.");
+                Requete(AfficherPage, \'../PHP/TBNavigation.php?nomMenu=ListeStage.php\');
+            }
+        }
+    </script>
 <article class="stagiaire">
         <div class="infoStagiaire">
             <h2>Modification d\'un Stage</h2>
@@ -25,16 +35,15 @@ $content =
         <div class="blocInfo infoProfil">
             <div class="champ">
                 <p class="label labelForInput">Entreprise</p>
-                <select class="value" name="Entreprise" onchange="Post(PopulateListEmploye, \'../PHP/TBNavigation.php?nomMenu=CreationStage.php&populate\')">
+                <select class="value" name="Entreprise" onchange="Post(PopulateListEmploye, \'../PHP/TBNavigation.php?nomMenu=ModifStage.php&index='.$_REQUEST["index"].'&populate\')">
                     <option value="'.$stage->getIdEntreprise().'" selected>'.$stage->getNomEntreprise().'</option>
                     ' . showEnterprises($bdd) . '
                 </select>
-                <img src onerror="Post(PopulateListEmploye, \'../PHP/TBNavigation.php?nomMenu=CreationStage.php&populate\')">
             </div>
             <div class="champ">
                 <p class="label labelForInput">Stagiaire</p>
                 <select class="value"  name = "Stagiaire">
-                    <option selected>'.$stage->getNomStagiaire().'</option>
+                    <option selected value='.$stage->getIdStagiaire().'>'.$stage->getNomStagiaire().'</option>
                     ' . showInterns($bdd) . '
                 </select>
             </div>
@@ -76,11 +85,11 @@ $content =
             </div>
             <div class="champ">
                 <p class="label labelForInput">Date Début</p>
-                <input class="value" value="'.$stage->getDateDebut().'"  name = "DateDebut" type="date"/>
+                <input class="value" value="'.$stage->getDateDebut().'" onblur="Required(this);" name="DateDebut" type="date" required/>
             </div>
             <div class="champ">
                 <p class="label labelForInput">Date Fin</p>
-                <input class="value" value="'.$stage->getDateFin().'" name = "DateFin" type="date"/>
+                <input class="value" value="'.$stage->getDateFin().'" onblur="Required(this);" name="DateFin" type="date" required/>
             </div>
 
             <br/>
@@ -97,7 +106,7 @@ $content =
             <br/>
             
             <input class="bouton" type="button" style="width: 100px;" value="   Annuler   " onclick="Requete(AfficherPage, \'../PHP/TBNavigation.php?nomMenu=ListeStage.php\')"/>      
-            <input class="bouton" type="button" id="Save" style="width: 100px;" value=" Sauvegarder " onclick= "Post(AfficherPage, \'../PHP/TBNavigation.php?&nomMenu=ModifStage.php&post\'); Requete(AfficherPage, \'../PHP/TBNavigation.php?nomMenu=ListeStage.php\')"/>
+            <input class="bouton" type="button" id="Save" style="width: 100px;" value=" Sauvegarder " onclick= "Submit()"/>
             <br/><br/>
         </div>   
 </article>';
