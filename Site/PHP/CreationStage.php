@@ -169,7 +169,7 @@
             </div>
 
             <div class="champ">
-                <p class="label labelForInput">Heure / Semaine</p>
+                <p class="label labelForInput"><span class="Obligatoire">*</span>Heure / Semaine</p>
                 <input class="value" type="text"  name = "HeuresSemaine" id="heureSem" onblur="Required(this); VerifierRegex(this);" pattern="'.$regxHeure.'" required/>
             </div>
 
