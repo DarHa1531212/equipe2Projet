@@ -274,27 +274,6 @@
                     <div id="droite" class="fleche flecheDroite" onclick="ChangerItem(this)"></div>
                 </div>';  
             }
->>>>>>> Merge_Eval
-
-        <table>
-            <thead>
-                <th>Autre</th>
-            </thead>
-
-            <tbody>
-
-                <tr class="itemHover" onclick="Requete(AfficherPage, \'../PHP/TBNavigation.php?id='.$profil->Id.'&nomMenu=JournalBord.php\', \'&nbEntree=\', 5) ">
-                    <td>Journal de bord</td>
-                </tr>
-
-                <tr class="itemHover" onclick="Requete(AfficherPage, \'../PHP/TBNavigation.php?id='.$profil->Id.'&nomMenu=Evaluation.php&idStage='.$profil->IdStage.'&idEvaluation='.$autoEvaluation[0]->IdEvaluation.'&typeEval=4\')">
-                    <td>Auto-Évaluation</td>
-                </tr>
-
-            </tbody>
-        </table>
-
-        <br/><br/><br/>';
                 
         if(count($profils) > 1)
         {
