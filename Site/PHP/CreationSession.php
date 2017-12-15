@@ -36,7 +36,9 @@
     function createYear()
     {
         $choix = '<option value="default">Choisir une année</option>';
-        for($i = 2017; $i <= 2017+25; $i++)
+        $year = date('Y');
+
+        for($i = $year; $i <= $year+10; $i++)
         {
             $choix = $choix . '<option value="'.$i.'">'.$i.'</option>';
         }
