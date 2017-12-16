@@ -33,6 +33,7 @@
                                 ON Ent.Id = Emp.IdEntreprise
                                 JOIN vUtilisateurRole AS UR
                                 ON UR.IdUtilisateur = Emp.IdUtilisateur", null, "ProfilEmploye");
+    
 
     function AfficherUtilisateur($utilisateurs){
         $courriel;

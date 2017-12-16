@@ -27,6 +27,9 @@
         $("#posteTelEntreprise").show();
         $("#checkResponsable").show();
         $("#checkSuperviseur").show();
+        $("#noTelPersonnel").hide();
+        $("#courrielPersonnel").hide();
+
 
 	}
 
@@ -50,7 +53,7 @@
          $("#courrielPersonnel").show();
     }
 
-   function testerRetour (data)
+    function testerRetour (data)
     {
         if (data ==  -11)
         {
@@ -60,7 +63,8 @@
         {
             //Mettre tous les champs à vide.
             alert ("L'utilisateur à été ajouté");
-            Requete(AfficherPage, '../PHP/TBNavigation.php?nomMenu=CreationUtilisateur.php');
+            Requete(AfficherPage, '../PHP/TBNavigation.php?nomMenu=ListeUtilisateur.php');
+            //changeUserType(userType);
         }
     }
 
@@ -72,8 +76,10 @@
 		document.getElementById("chkResponsable").value="false";
 	}
 
+
 	function checkSuperviseur(element)
 	{
+
 	  if (element.checked)
 		document.getElementById("chkSuperviseur").value="true";
 	  else 

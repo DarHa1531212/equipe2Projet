@@ -16,6 +16,7 @@ function getValuesFromUser(callback)
                 nom: "functionToExecute",
                 value: "1"
             };
+            
             tabValues.push(reponse);
 
 
@@ -85,8 +86,6 @@ function readEmploye (callback, args)
                 afficherInfos(data);
             } 
         }); 
- 
- 
 }
 
 
@@ -98,8 +97,5 @@ function afficherInfos(data)
     var contenu ="<p>Nom de l'employe:  ".concat(  myObject[0]  + "</p><br><p>Nom d'entreprise: " + myObject[4] + "</p><br><p>Courriel de l'employe: " + myObject[1] +"</p><br><p>Numéro de téléphone de l'employé: " + myObject[2] + "</p><br><p>Poste téléphonique de l'employe: " + myObject[3] +  "</p> <br>");
     console.log (contenu);
     document.getElementById('readEmployeEntreprise').innerHTML = contenu;
-
-
-
 
 }
