@@ -71,7 +71,7 @@ WHERE Role.Titre = 'Superviseur';
 -- ------------------------------------------------
 DROP VIEW IF EXISTS vTableauBord;
 CREATE VIEW vTableauBord AS
-SELECT 	Stagiaire.Id, Stagiaire.Prenom, Stagiaire.Nom, Stagiaire.NumTelPerso,
+SELECT 	Stagiaire.IdUtilisateur AS 'Id', Stagiaire.Prenom, Stagiaire.Nom, Stagiaire.NumTelPerso,
 		Enseignant.IdUtilisateur AS 'IdEnseignant', Enseignant.Prenom AS 'PrenomEnseignant', Enseignant.Nom AS 'NomEnseignant', Enseignant.NumTelEntreprise AS 'TelEnseignant',
         Sup.IdUtilisateur AS 'IdSuperviseur', Sup.Prenom AS 'PrenomSuperviseur', Sup.Nom AS 'NomSuperviseur', Sup.NumTelEntreprise AS 'TelSuperviseur',
 		res.IdUtilisateur AS 'IdResponsable', Stage.Id AS 'IdStage', Session.Id AS 'IdSession', 
@@ -285,8 +285,11 @@ SELECT 	Stage.Id AS 'IdStage', RaisonSociale, DescriptionStage, CompetenceRecher
 		DateDebut, DateFin, LettreEntenteVide, LettreEntenteSignee, OffreStage, IdSession,
 		IdResponsable, IdSuperviseur, IdStagiaire, IdEnseignant, CONCAT(Resp.Prenom, ' ', Resp.Nom) AS 'NomResponsable',
 		CONCAT(Ens.Prenom, ' ', Ens.Nom) AS 'NomEnseignant', CONCAT(Sup.Prenom, ' ', Sup.Nom) AS 'NomSuperviseur',
-        CONCAT(Stagiaire.Prenom, ' ', Stagiaire.Prenom) AS 'NomStagiaire'
+        CONCAT(Stagiaire.Prenom, ' ', Stagiaire.Prenom) AS 'NomStagiaire', CONCAT(Sess.Periode, ' ', Sess.Annee) AS 'NomSession',
+        Ent.Nom AS 'NomEntreprise'
 FROM vStage AS Stage
+JOIN vSession AS Sess
+ON Sess.Id = Stage.IdSession
 JOIN vEmploye AS Resp
 ON Stage.IdResponsable = Resp.IdUtilisateur
 JOIN vEmploye AS Ens
@@ -295,4 +298,6 @@ JOIN vEmploye AS Sup
 ON Sup.IdUtilisateur = Stage.IdSuperviseur
 JOIN vStagiaire AS Stagiaire
 ON Stagiaire.IdUtilisateur = Stage.IdStagiaire
+JOIN vEntreprise AS Ent
+ON Ent.Id = Sup.IdEntreprise
 ORDER BY IdStage DESC;

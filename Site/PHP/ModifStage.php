@@ -1,23 +1,21 @@
 <?php
-//////////////////////////////////////////////////////////////
-//NE PAS OUBLIER LES MESSAGES D'ERREURS SI LA REQUETE ÉCHOUE//
-//////////////////////////////////////////////////////////////
-
 include 'CreationStage.php';
 require 'InfoStage.php';
 
-if(isset($_REQUEST["post"])){
+if(isset($_REQUEST["Edit"]))
     return $stage->Update($bdd, json_decode($_POST["tabChamp"]));
-}
+
+if(isset($_REQUEST["populate"]))
+    return showEmployees($bdd);
 
 $content =
 '
 <script>
-        Post(PopulateListEmploye, \'../PHP/TBNavigation.php?nomMenu=CreationStage.php&populate\');
+        Post(PopulateListEmploye, \'../PHP/TBNavigation.php?nomMenu=ModifStage.php&index='.$_REQUEST["index"].'&populate\');
         
         function Submit(){
             if(CheckAll()){
-                Post(AfficherPage, \'../PHP/TBNavigation.php?&nomMenu=ModifStage.php&index='.$_REQUEST["index"].'&post\')
+                Post(AfficherPage, \'../PHP/TBNavigation.php?&nomMenu=ModifStage.php&index='.$_REQUEST["index"].'&Edit\')
                 alert("Le stage à bien été modifié.");
                 Requete(AfficherPage, \'../PHP/TBNavigation.php?nomMenu=ListeStage.php\');
             }
@@ -48,6 +46,13 @@ $content =
                 </select>
             </div>
             <div class="champ">
+                <p class="label labelForInput">Session</p>
+                <select class="value"  name = "Session">
+                    <option selected disabled value='.$stage->getIdSession().'>'.$stage->getNomSession().'</option>
+                    ' . showSessions($bdd) . '
+                </select>
+            </div>
+            <div class="champ">
                 <p class="label labelForInput">Responsable</p>
                 <select class="value"  name = "Responsable" id="responsable">
                     <option selected disabled>'.$stage->getNomResponsable().'</option>
@@ -62,13 +67,16 @@ $content =
             <div class="champ">
                 <p class="label labelForInput">Enseignant</p>
                 <select class="value"  name = "Enseignant">
-                    <option selected disabled>'.$stage->getNomEnseignant().'</option>
+                    <option selected disabled value="'.$stage->getIdEnseignant().'">'.$stage->getNomEnseignant().'</option>
                     ' . showProfessors($bdd) . '
                 </select>
             </div>
             <div class="champ">
                 <p class="label labelForInput">Heure / Semaine</p>
                 <input class="value" type="text" value="'.$stage->getNbHeureSemaine().'" name="HeuresSemaine" onblur="VerifierRegex(this);" pattern="'.$regxHeure.'"/>
+            </div>
+            <div class="champ">
+                <p class="label labelForInput"></p>
             </div>
             <div class="champ">
                 <p class="label labelForInput">Rémunéré</p>
@@ -96,11 +104,11 @@ $content =
 
             <div class="champArea">
                 <p class="label labelForInput labelArea">Description du stage</p>
-                <textarea class="value valueArea" name = "DescStage">'.$stage->getDescriptionStage().'</textarea>
+                <textarea class="value valueArea" maxlength="1000" name="DescStage">'.$stage->getDescriptionStage().'</textarea>
             </div>  
             <div class="champArea">
                 <p class="label labelForInput labelArea">Compétences recherchées</p>
-                <textarea class="value valueArea" name = "CompetancesRecherchees">'.$stage->getCompetenceRecherche().'</textarea>
+                <textarea class="value valueArea" maxlength="1000" name="CompetancesRecherchees">'.$stage->getCompetenceRecherche().'</textarea>
             </div>
 
             <br/>

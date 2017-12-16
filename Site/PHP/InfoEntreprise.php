@@ -18,10 +18,7 @@
            $nbStages =  $resultat->nbStages;
         }
 
-       // var_dump($nbStages);
-
         if ($nbStages == 0){
-          //  $data =$entreprises[$_REQUEST["id"]]->Id;
             $stage = array();
             $result = $bdd->Request(" DELETE FROM tblEntreprise WHERE Id = :id;",
                 array('id'=>$_REQUEST["idEntreprise"]),'stdClass');

@@ -17,7 +17,7 @@
 
     function SelectStage($bdd, $recherche){
         $stages = $bdd-> Request (" SELECT * FROM vListeStage 
-                                    WHERE CONCAT(NomStagiaire, IFNULL(RaisonSociale, ''), IFNULL(DateDebut, ''), IFNULL(DateFin, ''), IFNULL(SalaireHoraire, '')) 
+                                    WHERE CONCAT(NomStagiaire, IFNULL(NomEntreprise, ''), IFNULL(DateDebut, ''), IFNULL(DateFin, ''), IFNULL(SalaireHoraire, '')) 
                                     LIKE :recherche", 
                                     array("recherche"=>$recherche), "Stage");
         
@@ -34,7 +34,7 @@
         foreach ($stages as $stage) {
             $content = $content . 
             '<tr class="itemHover" onclick="Requete(AfficherPage, \'../PHP/TBNavigation.php?nomMenu=InfoStage.php&index='.$index.'\')">
-                <td>' . $stage->getRaisonSociale() . '</td>
+                <td>' . $stage->getNomEntreprise() . '</td>
                 <td>' . $stage->getNomStagiaire() . '</td>
                 <td>' . $stage->getSalaireHoraire() . '</td>
                 <td>' . $stage->getDateDebut() . '</td>

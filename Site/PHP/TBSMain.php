@@ -121,7 +121,7 @@
     {
             //<script src="http://js.nicedit.com/nicEdit-latest.js" type="text/javascript"></script>
             $autoEvaluation = $bdd->Request('SELECT *
-                                            FROM vInfoEvalGlobale
+                                            FROM    vInfoEvalGlobale
                                             WHERE IdStage = :IdStage AND IdTypeEvaluation = 4;',
                                             array('IdStage'=>$profil->IdStage),
                                             "stdClass");
