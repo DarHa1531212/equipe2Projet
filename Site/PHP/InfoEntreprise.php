@@ -1,46 +1,43 @@
 <?php
     
     require 'ListeEntreprise.php';
+
     if(isset($_REQUEST["id"]))
     {
         $entreprise = $entreprises[$_REQUEST["id"]];
     }
     
+    if(isset($_REQUEST["idEntreprise"])){
+        $data = "";
+        $nbStages = -1;
+        $result = $bdd->Request("SELECT count(*) as 'nbStages' from vSuperviseur 
+            join vStage on vStage.IdSuperviseur = vSuperviseur.IdUtilisateur
+            where IdEntreprise = :id;", array('id'=>$_REQUEST["idEntreprise"]),'stdClass');
 
+        foreach($result as $resultat){
+           $nbStages =  $resultat->nbStages;
+        }
 
-    if (isset($_REQUEST["idEntreprise"]))
-        {
-            $data = "";
-            $nbStages = -1;
-            $result = $bdd->Request("SELECT count(*) as 'nbStages' from vSuperviseur 
-                join vStage on vStage.IdSuperviseur = vSuperviseur.IdUtilisateur
-                where IdEntreprise = :id;", array('id'=>$_REQUEST["idEntreprise"]),'stdClass');
-                    foreach($result as $resultat){
-                       $nbStages =  $resultat->nbStages;
-                    }
+        if ($nbStages == 0){
+            $stage = array();
+            $result = $bdd->Request(" DELETE FROM tblEntreprise WHERE Id = :id;",
+                array('id'=>$_REQUEST["idEntreprise"]),'stdClass');
+            return "0" ;
+         }
+        else {
+            return"-1";
+        }
+    }
 
-                   // var_dump($nbStages);
-     
-                if ($nbStages == 0)
-                {
-                  //  $data =$entreprises[$_REQUEST["id"]]->Id;
-                    $stage = array();
-                    $result = $bdd->Request(" DELETE FROM tblEntreprise WHERE Id = :id;",
-                        array('id'=>$_REQUEST["idEntreprise"]),'stdClass');
-                    return "0" ;
-                 }
-
-                else {
-                    return"-1";
-                }
-                
-       }
-   
     else {
-              // var_dump($entreprise->getId());
-
-            $content =
+        $content =
         '
+        <article class="stagiaire">
+        <div class="infoStagiaire">
+            <h2>Consultation de l\'Entreprise</h2>
+            <input class="bouton" type="button" value="Modifier" onclick="Requete(AfficherPage, \'../PHP/TBNavigation.php?&nomMenu=ModifEntreprise.php&id='.$_REQUEST["id"].'\')"/>
+        </div>
+        
         <article class="stagiaire">
             <div class="infoStagiaire">
                 <h2>Consultation de l\'Entreprise</h2>

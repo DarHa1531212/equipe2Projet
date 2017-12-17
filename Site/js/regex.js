@@ -34,11 +34,11 @@ function Required(champ){
 }
 
 function CheckAll(){
-    var champs = $(".value");
+    var champs = $(".value:visible");
     var nbCorrect = 0;
     
     for(var i = 0; i < champs.length; i++){
-        if(VerifierRegex(champs[i]) && (Required(champs[i]))){
+        if((Required(champs[i])) && VerifierRegex(champs[i])){
             nbCorrect++;
         }
     }
@@ -60,7 +60,7 @@ function Erreur(etat, champ){
         bouton.disabled = false;
     }
     else{
-        $(champ).css("background-color", "red");   
+        $(champ).css("background-color", "#ff8080");   
         bouton.disabled = true;
     } 
 }

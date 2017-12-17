@@ -36,12 +36,6 @@ function EnleverImage()
 	}
 }
 
-function ConfirmDelete()
-{
-	var r = confirm("Supprimer l'entrée selectionnée?");
-	return r;
-}
-
 //Affiche le nom du fichier sélectionné.
 function AfficherNom(champ){
     var nom = document.getElementById("nomPieceJointe");

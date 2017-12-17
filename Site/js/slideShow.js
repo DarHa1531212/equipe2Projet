@@ -16,7 +16,7 @@ function CacherDiv()
         ChangerLettre(0);
     }
     
-    for(var i = 1; i < liste.length; i++)
+    for(i = 1; i < liste.length; i++)
     {
         $(liste[i]).hide();
     }

@@ -314,7 +314,7 @@
             }
             else
             {
-                return '<textarea class="commentaireCategorie" rows="" cols="" maxlength="500" name="'.$this->questionsHasComment($bdd, $questions)[0].'" wrap="hard">Vos commentaires</textarea>';
+                return '<textarea class="commentaireCategorie" rows="" cols="" maxlength="500" name="'.$this->questionsHasComment($bdd, $questions)[0].'" wrap="hard" placeholder="Vos commentaires ici!"></textarea>';
             }
 
         }
@@ -751,28 +751,27 @@
             <div class="blocInfo infoProfil">
                     <div class="champ">
                         <p class="label labelForInput">Prenom :</p>
-                        <input type="text" value="'.$this->getPrenom().'" class="value" disabled/>
+                        <input type="text" value="'.$this->getPrenom().'" class="value" disabled onblur="Required(this)" required/>
                     </div>
 
                     <div class="champ">
                         <p class="label labelForInput">Nom :</p>
-                        <input type="text" value="'.$this->getNom().'" class="value" disabled/>
+                        <input type="text" value="'.$this->getNom().'" class="value" disabled onblur="Required(this)" required/>
                     </div>
 
                     <div class="champ">
                         <p class="label labelForInput">Entreprise :</p>
-                        <input type="text" value="'.$this->getEntreprise().'" class="value" disabled/>
+                        <input type="text" value="'.$this->getEntreprise().'" class="value" disabled onblur="Required(this)" required/>
                     </div>
 
                     <div class="champ">
                         <p class="label labelForInput">Courriel :</p>
-                        <input type="email" value="'.$this->getCourrielEntreprise().'" id="courrielEntreprise" name="courrielEntreprise" class="value" pattern="'.$this->regxEmail.'" onblur="VerifierRegex(this)"/>
-
+                        <input type="email" value="'.$this->getCourrielEntreprise().'" id="courrielEntreprise" name="courrielEntreprise" class="value" pattern="'.$this->regxEmail.'" onblur="Required(this) required; VerifierRegex(this)" />
                     </div>
 
                     <div class="champ">
                         <p class="label labelForInput">No. Téléphone :</p>
-                        <input type="text" value="'.$this->getNumTelEntreprise().'" id="numEntreprise" name="numEntreprise" class="value" onblur="VerifierRegex(this)" pattern="'.$this->regxNumTel.'"/>
+                        <input type="text" value="'.$this->getNumTelEntreprise().'" id="numEntreprise" name="numEntreprise" class="value" onblur="Required(this); VerifierRegex(this)" pattern="'.$this->regxNumTel.'" required/>
                         <img class="info" src="../Images/info.png" title="Le numéro de téléphone doit
 avoir ce format - (xxx) xxx-xxxx"/>
                     </div>
@@ -903,7 +902,7 @@ avoir ce format - (xxx) xxx-xxxx"/>
 
             <div class="blocInfo infoProfil">
                     <div class="champ">
-                        <p class="label labelForInput">Prenom :</p>
+                        <p class="label labelForInput">Prenom1 :</p>
                         <input type="text" value="'.$this->getPrenom().'" class="value" disabled/>
                     </div>
 
@@ -920,15 +919,15 @@ avoir ce format - (xxx) xxx-xxxx"/>
                     </div>
 
                     <div class="champ">
-                        <p class="label labelForInput">Courriel :</p>
-                        <input type="email" value="'.$this->getCourrielPerso().'" id="courrielPersonnel" name="courrielPersonnel" class="value" onblur="VerifierRegex(this)" pattern="'.$this->regxEmail.'"/>
+                        <p class="label labelForInput">Courriel personnel :</p>
+                        <input type="email" value="'.$this->getCourrielPerso().'" id="courrielPersonnel" maxlength="320" name="courrielPersonnel" class="value" onblur="VerifierRegex(this)" pattern="'.$this->regxEmail.'"/>
                     </div>';
 
             if($_SESSION["IdRole"] == 1){
                 $content = $content.
                 '<div class="champ">
-                    <p class="label labelForInput">Courriel :</p>
-                    <input type="email" value="'.$this->getCourrielScolaire().'" id="courrielPersonnel" name="courrielPersonnel" class="value" onblur="VerifierRegex(this)" pattern="'.$this->regxEmail.'"/>
+                    <p class="label labelForInput">Courriel scolaire :</p>
+                    <input type="email" value="'.$this->getCourrielScolaire().'" id="courrielScolaire" maxlength="320" name="courrielScolaire" class="value" onblur="VerifierRegex(this)" pattern="'.$this->regxEmail.'" disabled/>
                 </div>';
             }
                     
@@ -1033,21 +1032,21 @@ avoir ce format - (xxx) xxx-xxxx"/>
                 $entreprise[$champ->nom] = $champ->value;
             }
             
-            $bdd->Request(" UPDATE tblEntreprise SET CourrielEntreprise = :courriel, Nom = :nom, NumTel = :numTel,
-                            NumCivique = :numCivique, Rue = :rue, Ville = :ville, Province = :province, CodePostal = :codePostal,
-                            Logo = :logo WHERE Id = :id",
-                            array(  
-                            "courriel"=>$entreprise["courrielEntreprise"],
-                            "nom"=>$entreprise["nom"],
-                            "numTel"=>$entreprise["numEntreprise"],
-                            "numCivique"=>$entreprise["noCivique"],
-                            "rue"=>$entreprise["rue"],
-                            "ville"=>$entreprise["ville"],
-                            "province"=>$entreprise["province"],
-                            "codePostal"=>$entreprise["codePostal"],
-                            "logo"=>$entreprise["logo"],
-                            "id"=>$this->Id),
-                            "stdClass");
+            return $bdd->Request("  UPDATE tblEntreprise SET CourrielEntreprise = :courriel, Nom = :nom, NumTel = :numTel,
+                                    NumCivique = :numCivique, Rue = :rue, Ville = :ville, Province = :province, CodePostal = :codePostal,
+                                    Logo = :logo WHERE Id = :id",
+                                    array(  
+                                    "courriel"=>$entreprise["courrielEntreprise"],
+                                    "nom"=>$entreprise["nom"],
+                                    "numTel"=>$entreprise["numEntreprise"],
+                                    "numCivique"=>$entreprise["noCivique"],
+                                    "rue"=>$entreprise["rue"],
+                                    "ville"=>$entreprise["ville"],
+                                    "province"=>$entreprise["province"],
+                                    "codePostal"=>$entreprise["codePostal"],
+                                    "logo"=>$entreprise["logo"],
+                                    "id"=>$this->Id),
+                                    "stdClass");
         }
         
         public function getId(){
@@ -1182,41 +1181,38 @@ avoir ce format - (xxx) xxx-xxxx"/>
 
 
     class Stage implements JsonSerializable{
-        private $IdStage, $DescriptionStage, $CompetenceRecherche, $HoraireTravail, $NbHeureSemaine,
-                $Remunere, $SalaireHoraire, $DateDebut, $DateFin, $LettreEntenteVide, 
-                $LettreEntenteSignee, $OffreStage, $NomResponsable, $NomSuperviseur, $NomStagiaire, 
-                $NomEnseignant, $NomEntreprise, $IdEntreprise;
+        private $IdStage, $DescriptionStage, $CompetenceRecherche, $NbHeureSemaine, $SalaireHoraire,
+                $DateDebut, $DateFin, $LettreEntenteVide, $LettreEntenteSignee, $OffreStage, $IdSession,
+                $IdResponsable, $IdSuperviseur, $IdStagiaire, $IdEnseignant, $NomResponsable, $NomEnseignant,
+                $NomSuperviseur, $NomStagiaire, $IdEntreprise, $NomEntreprise, $NomSession;
         
         //Met à jour le stage dans la BD.
-        public function Update(){
-            $champs = json_decode($_POST["tabChamp"]);
+        public function Update($bdd, $champs){
             $stage = array();
 
             foreach($champs as $champ){
                 $stage[$champ->nom] = $champ->value;
             }
 
-            $bdd->Request(" UPDATE tblStage SET IdResponsable = :idResponsable, IdSuperviseur = :idSuperviseur, 
-                            IdStagiaire = :idStagiaire, IdEnseignant = :idEnseignant, DescriptionStage = :description,
-                            CompetenceRecherche = :competence, HoraireTravail = :horaire, NbHeureSemaine = :nbHeure,
-                            SalaireHoraire = :salaire, DateDebut = :dateDebut, DateFin = :dateFin)",
-                            array(
-                                'idResponsable'=>$stage["Responsable"], 
-                                'idSuperviseur'=>$stage["Superviseur"], 
-                                'idStagiaire'=>$stage["Stagiaire"], 
-                                'idEnseignant'=>$stage["Enseignant"],
-                                'description'=>$stage["DescStage"], 
-                                'competence'=>$stage["CompetancesRecherchees"], 
-                                'horaire'=>$stage["SalaireHoraire"], 
-                                'nbHeure'=>$stage["HeuresSemaine"],
-                                'salaire'=>$stage["SalaireHoraire"], 
-                                'dateDebut'=>$stage["DateDebut"], 
-                                'dateFin'=>$stage["DateFin"]), 
-                                'stdClass');
-        }
-        
-        public function expose(){
-            return get_object_vars($this);
+            return $bdd->Request("  UPDATE tblStage SET IdResponsable = :idResponsable, IdSuperviseur = :idSuperviseur, 
+                                    IdStagiaire = :idStagiaire, IdEnseignant = :idEnseignant, DescriptionStage = :description,
+                                    CompetenceRecherche = :competence, NbHeureSemaine = :nbHeure,
+                                    SalaireHoraire = :salaire, DateDebut = :dateDebut, DateFin = :dateFin,
+                                    IdSession = :idSession WHERE Id = :id",
+                                    array(
+                                        'idResponsable'=>$stage["Responsable"], 
+                                        'idSuperviseur'=>$stage["Superviseur"], 
+                                        'idStagiaire'=>$stage["Stagiaire"], 
+                                        'idEnseignant'=>$stage["Enseignant"],
+                                        'description'=>$stage["DescStage"], 
+                                        'competence'=>$stage["CompetancesRecherchees"], 
+                                        'nbHeure'=>$stage["HeuresSemaine"],
+                                        'salaire'=>$stage["SalaireHoraire"], 
+                                        'dateDebut'=>$stage["DateDebut"], 
+                                        'dateFin'=>$stage["DateFin"],
+                                        'idSession'=>$stage["Session"],
+                                        'id'=>$this->getIdStage()),
+                                        'stdClass');
         }
         
         public function jsonSerialize(){
@@ -1227,6 +1223,14 @@ avoir ce format - (xxx) xxx-xxxx"/>
             return $this->IdStage;
         }
         
+        public function getNomEntreprise(){
+            return $this->NomEntreprise;
+        }
+        
+        public function getIdEntreprise(){
+            return $this->IdEntreprise;
+        }
+        
         public function getDescriptionStage(){
             return $this->DescriptionStage;
         }
@@ -1235,16 +1239,8 @@ avoir ce format - (xxx) xxx-xxxx"/>
             return $this->CompetenceRecherche;
         }
         
-        public function getHoraireTravail(){
-            return $this->HoraireTravail;
-        }
-        
         public function getNbHeureSemaine(){
             return $this->NbHeureSemaine;
-        }
-        
-        public function getRemunere(){
-            return $this->Remunere;
         }
         
         public function getSalaireHoraire(){
@@ -1271,16 +1267,32 @@ avoir ce format - (xxx) xxx-xxxx"/>
             return $this->OffreStage;
         }
         
+        public function getIdSession(){
+            return $this->IdSession;
+        }
+        
+        public function getNomSession(){
+            return $this->NomSession;
+        }
+        
+        public function getIdResponsable(){
+            return $this->IdResponsable;
+        }
+        
+        public function getIdSuperviseur(){
+            return $this->IdSuperviseur;
+        }
+        
+        public function getIdStagiaire(){
+            return $this->IdStagiaire;
+        }
+        
+        public function getIdEnseignant(){
+            return $this->IdEnseignant;
+        }
+        
         public function getNomResponsable(){
             return $this->NomResponsable;
-        }
-        
-        public function getNomEntreprise(){
-            return $this->NomEntreprise;
-        }
-        
-        public function getIdEntreprise(){
-            return $this->IdEntreprise;
         }
         
         public function getNomSuperviseur(){

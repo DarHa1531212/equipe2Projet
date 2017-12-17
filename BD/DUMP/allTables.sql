@@ -1362,9 +1362,7 @@ INSERT INTO `tblEtatAvancement` (`Id`,`Statut`,`IdStage`,`IdTypeEtatAvancement`)
 INSERT INTO `tblEtatAvancement` (`Id`,`Statut`,`IdStage`,`IdTypeEtatAvancement`) VALUES (149,'0',50,2);
 INSERT INTO `tblEtatAvancement` (`Id`,`Statut`,`IdStage`,`IdTypeEtatAvancement`) VALUES (150,'0',50,3);
 
-
 -- table etat avancement janvier
-
 INSERT INTO `tblEtatAvancementJanvier` (`Id`) VALUES (1);
 INSERT INTO `tblEtatAvancementJanvier` (`Id`) VALUES (4);
 INSERT INTO `tblEtatAvancementJanvier` (`Id`) VALUES (7);

@@ -19,6 +19,7 @@ function Post(callback){
     var tabChamp = [];
     var champ = "";
     var form_data = new FormData();
+    UploadFile(form_data);
     
     for(var i = 0; i < lstChamps.length; i++){
         champ = {
@@ -46,6 +47,14 @@ function Post(callback){
         } 
     }); 
 }
+
+//Détermine si il y a un fichier à transferer sur la page.
+function UploadFile(form_data){ 
+    if($('#file').length > 0){
+        var file_data = $('#file').prop('files')[0];                      
+        form_data.append('file', file_data); 
+    }
+} 
 
 //Crée une liste des radios boutons et les encode en JSON pour le envoyer au PHP.
 function PostEval(callback)
@@ -144,6 +153,9 @@ function AfficherPage(xhttp){
         
     $(".stagiaireContainer").empty();
     $(".stagiaireContainer").append(page);
+    
+    if($(".stagiaire").length <= 1)
+        return;
     CacherDiv();//Juste si il y a des stagiaires a afficher ou des evaluations(Fix plus tard).
 }
 

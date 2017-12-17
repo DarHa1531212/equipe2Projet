@@ -1,6 +1,6 @@
 <?php
     
-    if(isset($_REQUEST["post"]))
+    if(isset($_REQUEST["Create"]))
         CreateStage($bdd);
         
     function CreateStage($bdd){
@@ -11,8 +11,7 @@
             $stage[$champ->nom] = $champ->value;
         }
 
-        $bdd->Request(" INSERT INTO tblStage (IdResponsable, IdSuperviseur, IdStagiaire, IdEnseignant, DescriptionStage, CompetenceRecherche, NbHeureSemaine, SalaireHoraire, DateDebut, DateFin, IdSession) 
-                        VALUES (:idResponsable, :idSuperviseur, :idStagiaire, :idEnseignant, :description, :competence, :horaire, :nbHeure, :salaire, :dateDebut, :dateFin, :idSession);",
+        return $bdd->Request(" INSERT INTO tblStage ( IdResponsable, IdSuperviseur, IdStagiaire, IdEnseignant, DescriptionStage, CompetenceRecherche, NbHeureSemaine, SalaireHoraire, DateDebut, DateFin, IdSession) VALUES (:idResponsable, :idSuperviseur, :idStagiaire, :idEnseignant, :description, :competence, :nbHeure, :salaire, :dateDebut, :dateFin, :idSession);",
                         array(
                             'idResponsable'=>$stage["Responsable"], 
                             'idSuperviseur'=>$stage["Superviseur"], 
@@ -20,7 +19,6 @@
                             'idEnseignant'=>$stage["Enseignant"],
                             'description'=>$stage["DescStage"], 
                             'competence'=>$stage["CompetancesRecherchees"], 
-                            'horaire'=>$stage["SalaireHoraire"], 
                             'nbHeure'=>$stage["HeuresSemaine"],
                             'salaire'=>$stage["SalaireHoraire"], 
                             'dateDebut'=>$stage["DateDebut"], 
@@ -80,10 +78,10 @@
     function showProfessors($bdd)
     {
         $returnData = "";
-        $profs = $bdd->Request("select concat (Prenom, ' ' , Nom) as nomEnseignant, IdEnseignant from vEnseignant;", null, "stdClass");
+        $profs = $bdd->Request("select concat (Prenom, ' ' , Nom) as nomEnseignant, IdUtilisateur from vEnseignant;", null, "stdClass");
 
         foreach($profs as $prof)
-            $returnData = $returnData . '<option value= "' . $prof->IdEnseignant .'">' . $prof->nomEnseignant . '</option>';
+            $returnData = $returnData . '<option value= "' . $prof->IdUtilisateur .'">' . $prof->nomEnseignant . '</option>';
         
         return $returnData;
     }
@@ -92,16 +90,26 @@
     function showInterns($bdd)
     {
         $returnValue = "";
-        $stagiaires = $bdd->Request("select concat (Prenom, ' ' , Nom) as nomStagiaire, Id from vStagiaire;", null, "stdClass");
+        $stagiaires = $bdd->Request("select concat (Prenom, ' ' , Nom) as nomStagiaire, IdUtilisateur from vStagiaire;", null, "stdClass");
 
         foreach($stagiaires as $stagiaire)
-            $returnValue = $returnValue . '<option value= "' . $stagiaire->Id . '">' . $stagiaire->nomStagiaire . '</option>';
+            $returnValue = $returnValue . '<option value= "' . $stagiaire->IdUtilisateur . '">' . $stagiaire->nomStagiaire . '</option>';
 
         return $returnValue;
     }
 
     $content =
     '
+    <script>
+        Post(PopulateListEmploye, \'../PHP/TBNavigation.php?nomMenu=CreationStage.php&populate\');
+        
+        function Submit(){
+            if(CheckAll()){
+                Post(AfficherPage, \'../PHP/TBNavigation.php?&nomMenu=CreationStage.php&Create\')
+                alert("Le stage à bien été créé.");
+            }
+        }
+    </script>
     <article class="stagiaire">
         <div class="infoStagiaire">
             <h2>Stages</h2>
@@ -158,8 +166,8 @@
             </div>
 
             <div class="champ">
-                <p class="label labelForInput">Heure / Semaine</p>
-                <input class="value" type="text"  name = "HeuresSemaine" id="heureSem" onblur="VerifierRegex(this);" pattern="'.$regxHeure.'"/>
+                <p class="label labelForInput"><span class="Obligatoire">*</span>Heure / Semaine</p>
+                <input class="value" type="text"  name = "HeuresSemaine" id="heureSem" onblur="Required(this); VerifierRegex(this);" pattern="'.$regxHeure.'" required/>
             </div>
 
             <div class="champ">
@@ -174,15 +182,15 @@
             </div>
             <div class="champ">
                 <p class="label labelForInput">Salaire Horaire</p>
-                <input class="value" type="text"  name = "SalaireHoraire" id="salaire" onblur="VerifierRegex(this);" pattern="'.$regxSalaire.'"/>
+                <input class="value" type="text"  name="SalaireHoraire" id="salaire" placeholder="00,00" onblur="VerifierRegex(this);" pattern="'.$regxSalaire.'"/>
             </div>
             <div class="champ">
                 <p class="label labelForInput">Date Début</p>
-                <input class="value"  name = "DateDebut" type="date"/>
+                <input class="value"  name = "DateDebut" type="date" onblur="Required(this);" required/>
             </div>
             <div class="champ">
                 <p class="label labelForInput">Date Fin</p>
-                <input class="value"  name = "DateFin" type="date"/>
+                <input class="value"  name = "DateFin" type="date" onblur="Required(this);" required/>
             </div>
 
             <br/>
@@ -201,13 +209,10 @@
 
 		<br>
             <input class="bouton" type="button" style="width: 100px;" value="   Annuler   " onclick="Requete(AfficherPage, \'../PHP/TBNavigation.php?nomMenu=ListeStage.php\')"/>      
-            <input class="bouton" type="button" id="Save" style="width: 100px;" value=" Sauvegarder " onclick= "Post(AfficherPage, \'../PHP/TBNavigation.php?&nomMenu=CreationStage.php&post\')"/>
+            <input class="bouton" type="button" id="Save" style="width: 100px;" value=" Sauvegarder " onclick="Submit()"/>
             <br/><br/>
     </div>   
-    <br>
-
-<!-- Fin de section création de stage -->';
-
+    <br>';
 
 return $content;
 
