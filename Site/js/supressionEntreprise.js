@@ -12,7 +12,7 @@ function testerRetourSupressionEntreprise(data)
 	//alert("i'm in");
 	if(PHPResponse == "-1")
 	{
-        alert ("Cete entreprise est lié à un ou plusieurs stage(s) et ne peut pas être suprimé");
+        alert ("Cette entreprise est liée à un ou plusieurs stage(s) et ne peut pas être supprimée");
 	}
 	else if (PHPResponse == "0" )
 	{

@@ -50,15 +50,90 @@ function PopulateListEmploye(data){
     $("#responsable").append(option);
 }
 
+function setLimitDateSession(data)
+{
+    data = JSON.parse(data);
+
+    //EVALUATION
+    //Mi-stage
+    $("#MiStageDebut").attr({
+        min : data + '-01-01',
+        max : data + '-12-31'
+    });
+
+    $("#MiStageLimit").attr({
+        min : data + '-01-01',
+        max : data + '-12-31'
+    });
+
+    //Finale
+    $("#EvalFinalDebut").attr({
+        min : data + '-01-01',
+        max : data + '-12-31'
+    });
+
+    $("#EvalFinalLimit").attr({
+        min : data + '-01-01',
+        max : data + '-12-31'
+    });
+
+    //Formation
+    $("#EvalFormDebut").attr({
+        min : data + '-01-01',
+        max : data + '-12-31'
+    });
+
+    $("#EvalFormLimit").attr({
+        min : data + '-01-01',
+        max : data + '-12-31'
+    });
+
+    //RAPORTS
+    //Janvier
+    $("#JanvierDebut").attr({
+        min : data + '-01-01',
+        max : data + '-01-31'
+    });
+
+    $("#JanvierLimit").attr({
+        min : data + '-01-01',
+        max : data + '-01-31'
+    });
+
+    //Février
+    $("#FevrierDebut").attr({
+        min : data + '-02-01',
+        max : data + '-02-28'
+    });
+
+    $("#FevrierLimit").attr({
+        min : data + '-02-01',
+        max : data + '-02-28'
+    });
+
+    //Mars
+    $("#MarsDebut").attr({
+        min : data + '-03-01',
+        max : data + '-03-31'
+    });
+
+    $("#MarsLimit").attr({
+        min : data + '-03-01',
+        max : data + '-03-31'
+    });
+}
+
 function PopulateTable(data){
     var option = "";
     data = JSON.parse(data);
     
     for(var i = 0; i < data.length; i++){
-        option +=   "<tr class=\"itemHover\" onclick=\"Requete(AfficherPage, \'../PHP/TBNavigation.php?nomMenu=InfoStage.php&index=\'.$index.\'\')\">" +
+        option +=   "<tr class=\"itemHover\" onclick=\"Requete(AfficherPage, '../PHP/TBNavigation.php?nomMenu=InfoStage.php&idStage=" + data[i].IdStage + "')\">" +
                         "<td>" + data[i].NomEntreprise + "</td>" +
                         "<td>" + data[i].NomStagiaire + "</td>" + 
-                        "<td>Lettre dentente</td>" +
+                        "<td>" + data[i].SalaireHoraire + "</td>" + 
+                        "<td>" + data[i].DateDebut + "</td>" + 
+                        "<td>" + data[i].DateFin + "</td>" + 
                     "</tr>";
     }
         
@@ -66,4 +141,3 @@ function PopulateTable(data){
     $("table>tbody").empty();
     $("table>tbody").append(option);
 }
-

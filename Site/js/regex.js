@@ -12,6 +12,7 @@ function VerifierRegex(champ){
 }
 
 function DoubleVerif(champ1, champ2){
+
     if(champ1.value == champ2.value){
         Erreur(true, champ2);
         return true;
@@ -43,7 +44,7 @@ function CheckAll(){
         }
     }
 
-    if(nbCorrect == champs.length){
+    if(nbCorrect == champs.length){//tous les champs contienent quelque chose et sont conforme au regex
         return true;
     }
     else{
@@ -60,7 +61,8 @@ function Erreur(etat, champ){
         bouton.disabled = false;
     }
     else{
-        $(champ).css("background-color", "red");   
+        $(champ).css("background-color", "#ff8080");   
         bouton.disabled = true;
-    } 
+    }
+
 }

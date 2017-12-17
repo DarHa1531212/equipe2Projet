@@ -1,6 +1,6 @@
 <?php
     
-    if(isset($_REQUEST["post"]))
+    if(isset($_REQUEST["Create"]))
         CreateStage($bdd);
         
     function CreateStage($bdd){
@@ -11,10 +11,7 @@
             $stage[$champ->nom] = $champ->value;
         }
 
-
-      //  var_dump($stage);
-
-        $bdd->Request(" INSERT INTO tblStage ( IdResponsable, IdSuperviseur, IdStagiaire, IdEnseignant, DescriptionStage, CompetenceRecherche, NbHeureSemaine, SalaireHoraire, DateDebut, DateFin, IdSession) VALUES (:idResponsable, :idSuperviseur, :idStagiaire, :idEnseignant, :description, :competence, :nbHeure, :salaire, :dateDebut, :dateFin, :idSession);",
+        return $bdd->Request(" INSERT INTO tblStage ( IdResponsable, IdSuperviseur, IdStagiaire, IdEnseignant, DescriptionStage, CompetenceRecherche, NbHeureSemaine, SalaireHoraire, DateDebut, DateFin, IdSession) VALUES (:idResponsable, :idSuperviseur, :idStagiaire, :idEnseignant, :description, :competence, :nbHeure, :salaire, :dateDebut, :dateFin, :idSession);",
                         array(
                             'idResponsable'=>$stage["Responsable"], 
                             'idSuperviseur'=>$stage["Superviseur"], 
@@ -81,10 +78,10 @@
     function showProfessors($bdd)
     {
         $returnData = "";
-        $profs = $bdd->Request("select concat (Prenom, ' ' , Nom) as nomEnseignant, IdEnseignant from vEnseignant;", null, "stdClass");
+        $profs = $bdd->Request("select concat (Prenom, ' ' , Nom) as nomEnseignant, IdUtilisateur from vEnseignant;", null, "stdClass");
 
         foreach($profs as $prof)
-            $returnData = $returnData . '<option value= "' . $prof->IdEnseignant .'">' . $prof->nomEnseignant . '</option>';
+            $returnData = $returnData . '<option value= "' . $prof->IdUtilisateur .'">' . $prof->nomEnseignant . '</option>';
         
         return $returnData;
     }
@@ -93,10 +90,10 @@
     function showInterns($bdd)
     {
         $returnValue = "";
-        $stagiaires = $bdd->Request("select concat (Prenom, ' ' , Nom) as nomStagiaire, Id from vStagiaire;", null, "stdClass");
+        $stagiaires = $bdd->Request("select concat (Prenom, ' ' , Nom) as nomStagiaire, IdUtilisateur from vStagiaire;", null, "stdClass");
 
         foreach($stagiaires as $stagiaire)
-            $returnValue = $returnValue . '<option value= "' . $stagiaire->Id . '">' . $stagiaire->nomStagiaire . '</option>';
+            $returnValue = $returnValue . '<option value= "' . $stagiaire->IdUtilisateur . '">' . $stagiaire->nomStagiaire . '</option>';
 
         return $returnValue;
     }
@@ -108,7 +105,7 @@
         
         function Submit(){
             if(CheckAll()){
-                Post(AfficherPage, \'../PHP/TBNavigation.php?&nomMenu=CreationStage.php&post\')
+                Post(AfficherPage, \'../PHP/TBNavigation.php?&nomMenu=CreationStage.php&Create\')
                 alert("Le stage à bien été créé.");
             }
         }
@@ -169,7 +166,7 @@
             </div>
 
             <div class="champ">
-                <p class="label labelForInput">Heure / Semaine</p>
+                <p class="label labelForInput"><span class="Obligatoire">*</span>Heure / Semaine</p>
                 <input class="value" type="text"  name = "HeuresSemaine" id="heureSem" onblur="Required(this); VerifierRegex(this);" pattern="'.$regxHeure.'" required/>
             </div>
 
@@ -185,7 +182,7 @@
             </div>
             <div class="champ">
                 <p class="label labelForInput">Salaire Horaire</p>
-                <input class="value" type="text"  name="SalaireHoraire" id="salaire" onblur="VerifierRegex(this);" pattern="'.$regxSalaire.'"/>
+                <input class="value" type="text"  name="SalaireHoraire" id="salaire" placeholder="00,00" onblur="VerifierRegex(this);" pattern="'.$regxSalaire.'"/>
             </div>
             <div class="champ">
                 <p class="label labelForInput">Date Début</p>
@@ -215,10 +212,7 @@
             <input class="bouton" type="button" id="Save" style="width: 100px;" value=" Sauvegarder " onclick="Submit()"/>
             <br/><br/>
     </div>   
-    <br>
-
-<!-- Fin de section création de stage -->';
-
+    <br>';
 
 return $content;
 

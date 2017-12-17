@@ -13,7 +13,7 @@ function testerRetourSupressionUtilisateur(data)
 	//PHP envoie nativement 1, donc si j'envoie -1 dans ma fonction PHP, JS reçois -11
 	if(data == -11)
 	{
-        alert ("Cet utilisateur est lié à un ou plusieurs stage(s) et ne peut pas être suprimé");
+        alert ("Cet utilisateur est lié à un ou plusieurs stage(s) et ne peut pas être supprimé.");
 	}
 	else if (data == -21 )
 	{

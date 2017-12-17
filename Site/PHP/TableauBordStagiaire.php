@@ -14,14 +14,13 @@
         <?php include 'vTableauBord.php' ?>
     </head>
     
-    <body onload="CacherDiv(); SetTimeout()">
+    <body onload="if($('.stagiaire').length <= 1)return; CacherDiv(); SetTimeout()">
         <script src="../js/jquery.min.js"></script>
         <script src="../js/navigation.js"></script>
-        <script type="text/javascript" src="../js/nicEdit.js"></script>
+        <!-- <script type="text/javascript" src="../js/nicEdit.js"></script> -->
         <script src="../js/regex.js"></script>
         <script src="../js/Journal.js"></script>
         <script src="../js/scripts.js"></script>
-        <script src="../js/journalBord.js"></script>
         <script src="../js/slideShow.js"></script>
         
         <?php 

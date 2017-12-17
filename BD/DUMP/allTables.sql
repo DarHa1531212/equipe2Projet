@@ -2,7 +2,7 @@
 -- USE cegepjon_p2017_2_dev;
 -- USE cegepjon_p2017_2_prod;
 -- USE cegepjon_p2017_2_tests;
- USE bdprojet_equipe2v2;
+  USE bdprojet_equipe2v2;
  
  
 
@@ -528,7 +528,8 @@ INSERT IGNORE INTO `tblTypeEvaluation` (`Id`,`Titre`,`Objectif`) VALUES (3,'Éva
 des divers domaines de formation en milieu de travail.');
 INSERT IGNORE INTO `tblTypeEvaluation` (`Id`,`Titre`,`Objectif`) VALUES (4,'Auto-évaluation','À remplir conjointement par la personne responsable technique et par l’élève stagiaire.');
 
-INSERT IGNORE INTO `tblStage` (`Id`,`IdResponsable`,`IdSuperviseur`,`IdStagiaire`,`IdEnseignant`) VALUES (1,101,51,1,131);
+
+/*INSERT IGNORE INTO `tblStage` (`Id`,`IdResponsable`,`IdSuperviseur`,`IdStagiaire`,`IdEnseignant`) VALUES (1,101,51,1,131);
 INSERT IGNORE INTO `tblStage` (`Id`,`IdResponsable`,`IdSuperviseur`,`IdStagiaire`,`IdEnseignant`) VALUES (2,102,52,2,132);
 INSERT IGNORE INTO `tblStage` (`Id`,`IdResponsable`,`IdSuperviseur`,`IdStagiaire`,`IdEnseignant`) VALUES (3,103,53,3,133);
 INSERT IGNORE INTO `tblStage` (`Id`,`IdResponsable`,`IdSuperviseur`,`IdStagiaire`,`IdEnseignant`) VALUES (4,104,54,4,134);
@@ -577,7 +578,7 @@ INSERT IGNORE INTO `tblStage` (`Id`,`IdResponsable`,`IdSuperviseur`,`IdStagiaire
 INSERT IGNORE INTO `tblStage` (`Id`,`IdResponsable`,`IdSuperviseur`,`IdStagiaire`,`IdEnseignant`) VALUES (47,107,68,47,132);
 INSERT IGNORE INTO `tblStage` (`Id`,`IdResponsable`,`IdSuperviseur`,`IdStagiaire`,`IdEnseignant`) VALUES (48,108,69,48,133);
 INSERT IGNORE INTO `tblStage` (`Id`,`IdResponsable`,`IdSuperviseur`,`IdStagiaire`,`IdEnseignant`) VALUES (49,109,70,49,134);
-INSERT IGNORE INTO `tblStage` (`Id`,`IdResponsable`,`IdSuperviseur`,`IdStagiaire`,`IdEnseignant`) VALUES (50,110,71,50,135);
+INSERT IGNORE INTO `tblStage` (`Id`,`IdResponsable`,`IdSuperviseur`,`IdStagiaire`,`IdEnseignant`) VALUES (50,110,71,50,135);*/
 
 INSERT IGNORE INTO `tblQuestion` (`Id`,`Competence`,`Texte`, `IdTypeQuestion`, `IdCategorieQuestion`) VALUES (1,'Intégration dans le milieu ','Intégration dans le milieu ',1,8);
 INSERT IGNORE INTO `tblQuestion` (`Id`,`Competence`,`Texte`, `IdTypeQuestion`, `IdCategorieQuestion`) VALUES (2,'Ponctualité', 'L’élève stagiaire est-il ou est-elle constamment à l''heure à son travail?',1,9);
@@ -1198,10 +1199,10 @@ INSERT IGNORE INTO `tblStage` (`Id`,`IdResponsable`,`IdSuperviseur`,`IdStagiaire
 -- table session
 
 INSERT IGNORE INTO tblSession (Annee,Periode, JanvierDebut, JanvierLimite, FevrierDebut, FevrierLimite, MarsDebut, MarsLimite, MiStageDebut, MiStageLimite, FinaleDebut, FinaleLimite, FormationDebut, FormationLimite) 
-						VALUES (2017,'Hiver','2017-12-01','2017-12-30','2018-01-01', '2018-01-30', '2018-02-01', '2018-02-28', ' 2017-10-20 ', ' 2017-11-30 ', '2017-12-01', '2017-12-30', '2018-01-01 ', '2018-01-30');
+VALUES (2017,'Hiver','2017-12-01','2017-12-30','2018-01-01', '2018-01-30', '2018-02-01', '2018-02-28', ' 2017-10-20 ', ' 2017-10-30 ', ' 2017-10-20 ', ' 2018-04-04 ', ' 2017-10-20 ', ' 2018-04-04' );
 
 INSERT IGNORE INTO tblSession (Annee,Periode, JanvierDebut, JanvierLimite, FevrierDebut, FevrierLimite, MarsDebut, MarsLimite, MiStageDebut, MiStageLimite, FinaleDebut, FinaleLimite, FormationDebut, FormationLimite) 
-						VALUES (2017,'Automne','2017-12-01','2017-12-30','2018-01-01', '2018-01-30', '2018-02-01', '2018-02-28', ' 2017-10-20 ', ' 2017-11-30 ', '2017-12-01', '2017-12-30', '2018-01-01 ', '2018-01-30');
+VALUES (2017,'Automne','2017-12-01','2017-12-30','2018-01-01', '2018-01-30', '2018-02-01', '2018-02-28', ' 2017-10-20 ', ' 2018-04-04 ', ' 2017-10-20 ', ' 2018-04-04 ', ' 2017-10-20 ', ' 2018-04-04' );
 
 -- table type etat avancement
 
@@ -1211,7 +1212,7 @@ INSERT INTO `tblTypeEtatAvancement`(`Id`, `Description`) VALUES (3, 'Mars');
 
 -- table etat avancement
 
-INSERT INTO `tblEtatAvancement` (`Id`,`Statut`,`IdStage`,`IdTypeEtatAvancement`) VALUES (1,'0',1,1);
+/*INSERT INTO `tblEtatAvancement` (`Id`,`Statut`,`IdStage`,`IdTypeEtatAvancement`) VALUES (1,'0',1,1);
 INSERT INTO `tblEtatAvancement` (`Id`,`Statut`,`IdStage`,`IdTypeEtatAvancement`) VALUES (2,'0',1,2);
 INSERT INTO `tblEtatAvancement` (`Id`,`Statut`,`IdStage`,`IdTypeEtatAvancement`) VALUES (3,'0',1,3);
 INSERT INTO `tblEtatAvancement` (`Id`,`Statut`,`IdStage`,`IdTypeEtatAvancement`) VALUES (4,'0',2,1);
@@ -1362,9 +1363,7 @@ INSERT INTO `tblEtatAvancement` (`Id`,`Statut`,`IdStage`,`IdTypeEtatAvancement`)
 INSERT INTO `tblEtatAvancement` (`Id`,`Statut`,`IdStage`,`IdTypeEtatAvancement`) VALUES (149,'0',50,2);
 INSERT INTO `tblEtatAvancement` (`Id`,`Statut`,`IdStage`,`IdTypeEtatAvancement`) VALUES (150,'0',50,3);
 
-
 -- table etat avancement janvier
-
 INSERT INTO `tblEtatAvancementJanvier` (`Id`) VALUES (1);
 INSERT INTO `tblEtatAvancementJanvier` (`Id`) VALUES (4);
 INSERT INTO `tblEtatAvancementJanvier` (`Id`) VALUES (7);
@@ -1520,4 +1519,4 @@ INSERT INTO `tblEtatAvancementMars` (`Id`) VALUES (138);
 INSERT INTO `tblEtatAvancementMars` (`Id`) VALUES (141);
 INSERT INTO `tblEtatAvancementMars` (`Id`) VALUES (144);
 INSERT INTO `tblEtatAvancementMars` (`Id`) VALUES (147);
-INSERT INTO `tblEtatAvancementMars` (`Id`) VALUES (150);
+INSERT INTO `tblEtatAvancementMars` (`Id`) VALUES (150);*/
