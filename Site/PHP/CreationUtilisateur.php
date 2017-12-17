@@ -93,9 +93,9 @@
                 <div class="champ" id="posteEntreprise">
                     <div class="posteBorder">
                         <p>Rôle</p><br/>
-                        <input type="checkbox" name="Superviseur" id = "chkSuperviseur" class = "value" value="Superviseur" onchange = "checkSuperviseur(this);" name = "false" checked="checked">Superviseur<br>
+                        <input type="checkbox" name="Superviseur" id = "chkSuperviseur" class = "value" value="true" onchange = "checkSuperviseur(this);" name = "false" checked="checked">Superviseur<br>
 
-                        <input type="checkbox" name="Responsable" id = "chkResponsable" class = "value" value="Responsable" style="margin-bottom:20px;" onchange = "checkResponsable(this);" name = "false" >Responsable<br>
+                        <input type="checkbox" name="Responsable" id = "chkResponsable" class = "value" value="false" style="margin-bottom:20px;" onchange = "checkResponsable(this);" name = "false" >Responsable<br>
                     </div>
                 </div>
 
@@ -196,23 +196,24 @@
 
     function creationEnseignant($bdd, $utilisateurs)
     {
+
         if (validerCourrielUnique($bdd, $utilisateurs))
             {
                 insertionTblUtilisateur($bdd, $utilisateurs);
-            
                 $result = $bdd->Request("SELECT Id from tblUtilisateur where Courriel like :courriel;", 
                     array('courriel'=>$utilisateurs["courriel"]) ,'stdClass');
 
                 foreach($result as $resultat){
                    $idUtilisateur =  $resultat->Id;
                 } 
-
-            $bdd->Request(" INSERT into tblEmploye (CourrielEntreprise, Nom, Prenom, IdEntreprise, IdUtilisateur)
-                                    values (:courriel, :Nom, :Prenom, 51, :IdUtilisateur)",
+                
+            $bdd->Request(" INSERT into tblEmploye (CourrielEntreprise, Nom, Prenom, IdEntreprise, IdUtilisateur, NumTelEntreprise)
+                                    values (:courriel, :Nom, :Prenom, 51, :IdUtilisateur, :NumTelEntreprise)",
                             array('courriel'=>$utilisateurs["courriel"], 
                                     'Prenom'=>$utilisateurs["prenom"],
                                     'Nom'=>$utilisateurs["nom"],
-                                    'IdUtilisateur'=>$idUtilisateur), 
+                                    'IdUtilisateur'=>$idUtilisateur,
+                                    'NumTelEntreprise'=>$utilisateurs["noTelEntreprise"]),
                             'stdClass');   
             //insertion dans la tblUtilisateurRole
             $bdd->Request("INSERT into tblUtilisateurRole (IdUtilisateur, IdRole)
