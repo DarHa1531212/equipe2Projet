@@ -46,10 +46,7 @@ function CheckAll(){
         }
     }
 
-    alert('nb champs correct : ' + nbCorrect);
-
-    alert('nbre champs visible : ' + champs.length);
-    //nbCorrect : nmobre de champs requis qui sont bien remplis 
+    
 
     if(nbCorrect == champs.length){//tous les champs contienent quelque chose et sont conforme au regex
         return true;
