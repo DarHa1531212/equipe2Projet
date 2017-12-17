@@ -2,16 +2,17 @@
 
     $stagiairesAvecStage = $bdd->Request(" SELECT Stagiaire.IdUtilisateur, Stagiaire.Prenom, Stagiaire.Nom, Stagiaire.NumTelPerso, Stagiaire.CourrielPersonnel, Stagiaire.CourrielScolaire, 
                                     Stagiaire.CodePermanent, Stagiaire.CourrielEntreprise, Stagiaire.NumTelEntreprise, Stagiaire.Poste, Ent.Nom AS 'NomEntreprise', IdRole
-                                    FROM vStage AS Stage
-                                    JOIN vStagiaire AS Stagiaire
-                                    ON Stage.Id = Stagiaire.Id
-                                    JOIN vEmploye AS Emp
-                                    ON Emp.IdUtilisateur = Stage.IdSuperviseur
+                                    from vStage as Stage
+                                    join vStagiaire as Stagiaire
+                                    on Stage.IdStagiaire = Stagiaire.IdUtilisateur
+                                    join vEmploye as Emp
+                                    on Emp.Id = Stage.IdSuperviseur
                                     JOIN vEntreprise AS Ent
                                     ON Ent.Id = Emp.IdEntreprise
                                     JOIN vUtilisateurRole AS UR
                                     ON UR.IdUtilisateur = Stagiaire.IdUtilisateur",
                                     null, "ProfilStagiaire");
+    
 
     $stagiairesSansStage = $bdd->Request("SELECT Stagiaire.IdUtilisateur, Stagiaire.Prenom, Stagiaire.Nom, Stagiaire.NumTelPerso, Stagiaire.CourrielPersonnel, Stagiaire.CourrielScolaire, 
                                         Stagiaire.CodePermanent, Stagiaire.CourrielEntreprise, Stagiaire.NumTelEntreprise, Stagiaire.Poste,'Aucun' AS 'NomEntreprise', IdRole
