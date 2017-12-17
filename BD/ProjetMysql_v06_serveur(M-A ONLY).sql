@@ -269,11 +269,10 @@ CREATE TABLE tblSession(
 );
 
 DROP VIEW IF EXISTS vSession;
-CREATE VIEW vSession AS SELECT Id, Annee,Periode,CahierEntreprise,CahierStagiaire,DATE_FORMAT(MiStageDebut,"%Y/%m/d") AS MiStageDebut
-,DATE_FORMAT(MiStageLimite,"%Y/%m/d") AS MiStageLimite,DATE_FORMAT(FinaleDebut,"%Y/%m/d") AS FinaleDebut,FinaleLimite,
+CREATE VIEW vSession AS SELECT Id, Annee,Periode,CahierEntreprise,CahierStagiaire, MiStageDebut,MiStageLimite,FinaleDebut,FinaleLimite,
 FormationDebut,FormationLimite,JanvierDebut,JanvierLimite,FevrierDebut,FevrierLimite,MarsDebut,MarsLimite FROM tblSession;
 
-	
+
 --  Table Entreprise
 
 DROP TABLE IF EXISTS tblEntreprise;
@@ -303,7 +302,7 @@ CREATE TABLE tblEmploye(
 	CourrielEntreprise 		VARCHAR(320)	NOT NULL,
 	Nom 					VARCHAR(50)		NOT NULL,
 	Prenom 					VARCHAR(50)		NOt NULL,
-	NumTelEntreprise		CHAR(14)		NOT NULL,
+	NumTelEntreprise		CHAR(14)		NULL,
 	Poste 					VARCHAR(7)		NULL,
 	PRIMARY KEY(Id),
 	IdEntreprise			INT				NOT NULL,

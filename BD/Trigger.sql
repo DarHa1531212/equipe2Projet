@@ -50,6 +50,14 @@ FOR EACH ROW
 					INSERT IGNORE INTO `tblEvaluationQuestionReponse` (`IdQuestion`,`IdReponse`,`IdEvaluation`) VALUES (@X,1,@IDEVALUATION+4);
 					SET @X=@X+1;
 					END WHILE ;
+		INSERT INTO `tblEtatAvancement` (`Statut`,`IdStage`,`IdTypeEtatAvancement`) VALUES('0',@IDSTAGE,1);
+			INSERT INTO `tblEtatAvancementJanvier`(`Id`) VALUES (@IDETATAVANCEMENT+1);
+            
+		INSERT INTO `tblEtatAvancement` (`Statut`,`IdStage`,`IdTypeEtatAvancement`) VALUES('0',@IDSTAGE,2);
+			INSERT INTO `tblEtatAvancementFevrier`(`Id`) VALUES (@IDETATAVANCEMENT+2);
+            
+		INSERT INTO `tblEtatAvancement` (`Statut`,`IdStage`,`IdTypeEtatAvancement`) VALUES('0',@IDSTAGE,3);
+			INSERT INTO `tblEtatAvancementMars`(`Id`) VALUES (@IDETATAVANCEMENT+3);
 		
 		
 
