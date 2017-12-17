@@ -21,12 +21,13 @@
         }
 
         else {
+            
              $content =
             '
             <script>
                 function Submit(){
                     if(CheckAll()){
-                        Post(testerRetour , \'../PHP/TBNavigation.php?nomMenu=CreationUtilisateur.php&post\')
+                        Post(testerRetour , \'../PHP/TBNavigation.php?nomMenu=CreationUtilisateur.php&post\');
                     }
                 }
             </script>
@@ -92,18 +93,20 @@
                 <div class="champ" id="posteEntreprise">
                     <div class="posteBorder">
                         <p>Rôle</p><br/>
-                        <input type="checkbox" name="Superviseur" id = "chkSuperviseur" class = "value" value="Superviseur" onchange = "checkSuperviseur(this);" name = "false">Superviseur<br>
+                        <input type="checkbox" name="Superviseur" id = "chkSuperviseur" class = "value" value="true" onchange = "checkSuperviseur(this);" name = "false" checked="checked">Superviseur<br>
 
-                        <input type="checkbox" name="Responsable" id = "chkResponsable" class = "value" value="Responsable" style="margin-bottom:20px;" onchange = "checkResponsable(this);" name = "false">Responsable<br>
+                        <input type="checkbox" name="Responsable" id = "chkResponsable" class = "value" value="false" style="margin-bottom:20px;" onchange = "checkResponsable(this);" name = "false" >Responsable<br>
                     </div>
                 </div>
 
                 <br>
+
                 <input type="button" id="Cancel" class="bouton" value="Annuler" onclick="Requete(AfficherPage, \'../PHP/TBNavigation.php?nomMenu=ListeUtilisateur.php\')" />   
-                <input type="button" id="Save" class="bouton" value="Sauvegarder" onclick ="Post(testerRetour , \'../PHP/TBNavigation.php?nomMenu=CreationUtilisateur.php&post\')" style="margin-top:40px;"/>     
+                <input type="button" id="Save" class="bouton" value="Sauvegarder" onclick ="Submit()" style="margin-top:40px;"/>  
                          
             </div>
             </article>';
+
             return $content;
 
 
@@ -169,8 +172,6 @@
                                     'stdClass');    
 
             if ($utilisateurs["Superviseur"] == "true"){
-                /*insert into tblUtilisateurRole (IdUtilisateur, IdRole)
-                values (160,  3) */
                 $bdd->Request("INSERT into tblUtilisateurRole (IdUtilisateur, IdRole)
                                 values (:idUtilisateur,  4)", 
                             array( 'idUtilisateur'=>$idUtilisateur), 
@@ -195,23 +196,24 @@
 
     function creationEnseignant($bdd, $utilisateurs)
     {
+
         if (validerCourrielUnique($bdd, $utilisateurs))
             {
                 insertionTblUtilisateur($bdd, $utilisateurs);
-            
                 $result = $bdd->Request("SELECT Id from tblUtilisateur where Courriel like :courriel;", 
                     array('courriel'=>$utilisateurs["courriel"]) ,'stdClass');
 
                 foreach($result as $resultat){
                    $idUtilisateur =  $resultat->Id;
                 } 
-
-            $bdd->Request(" INSERT into tblEmploye (CourrielEntreprise, Nom, Prenom, IdEntreprise, IdUtilisateur)
-                                    values (:courriel, :Nom, :Prenom, 51, :IdUtilisateur)",
+                
+            $bdd->Request(" INSERT into tblEmploye (CourrielEntreprise, Nom, Prenom, IdEntreprise, IdUtilisateur, NumTelEntreprise)
+                                    values (:courriel, :Nom, :Prenom, 51, :IdUtilisateur, :NumTelEntreprise)",
                             array('courriel'=>$utilisateurs["courriel"], 
                                     'Prenom'=>$utilisateurs["prenom"],
                                     'Nom'=>$utilisateurs["nom"],
-                                    'IdUtilisateur'=>$idUtilisateur), 
+                                    'IdUtilisateur'=>$idUtilisateur,
+                                    'NumTelEntreprise'=>$utilisateurs["noTelEntreprise"]),
                             'stdClass');   
             //insertion dans la tblUtilisateurRole
             $bdd->Request("INSERT into tblUtilisateurRole (IdUtilisateur, IdRole)

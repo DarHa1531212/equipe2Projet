@@ -33,6 +33,7 @@ $content =
         <div class="blocInfo infoProfil">
             <div class="champ">
                 <p class="label labelForInput">Entreprise</p>
+                
                 <select class="value" name="Entreprise" onchange="Post(PopulateListEmploye, \'../PHP/TBNavigation.php?nomMenu=ModifStage.php&idStage='.$stage->getIdStage().'&populate\')">
                     <option value="'.$stage->getIdEntreprise().'" selected>'.$stage->getNomEntreprise().'</option>
                     ' . showEnterprises($bdd) . '
