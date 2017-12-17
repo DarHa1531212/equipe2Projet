@@ -5,8 +5,10 @@
         header('HTTP/1.1 301 Moved Permanently');
         header('Location: ' . $redirect);
         exit();
-    }
-*/?>
+    }*/
+    if(isset($_REQUEST["error"]))
+        echo '<script>alert("Votre courriel ou votre mot de passe est invalide.")</script>';
+?>
 <!DOCTYPE html>
 <html>
     <head>
