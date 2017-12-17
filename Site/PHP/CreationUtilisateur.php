@@ -157,7 +157,6 @@
 
             foreach($result as $resultat){
                $idUtilisateur =  $resultat->Id;
-               //var_dump($idUtilisateur);
             }
 
             $bdd->Request(" INSERT into tblEmploye (CourrielEntreprise, Nom, Prenom, NumTelEntreprise, Poste, IdEntreprise, IdUtilisateur)
@@ -196,24 +195,23 @@
 
     function creationEnseignant($bdd, $utilisateurs)
     {
-
         if (validerCourrielUnique($bdd, $utilisateurs))
             {
                 insertionTblUtilisateur($bdd, $utilisateurs);
+            
                 $result = $bdd->Request("SELECT Id from tblUtilisateur where Courriel like :courriel;", 
                     array('courriel'=>$utilisateurs["courriel"]) ,'stdClass');
 
                 foreach($result as $resultat){
                    $idUtilisateur =  $resultat->Id;
                 } 
-                
-            $bdd->Request(" INSERT into tblEmploye (CourrielEntreprise, Nom, Prenom, IdEntreprise, IdUtilisateur, NumTelEntreprise)
-                                    values (:courriel, :Nom, :Prenom, 51, :IdUtilisateur, :NumTelEntreprise)",
+
+            $bdd->Request(" INSERT into tblEmploye (CourrielEntreprise, Nom, Prenom, IdEntreprise, IdUtilisateur)
+                                    values (:courriel, :Nom, :Prenom, 51, :IdUtilisateur)",
                             array('courriel'=>$utilisateurs["courriel"], 
                                     'Prenom'=>$utilisateurs["prenom"],
                                     'Nom'=>$utilisateurs["nom"],
-                                    'IdUtilisateur'=>$idUtilisateur,
-                                    'NumTelEntreprise'=>$utilisateurs["noTelEntreprise"]),
+                                    'IdUtilisateur'=>$idUtilisateur), 
                             'stdClass');   
             //insertion dans la tblUtilisateurRole
             $bdd->Request("INSERT into tblUtilisateurRole (IdUtilisateur, IdRole)
@@ -232,6 +230,7 @@
           $bdd->Request(" INSERT into tblUtilisateur (Courriel, MotDePasse)
                             values (:courriel , '$2y$10\$\J\/WmC4JWR42JtTeMp0yBpuTGd.Kc9D6lHlOtisNcOLZloa9ekK/Ee')",
                             array('courriel'=>$utilisateurs["courriel"]), 'stdClass');
+
 
 
     }
