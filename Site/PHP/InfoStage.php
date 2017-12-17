@@ -37,31 +37,31 @@
 
         <div class="blocInfo infoProfil">
             <div class="champ">
-                <p class="label labelForInput">Nom d\'entreprise </p>
+                <p class="label labelForInput">Nom d\'entreprise : </p>
                 <p class="value">'.$stage->getNomEntreprise().'</p>
             </div>
             <div class="champ">
-                <p class="label labelForInput">Nom du stagiaire</p>
+                <p class="label labelForInput">Nom du stagiaire : </p>
                 <p class="value">'.$stage->getNomStagiaire().'</p>
             </div>           
             <div class="champ">
-                <p class="label labelForInput">Nom de l\'enseignant</p>
+                <p class="label labelForInput">Nom de l\'enseignant : </p>
                 <p class="value">'.$stage->getNomEnseignant().'</p>
             </div>
             <div class="champ">
-                <p class="label labelForInput">Nom du superviseur</p>
+                <p class="label labelForInput">Nom du superviseur : </p>
                 <p class="value">'.$stage->getNomSuperviseur().'</p>
             </div>
             <div class="champ">
-                <p class="label labelForInput">Nom du responsable</p>
+                <p class="label labelForInput">Nom du responsable : </p>
                 <p class="value">'.$stage->getNomResponsable().'</p>
             </div>
             <div class="champ">
-                <p class="label labelForInput">Salaire horaire</p>
+                <p class="label labelForInput">Salaire horaire : </p>
                 <p class="value">'.$stage->getSalaireHoraire().'</p>
             </div>
             <div class="champ">
-                <p class="label labelForInput">Heures/Semaine</p> 
+                <p class="label labelForInput">Heures/Semaine : </p> 
                 <p class="value">'.$stage->getNbHeureSemaine().'</p> 
             </div>
             <div class="champ">
@@ -69,19 +69,19 @@
                 <p class="value"></p> 
             </div>
             <div class="champ">
-                <p class="label labelForInput">Date de début</p>
+                <p class="label labelForInput">Date de début : </p>
                 <p class="value">'.$stage->getDateDebut().'</p>
             </div>
             <div class="champ">
-                <p class="label labelForInput">Date de fin</p>
+                <p class="label labelForInput">Date de fin : </p>
                 <p class="value">'.$stage->getDateFin().'</p>
             </div>     
             <div>
-                <p class="label labelForInput">Compétences recherchées</p>
+                <p class="label labelForInput">Compétences recherchées : </p>
                 <p class="entree">'.$stage->getCompetenceRecherche().'</p>
             </div>
             <div>
-                <p class="label labelForInput">Description du stage</p>
+                <p class="label labelForInput">Description du stage : </p>
                 <p class="entree">'.$stage->getDescriptionStage().'</p>
             </div>
             <br/><br/>
