@@ -21,12 +21,13 @@
         }
 
         else {
+            
              $content =
             '
             <script>
                 function Submit(){
                     if(CheckAll()){
-                        Post(testerRetour , \'../PHP/TBNavigation.php?nomMenu=CreationUtilisateur.php&post\')
+                        Post(testerRetour , \'../PHP/TBNavigation.php?nomMenu=CreationUtilisateur.php&post\');
                     }
                 }
             </script>
@@ -92,22 +93,27 @@
                 <div class="champ" id="posteEntreprise">
                     <div class="posteBorder">
                         <p>Rôle</p><br/>
-                        <input type="checkbox" name="Superviseur" id = "chkSuperviseur" class = "value" value="Superviseur" onchange = "checkSuperviseur(this);" name = "false">Superviseur<br>
+                        <input type="checkbox" name="Superviseur" id = "chkSuperviseur" class = "value" value="Superviseur" onchange = "checkSuperviseur(this);" name = "false" checked="checked">Superviseur<br>
 
-                        <input type="checkbox" name="Responsable" id = "chkResponsable" class = "value" value="Responsable" style="margin-bottom:20px;" onchange = "checkResponsable(this);" name = "false">Responsable<br>
+                        <input type="checkbox" name="Responsable" id = "chkResponsable" class = "value" value="Responsable" style="margin-bottom:20px;" onchange = "checkResponsable(this);" name = "false" >Responsable<br>
                     </div>
                 </div>
 
                 <br>
+
                 <input type="button" id="Cancel" class="bouton" value="Annuler" onclick="Requete(AfficherPage, \'../PHP/TBNavigation.php?nomMenu=ListeUtilisateur.php\')" />   
-                <input type="button" id="Save" class="bouton" value="Sauvegarder" onclick ="Submit()" style="margin-top:40px;"/>     
+                <input type="button" id="Save" class="bouton" value="Sauvegarder" onclick ="Submit()" style="margin-top:40px;"/>  
                          
             </div>
             </article>';
+
             return $content;
 
 
         }
+
+         /*<input type="button" id="Save" class="bouton" value="Sauvegarder" onclick ="Post(testerRetour , \'../PHP/TBNavigation.php?nomMenu=CreationUtilisateur.php&post\')" style="margin-top:40px;"/> */
+         /*<input type="button" id="Save" class="bouton" value="Sauvegarder" onclick ="submitUtilisateur();" style="margin-top:40px;"/> */
 
     function creationStagiaire($bdd, $utilisateurs)
     {

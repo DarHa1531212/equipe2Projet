@@ -50,18 +50,47 @@
          $("#courrielPersonnel").show();
     }
 
-   function testerRetour (data)
+    /*function submitUtilisateur()
+    {
+        if(CheckAll() == true)//tous les champs sont correct
+        {
+            if(verificationBeforeInsert('../PHP/TBNavigation.php?nomMenu=CreationUtilisateur.php&post') == false)
+            {
+                alert("Un utilisateur avec ce courriel existe déjà, veuillez utiliser un courriel différent");
+            }
+            else
+            {
+                alert("L'utilisateur à été ajouté");
+                Requete(AfficherPage, '../PHP/TBNavigation.php?nomMenu=ListeUtilisateur.php');
+            }
+        }
+    }
+
+    function verificationBeforeInsert(data)
     {
         if (data ==  -11)
         {
-            alert ("Un utilisateur avec ce courriel existe déjà, veuillez utiliser un courriel différent");
+            return false;
         }
         else if (data.substr(data.length - 1) == 1)
         {
-            //Mettre tous les champs à vide.
-            alert ("L'utilisateur à été ajouté");
-            Requete(AfficherPage, '../PHP/TBNavigation.php?nomMenu=CreationUtilisateur.php');
+            return true;
         }
+    }*/
+
+    function testerRetour (data)
+    {
+       
+            if (data ==  -11)
+            {
+                alert ("Un utilisateur avec ce courriel existe déjà, veuillez utiliser un courriel différent");
+            }
+            else if (data.substr(data.length - 1) == 1)
+            {
+                //Mettre tous les champs à vide.
+                alert ("L'utilisateur à été ajouté");
+                Requete(AfficherPage, '../PHP/TBNavigation.php?nomMenu=ListeUtilisateur.php');
+            }
     }
 
 	function checkResponsable(element)
