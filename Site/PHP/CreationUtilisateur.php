@@ -25,7 +25,7 @@
              $content =
             '
             <script>
-                function sub(){
+                function Submit(){
                     if(CheckAll()){
                         Post(testerRetour , \'../PHP/TBNavigation.php?nomMenu=CreationUtilisateur.php&post\');
                     }

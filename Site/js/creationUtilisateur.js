@@ -80,8 +80,7 @@
 
     function testerRetour (data)
     {
-        if(CheckAll() == true)//tous les champs sont correct
-        {
+       
             if (data ==  -11)
             {
                 alert ("Un utilisateur avec ce courriel existe déjà, veuillez utiliser un courriel différent");
@@ -92,7 +91,6 @@
                 alert ("L'utilisateur à été ajouté");
                 Requete(AfficherPage, '../PHP/TBNavigation.php?nomMenu=ListeUtilisateur.php');
             }
-        }
     }
 
 	function checkResponsable(element)

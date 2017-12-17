@@ -528,7 +528,7 @@ INSERT IGNORE INTO `tblTypeEvaluation` (`Id`,`Titre`,`Objectif`) VALUES (3,'Éva
 des divers domaines de formation en milieu de travail.');
 INSERT IGNORE INTO `tblTypeEvaluation` (`Id`,`Titre`,`Objectif`) VALUES (4,'Auto-évaluation','À remplir conjointement par la personne responsable technique et par l’élève stagiaire.');
 
-INSERT IGNORE INTO `tblStage` (`Id`,`IdResponsable`,`IdSuperviseur`,`IdStagiaire`,`IdEnseignant`) VALUES (1,101,51,1,131);
+/*INSERT IGNORE INTO `tblStage` (`Id`,`IdResponsable`,`IdSuperviseur`,`IdStagiaire`,`IdEnseignant`) VALUES (1,101,51,1,131);
 INSERT IGNORE INTO `tblStage` (`Id`,`IdResponsable`,`IdSuperviseur`,`IdStagiaire`,`IdEnseignant`) VALUES (2,102,52,2,132);
 INSERT IGNORE INTO `tblStage` (`Id`,`IdResponsable`,`IdSuperviseur`,`IdStagiaire`,`IdEnseignant`) VALUES (3,103,53,3,133);
 INSERT IGNORE INTO `tblStage` (`Id`,`IdResponsable`,`IdSuperviseur`,`IdStagiaire`,`IdEnseignant`) VALUES (4,104,54,4,134);
@@ -577,7 +577,7 @@ INSERT IGNORE INTO `tblStage` (`Id`,`IdResponsable`,`IdSuperviseur`,`IdStagiaire
 INSERT IGNORE INTO `tblStage` (`Id`,`IdResponsable`,`IdSuperviseur`,`IdStagiaire`,`IdEnseignant`) VALUES (47,107,68,47,132);
 INSERT IGNORE INTO `tblStage` (`Id`,`IdResponsable`,`IdSuperviseur`,`IdStagiaire`,`IdEnseignant`) VALUES (48,108,69,48,133);
 INSERT IGNORE INTO `tblStage` (`Id`,`IdResponsable`,`IdSuperviseur`,`IdStagiaire`,`IdEnseignant`) VALUES (49,109,70,49,134);
-INSERT IGNORE INTO `tblStage` (`Id`,`IdResponsable`,`IdSuperviseur`,`IdStagiaire`,`IdEnseignant`) VALUES (50,110,71,50,135);
+INSERT IGNORE INTO `tblStage` (`Id`,`IdResponsable`,`IdSuperviseur`,`IdStagiaire`,`IdEnseignant`) VALUES (50,110,71,50,135);*/
 
 INSERT IGNORE INTO `tblQuestion` (`Id`,`Competence`,`Texte`, `IdTypeQuestion`, `IdCategorieQuestion`) VALUES (1,'Intégration dans le milieu ','Intégration dans le milieu ',1,8);
 INSERT IGNORE INTO `tblQuestion` (`Id`,`Competence`,`Texte`, `IdTypeQuestion`, `IdCategorieQuestion`) VALUES (2,'Ponctualité', 'L’élève stagiaire est-il ou est-elle constamment à l''heure à son travail?',1,9);
