@@ -112,9 +112,6 @@
 
         }
 
-         /*<input type="button" id="Save" class="bouton" value="Sauvegarder" onclick ="Post(testerRetour , \'../PHP/TBNavigation.php?nomMenu=CreationUtilisateur.php&post\')" style="margin-top:40px;"/> */
-         /*<input type="button" id="Save" class="bouton" value="Sauvegarder" onclick ="submitUtilisateur();" style="margin-top:40px;"/> */
-
     function creationStagiaire($bdd, $utilisateurs)
     {
         if (validerCourrielUnique($bdd, $utilisateurs))
@@ -175,8 +172,6 @@
                                     'stdClass');    
 
             if ($utilisateurs["Superviseur"] == "true"){
-                /*insert into tblUtilisateurRole (IdUtilisateur, IdRole)
-                values (160,  3) */
                 $bdd->Request("INSERT into tblUtilisateurRole (IdUtilisateur, IdRole)
                                 values (:idUtilisateur,  4)", 
                             array( 'idUtilisateur'=>$idUtilisateur), 

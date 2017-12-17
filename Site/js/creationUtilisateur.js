@@ -50,34 +50,6 @@
          $("#courrielPersonnel").show();
     }
 
-    /*function submitUtilisateur()
-    {
-        if(CheckAll() == true)//tous les champs sont correct
-        {
-            if(verificationBeforeInsert('../PHP/TBNavigation.php?nomMenu=CreationUtilisateur.php&post') == false)
-            {
-                alert("Un utilisateur avec ce courriel existe déjà, veuillez utiliser un courriel différent");
-            }
-            else
-            {
-                alert("L'utilisateur à été ajouté");
-                Requete(AfficherPage, '../PHP/TBNavigation.php?nomMenu=ListeUtilisateur.php');
-            }
-        }
-    }
-
-    function verificationBeforeInsert(data)
-    {
-        if (data ==  -11)
-        {
-            return false;
-        }
-        else if (data.substr(data.length - 1) == 1)
-        {
-            return true;
-        }
-    }*/
-
     function testerRetour (data)
     {
        
