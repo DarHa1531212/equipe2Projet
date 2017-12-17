@@ -3,8 +3,7 @@
 require 'InfoSession.php';
 
 if(isset($_REQUEST["post"])){
-    $session->Update($bdd, json_decode($_POST["tabChamp"]));
-    return;
+   return $sessions[$_REQUEST["id"]]->Update($bdd, json_decode($_POST["tabChamp"]));
 }
 
 function Selected($PeriodeSelect,$PeriodeBD){
@@ -18,8 +17,9 @@ $content =
 <script>
     function Submit(){
         if(CheckAll()){
-            Post(ExecuteQuery, \'../PHP/TBNavigation.php?idEmploye='.$id.'&nomMenu=ModifSession.php&post\');
-            Requete(AfficherPage, \'../PHP/TBNavigation.php?idEmploye='.$id.'&nomMenu=ListeSession.php\');
+            alert("La session a bien été modifiée.");
+            Post(ExecuteQuery, \'../PHP/TBNavigation.php?id='.$_REQUEST["id"].'&nomMenu=ModifSession.php&post\');
+            Requete(AfficherPage, \'../PHP/TBNavigation.php?nomMenu=ListeSession.php\');
         }
     }
 </script>

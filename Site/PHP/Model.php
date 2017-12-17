@@ -1101,7 +1101,7 @@ avoir ce format - (xxx) xxx-xxxx"/>
                 $session[$champ->nom] = $champ->value;
             }
             
-            $bdd->Request(" UPDATE tblSession SET Annee = :annee, Periode = :periode, MiStageDebut = :mistagedebut,
+            return $bdd->Request(" UPDATE tblSession SET Annee = :annee, Periode = :periode, MiStageDebut = :mistagedebut,
                             MiStageLimite = :mistagelimite, FinaleDebut = :finaledebut, FinaleLimite = :finalelimite, FormationDebut = :formationdebut, FormationLimite = :formationlimite,
                             JanvierDebut = :janvierdebut, JanvierLimite = :janvierlimite, FevrierDebut = :fevrierdebut, FevrierLimite = :fevrierlimite, MarsDebut = :marsdebut, MarsLimite = :marslimite WHERE Id = :id",
                             array(  
