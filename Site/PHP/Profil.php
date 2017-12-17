@@ -172,7 +172,7 @@
             $result = $bdd->Request("DELETE FROM tblUtilisateurRole WHERE IdUtilisateur = :id;",
                 array('id'=>$_REQUEST['id']),'stdClass');
 
-            echo "-0";
+            //echo "-0";
         }
         else
         {
