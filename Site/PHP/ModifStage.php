@@ -11,11 +11,11 @@ if(isset($_REQUEST["populate"]))
 $content =
 '
 <script>
-        Post(PopulateListEmploye, \'../PHP/TBNavigation.php?nomMenu=ModifStage.php&index='.$_REQUEST["index"].'&populate\');
+        Post(PopulateListEmploye, \'../PHP/TBNavigation.php?nomMenu=ModifStage.php&idStage='.$stage->getIdStage().'&populate\');
         
         function Submit(){
             if(CheckAll()){
-                Post(AfficherPage, \'../PHP/TBNavigation.php?&nomMenu=ModifStage.php&index='.$_REQUEST["index"].'&Edit\')
+                Post(AfficherPage, \'../PHP/TBNavigation.php?&nomMenu=ModifStage.php&idStage='.$stage->getIdStage().'&Edit\')
                 alert("Le stage à bien été modifié.");
                 Requete(AfficherPage, \'../PHP/TBNavigation.php?nomMenu=ListeStage.php\');
             }
@@ -33,7 +33,7 @@ $content =
         <div class="blocInfo infoProfil">
             <div class="champ">
                 <p class="label labelForInput">Entreprise</p>
-                <select class="value" name="Entreprise" onchange="Post(PopulateListEmploye, \'../PHP/TBNavigation.php?nomMenu=ModifStage.php&index='.$_REQUEST["index"].'&populate\')">
+                <select class="value" name="Entreprise" onchange="Post(PopulateListEmploye, \'../PHP/TBNavigation.php?nomMenu=ModifStage.php&idStage='.$stage->getIdStage().'&populate\')">
                     <option value="'.$stage->getIdEntreprise().'" selected>'.$stage->getNomEntreprise().'</option>
                     ' . showEnterprises($bdd) . '
                 </select>

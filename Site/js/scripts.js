@@ -128,10 +128,12 @@ function PopulateTable(data){
     data = JSON.parse(data);
     
     for(var i = 0; i < data.length; i++){
-        option +=   "<tr class=\"itemHover\" onclick=\"Requete(AfficherPage, \'../PHP/TBNavigation.php?nomMenu=InfoStage.php&index=\'.$index.\'\')\">" +
+        option +=   "<tr class=\"itemHover\" onclick=\"Requete(AfficherPage, '../PHP/TBNavigation.php?nomMenu=InfoStage.php&idStage=" + data[i].IdStage + "')\">" +
                         "<td>" + data[i].NomEntreprise + "</td>" +
                         "<td>" + data[i].NomStagiaire + "</td>" + 
-                        "<td>Lettre dentente</td>" +
+                        "<td>" + data[i].SalaireHoraire + "</td>" + 
+                        "<td>" + data[i].DateDebut + "</td>" + 
+                        "<td>" + data[i].DateFin + "</td>" + 
                     "</tr>";
     }
         

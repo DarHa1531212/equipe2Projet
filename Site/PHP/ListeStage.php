@@ -30,17 +30,15 @@
     function AfficherStages($stages)
     {
         $content = "";
-        $index = 0;
         foreach ($stages as $stage) {
             $content = $content . 
-            '<tr class="itemHover" onclick="Requete(AfficherPage, \'../PHP/TBNavigation.php?nomMenu=InfoStage.php&index='.$index.'\')">
+            '<tr class="itemHover" onclick="Requete(AfficherPage, \'../PHP/TBNavigation.php?nomMenu=InfoStage.php&idStage='.$stage->getIdStage().'\')">
                 <td>' . $stage->getNomEntreprise() . '</td>
                 <td>' . $stage->getNomStagiaire() . '</td>
                 <td>' . $stage->getSalaireHoraire() . '</td>
                 <td>' . $stage->getDateDebut() . '</td>
                 <td>' . $stage->getDateFin() . '</td>
             </tr>';
-            $index = $index + 1;
         }
 
         return $content;
