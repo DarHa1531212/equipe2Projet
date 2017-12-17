@@ -93,9 +93,9 @@
                 <div class="champ" id="posteEntreprise">
                     <div class="posteBorder">
                         <p>Rôle</p><br/>
-                        <input type="checkbox" name="Superviseur" id = "chkSuperviseur" class = "value" value="Superviseur" onchange = "checkSuperviseur(this);" name = "false" checked="checked">Superviseur<br>
+                        <input type="checkbox" name="Superviseur" id = "chkSuperviseur" class = "value" value="true" onchange = "checkSuperviseur(this);" name = "false" checked="checked">Superviseur<br>
 
-                        <input type="checkbox" name="Responsable" id = "chkResponsable" class = "value" value="Responsable" style="margin-bottom:20px;" onchange = "checkResponsable(this);" name = "false" >Responsable<br>
+                        <input type="checkbox" name="Responsable" id = "chkResponsable" class = "value" value="false" style="margin-bottom:20px;" onchange = "checkResponsable(this);" name = "false" >Responsable<br>
                     </div>
                 </div>
 

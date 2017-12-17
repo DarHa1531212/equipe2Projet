@@ -28,6 +28,35 @@ if(isset($_REQUEST["post"]))
                         'marslimite'=>$session["marslimite"]),
                         'stdClass');
     }
+
+    function createYear()
+    {
+        $choix = '<option value="default">Choisir une année</option>';
+        $year = date('Y');
+
+        for($i = $year; $i <= $year+10; $i++)
+        {
+            $choix = $choix . '<option value="'.$i.'">'.$i.'</option>';
+        }
+
+        return '<select name="dateSelected" class="value" onchange="Post(setLimitDateSession, \'../PHP/TBNavigation.php?nomMenu=CreationSession.php&limit\')">'.$choix.'</select>';
+    }
+
+    if(isset($_REQUEST['limit']))
+        return createLimitYear();
+
+    function createLimitYear()
+    {
+        $champs = json_decode($_POST["tabChamp"]);
+        $date = array();
+
+        foreach($champs as $champ){
+            $date[$champ->nom] = $champ->value;
+        }
+        return $date['dateSelected'];
+
+    }
+
     $content = 
     '
         <script>
