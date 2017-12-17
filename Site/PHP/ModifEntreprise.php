@@ -10,7 +10,7 @@ $content =
 <script>
     function Submit(){
         if(CheckAll()){
-            alert("L\'entreprise à bien été modifiée.");
+            alert("L\'entreprise à bien été modifier.");
             Post(ExecuteQuery, \'../PHP/TBNavigation.php?id='.$_REQUEST["id"].'&nomMenu=ModifEntreprise.php&post\');
             Requete(AfficherPage, \'../PHP/TBNavigation.php?nomMenu=ListeEntreprise.php\');
         }

@@ -35,7 +35,7 @@
     }
     else
     {
-        header("Location: ../index.php?error"); 
+        header("Location: ../index.php");     
     }
 
   	function GetPrenomNom($bdd, $idRole){

@@ -1122,6 +1122,9 @@ avoir ce format - (xxx) xxx-xxxx"/>
                             "id"=>$this->Id),
                             "stdClass");
         }
+        public function Delete($bdd, $IdSession){           
+            return $bdd->Request("DELETE FROM tblSession WHERE Id = '".$IdSession."'");        
+        }
         
         public function getId(){
             return $this->Id;

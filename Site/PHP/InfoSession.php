@@ -2,9 +2,34 @@
     
     require 'ListeSession.php';
 
-
+    if(isset($_REQUEST["post"])){
+   return $sessions[$_REQUEST["id"]]->Delete($bdd, $sessions[$_REQUEST["id"]]->getId());
+}
+function CheckStage($bdd,$IdSession){
+    $nbStage = $bdd->Request("SELECT COUNT(*) AS nbStage FROM vStage WHERE IdSession = :IdSession",array("IdSession"=>$IdSession),"stdClass");
+    if($nbStage[0]->nbStage >= 1)
+        return "true";
+    else
+        return "false";
+    
+    return"false";
+       
+}
     $content =
     '
+    <script>
+    function Submit(){
+        if(CheckAll()){
+                if(!'.CheckStage($bdd,$sessions[$_REQUEST["id"]]->getId()).'){
+                    Post(ExecuteQuery, \'../PHP/TBNavigation.php?id='.$_REQUEST["id"].'&nomMenu=InfoSession.php&post\');
+                    Requete(AfficherPage, \'../PHP/TBNavigation.php?nomMenu=ListeSession.php\');
+
+                }else{
+                    alert("La session ne peut être supprimée car elle liée à un stage.");
+                }
+            }
+        }
+    </script>
     <article class="stagiaire">
         <div class="infoStagiaire">
             <h2>Consultation de la session</h2>
@@ -118,7 +143,7 @@
         
         <input class="bouton" type="button" style="width: 100px;" value="   Retour   " onclick="Requete(AfficherPage, \'../PHP/TBNavigation.php?nomMenu=ListeSession.php\')"/>
         
-        <input class="bouton" type="button" id="Save" style="width: 100px;" value="Supprimer"/>
+        <input class="bouton" type="button" id="Save" style="width: 100px;" value="Supprimer" onclick="Submit()"/>
             
     </article>
     ';
