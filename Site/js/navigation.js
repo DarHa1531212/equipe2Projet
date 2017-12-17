@@ -153,6 +153,9 @@ function AfficherPage(xhttp){
         
     $(".stagiaireContainer").empty();
     $(".stagiaireContainer").append(page);
+    
+    if($(".stagiaire").length <= 1)
+        return;
     CacherDiv();//Juste si il y a des stagiaires a afficher ou des evaluations(Fix plus tard).
 }
 
@@ -176,11 +179,7 @@ function submitEvaluation()
     if(($('.questions').length == $('input[type="radio"]:checked').length))
     {
         //PostEval(ExecuteQuery, arguments);
-
-        //execute posteval, reaffiche la page pour submitter les données
         PostEval( ExecuteQuery, '../PHP/TBNavigation.php?idEmploye='+$("input[name=IdSuperviseur]").val() + '&nomMenu=Eval&post=true&idEvaluation='+ $("input[name=IdEvaluation]").val() +'&id='+ $("input[name=IdStagiaire]").val()+'&idStage='+ $("input[name=IdStage]").val() );
-
-        //page precedente
         Requete( AfficherPage, '../PHP/TBNavigation.php?idEmploye='+ $("input[name=IdSuperviseur]").val() +'&nomMenu=Main' );
     }
     else

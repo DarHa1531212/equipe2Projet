@@ -1211,7 +1211,7 @@ INSERT INTO `tblTypeEtatAvancement`(`Id`, `Description`) VALUES (3, 'Mars');
 
 -- table etat avancement
 
-INSERT INTO `tblEtatAvancement` (`Id`,`Statut`,`IdStage`,`IdTypeEtatAvancement`) VALUES (1,'0',1,1);
+/*INSERT INTO `tblEtatAvancement` (`Id`,`Statut`,`IdStage`,`IdTypeEtatAvancement`) VALUES (1,'0',1,1);
 INSERT INTO `tblEtatAvancement` (`Id`,`Statut`,`IdStage`,`IdTypeEtatAvancement`) VALUES (2,'0',1,2);
 INSERT INTO `tblEtatAvancement` (`Id`,`Statut`,`IdStage`,`IdTypeEtatAvancement`) VALUES (3,'0',1,3);
 INSERT INTO `tblEtatAvancement` (`Id`,`Statut`,`IdStage`,`IdTypeEtatAvancement`) VALUES (4,'0',2,1);
@@ -1362,9 +1362,7 @@ INSERT INTO `tblEtatAvancement` (`Id`,`Statut`,`IdStage`,`IdTypeEtatAvancement`)
 INSERT INTO `tblEtatAvancement` (`Id`,`Statut`,`IdStage`,`IdTypeEtatAvancement`) VALUES (149,'0',50,2);
 INSERT INTO `tblEtatAvancement` (`Id`,`Statut`,`IdStage`,`IdTypeEtatAvancement`) VALUES (150,'0',50,3);
 
-
 -- table etat avancement janvier
-
 INSERT INTO `tblEtatAvancementJanvier` (`Id`) VALUES (1);
 INSERT INTO `tblEtatAvancementJanvier` (`Id`) VALUES (4);
 INSERT INTO `tblEtatAvancementJanvier` (`Id`) VALUES (7);
@@ -1520,4 +1518,4 @@ INSERT INTO `tblEtatAvancementMars` (`Id`) VALUES (138);
 INSERT INTO `tblEtatAvancementMars` (`Id`) VALUES (141);
 INSERT INTO `tblEtatAvancementMars` (`Id`) VALUES (144);
 INSERT INTO `tblEtatAvancementMars` (`Id`) VALUES (147);
-INSERT INTO `tblEtatAvancementMars` (`Id`) VALUES (150);
+INSERT INTO `tblEtatAvancementMars` (`Id`) VALUES (150);*/

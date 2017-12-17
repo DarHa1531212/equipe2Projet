@@ -1092,41 +1092,38 @@ avoir ce format - (xxx) xxx-xxxx"/>
 
 
     class Stage implements JsonSerializable{
-        private $IdStage, $DescriptionStage, $CompetenceRecherche, $HoraireTravail, $NbHeureSemaine,
-                $Remunere, $SalaireHoraire, $DateDebut, $DateFin, $LettreEntenteVide, 
-                $LettreEntenteSignee, $OffreStage, $NomResponsable, $NomSuperviseur, $NomStagiaire, 
-                $NomEnseignant, $NomEntreprise, $IdEntreprise;
+        private $IdStage, $DescriptionStage, $CompetenceRecherche, $NbHeureSemaine, $SalaireHoraire,
+                $DateDebut, $DateFin, $LettreEntenteVide, $LettreEntenteSignee, $OffreStage, $IdSession,
+                $IdResponsable, $IdSuperviseur, $IdStagiaire, $IdEnseignant, $NomResponsable, $NomEnseignant,
+                $NomSuperviseur, $NomStagiaire, $IdEntreprise, $NomEntreprise, $NomSession;
         
         //Met à jour le stage dans la BD.
-        public function Update(){
-            $champs = json_decode($_POST["tabChamp"]);
+        public function Update($bdd, $champs){
             $stage = array();
 
             foreach($champs as $champ){
                 $stage[$champ->nom] = $champ->value;
             }
 
-            $bdd->Request(" UPDATE tblStage SET IdResponsable = :idResponsable, IdSuperviseur = :idSuperviseur, 
-                            IdStagiaire = :idStagiaire, IdEnseignant = :idEnseignant, DescriptionStage = :description,
-                            CompetenceRecherche = :competence, HoraireTravail = :horaire, NbHeureSemaine = :nbHeure,
-                            SalaireHoraire = :salaire, DateDebut = :dateDebut, DateFin = :dateFin)",
-                            array(
-                                'idResponsable'=>$stage["Responsable"], 
-                                'idSuperviseur'=>$stage["Superviseur"], 
-                                'idStagiaire'=>$stage["Stagiaire"], 
-                                'idEnseignant'=>$stage["Enseignant"],
-                                'description'=>$stage["DescStage"], 
-                                'competence'=>$stage["CompetancesRecherchees"], 
-                                'horaire'=>$stage["SalaireHoraire"], 
-                                'nbHeure'=>$stage["HeuresSemaine"],
-                                'salaire'=>$stage["SalaireHoraire"], 
-                                'dateDebut'=>$stage["DateDebut"], 
-                                'dateFin'=>$stage["DateFin"]), 
-                                'stdClass');
-        }
-        
-        public function expose(){
-            return get_object_vars($this);
+            return $bdd->Request("  UPDATE tblStage SET IdResponsable = :idResponsable, IdSuperviseur = :idSuperviseur, 
+                                    IdStagiaire = :idStagiaire, IdEnseignant = :idEnseignant, DescriptionStage = :description,
+                                    CompetenceRecherche = :competence, NbHeureSemaine = :nbHeure,
+                                    SalaireHoraire = :salaire, DateDebut = :dateDebut, DateFin = :dateFin,
+                                    IdSession = :idSession WHERE Id = :id",
+                                    array(
+                                        'idResponsable'=>$stage["Responsable"], 
+                                        'idSuperviseur'=>$stage["Superviseur"], 
+                                        'idStagiaire'=>$stage["Stagiaire"], 
+                                        'idEnseignant'=>$stage["Enseignant"],
+                                        'description'=>$stage["DescStage"], 
+                                        'competence'=>$stage["CompetancesRecherchees"], 
+                                        'nbHeure'=>$stage["HeuresSemaine"],
+                                        'salaire'=>$stage["SalaireHoraire"], 
+                                        'dateDebut'=>$stage["DateDebut"], 
+                                        'dateFin'=>$stage["DateFin"],
+                                        'idSession'=>$stage["Session"],
+                                        'id'=>$this->getIdStage()),
+                                        'stdClass');
         }
         
         public function jsonSerialize(){
@@ -1137,6 +1134,14 @@ avoir ce format - (xxx) xxx-xxxx"/>
             return $this->IdStage;
         }
         
+        public function getNomEntreprise(){
+            return $this->NomEntreprise;
+        }
+        
+        public function getIdEntreprise(){
+            return $this->IdEntreprise;
+        }
+        
         public function getDescriptionStage(){
             return $this->DescriptionStage;
         }
@@ -1145,16 +1150,8 @@ avoir ce format - (xxx) xxx-xxxx"/>
             return $this->CompetenceRecherche;
         }
         
-        public function getHoraireTravail(){
-            return $this->HoraireTravail;
-        }
-        
         public function getNbHeureSemaine(){
             return $this->NbHeureSemaine;
-        }
-        
-        public function getRemunere(){
-            return $this->Remunere;
         }
         
         public function getSalaireHoraire(){
@@ -1181,16 +1178,32 @@ avoir ce format - (xxx) xxx-xxxx"/>
             return $this->OffreStage;
         }
         
+        public function getIdSession(){
+            return $this->IdSession;
+        }
+        
+        public function getNomSession(){
+            return $this->NomSession;
+        }
+        
+        public function getIdResponsable(){
+            return $this->IdResponsable;
+        }
+        
+        public function getIdSuperviseur(){
+            return $this->IdSuperviseur;
+        }
+        
+        public function getIdStagiaire(){
+            return $this->IdStagiaire;
+        }
+        
+        public function getIdEnseignant(){
+            return $this->IdEnseignant;
+        }
+        
         public function getNomResponsable(){
             return $this->NomResponsable;
-        }
-        
-        public function getNomEntreprise(){
-            return $this->NomEntreprise;
-        }
-        
-        public function getIdEntreprise(){
-            return $this->IdEntreprise;
         }
         
         public function getNomSuperviseur(){
