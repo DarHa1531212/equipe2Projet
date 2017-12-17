@@ -2,7 +2,7 @@
 -- USE cegepjon_p2017_2_dev;
 -- USE cegepjon_p2017_2_prod;
 -- USE cegepjon_p2017_2_tests;
- USE bdprojet_equipe2v2;
+  USE bdprojet_equipe2v2;
  
  
 
@@ -529,7 +529,7 @@ des divers domaines de formation en milieu de travail.');
 INSERT IGNORE INTO `tblTypeEvaluation` (`Id`,`Titre`,`Objectif`) VALUES (4,'Auto-évaluation','À remplir conjointement par la personne responsable technique et par l’élève stagiaire.');
 
 INSERT IGNORE INTO `tblStage` (`Id`,`IdResponsable`,`IdSuperviseur`,`IdStagiaire`,`IdEnseignant`) VALUES (1,101,51,1,131);
-INSERT IGNORE INTO `tblStage` (`Id`,`IdResponsable`,`IdSuperviseur`,`IdStagiaire`,`IdEnseignant`) VALUES (2,102,52,2,132);
+INSERT IGNORE INTO `tblStage` (`Id`,`IdResponsable`,`IdSuperviseur`,`IdStagiaire`,`IdEnseignant`) VALUES (2,102,52,1,132);
 INSERT IGNORE INTO `tblStage` (`Id`,`IdResponsable`,`IdSuperviseur`,`IdStagiaire`,`IdEnseignant`) VALUES (3,103,53,3,133);
 INSERT IGNORE INTO `tblStage` (`Id`,`IdResponsable`,`IdSuperviseur`,`IdStagiaire`,`IdEnseignant`) VALUES (4,104,54,4,134);
 INSERT IGNORE INTO `tblStage` (`Id`,`IdResponsable`,`IdSuperviseur`,`IdStagiaire`,`IdEnseignant`) VALUES (5,105,55,5,135);
@@ -1198,10 +1198,10 @@ INSERT IGNORE INTO `tblStage` (`Id`,`IdResponsable`,`IdSuperviseur`,`IdStagiaire
 -- table session
 
 INSERT IGNORE INTO tblSession (Annee,Periode, JanvierDebut, JanvierLimite, FevrierDebut, FevrierLimite, MarsDebut, MarsLimite, MiStageDebut, MiStageLimite, FinaleDebut, FinaleLimite, FormationDebut, FormationLimite) 
-						VALUES (2017,'Hiver','2017-12-01','2017-12-30','2018-01-01', '2018-01-30', '2018-02-01', '2018-02-28', ' 2017-10-20 ', ' 2017-11-30 ', '2017-12-01', '2017-12-30', '2018-01-01 ', '2018-01-30');
+VALUES (2017,'Hiver','2017-12-01','2017-12-30','2018-01-01', '2018-01-30', '2018-02-01', '2018-02-28', ' 2017-10-20 ', ' 2017-10-30 ', ' 2017-10-20 ', ' 2018-04-04 ', ' 2017-10-20 ', ' 2018-04-04' );
 
 INSERT IGNORE INTO tblSession (Annee,Periode, JanvierDebut, JanvierLimite, FevrierDebut, FevrierLimite, MarsDebut, MarsLimite, MiStageDebut, MiStageLimite, FinaleDebut, FinaleLimite, FormationDebut, FormationLimite) 
-						VALUES (2017,'Automne','2017-12-01','2017-12-30','2018-01-01', '2018-01-30', '2018-02-01', '2018-02-28', ' 2017-10-20 ', ' 2017-11-30 ', '2017-12-01', '2017-12-30', '2018-01-01 ', '2018-01-30');
+VALUES (2017,'Automne','2017-12-01','2017-12-30','2018-01-01', '2018-01-30', '2018-02-01', '2018-02-28', ' 2017-10-20 ', ' 2018-04-04 ', ' 2017-10-20 ', ' 2018-04-04 ', ' 2017-10-20 ', ' 2018-04-04' );
 
 -- table type etat avancement
 

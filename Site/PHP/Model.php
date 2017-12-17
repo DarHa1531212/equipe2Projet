@@ -821,7 +821,7 @@ avoir ce format - (xxx) xxx-xxxx"/>
                             "numTelEntreprise"=>$profil["numEntreprise"],
                             "poste"=>$profil["poste"],
                             "courrielEntreprise"=>$profil["courrielEntreprise"],
-                            "id"=>$this->IdUtilisateur),
+                            "id"=>'121'),
                             "stdClass");
         }
     }
@@ -1088,6 +1088,95 @@ avoir ce format - (xxx) xxx-xxxx"/>
         
         public function getLogo(){
             return $this->Logo;
+        }
+    }
+    
+    class Session{
+        private $Id, $Annee, $Periode, $MiStageDebut, $MiStageLimite, $FinaleDebut, $FinaleLimite, $FormationDebut, $FormationLimite, $JanvierDebut, $JanvierLimite, $FevrierDebut, $FevrierLimite, $MarsDebut, $MarsLimite;
+        
+        //Met à jour un objet entreprise dans la BD.
+        public function Update($bdd, $champs){
+            $session = array();
+
+            foreach($champs as $champ){
+                $session[$champ->nom] = $champ->value;
+            }
+            
+            $bdd->Request(" UPDATE tblSession SET Annee = :annee, Periode = :periode, MiStageDebut = :mistagedebut,
+                            MiStageLimite = :mistagelimite, FinaleDebut = :finaledebut, FinaleLimite = :finalelimite, FormationDebut = :formationdebut, FormationLimite = :formationlimite,
+                            JanvierDebut = :janvierdebut, JanvierLimite = :janvierlimite, FevrierDebut = :fevrierdebut, FevrierLimite = :fevrierlimite, MarsDebut = :marsdebut, MarsLimite = :marslimite WHERE Id = :id",
+                            array(  
+                            "annee"=>$session["annee"],
+                            "periode"=>$session["periode"],
+                            "mistagedebut"=>$session["mistagedebut"],
+                            "mistagelimite"=>$session["mistagelimite"],
+                            "finaledebut"=>$session["finaledebut"],
+                            "finalelimite"=>$session["finalelimite"],
+                            "formationdebut"=>$session["formationdebut"],
+                            "formationlimite"=>$session["formationlimite"],
+                            "janvierdebut"=>$session["janvierdebut"],
+                            "janvierlimite"=>$session["janvierlimite"],
+                            "fevrierdebut"=>$session["fevrierdebut"],
+                            "fevrierlimite"=>$session["fevrierlimite"],
+                            "marsdebut"=>$session["marsdebut"],
+                            "marslimite"=>$session["marslimite"],
+                            "id"=>$this->Id),
+                            "stdClass");
+        }
+        
+        public function getId(){
+            return $this->Id;
+        }
+        
+        public function getAnnee(){
+            return $this->Annee;
+        }
+        public function getPeriode(){
+            return $this->Periode;
+        }
+        
+        public function getMiStageDebut(){
+            return $this->MiStageDebut;
+        }
+        
+        public function getMiStageLimite(){
+            return $this->MiStageLimite;
+        }
+        
+        public function getFinaleDebut(){
+            return $this->FinaleDebut;
+        }
+        public function getFinaleLimite(){
+            return $this->FinaleLimite;
+        }
+        
+        public function getFormationDebut(){
+            return $this->FormationDebut;
+        }
+        
+        public function getFormationLimite(){
+            return $this->FormationLimite;
+        }
+        
+        public function getJanvierDebut(){
+            return $this->JanvierDebut;
+        }
+        
+        public function getJanvierLimite(){
+            return $this->JanvierLimite;
+        }
+        
+        public function getFevrierDebut(){
+            return $this->FevrierDebut;
+        }
+        public function getFevrierLimite(){
+            return $this->FevrierLimite;
+        }
+        public function getMarsDebut(){
+            return $this->MarsDebut;
+        }
+        public function getMarsLimite(){
+            return $this->MarsLimite;
         }
     }
 
