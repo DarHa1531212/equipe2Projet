@@ -81,11 +81,11 @@ SELECT 	Stagiaire.IdUtilisateur AS 'Id', Stagiaire.Prenom, Stagiaire.Nom, Stagia
 FROM vStage AS Stage
 JOIN vStagiaire AS Stagiaire
 ON Stagiaire.IdUtilisateur = Stage.IdStagiaire
-JOIN vEnseignant AS Enseignant
+JOIN vEmploye AS Enseignant
 ON Enseignant.IdUtilisateur = Stage.IdEnseignant
-JOIN vSuperviseur AS Sup
+JOIN vEmploye AS Sup
 ON Sup.IdUtilisateur = Stage.IdSuperviseur
-JOIN vResponsable AS res
+JOIN vEmploye AS res
 ON res.IdUtilisateur = Stage.IdResponsable
 JOIN vSession AS Session
 ON Session.Id = Stage.IdSession;

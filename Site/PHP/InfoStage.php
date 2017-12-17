@@ -12,8 +12,14 @@
         return "stage Supprimé";
     }
 
-    if(isset($_REQUEST["index"]))
-        $stage = $stages[$_REQUEST["index"]];
+    if(isset($_REQUEST["idStage"])){
+        foreach($stages as $sta){
+            if($sta->getIdStage() == $_REQUEST["idStage"]){
+                $stage = $sta;
+                break;
+            }  
+        }
+    }     
 
     if(isset($_REQUEST["post"]))
         DeleteStage($bdd);
@@ -22,7 +28,7 @@
     '<article class="stagiaire">
         <div class="infoStagiaire">
             <h2>Consultation des Stage</h2>
-            <input class="bouton" type="button" value="Modifier" onclick="Requete(AfficherPage, \'../PHP/TBNavigation.php?&nomMenu=ModifStage.php&index='.$_REQUEST["index"].'\')"/>
+            <input class="bouton" type="button" value="Modifier" onclick="Requete(AfficherPage, \'../PHP/TBNavigation.php?&nomMenu=ModifStage.php&idStage='.$stage->getIdStage().'\')"/>
         </div>
 
         <div class="separateur">
@@ -84,7 +90,7 @@
     <br/><br/>
     
     <input class="bouton" type="button" style="width: 100px;" value="   Retour   " onclick="Requete(AfficherPage, \'../PHP/TBNavigation.php?nomMenu=ListeStage.php\')"/>
-    <input class="bouton" type="button" style="width: 100px;" value="Supprimer" onclick="Requete(ExecuteQuery, \'../PHP/TBNavigation.php?nomMenu=InfoStage.php&idStage='.$stages[$_REQUEST["index"]]->getIdStage().'&post=true);Requete(AfficherPage, \'../PHP/TBNavigation.php?idstage='.$stages[$_REQUEST["index"]]->getIdStage().'&nomMenu=ListeStage.php\'); "/>';
+    <input class="bouton" type="button" style="width: 100px;" value="Supprimer" onclick="Requete(ExecuteQuery, \'../PHP/TBNavigation.php?nomMenu=InfoStage.php&idStage='.$stage->getIdStage().'&post=true);Requete(AfficherPage, \'../PHP/TBNavigation.php?idstage='.$stage->getIdStage().'&nomMenu=ListeStage.php\'); "/>';
 
     return $content;
 

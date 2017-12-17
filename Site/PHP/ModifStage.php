@@ -11,11 +11,19 @@ if(isset($_REQUEST["populate"]))
 $content =
 '
 <script>
+<<<<<<< HEAD
         Post(PopulateListEmploye, \'../PHP/TBNavigation.php?nomMenu=ModifStage.php&index='.$_REQUEST["index"].'&populate\');
         
         function Submit(){
             if(CheckAll()){
                 Post(AfficherPage, \'../PHP/TBNavigation.php?&nomMenu=ModifStage.php&index='.$_REQUEST["index"].'&Edit\')
+=======
+        Post(PopulateListEmploye, \'../PHP/TBNavigation.php?nomMenu=ModifStage.php&idStage='.$stage->getIdStage().'&populate\');
+        
+        function Submit(){
+            if(CheckAll()){
+                Post(AfficherPage, \'../PHP/TBNavigation.php?&nomMenu=ModifStage.php&idStage='.$stage->getIdStage().'&Edit\')
+>>>>>>> Merge_Eval
                 alert("Le stage à bien été modifié.");
                 Requete(AfficherPage, \'../PHP/TBNavigation.php?nomMenu=ListeStage.php\');
             }
@@ -33,7 +41,11 @@ $content =
         <div class="blocInfo infoProfil">
             <div class="champ">
                 <p class="label labelForInput">Entreprise</p>
+<<<<<<< HEAD
                 <select class="value" name="Entreprise" onchange="Post(PopulateListEmploye, \'../PHP/TBNavigation.php?nomMenu=ModifStage.php&index='.$_REQUEST["index"].'&populate\')">
+=======
+                <select class="value" name="Entreprise" onchange="Post(PopulateListEmploye, \'../PHP/TBNavigation.php?nomMenu=ModifStage.php&idStage='.$stage->getIdStage().'&populate\')">
+>>>>>>> Merge_Eval
                     <option value="'.$stage->getIdEntreprise().'" selected>'.$stage->getNomEntreprise().'</option>
                     ' . showEnterprises($bdd) . '
                 </select>
