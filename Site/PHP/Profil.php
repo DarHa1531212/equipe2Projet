@@ -42,9 +42,9 @@
                                        array("id"=>$_REQUEST["id"]),
                                         "ProfilStagiaire")[0];
             }
-            else
+            else//le stagiaire a un stage
             {
-                $profil = $bdd->Request(" SELECT Stagiaire.IdUtilisateur, Stagiaire.Prenom, Stagiaire.Nom, Stagiaire.NumTelPerso, Stagiaire.CourrielPersonnel, Stagiaire.CodePermanent,
+                $profil = $bdd->Request(" SELECT Stagiaire.IdUtilisateur, Stagiaire.Prenom, Stagiaire.Nom, Stagiaire.NumTelPerso, Stagiaire.CourrielPersonnel,Stagiaire.CourrielScolaire, Stagiaire.CodePermanent,
                                         Stagiaire.CourrielEntreprise, Stagiaire.NumTelEntreprise, Stagiaire.Poste, Ent.Nom AS 'NomEntreprise', IdRole
                                         FROM vStage AS Stage
                                         JOIN vStagiaire AS Stagiaire
@@ -120,7 +120,7 @@
             $profil->AfficherProfil().
             '<br/><br/>
 
-            <input class="bouton" type="button" value="   Retour   ", onclick="Requete(AfficherPage, \'../PHP/TBNavigation.php?id='.$profil->getId().'&nomMenu=Main\');"/>
+            <input class="bouton" type="button" value="   Retour   ", onclick="Requete(AfficherPage, \'../PHP/TBNavigation.php?nomMenu=ListeUtilisateur.php\');"/>
         </article>';
 
         return $content;
