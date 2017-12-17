@@ -196,23 +196,24 @@
 
     function creationEnseignant($bdd, $utilisateurs)
     {
+
         if (validerCourrielUnique($bdd, $utilisateurs))
             {
                 insertionTblUtilisateur($bdd, $utilisateurs);
-            
                 $result = $bdd->Request("SELECT Id from tblUtilisateur where Courriel like :courriel;", 
                     array('courriel'=>$utilisateurs["courriel"]) ,'stdClass');
 
                 foreach($result as $resultat){
                    $idUtilisateur =  $resultat->Id;
                 } 
-
-            $bdd->Request(" INSERT into tblEmploye (CourrielEntreprise, Nom, Prenom, IdEntreprise, IdUtilisateur)
-                                    values (:courriel, :Nom, :Prenom, 51, :IdUtilisateur)",
+                
+            $bdd->Request(" INSERT into tblEmploye (CourrielEntreprise, Nom, Prenom, IdEntreprise, IdUtilisateur, NumTelEntreprise)
+                                    values (:courriel, :Nom, :Prenom, 51, :IdUtilisateur, :NumTelEntreprise)",
                             array('courriel'=>$utilisateurs["courriel"], 
                                     'Prenom'=>$utilisateurs["prenom"],
                                     'Nom'=>$utilisateurs["nom"],
-                                    'IdUtilisateur'=>$idUtilisateur), 
+                                    'IdUtilisateur'=>$idUtilisateur,
+                                    'NumTelEntreprise'=>$utilisateurs["noTelEntreprise"]),
                             'stdClass');   
             //insertion dans la tblUtilisateurRole
             $bdd->Request("INSERT into tblUtilisateurRole (IdUtilisateur, IdRole)
