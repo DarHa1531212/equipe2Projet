@@ -285,7 +285,7 @@ SELECT 	Stage.Id AS 'IdStage', RaisonSociale, DescriptionStage, CompetenceRecher
 		DateDebut, DateFin, LettreEntenteVide, LettreEntenteSignee, OffreStage, IdSession,
 		IdResponsable, IdSuperviseur, IdStagiaire, IdEnseignant, CONCAT(Resp.Prenom, ' ', Resp.Nom) AS 'NomResponsable',
 		CONCAT(Ens.Prenom, ' ', Ens.Nom) AS 'NomEnseignant', CONCAT(Sup.Prenom, ' ', Sup.Nom) AS 'NomSuperviseur',
-        CONCAT(Stagiaire.Prenom, ' ', Stagiaire.Prenom) AS 'NomStagiaire', CONCAT(Sess.Periode, ' ', Sess.Annee) AS 'NomSession',
+        CONCAT(Stagiaire.Prenom, ' ', Stagiaire.Nom) AS 'NomStagiaire', CONCAT(Sess.Periode, ' ', Sess.Annee) AS 'NomSession',
         Ent.Nom AS 'NomEntreprise'
 FROM vStage AS Stage
 JOIN vSession AS Sess

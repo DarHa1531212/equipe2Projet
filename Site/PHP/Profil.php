@@ -86,7 +86,17 @@
     }
     else{
         $content = $content.
-        '<article class="stagiaire">
+        '
+        <script>
+            function Delete(){
+                if(confirm("Êtes-vous certains de vouloir supprimer cet utilisateur?")){
+                    Requete(testerRetourSupressionUtilisateur, \'../PHP/TBNavigation.php?nomMenu=profil.php&post=true&id=' . $_REQUEST["id"]. '\');
+                    Requete(AfficherPage, \'../PHP/TBNavigation.php?nomMenu=ListeUtilisateur.php\');
+                }
+            }
+        </script>
+        
+        <article class="stagiaire">
             <div class="infoStagiaire">';
 
             if($profil->getId() == $_SESSION['idConnecte']){
@@ -109,7 +119,7 @@
                 
                 if($_SESSION["idConnecte"] != $profil->getId()){
                     $content = $content.
-                    '<input class="bouton" type="button" style="width: 100px;" value="Supprimer" onclick= "Requete(testerRetourSupressionUtilisateur, \'../PHP/TBNavigation.php?nomMenu=profil.php&post=true&id=' . $_REQUEST["id"]. '\'); "/>';
+                    '<input class="bouton" type="button" style="width: 100px;" value="Supprimer" onclick= "Delete()"/>';
                 }   
             }
 
