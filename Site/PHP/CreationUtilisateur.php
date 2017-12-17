@@ -100,7 +100,7 @@
 
                 <br>
                 <input type="button" id="Cancel" class="bouton" value="Annuler" onclick="Requete(AfficherPage, \'../PHP/TBNavigation.php?nomMenu=ListeUtilisateur.php\')" />   
-                <input type="button" id="Save" class="bouton" value="Sauvegarder" onclick ="Post(testerRetour , \'../PHP/TBNavigation.php?nomMenu=CreationUtilisateur.php&post\')" style="margin-top:40px;"/>     
+                <input type="button" id="Save" class="bouton" value="Sauvegarder" onclick ="Submit()" style="margin-top:40px;"/>     
                          
             </div>
             </article>';

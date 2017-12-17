@@ -33,12 +33,6 @@
         $content =
         '
         <article class="stagiaire">
-        <div class="infoStagiaire">
-            <h2>Consultation de l\'Entreprise</h2>
-            <input class="bouton" type="button" value="Modifier" onclick="Requete(AfficherPage, \'../PHP/TBNavigation.php?&nomMenu=ModifEntreprise.php&id='.$_REQUEST["id"].'\')"/>
-        </div>
-        
-        <article class="stagiaire">
             <div class="infoStagiaire">
                 <h2>Consultation de l\'Entreprise</h2>
                 <input class="bouton" type="button" value="Modifier" onclick="Requete(AfficherPage, \'../PHP/TBNavigation.php?&nomMenu=ModifEntreprise.php&id='.$_REQUEST["id"].'\')"/>
