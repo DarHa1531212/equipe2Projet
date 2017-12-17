@@ -71,7 +71,7 @@ WHERE Role.Titre = 'Superviseur';
 -- ------------------------------------------------
 DROP VIEW IF EXISTS vTableauBord;
 CREATE VIEW vTableauBord AS
-SELECT 	Stagiaire.Id, Stagiaire.Prenom, Stagiaire.Nom, Stagiaire.NumTelPerso,
+SELECT 	Stagiaire.IdUtilisateur AS 'Id', Stagiaire.Prenom, Stagiaire.Nom, Stagiaire.NumTelPerso,
 		Enseignant.IdUtilisateur AS 'IdEnseignant', Enseignant.Prenom AS 'PrenomEnseignant', Enseignant.Nom AS 'NomEnseignant', Enseignant.NumTelEntreprise AS 'TelEnseignant',
         Sup.IdUtilisateur AS 'IdSuperviseur', Sup.Prenom AS 'PrenomSuperviseur', Sup.Nom AS 'NomSuperviseur', Sup.NumTelEntreprise AS 'TelSuperviseur',
 		res.IdUtilisateur AS 'IdResponsable', Stage.Id AS 'IdStage', Session.Id AS 'IdSession', 
@@ -81,11 +81,11 @@ SELECT 	Stagiaire.Id, Stagiaire.Prenom, Stagiaire.Nom, Stagiaire.NumTelPerso,
 FROM vStage AS Stage
 JOIN vStagiaire AS Stagiaire
 ON Stagiaire.IdUtilisateur = Stage.IdStagiaire
-JOIN vEnseignant AS Enseignant
+JOIN vEmploye AS Enseignant
 ON Enseignant.IdUtilisateur = Stage.IdEnseignant
-JOIN vSuperviseur AS Sup
+JOIN vEmploye AS Sup
 ON Sup.IdUtilisateur = Stage.IdSuperviseur
-JOIN vResponsable AS res
+JOIN vEmploye AS res
 ON res.IdUtilisateur = Stage.IdResponsable
 JOIN vSession AS Session
 ON Session.Id = Stage.IdSession;
@@ -281,25 +281,23 @@ CONCAT(Employe.Prenom,' ',Employe.Nom) AS NomResponsable,SupEnt.NomSuperviseur F
 
 DROP VIEW IF EXISTS vListeStage;
 CREATE VIEW vListeStage AS 
-SELECT 
-vStage.Id as 'IdStage',
-vStage.DescriptionStage as 'DescriptionStage', 
-vStage.CompetenceRecherche as 'CompetenceRecherche', 
-vStage.SalaireHoraire as 'SalaireHoraire', 
-vStage.NbHeureSemaine as 'NbHeureSemaine', 
-vEntreprise.Nom as 'NomEntreprise' ,
-vEntreprise.Id as 'IdEntreprise' ,
-concat(vStagiaire.Prenom, ' ' , vStagiaire.Nom)  as 'NomStagiaire' , 
-concat (vSuperviseur.Prenom, ' ', vSuperviseur.Nom) as 'NomSuperviseur', 
-concat (vResponsable.Prenom, ' ', vResponsable.Nom) as'NomResponsable', 
-concat (vEnseignant.Prenom, ' ', vEnseignant.Nom) as 'NomEnseignant',
-concat(vStagiaire.Tag, vEntreprise.tag, vSuperviseur.Tag, vResponsable.Tag, vEnseignant.Tag) AS Tag,
-vStage.DateDebut as 'DateDebut',
-vStage.DateFin as 'DateFin'
-from vStage    
-left join vSuperviseur on  vSuperviseur.IdUtilisateur = vStage.IdSuperviseur    
-left join vEntreprise on vEntreprise.Id = vSuperviseur.IdEntreprise     
-left join vStagiaire on vStagiaire.IdUtilisateur = vStage.IdStagiaire     
-left join vResponsable on vResponsable.IdUtilisateur = vStage.IdResponsable     
-left join vEnseignant on vEnseignant.IdUtilisateur = vStage.IdEnseignant
+SELECT 	Stage.Id AS 'IdStage', RaisonSociale, DescriptionStage, CompetenceRecherche, NbHeureSemaine, SalaireHoraire,
+		DateDebut, DateFin, LettreEntenteVide, LettreEntenteSignee, OffreStage, IdSession,
+		IdResponsable, IdSuperviseur, IdStagiaire, IdEnseignant, CONCAT(Resp.Prenom, ' ', Resp.Nom) AS 'NomResponsable',
+		CONCAT(Ens.Prenom, ' ', Ens.Nom) AS 'NomEnseignant', CONCAT(Sup.Prenom, ' ', Sup.Nom) AS 'NomSuperviseur',
+        CONCAT(Stagiaire.Prenom, ' ', Stagiaire.Prenom) AS 'NomStagiaire', CONCAT(Sess.Periode, ' ', Sess.Annee) AS 'NomSession',
+        Ent.Nom AS 'NomEntreprise'
+FROM vStage AS Stage
+JOIN vSession AS Sess
+ON Sess.Id = Stage.IdSession
+JOIN vEmploye AS Resp
+ON Stage.IdResponsable = Resp.IdUtilisateur
+JOIN vEmploye AS Ens
+ON Ens.IdUtilisateur = Stage.IdEnseignant
+JOIN vEmploye AS Sup
+ON Sup.IdUtilisateur = Stage.IdSuperviseur
+JOIN vStagiaire AS Stagiaire
+ON Stagiaire.IdUtilisateur = Stage.IdStagiaire
+JOIN vEntreprise AS Ent
+ON Ent.Id = Sup.IdEntreprise
 ORDER BY IdStage DESC;

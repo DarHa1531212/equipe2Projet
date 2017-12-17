@@ -37,6 +37,8 @@
          $("#Prenom").show();
          $("#Nom").show();
          $("#courriel").show();
+         $("#noTelEntreprise").show();
+
 
     }
     function afficherChampsStagiaire()
@@ -50,18 +52,19 @@
          $("#courrielPersonnel").show();
     }
 
-   function testerRetour (data)
+    function testerRetour (data)
     {
-        if (data ==  -11)
-        {
-            alert ("Un utilisateur avec ce courriel existe déjà, veuillez utiliser un courriel différent");
-        }
-        else if (data.substr(data.length - 1) == 1)
-        {
-            //Mettre tous les champs à vide.
-            alert ("L'utilisateur à été ajouté");
-            Requete(AfficherPage, '../PHP/TBNavigation.php?nomMenu=CreationUtilisateur.php');
-        }
+       
+            if (data ==  -11)
+            {
+                alert ("Un utilisateur avec ce courriel existe déjà, veuillez utiliser un courriel différent");
+            }
+            else if (data.substr(data.length - 1) == 1)
+            {
+                //Mettre tous les champs à vide.
+                alert ("L'utilisateur à été ajouté");
+                Requete(AfficherPage, '../PHP/TBNavigation.php?nomMenu=ListeUtilisateur.php');
+            }
     }
 
 	function checkResponsable(element)

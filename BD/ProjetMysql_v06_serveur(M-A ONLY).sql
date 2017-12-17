@@ -2,15 +2,13 @@
 -- CRÉÉE LE 06/09/2017 PAR MARC-ANTOINE DUCHESNE
 
 -- Création de la bd
- DROP DATABASE IF EXISTS BDProjet_equipe2V2;
- CREATE DATABASE BDProjet_equipe2V2;
-
 -- USE cegepjon_p2017_2_dev;
 -- USE cegepjon_p2017_2_prod;
 -- USE cegepjon_p2017_2_tests;
- USE bdprojet_equipe2v2;
+DROP DATABASE IF EXISTS BDProjet_equipe2V2; CREATE DATABASE BDProjet_equipe2V2; USE bdprojet_equipe2v2;
 -- Table Reponsesss
-DROP TABLE IF EXISTS tblReponse;
+DROP TABLE IF EXISTS tblReponse; 
+
 CREATE TABLE tblReponse(
 	Id						INT				AUTO_INCREMENT,
 	Texte 					VARCHAR(3000) 	NOT NULL,
@@ -147,7 +145,7 @@ CREATE TABLE tblStagiaire(
 	NumTelPerso		 		CHAR(14)		NULL,
 	NumTelEntreprise 		CHAR(14)		NULL,
 	Poste 					VARCHAR(7)		NULL,
-	CourrielEntreprise	 	VARCHAR(320)	NULL default NULL,
+	CourrielEntreprise	 	VARCHAR(320)	NULL,
 	CodePermanent			VARCHAR(12)		NULL,
 	Adresse					VARCHAR(350)	NULL,
 	PRIMARY KEY(Id),
@@ -271,10 +269,11 @@ CREATE TABLE tblSession(
 );
 
 DROP VIEW IF EXISTS vSession;
-CREATE VIEW vSession AS SELECT Id, Annee,Periode,CahierEntreprise,CahierStagiaire,MiStageDebut,MiStageLimite,FinaleDebut,FinaleLimite,
+CREATE VIEW vSession AS SELECT Id, Annee,Periode,CahierEntreprise,CahierStagiaire,DATE_FORMAT(MiStageDebut,"%Y/%m/d") AS MiStageDebut
+,DATE_FORMAT(MiStageLimite,"%Y/%m/d") AS MiStageLimite,DATE_FORMAT(FinaleDebut,"%Y/%m/d") AS FinaleDebut,FinaleLimite,
 FormationDebut,FormationLimite,JanvierDebut,JanvierLimite,FevrierDebut,FevrierLimite,MarsDebut,MarsLimite FROM tblSession;
 
-
+	
 --  Table Entreprise
 
 DROP TABLE IF EXISTS tblEntreprise;

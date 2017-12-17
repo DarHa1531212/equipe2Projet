@@ -18,10 +18,7 @@
            $nbStages =  $resultat->nbStages;
         }
 
-       // var_dump($nbStages);
-
         if ($nbStages == 0){
-          //  $data =$entreprises[$_REQUEST["id"]]->Id;
             $stage = array();
             $result = $bdd->Request(" DELETE FROM tblEntreprise WHERE Id = :id;",
                 array('id'=>$_REQUEST["idEntreprise"]),'stdClass');
@@ -35,12 +32,6 @@
     else {
         $content =
         '
-        <article class="stagiaire">
-        <div class="infoStagiaire">
-            <h2>Consultation de l\'Entreprise</h2>
-            <input class="bouton" type="button" value="Modifier" onclick="Requete(AfficherPage, \'../PHP/TBNavigation.php?&nomMenu=ModifEntreprise.php&id='.$_REQUEST["id"].'\')"/>
-        </div>
-        
         <article class="stagiaire">
             <div class="infoStagiaire">
                 <h2>Consultation de l\'Entreprise</h2>
