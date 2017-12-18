@@ -14,7 +14,7 @@
         <?php include 'vTableauBord.php' ?>
     </head>
     
-    <body onload="if($('.stagiaire').length <= 1)return; CacherDiv(); SetTimeout()">
+    <body onload="CacherDiv(); SetTimeout()">
         <script src="../js/jquery.min.js"></script>
         <script src="../js/navigation.js"></script>
         <!-- <script type="text/javascript" src="../js/nicEdit.js"></script> -->

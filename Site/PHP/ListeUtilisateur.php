@@ -1,6 +1,6 @@
 <?php
 
-    $stagiairesAvecStage = $bdd->Request(" SELECT Stagiaire.IdUtilisateur, Stagiaire.Prenom, Stagiaire.Nom, Stagiaire.NumTelPerso, Stagiaire.CourrielPersonnel, Stagiaire.CourrielScolaire, 
+    $stagiairesAvecStage = $bdd->Request(" SELECT DISTINCT Stagiaire.IdUtilisateur, Stagiaire.Prenom, Stagiaire.Nom, Stagiaire.NumTelPerso, Stagiaire.CourrielPersonnel, Stagiaire.CourrielScolaire, 
                                     Stagiaire.CodePermanent, Stagiaire.CourrielEntreprise, Stagiaire.NumTelEntreprise, Stagiaire.Poste, Ent.Nom AS 'NomEntreprise', IdRole
                                     from vStage as Stage
                                     join vStagiaire as Stagiaire
@@ -14,7 +14,7 @@
                                     null, "ProfilStagiaire");
     
 
-    $stagiairesSansStage = $bdd->Request("SELECT Stagiaire.IdUtilisateur, Stagiaire.Prenom, Stagiaire.Nom, Stagiaire.NumTelPerso, Stagiaire.CourrielPersonnel, Stagiaire.CourrielScolaire, 
+    $stagiairesSansStage = $bdd->Request("SELECT DISTINCT Stagiaire.IdUtilisateur, Stagiaire.Prenom, Stagiaire.Nom, Stagiaire.NumTelPerso, Stagiaire.CourrielPersonnel, Stagiaire.CourrielScolaire, 
                                         Stagiaire.CodePermanent, Stagiaire.CourrielEntreprise, Stagiaire.NumTelEntreprise, Stagiaire.Poste,'Aucun' AS 'NomEntreprise', IdRole
                                         FROM vStagiaire AS Stagiaire
                                         JOIN vUtilisateurRole AS UR
@@ -27,7 +27,7 @@
                                         null, "ProfilStagiaire");
 
    
-    $employes = $bdd->Request(" SELECT Emp.IdUtilisateur, Prenom, Emp.Nom, IdRole,
+    $employes = $bdd->Request(" SELECT DISTINCT Emp.IdUtilisateur, Prenom, Emp.Nom, IdRole,
                                 Ent.Nom AS 'NomEntreprise', Emp.CourrielEntreprise, Emp.NumTelEntreprise, Poste
                                 FROM vEmploye AS Emp
                                 JOIN vEntreprise AS Ent

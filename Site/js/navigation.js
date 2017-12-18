@@ -154,8 +154,6 @@ function AfficherPage(xhttp){
     $(".stagiaireContainer").empty();
     $(".stagiaireContainer").append(page);
     
-    if($(".stagiaire").length <= 1)
-        return;
     CacherDiv();//Juste si il y a des stagiaires a afficher ou des evaluations(Fix plus tard).
 }
 
