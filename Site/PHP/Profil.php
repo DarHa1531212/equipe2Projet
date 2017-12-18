@@ -56,9 +56,9 @@
         else{//stagiaire
             
 
-            $stagiaire = $bdd->Request("  select *
-                                            from vstage as stage
-                                            where stage.IdStagiaire = :IdStagiaire",
+            $stagiaire = $bdd->Request("  SELECT *
+                                            FROM vstage AS stage
+                                            WHERE stage.IdStagiaire = :IdStagiaire",
                                         array("IdStagiaire"=>$_REQUEST["id"]),
                                         "stdClass");
             if(count($stagiaire)==0)//le stagiaire n'a pas de stage
@@ -76,10 +76,10 @@
             {
                 $profil = $bdd->Request(" SELECT Stagiaire.IdUtilisateur, Stagiaire.Prenom, Stagiaire.Nom, Stagiaire.NumTelPerso, Stagiaire.CourrielPersonnel, Stagiaire.CourrielScolaire, 
                                         Stagiaire.CodePermanent, Stagiaire.CourrielEntreprise, Stagiaire.NumTelEntreprise, Stagiaire.Poste, Ent.Nom AS 'NomEntreprise', IdRole
-                                        from vStage as Stage
-                                        join vStagiaire as Stagiaire
+                                        from vStage AS Stage
+                                        join vStagiaire AS Stagiaire
                                         on Stage.IdStagiaire = Stagiaire.IdUtilisateur
-                                        join vEmploye as Emp
+                                        join vEmploye AS Emp
                                         on Emp.Id = Stage.IdSuperviseur
                                         JOIN vEntreprise AS Ent
                                         ON Ent.Id = Emp.IdEntreprise
