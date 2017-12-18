@@ -2,14 +2,13 @@
 
     require 'ListeStage.php';
 
+    if(isset($_REQUEST["delete"]))
+        DeleteStage($bdd);
+    
     function DeleteStage($bdd){
-        if(isset($_REQUEST['idStage']))
-            $data = $_REQUEST['idStage'];
-        $stage = array();
-        $result = $bdd->Request(" DELETE FROM tblStage WHERE Id = :id;",
-        array('id'=>$data),'stdClass');
-
-        return "stage Supprimé";
+        return $bdd->Request("  DELETE FROM tblStage WHERE Id = :id;",
+                                array('id'=>$_REQUEST["idStage"]),
+                                'stdClass');
     }
 
     if(isset($_REQUEST["idStage"])){
@@ -25,7 +24,18 @@
         DeleteStage($bdd);
 
     $content =
-    '<article class="stagiaire">
+    '
+    <script>
+        function Delete(){
+            if(confirm("Êtes-vous certains de vouloir supprimer ce stage?")){
+                alert("Le stage a bien été supprimé.");
+                Requete(ExecuteQuery, \'../PHP/TBNavigation.php?nomMenu=InfoStage.php&idStage='.$stage->getIdStage().'&delete\');
+                Requete(AfficherPage, \'../PHP/TBNavigation.php?idstage='.$stage->getIdStage().'&nomMenu=ListeStage.php\');
+            }
+        }
+    </script>
+    
+    <article class="stagiaire">
         <div class="infoStagiaire">
             <h2>Consultation des Stage</h2>
             <input class="bouton" type="button" value="Modifier" onclick="Requete(AfficherPage, \'../PHP/TBNavigation.php?&nomMenu=ModifStage.php&idStage='.$stage->getIdStage().'\')"/>
@@ -90,7 +100,7 @@
     <br/><br/>
     
     <input class="bouton" type="button" style="width: 100px;" value="   Retour   " onclick="Requete(AfficherPage, \'../PHP/TBNavigation.php?nomMenu=ListeStage.php\')"/>
-    <input class="bouton" type="button" style="width: 100px;" value="Supprimer" onclick="Requete(ExecuteQuery, \'../PHP/TBNavigation.php?nomMenu=InfoStage.php&idStage='.$stage->getIdStage().'&post=true);Requete(AfficherPage, \'../PHP/TBNavigation.php?idstage='.$stage->getIdStage().'&nomMenu=ListeStage.php\'); "/>';
+    <input class="bouton" type="button" style="width: 100px;" value="Supprimer" onclick="Delete()"/>';
 
     return $content;
 

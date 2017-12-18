@@ -32,6 +32,14 @@
     else {
         $content =
         '
+        <script>
+            function Delete(){
+                if(confirm("Êtes-vous certains de vouloir supprimer cette entreprise?")){
+                    Requete(testerRetourSupressionEntreprise, \'../PHP/TBNavigation.php?nomMenu=InfoEntreprise.php&idEntreprise='.$entreprise->getId().'\');
+                }
+            }
+        </script>
+        
         <article class="stagiaire">
             <div class="infoStagiaire">
                 <h2>Consultation de l\'Entreprise</h2>
@@ -84,7 +92,7 @@
             <input class="bouton" type="button" style="width: 100px;" value="   Retour   " onclick="Requete(AfficherPage, \'../PHP/TBNavigation.php?nomMenu=ListeEntreprise.php\')"/>
            
 
-            <input class="bouton" type="button" id="Save" style="width: 100px;" value="  Supprimer  "   onclick="Requete(testerRetourSupressionEntreprise, \'../PHP/TBNavigation.php?nomMenu=InfoEntreprise.php&idEntreprise='.$entreprise->getId().'\')" />                
+            <input class="bouton" type="button" id="Save" style="width: 100px;" value="  Supprimer  "   onclick="Delete()" />                
         </article>
         ';
         
