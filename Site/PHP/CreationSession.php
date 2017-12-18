@@ -1,6 +1,6 @@
 <?php
 if(isset($_REQUEST["post"]))
-        CreateSession($bdd);
+    CreateSession($bdd);
         
     function CreateSession($bdd){
         $champs = json_decode($_POST["tabChamp"]);
@@ -12,7 +12,7 @@ if(isset($_REQUEST["post"]))
         $bdd->Request(" INSERT INTO tblSession (Annee,Periode,MiStageDebut,MiStageLimite,FinaleDebut,FinaleLimite,FormationDebut,FormationLimite,JanvierDebut,JanvierLimite,FevrierDebut,FevrierLimite,MarsDebut,MarsLimite) 
                         VALUES (:annee,:periode,:mistagedebut,:mistagelimite,:finaledebut,:finalelimite,:formationdebut,:formationlimite,:janvierdebut,:janvierlimite,:fevrierdebut,:fevrierlimite,:marsdebut,:marslimite)",
                         array(
-                        'annee'=>$session["annee"],
+                        'annee'=>$session["dateSelected"],
                         'periode'=>$session["periode"],    
                         'mistagedebut'=>$session["mistagedebut"],    
                         'mistagelimite'=>$session["mistagelimite"],
