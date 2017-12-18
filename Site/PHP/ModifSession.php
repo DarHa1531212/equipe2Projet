@@ -2,7 +2,7 @@
 
 require 'InfoSession.php';
 
-if(isset($_REQUEST["post"])){
+if(isset($_REQUEST["edit"])){
    return $sessions[$_REQUEST["id"]]->Update($bdd, json_decode($_POST["tabChamp"]));
 }
 
@@ -18,7 +18,7 @@ $content =
     function Submit(){
         if(CheckAll()){
             alert("La session a bien été modifiée.");
-            Post(ExecuteQuery, \'../PHP/TBNavigation.php?id='.$_REQUEST["id"].'&nomMenu=ModifSession.php&post\');
+            Post(ExecuteQuery, \'../PHP/TBNavigation.php?id='.$_REQUEST["id"].'&nomMenu=ModifSession.php&edit\');
             Requete(AfficherPage, \'../PHP/TBNavigation.php?nomMenu=ListeSession.php\');
         }
     }

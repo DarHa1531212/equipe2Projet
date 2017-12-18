@@ -3,9 +3,9 @@
 
 -- Création de la bd
 -- USE cegepjon_p2017_2_dev;
--- USE cegepjon_p2017_2_prod;
+ USE cegepjon_p2017_2_prod;
 -- USE cegepjon_p2017_2_tests;
-DROP DATABASE IF EXISTS BDProjet_equipe2V2; CREATE DATABASE BDProjet_equipe2V2; USE bdprojet_equipe2v2;
+-- DROP DATABASE IF EXISTS BDProjet_equipe2V2; CREATE DATABASE BDProjet_equipe2V2; USE bdprojet_equipe2v2;
 -- Table Reponsesss
 DROP TABLE IF EXISTS tblReponse; 
 
@@ -269,11 +269,10 @@ CREATE TABLE tblSession(
 );
 
 DROP VIEW IF EXISTS vSession;
-CREATE VIEW vSession AS SELECT Id, Annee,Periode,CahierEntreprise,CahierStagiaire,MiStageDebut
-, MiStageLimite,FinaleDebut,FinaleLimite,
+CREATE VIEW vSession AS SELECT Id, Annee,Periode,CahierEntreprise,CahierStagiaire, MiStageDebut,MiStageLimite,FinaleDebut,FinaleLimite,
 FormationDebut,FormationLimite,JanvierDebut,JanvierLimite,FevrierDebut,FevrierLimite,MarsDebut,MarsLimite FROM tblSession;
 
-	
+
 --  Table Entreprise
 
 DROP TABLE IF EXISTS tblEntreprise;
@@ -303,7 +302,7 @@ CREATE TABLE tblEmploye(
 	CourrielEntreprise 		VARCHAR(320)	NOT NULL,
 	Nom 					VARCHAR(50)		NOT NULL,
 	Prenom 					VARCHAR(50)		NOt NULL,
-	NumTelEntreprise		CHAR(14)		NOT NULL,
+	NumTelEntreprise		CHAR(14)		NULL,
 	Poste 					VARCHAR(7)		NULL,
 	PRIMARY KEY(Id),
 	IdEntreprise			INT				NOT NULL,
@@ -315,7 +314,6 @@ DROP VIEW IF EXISTS vEmploye;
 CREATE VIEW vEmploye AS SELECT Id,CourrielEntreprise,Nom,Prenom,
 NumTelEntreprise,Poste,CONCAT(CourrielEntreprise,Nom,Prenom,
 NumTelEntreprise,IFNULL(Poste, ""),IdEntreprise,IdUtilisateur) AS tag,IdEntreprise,IdUtilisateur FROM tblEmploye;
-
 
 -- Table Categorie Question
 

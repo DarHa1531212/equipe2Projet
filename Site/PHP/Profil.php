@@ -127,11 +127,23 @@
             '</div>';
 
             $content = $content.
-            $profil->AfficherProfil().
-            '<br/><br/>
+            $profil->AfficherProfil();
+        
+            if($_SESSION['IdRole'] == 1){
+                $content = $content.
+                '<br/><br/>
 
-            <input class="bouton" type="button" value="   Retour   ", onclick="Requete(AfficherPage, \'../PHP/TBNavigation.php?nomMenu=ListeUtilisateur.php\');"/>
-        </article>';
+                <input class="bouton" type="button" value="   Retour   ", onclick="Requete(AfficherPage, \'../PHP/TBNavigation.php?nomMenu=ListeUtilisateur.php\');"/>';
+            }
+            else{
+                $content = $content.
+                '<br/><br/>
+
+                <input class="bouton" type="button" value="   Retour   ", onclick="Requete(AfficherPage, \'../PHP/TBNavigation.php?nomMenu=Main\');"/>';
+            }
+            
+        $content = $content.
+        '</article>';
 
         return $content;
     }
