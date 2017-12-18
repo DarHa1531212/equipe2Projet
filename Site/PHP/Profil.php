@@ -1,7 +1,37 @@
 <?php
+
     include 'ListeUtilisateur.php';
     $content = "";
     $role = "";
+    $boutonR = '';
+
+    if($_SESSION['IdRole'] == 1)//administrateur
+    {
+        //je suis loggé en administrateur 
+        $pageRetour = 'ListeUtilisateur.php';
+    }
+    else
+    {
+        $pageRetour = 'nomMenu=Main';
+    }
+
+    function boutonRetour()
+    {
+
+        if($_SESSION['IdRole'] == 1)//administrateur
+        {
+            //je suis logué en administrateur 
+             $bouton =  '<input class="bouton" type="button" value="   Retour   ", onclick="Requete(AfficherPage, \'../PHP/TBNavigation.php?nomMenu=ListeUtilisateur.php\');"/>';
+        }
+        else
+        {
+             $bouton =  '<input class="bouton" type="button" value="   Retour   ", onclick="Requete(AfficherPage, \'../PHP/TBNavigation.php?nomMenu=Main\');"/>';
+        }
+
+        return $bouton;
+
+    }
+
 
     if(isset($_REQUEST["id"])){
         $role = $bdd->Request(" SELECT IdUtilisateur, Titre, IdRole
@@ -126,26 +156,12 @@
             $content = $content.
             '</div>';
 
-            if($_SESSION['IdRole'] == 5)
-            {
-                $content = $content.
-                $profil->AfficherProfil().
-                '<br/><br/>
-                <input class="bouton" type="button" value="   Retour   " onclick="Requete(AfficherPage, \'../PHP/TBNavigation.php?id='.$profil->getId().'&nomMenu=Main\')"/>
-            </article>';
-            }
-            else
-            {
-                if($_SESSION['IdRole'] == 1)
-                {
-                    $content = $content.
-                    $profil->AfficherProfil().
-                    '<br/><br/>
-                    <input class="bouton" type="button" value="   Retour   ", onclick="Requete(AfficherPage, \'../PHP/TBNavigation.php?nomMenu=ListeUtilisateur.php\');"/>
-                </article>';
-                }
-            }
-            
+            $content = $content.
+            $profil->AfficherProfil().
+
+            '<br/><br/>'. boutonRetour() .'
+
+        </article>';
 
         return $content;
     }

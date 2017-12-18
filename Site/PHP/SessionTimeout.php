@@ -24,5 +24,6 @@
         {
           echo "You do not have access to this page"; //if access is still not granted at the end of the loop, return an error message
         }
+        
     }
 ?>
