@@ -2,7 +2,7 @@
     
     require 'ListeSession.php';
 
-    if(isset($_REQUEST["post"])){
+    if(isset($_REQUEST["delete"])){
    return $sessions[$_REQUEST["id"]]->Delete($bdd, $sessions[$_REQUEST["id"]]->getId());
 }
 function CheckStage($bdd,$IdSession){
@@ -22,7 +22,7 @@ function CheckStage($bdd,$IdSession){
         if(CheckAll()){
             if(confirm("Voulez-vous vraiment supprimer cette session?")){
                 if(!'.CheckStage($bdd,$sessions[$_REQUEST["id"]]->getId()).'){
-                    Post(ExecuteQuery, \'../PHP/TBNavigation.php?id='.$_REQUEST["id"].'&nomMenu=InfoSession.php&post\');
+                    Post(ExecuteQuery, \'../PHP/TBNavigation.php?id='.$_REQUEST["id"].'&nomMenu=InfoSession.php&delete\');
                     Requete(AfficherPage, \'../PHP/TBNavigation.php?nomMenu=ListeSession.php\');
 
                 }else{
