@@ -207,11 +207,12 @@
                    $idUtilisateur =  $resultat->Id;
                 } 
                 
-            $bdd->Request(" INSERT into tblEmploye (CourrielEntreprise, Nom, Prenom, IdEntreprise, IdUtilisateur, NumTelEntreprise)
-                                    values (:courriel, :Nom, :Prenom, 51, :IdUtilisateur, :NumTelEntreprise)",
+            $bdd->Request(" INSERT into tblEmploye (CourrielEntreprise, Nom, Prenom, IdEntreprise, IdUtilisateur, NumTelEntreprise, Poste)
+                                    values (:courriel, :Nom, :Prenom, 1, :IdUtilisateur, :NumTelEntreprise, :poste)",
                             array('courriel'=>$utilisateurs["courriel"], 
                                     'Prenom'=>$utilisateurs["prenom"],
                                     'Nom'=>$utilisateurs["nom"],
+                                    'poste'=>$utilisateurs["posteTelEntreprise"],
                                     'IdUtilisateur'=>$idUtilisateur,
                                     'NumTelEntreprise'=>$utilisateurs["noTelEntreprise"]),
                             'stdClass');   

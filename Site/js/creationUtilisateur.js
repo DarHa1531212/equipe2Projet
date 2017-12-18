@@ -32,15 +32,15 @@
 
     function afficherChampsEnseignant()
     {
-         $(".champ").hide();
-         $("#selectTypeUser").show();
-         $("#Prenom").show();
-         $("#Nom").show();
-         $("#courriel").show();
-         $("#noTelEntreprise").show();
-
-
+        $(".champ").hide();
+        $("#selectTypeUser").show();
+        $("#Prenom").show();
+        $("#Nom").show();
+        $("#courriel").show();
+        $("#noTelEntreprise").show();
+        $("#posteTelEntreprise").show();
     }
+
     function afficherChampsStagiaire()
     {
          $(".champ").hide();

@@ -153,7 +153,7 @@
     '<article class="stagiaire">
 
         <div class="infoStagiaire">
-            <h2>'.$eval->getTitre().'</h2>
+            <h2>'.$eval->getTitre().'&'.$eval->getId().'</h2>
         </div>
 
         <div class="blocInfo infoProfil">

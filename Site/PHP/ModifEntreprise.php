@@ -44,6 +44,7 @@ $content =
             <img class="info" src="../Images/info.png" title="Le numéro de téléphone doit
 avoir ce format - (xxx) xxx-xxxx"/>
         </div>
+
     </div>
 
     <div class="separateur">
