@@ -1199,10 +1199,10 @@ INSERT IGNORE INTO `tblStage` (`Id`,`IdResponsable`,`IdSuperviseur`,`IdStagiaire
 -- table session
 
 INSERT IGNORE INTO tblSession (Annee,Periode, JanvierDebut, JanvierLimite, FevrierDebut, FevrierLimite, MarsDebut, MarsLimite, MiStageDebut, MiStageLimite, FinaleDebut, FinaleLimite, FormationDebut, FormationLimite) 
-VALUES (2017,'Hiver','2017-12-01','2017-12-30','2018-01-01', '2018-01-30', '2018-02-01', '2018-02-28', ' 2017-10-20 ', ' 2017-10-30 ', ' 2017-10-20 ', ' 2018-04-04 ', ' 2017-10-20 ', ' 2018-04-04' );
+VALUES (2017,'Hiver','2017-12-01','2017-12-30','2018-01-01', '2018-01-30', '2018-02-01', '2018-02-28', '2017-10-20', '2017-10-30', '2017-10-20', '2018-04-04', '2017-10-20', '2018-04-04' );
 
 INSERT IGNORE INTO tblSession (Annee,Periode, JanvierDebut, JanvierLimite, FevrierDebut, FevrierLimite, MarsDebut, MarsLimite, MiStageDebut, MiStageLimite, FinaleDebut, FinaleLimite, FormationDebut, FormationLimite) 
-VALUES (2017,'Automne','2017-12-01','2017-12-30','2018-01-01', '2018-01-30', '2018-02-01', '2018-02-28', ' 2017-10-20 ', ' 2018-04-04 ', ' 2017-10-20 ', ' 2018-04-04 ', ' 2017-10-20 ', ' 2018-04-04' );
+VALUES (2017,'Automne','2017-12-01','2017-12-30','2018-01-01', '2018-01-30', '2018-02-01', '2018-02-28', '2017-10-20', '2018-04-04', '2017-10-20', '2018-04-04', '2017-10-20', '2018-04-04');
 
 -- table type etat avancement
 
