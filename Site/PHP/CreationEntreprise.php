@@ -79,10 +79,6 @@
                 <p class="label labelForInput"><span class="Obligatoire">*</span>Code Postal</p>
                 <input type="text" maxlength="7" name="codePostal" class="value" onblur="Required(this); VerifierRegex(this);" pattern="'.$regxCodePostal.'" required/>
             </div>
-            <div class="champ">
-                <p class="label labelForInput">Logo</p>
-                <input type="text" name="logo" class="value"/>
-            </div>
         
             <br/><br/>
 
