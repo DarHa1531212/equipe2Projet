@@ -18,7 +18,7 @@ function Entete($profil, $role){
     return $content;
 }
 
-if(isset($_REQUEST["post"]))
+if(isset($_REQUEST["edit"]))
     $profil->UpdateProfil($bdd, json_decode($_POST["tabChamp"]));
 
 $content =
@@ -31,7 +31,7 @@ $content =
     <br/><br/>
 
     <input class="bouton" type="button" style="width: 100px;" value="   Annuler   " onclick="Requete(AfficherPage, \'../PHP/TBNavigation.php?id='.$id.'&nomMenu=Main\')"/>
-    <input class="bouton" type="button" id="Save" style="width: 100px;" value="Sauvegarder" onclick="Post(ExecuteQuery, \'../PHP/TBNavigation.php?id='.$profil->getId().'&nomMenu=ModifProfil.php&post\'); Requete(AfficherPage, \'../PHP/TBNavigation.php?id='.$id.'&nomMenu=Main\')"/>
+    <input class="bouton" type="button" id="Save" style="width: 100px;" value="Sauvegarder" onclick="Post(ExecuteQuery, \'../PHP/TBNavigation.php?id='.$profil->getId().'&nomMenu=ModifProfil.php&edit\'); Requete(AfficherPage, \'../PHP/TBNavigation.php?id='.$id.'&nomMenu=Main\')"/>
 </article>';
 
 return $content;
