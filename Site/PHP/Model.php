@@ -902,7 +902,7 @@ avoir ce format - (xxx) xxx-xxxx"/>
 
             <div class="blocInfo infoProfil">
                     <div class="champ">
-                        <p class="label labelForInput">Prenom1 :</p>
+                        <p class="label labelForInput">Prenom :</p>
                         <input type="text" value="'.$this->getPrenom().'" class="value" disabled/>
                     </div>
 

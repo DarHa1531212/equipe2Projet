@@ -126,12 +126,26 @@
             $content = $content.
             '</div>';
 
-            $content = $content.
-            $profil->AfficherProfil().
-            '<br/><br/>
-
-            <input class="bouton" type="button" value="   Retour   ", onclick="Requete(AfficherPage, \'../PHP/TBNavigation.php?nomMenu=ListeUtilisateur.php\');"/>
-        </article>';
+            if($_SESSION['IdRole'] == 5)
+            {
+                $content = $content.
+                $profil->AfficherProfil().
+                '<br/><br/>
+                <input class="bouton" type="button" value="   Retour   " onclick="Requete(AfficherPage, \'../PHP/TBNavigation.php?id='.$profil->getId().'&nomMenu=Main\')"/>
+            </article>';
+            }
+            else
+            {
+                if($_SESSION['IdRole'] == 1)
+                {
+                    $content = $content.
+                    $profil->AfficherProfil().
+                    '<br/><br/>
+                    <input class="bouton" type="button" value="   Retour   ", onclick="Requete(AfficherPage, \'../PHP/TBNavigation.php?nomMenu=ListeUtilisateur.php\');"/>
+                </article>';
+                }
+            }
+            
 
         return $content;
     }
