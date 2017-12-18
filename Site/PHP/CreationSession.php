@@ -79,7 +79,7 @@ if(isset($_REQUEST["post"]))
         <div class="blocInfo infoProfil">
             <div class="champ">
                 <p class="label labelForInput">Année</p>
-                <input class="value" type="text" name="annee">
+                '.createYear().'
             </div>
             <div class="champ">
                 <p class="label labelForInput">Cahier Entreprise</p>
@@ -109,31 +109,31 @@ if(isset($_REQUEST["post"]))
                 <h4>Évaluation Mi-Stage</h4>
                 <div class="champ">
                     <p class="label labelForInput">Date Début</p>
-                    <input class="value" type="date" name="mistagedebut">
+                    <input class="value" type="date" name="mistagedebut" id="MiStageDebut">
                 </div>
                 <div class="champ">
                     <p class="label labelForInput">Date Limite</p>
-                    <input class="value" type="date" name ="mistagelimite">
+                    <input class="value" type="date" name ="mistagelimite" id="MiStageLimit">
                 </div>
                 
                 <h4>Évaluation Finale</h4>
                 <div class="champ">
                     <p class="label labelForInput">Date Début</p>
-                    <input class="value" type="date" name="finaledebut">
+                    <input class="value" type="date" name="finaledebut" id="EvalFinalDebut">
                 </div>
                 <div class="champ">
                     <p class="label labelForInput">Date Limite</p>
-                    <input class="value" type="date" name="finalelimite">
+                    <input class="value" type="date" name="finalelimite" id="EvalFinalLimit">
                 </div>
                 
                 <h4>Évaluation de la Formation</h4>
                 <div class="champ">
                     <p class="label labelForInput">Date Début</p>
-                    <input class="value" type="date" name="formationdebut">
+                    <input class="value" type="date" name="formationdebut" id="EvalFormDebut">
                 </div>
                 <div class="champ">
                     <p class="label labelForInput">Date Limite</p>
-                    <input class="value" type="date" name="formationlimite">
+                    <input class="value" type="date" name="formationlimite" id="EvalFormLimit">
                 </div>
                 
                 <br/><br/>
@@ -149,31 +149,31 @@ if(isset($_REQUEST["post"]))
                 <h4>Rapport Janvier</h4>
                 <div class="champ">
                     <p class="label labelForInput">Date Début</p>
-                    <input class="value" type="date" name="janvierdebut">
+                    <input class="value" type="date" name="janvierdebut" id="JanvierDebut">
                 </div>
                 <div class="champ">
                     <p class="label labelForInput">Date Limite</p>
-                    <input class="value" type="date" name="janvierlimite">
+                    <input class="value" type="date" name="janvierlimite" id="JanvierLimit">
                 </div>
                 
                 <h4>Rapport Février</h4>
                 <div class="champ">
                     <p class="label labelForInput">Date Début</p>
-                    <input class="value" type="date" name="fevrierdebut">
+                    <input class="value" type="date" name="fevrierdebut" id="FevrierDebut">
                 </div>
                 <div class="champ">
                     <p class="label labelForInput">Date Limite</p>
-                    <input class="value" type="date" name="fevrierlimite">
+                    <input class="value" type="date" name="fevrierlimite" id="FevrierLimit">
                 </div>
                 
                 <h4>Rapport Mars</h4>
                 <div class="champ">
                     <p class="label labelForInput">Date Début</p>
-                    <input class="value" type="date" name="marsdebut">
+                    <input class="value" type="date" name="marsdebut" id="MarsDebut">
                 </div>
                 <div class="champ">
                     <p class="label labelForInput">Date Limite</p>
-                    <input class="value" type="date" name="marslimite">
+                    <input class="value" type="date" name="marslimite" id="MarsLimit">
                 </div>
                 
                 <br/><br/>

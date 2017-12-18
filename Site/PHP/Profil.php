@@ -80,7 +80,7 @@
     }
 
 
-    if(isset($_REQUEST["post"]))
+    if(isset($_REQUEST["delete"]))
     {
         DeleteUser($bdd);
     }
@@ -90,7 +90,7 @@
         <script>
             function Delete(){
                 if(confirm("Êtes-vous certains de vouloir supprimer cet utilisateur?")){
-                    Requete(testerRetourSupressionUtilisateur, \'../PHP/TBNavigation.php?nomMenu=profil.php&post=true&id=' . $_REQUEST["id"]. '\');
+                    Requete(testerRetourSupressionUtilisateur, \'../PHP/TBNavigation.php?nomMenu=profil.php&delete=true&id=' . $_REQUEST["id"]. '\');
                     Requete(AfficherPage, \'../PHP/TBNavigation.php?nomMenu=ListeUtilisateur.php\');
                 }
             }
