@@ -1,8 +1,8 @@
 
 -- USE cegepjon_p2017_2_dev;
--- USE cegepjon_p2017_2_prod;
+ USE cegepjon_p2017_2_prod;
 -- USE cegepjon_p2017_2_tests;
-  USE bdprojet_equipe2v2;
+--  USE bdprojet_equipe2v2;
  
  
 
@@ -16,7 +16,8 @@ INSERT IGNORE INTO `tblUtilisateur` (`Id`,`Courriel`,`MotDePasse`) VALUES (1,'Ki
 
 INSERT IGNORE INTO `tblUtilisateurRole` (`IdUtilisateur`,`IdRole`) VALUES (1,1);
 
-INSERT IGNORE INTO `tblEmploye` (`Id`,`CourrielEntreprise`,`Nom`,`Prenom`,`NumTelEntreprise`,`Poste`,`IdEntreprise`,`IdUtilisateur`) VALUES (1,'Kim.Lavoie@cegepjonquiere.ca','Lavoie','Kim','(418) 123-1234','123',1,1);
+INSERT IGNORE INTO `tblEmploye` (`Id`,`CourrielEntreprise`,`Nom`,`Prenom`,`NumTelEntreprise`,`Poste`,`IdEntreprise`,`IdUtilisateur`) VALUES (1,'Kim.Lavoie@cegepjonquiere.cakimlavoie@cegepjonquiere.ca
+','Lavoie','Kim','(418) 547-2191','6395',1,1);
 INSERT IGNORE INTO `tblEntreprise` (`Id`,`CourrielEntreprise`,`Nom`,`NumTel`,`NumCivique`,`Rue`,`Ville`,`Province`,`CodePostal`,`Logo`) VALUES (1,'cegepJonquiere@cegepJonquiere.com','Cégep de Jonquière','(418) 547-2191','2505','Rue Saint-Hubert','Jonquière','QC','G7X 7W2','');
 
 INSERT IGNORE INTO `tblTypeEvaluation` (`Id`,`Titre`,`Objectif`) VALUES (1,'Évaluation mi-stage','La première évaluation servira à noter de façon générale l’élève stagiaire en vue

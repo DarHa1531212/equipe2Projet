@@ -1,8 +1,8 @@
 
 -- USE cegepjon_p2017_2_dev;
--- USE cegepjon_p2017_2_prod;
+ USE cegepjon_p2017_2_prod;
 -- USE cegepjon_p2017_2_tests;
- USE bdprojet_equipe2v2;
+-- USE bdprojet_equipe2v2;
 DROP TRIGGER IF EXISTS After_Insert_Stage;
 
 DELIMITER //
@@ -14,6 +14,8 @@ FOR EACH ROW
 -- -------------------------------------------------
 		SET @IDSTAGE = new.Id;
 		SET @IDEVALUATION = (SELECT COUNT(*) FROM vEvaluation);
+		SET @IDETATAVANCEMENT = (SELECT COUNT(*) FROM vEtatAvancement);
+
 
 
 		INSERT INTO `tblEvaluation` (`Statut`,`DateDébut`,`DateFin`,`DateComplétée`,`IdTypeEvaluation`) VALUES ('0', ' 2017-10-20 ', ' 2018-04-04 ',NULL,1);

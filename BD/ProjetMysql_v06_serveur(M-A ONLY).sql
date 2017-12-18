@@ -3,9 +3,9 @@
 
 -- Création de la bd
 -- USE cegepjon_p2017_2_dev;
--- USE cegepjon_p2017_2_prod;
+ USE cegepjon_p2017_2_prod;
 -- USE cegepjon_p2017_2_tests;
-DROP DATABASE IF EXISTS BDProjet_equipe2V2; CREATE DATABASE BDProjet_equipe2V2; USE bdprojet_equipe2v2;
+-- DROP DATABASE IF EXISTS BDProjet_equipe2V2; CREATE DATABASE BDProjet_equipe2V2; USE bdprojet_equipe2v2;
 -- Table Reponsesss
 DROP TABLE IF EXISTS tblReponse; 
 
@@ -314,7 +314,6 @@ DROP VIEW IF EXISTS vEmploye;
 CREATE VIEW vEmploye AS SELECT Id,CourrielEntreprise,Nom,Prenom,
 NumTelEntreprise,Poste,CONCAT(CourrielEntreprise,Nom,Prenom,
 NumTelEntreprise,IFNULL(Poste, ""),IdEntreprise,IdUtilisateur) AS tag,IdEntreprise,IdUtilisateur FROM tblEmploye;
-
 
 -- Table Categorie Question
 
