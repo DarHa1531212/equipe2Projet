@@ -1,37 +1,7 @@
 <?php
-
     include 'ListeUtilisateur.php';
     $content = "";
     $role = "";
-    $boutonR = '';
-
-    if($_SESSION['IdRole'] == 1)//administrateur
-    {
-        //je suis loggé en administrateur 
-        $pageRetour = 'ListeUtilisateur.php';
-    }
-    else
-    {
-        $pageRetour = 'nomMenu=Main';
-    }
-
-    function boutonRetour()
-    {
-
-        if($_SESSION['IdRole'] == 1)//administrateur
-        {
-            //je suis logué en administrateur 
-             $bouton =  '<input class="bouton" type="button" value="   Retour   ", onclick="Requete(AfficherPage, \'../PHP/TBNavigation.php?nomMenu=ListeUtilisateur.php\');"/>';
-        }
-        else
-        {
-             $bouton =  '<input class="bouton" type="button" value="   Retour   ", onclick="Requete(AfficherPage, \'../PHP/TBNavigation.php?nomMenu=Main\');"/>';
-        }
-
-        return $bouton;
-
-    }
-
 
     if(isset($_REQUEST["id"])){
         $role = $bdd->Request(" SELECT IdUtilisateur, Titre, IdRole
@@ -56,9 +26,9 @@
         else{//stagiaire
             
 
-            $stagiaire = $bdd->Request("  SELECT *
-                                            FROM vstage AS stage
-                                            WHERE stage.IdStagiaire = :IdStagiaire",
+            $stagiaire = $bdd->Request("  select *
+                                            from vstage as stage
+                                            where stage.IdStagiaire = :IdStagiaire",
                                         array("IdStagiaire"=>$_REQUEST["id"]),
                                         "stdClass");
             if(count($stagiaire)==0)//le stagiaire n'a pas de stage
@@ -76,10 +46,10 @@
             {
                 $profil = $bdd->Request(" SELECT Stagiaire.IdUtilisateur, Stagiaire.Prenom, Stagiaire.Nom, Stagiaire.NumTelPerso, Stagiaire.CourrielPersonnel, Stagiaire.CourrielScolaire, 
                                         Stagiaire.CodePermanent, Stagiaire.CourrielEntreprise, Stagiaire.NumTelEntreprise, Stagiaire.Poste, Ent.Nom AS 'NomEntreprise', IdRole
-                                        from vStage AS Stage
-                                        join vStagiaire AS Stagiaire
+                                        from vStage as Stage
+                                        join vStagiaire as Stagiaire
                                         on Stage.IdStagiaire = Stagiaire.IdUtilisateur
-                                        join vEmploye AS Emp
+                                        join vEmploye as Emp
                                         on Emp.Id = Stage.IdSuperviseur
                                         JOIN vEntreprise AS Ent
                                         ON Ent.Id = Emp.IdEntreprise
@@ -158,9 +128,9 @@
 
             $content = $content.
             $profil->AfficherProfil().
+            '<br/><br/>
 
-            '<br/><br/>'. boutonRetour() .'
-
+            <input class="bouton" type="button" value="   Retour   ", onclick="Requete(AfficherPage, \'../PHP/TBNavigation.php?nomMenu=ListeUtilisateur.php\');"/>
         </article>';
 
         return $content;
