@@ -1090,6 +1090,7 @@ avoir ce format - (xxx) xxx-xxxx"/>
         }
     }
     
+    
     class Session{
         private $Id, $Annee, $Periode, $MiStageDebut, $MiStageLimite, $FinaleDebut, $FinaleLimite, $FormationDebut, $FormationLimite, $JanvierDebut, $JanvierLimite, $FevrierDebut, $FevrierLimite, $MarsDebut, $MarsLimite;
         
@@ -1121,6 +1122,9 @@ avoir ce format - (xxx) xxx-xxxx"/>
                             "marslimite"=>$session["marslimite"],
                             "id"=>$this->Id),
                             "stdClass");
+        }
+        public function Delete($bdd, $IdSession){           
+            return $bdd->Request("DELETE FROM tblSession WHERE Id = '".$IdSession."'");        
         }
         
         public function getId(){
