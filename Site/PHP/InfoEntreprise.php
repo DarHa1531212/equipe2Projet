@@ -83,10 +83,6 @@
                     <p class="label labelForInput">Code Postal</p>
                     <p class="value">'.$entreprise->getCodePostal().'</p>
                 </div>
-                <div class="champ">
-                    <p class="label labelForInput">Logo</p>
-                    <p class="value">'.$entreprise->getLogo().'</p>
-                </div>
                 
                 <br/><br/>
             </div>

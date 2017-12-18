@@ -168,17 +168,17 @@
 
             <br/><br/><br/><br/>
 
-            <table>
+            <table>'./*'
                 <thead>
                     <th>Rapport</th>
                     <th>Statut</th>
                     <th>Date début</th>
                     <th>Date limite</th>
                     <th>Date complétée</th>
-                </thead>
+                </thead>'*/''.'
 
                 <tbody>
-                    '.VerifEtatAvancement($etatAvancements, $profil, $bdd).'
+                    './*VerifEtatAvancement($etatAvancements, $profil, $bdd)*/''.'
                 </tbody>
             </table>
 

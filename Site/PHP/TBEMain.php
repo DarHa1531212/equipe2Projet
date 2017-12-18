@@ -200,9 +200,7 @@
         if(count($profils) > 1)
         {//Si il y a plus qu'un stagiaire, affiche les flèches.
             $content = $content.
-            '<input class="bouton" type="button" value="Écrire un commentaire" onclick="Requete(AfficherPage, \'../PHP/TBNavigation.php?id='.$profil->IdSuperviseur.'&nomMenu=AVenir.php\')"/>
-
-            <div class="navigateur">
+            '<div class="navigateur">
                 <div id="gauche" class="fleche flecheGauche" onclick="ChangerItem(this)"></div>
                 <div id="droite" class="fleche flecheDroite" onclick="ChangerItem(this)"></div>
             </div>';
