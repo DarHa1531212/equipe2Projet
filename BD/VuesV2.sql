@@ -71,24 +71,25 @@ WHERE Role.Titre = 'Superviseur';
 -- ------------------------------------------------
 DROP VIEW IF EXISTS vTableauBord;
 CREATE VIEW vTableauBord AS
-SELECT 	Stagiaire.IdUtilisateur AS Id, Stagiaire.Prenom, Stagiaire.Nom, Stagiaire.NumTelPerso,
-		Enseignant.IdUtilisateur AS 'IdEnseignant', Enseignant.Prenom AS 'PrenomEnseignant', Enseignant.Nom AS 'NomEnseignant', Enseignant.NumTelEntreprise AS 'TelEnseignant',
+SELECT     Stagiaire.IdUtilisateur AS 'Id', Stagiaire.Prenom, Stagiaire.Nom, Stagiaire.NumTelPerso,
+        Enseignant.IdUtilisateur AS 'IdEnseignant', Enseignant.Prenom AS 'PrenomEnseignant', Enseignant.Nom AS 'NomEnseignant', Enseignant.NumTelEntreprise AS 'TelEnseignant',
         Sup.IdUtilisateur AS 'IdSuperviseur', Sup.Prenom AS 'PrenomSuperviseur', Sup.Nom AS 'NomSuperviseur', Sup.NumTelEntreprise AS 'TelSuperviseur',
-		res.IdUtilisateur AS 'IdResponsable', Stage.Id AS 'IdStage', Session.Id AS 'IdSession', 
+        res.IdUtilisateur AS 'IdResponsable', Stage.Id AS 'IdStage', Session.Id AS 'IdSession', 
         Session.JanvierDebut, Session.JanvierLimite, Session.FevrierDebut, Session.FevrierLimite, Session.MarsDebut,
         Session.MarsLimite, Session.Annee, Session.Periode, Session.MiStageDebut, Session.MiStageLimite,
         Session.FinaleDebut, Session.FinaleLimite, Session.FormationDebut, Session.FormationLimite
 FROM vStage AS Stage
 JOIN vStagiaire AS Stagiaire
 ON Stagiaire.IdUtilisateur = Stage.IdStagiaire
-JOIN vEnseignant AS Enseignant
+JOIN vEmploye AS Enseignant
 ON Enseignant.IdUtilisateur = Stage.IdEnseignant
-JOIN vSuperviseur AS Sup
+JOIN vEmploye AS Sup
 ON Sup.IdUtilisateur = Stage.IdSuperviseur
-JOIN vResponsable AS res
+JOIN vEmploye AS res
 ON res.IdUtilisateur = Stage.IdResponsable
 JOIN vSession AS Session
 ON Session.Id = Stage.IdSession;
+
 
 
 -- ------------------------------------------------
