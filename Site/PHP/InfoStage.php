@@ -47,6 +47,10 @@
 
         <div class="blocInfo infoProfil">
             <div class="champ">
+                <p class="label labelForInput">Session : </p>
+                <p class="value">'.$stage->getNomSession().'</p>
+            </div>
+            <div class="champ">
                 <p class="label labelForInput">Nom d\'entreprise : </p>
                 <p class="value">'.$stage->getNomEntreprise().'</p>
             </div>
@@ -75,10 +79,6 @@
                 <p class="value">'.$stage->getNbHeureSemaine().'</p> 
             </div>
             <div class="champ">
-                <p class="label labelForInput"></p> 
-                <p class="value"></p> 
-            </div>
-            <div class="champ">
                 <p class="label labelForInput">Date de début : </p>
                 <p class="value">'.$stage->getDateDebut().'</p>
             </div>
@@ -87,12 +87,12 @@
                 <p class="value">'.$stage->getDateFin().'</p>
             </div>     
             <div>
-                <p class="label labelForInput">Compétences recherchées : </p>
-                <p class="entree">'.$stage->getCompetenceRecherche().'</p>
-            </div>
-            <div>
                 <p class="label labelForInput">Description du stage : </p>
                 <p class="entree">'.$stage->getDescriptionStage().'</p>
+            </div>
+            <div>
+                <p class="label labelForInput">Compétences recherchées : </p>
+                <p class="entree">'.$stage->getCompetenceRecherche().'</p>
             </div>
             <br/><br/>
         </div>
