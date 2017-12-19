@@ -77,7 +77,7 @@ CREATE TABLE tblEvaluationQuestionReponse(
 	IdQuestion				INT				NOT NULL,
 	IdReponse				INT				NULL,
 	IdEvaluation			INT				NOT NULL,
-    Commentaire 			VARCHAR(3000)	NULL,
+    Commentaire 			VARCHAR(3000)	NOT NULL DEFAULT '',
 	PRIMARY KEY(IdQuestion,IdEvaluation)
 );
 

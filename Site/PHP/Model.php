@@ -305,7 +305,7 @@
             if( ( $this->statut == 3 ) || ( $this->statut == 4) )//evaluation soumise ou validée
             {
                  $commentaireCategorie = $bdd->Request('select *
-                                    from tblevaluationquestionreponse
+                                    from tblEvaluationQuestionReponse
                                     where IdEvaluation = :IdEvaluation and IdQuestion = :IdQuestion;',
                                             array('IdEvaluation'=>$this->id,'IdQuestion'=> $this->questionsHasComment($bdd, $questions)[0]),
                                             "stdClass");
