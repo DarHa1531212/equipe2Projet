@@ -89,24 +89,70 @@
         return $content;
     }
 
-    if(( $eval->getStatut() == 3 ) || ( $eval->getStatut() == 4))
+    function navEvalFinale($bdd, $eval)
     {
-        $boutonsNavigation = 
-        '<input id="gauche" class="bouton" style="width : 150px; float: left;" type="button" value="Précédent" onclick="ChangerItemConsultationEvaluation(this)"/>
-            '.LettreNav($bdd, $eval).'
-        <input id="droite" class="bouton" style="width : 150px; float: right" type="button" value="Suivant" onclick="ChangerItemConsultationEvaluation(this)"/>';
+        
+        $content = "";
+
+        $content = $content.
+                    '<span id="positionQuestion">1</span> sur '.count($eval->getQuestions());
+
+        return $content;
 
     }
-    else
+
+   
+    function afficheNavigation($bdd, $eval)
     {
-        $boutonsNavigation = 
+        if(( $eval->getStatut() == 3 ) || ( $eval->getStatut() == 4))
+        {
+           
+            if($eval->getIdTypeEval() == 2)
+            {
+                $navigation = 
+                '<input id="gauche" class="bouton" style="width : 150px; float: left;" type="button" value="Précédent" onclick="ChangerItemEvalFinale(this)"/>
+                    '.navEvalFinale($bdd, $eval).'
+                <input id="droite" class="bouton" style="width : 150px; float: right" type="button" value="Suivant" onclick="ChangerItemEvalFinale(this)"/>';
 
-        '<input id="gauche" class="bouton" style="width : 150px; float: left;" type="button" value="Précédent" onclick="ChangerItem(this)"/>
-            '.LettreNav($bdd, $eval).'
-        <input id="droite" class="bouton" style="width : 150px; float: right" type="button" value="Suivant" onclick="ChangerItem(this)"/>
+            }
+            else
+            {
+                $navigation = 
+                '<input id="gauche" class="bouton" style="width : 150px; float: left;" type="button" value="Précédent" onclick="ChangerItemConsultationEvaluation(this)"/>
+                    '.LettreNav($bdd, $eval).'
+                <input id="droite" class="bouton" style="width : 150px; float: right" type="button" value="Suivant" onclick="ChangerItemConsultationEvaluation(this)"/>';
+            }
+        }
+        else
+        {
+            if($eval->getIdTypeEval() == 2)
+            {
+                $navigation = 
 
-        <input id="confirmer" class="bouton" style="width : 150px; float: right" type="button" value="Confirmer" onclick="PostEval(ExecuteQuery, \'../PHP/TBNavigation.php?id='.$profils[0]->IdSuperviseur.'&nomMenu=Evaluation.php&post=true&idEvaluation='.$_REQUEST["idEvaluation"].'&id='.$_REQUEST["id"].'\'); Requete(AfficherPage, \'../PHP/TBNavigation.php?id='.$profils[0]->IdSuperviseur.'&nomMenu=Main\')" hidden/>';
+                
+                '<input id="gauche" class="bouton" style="width : 150px; float: left;" type="button" value="Précédent" onclick="ChangerItemEvalFinale(this)"/>
+                    '.navEvalFinale($bdd, $eval).'
+                <input id="droite" class="bouton" style="width : 150px; float: right" type="button" value="Suivant" onclick="ChangerItemEvalFinale(this)"/>
+
+                <input id="confirmer" class="bouton" style="width : 150px; float: right" type="button" value="Confirmer" onclick="PostEval(ExecuteQuery, \'../PHP/TBNavigation.php?id='.$profils[0]->IdSuperviseur.'&nomMenu=Evaluation.php&post=true&idEvaluation='.$_REQUEST["idEvaluation"].'&id='.$_REQUEST["id"].'\'); Requete(AfficherPage, \'../PHP/TBNavigation.php?id='.$profils[0]->IdSuperviseur.'&nomMenu=Main\')" hidden/>';
+            }
+            else
+            {
+                $navigation = 
+
+                '<input id="gauche" class="bouton" style="width : 150px; float: left;" type="button" value="Précédent" onclick="ChangerItem(this)"/>
+                    '.LettreNav($bdd, $eval).'
+                <input id="droite" class="bouton" style="width : 150px; float: right" type="button" value="Suivant" onclick="ChangerItem(this)"/>
+
+                <input id="confirmer" class="bouton" style="width : 150px; float: right" type="button" value="Confirmer" onclick="PostEval(ExecuteQuery, \'../PHP/TBNavigation.php?id='.$profils[0]->IdSuperviseur.'&nomMenu=Evaluation.php&post=true&idEvaluation='.$_REQUEST["idEvaluation"].'&id='.$_REQUEST["id"].'\'); Requete(AfficherPage, \'../PHP/TBNavigation.php?id='.$profils[0]->IdSuperviseur.'&nomMenu=Main\')" hidden/>';
+            }
+
+            
+        }
+
+        return $navigation;
     }
+
 
     if(isset($_REQUEST["post"]))
     {
@@ -129,7 +175,7 @@
         return $message;
     }
 
-    if(( $eval->getStatut() == 3 ) || ( $eval->getStatut() == 4))
+    /*if(( $eval->getStatut() == 3 ) || ( $eval->getStatut() == 4))
     {
         $boutonsNavigation = 
         '<input id="gauche" class="bouton" style="width : 150px; float: left;" type="button" value="Précédent" onclick="ChangerItemConsultationEvaluation(this)"/>
@@ -146,7 +192,7 @@
         <input id="droite" class="bouton" style="width : 150px; float: right" type="button" value="Suivant" onclick="ChangerItem(this)"/>
 
         <input id="confirmer" class="bouton" style="width : 150px; float: right" type="button" value="Confirmer" onclick="submitEvaluation()" hidden/>';
-    }
+    }*/
 
 
     $content =
@@ -172,7 +218,7 @@
         $content = $content .
         '<div class="navigateurEval">
 
-            '.$boutonsNavigation.'
+            '.afficheNavigation($bdd, $eval).'
 
         </div>'.radioButtonValide().'
 

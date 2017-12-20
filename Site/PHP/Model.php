@@ -2,9 +2,14 @@
 
     class EvaluationChoixReponse extends Evaluation{
         
+        private $nombreQuestion;
+        
         public function __construct($bdd, $id){
             parent::__construct($bdd, $id);
             $this->SelectQuestions($bdd, $id);
+            $nombreQuestion = $bdd->Request('SELECT COUNT(*) as nombreQuestion
+                                        FROM vEvaluationQuestionReponse
+                                        where IdEvaluation = :IdEvaluation;', array('IdEvaluation'=> $id), "stdClass")[0]->nombreQuestion;
         }
         
         //Sélectionne toutes les catégories pour chaque question.
