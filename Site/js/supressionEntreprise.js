@@ -9,14 +9,13 @@ function testerRetourSupressionEntreprise(data)
 {
 	var PHPResponse = jQuery.parseJSON(data);
 
-	//alert("i'm in");
-	if(PHPResponse == "-1")
-	{
+    if(PHPResponse == "-1")
+    {
         alert ("Cette entreprise est liée à un ou plusieurs stage(s) et ne peut pas être supprimée");
-	}
-	else if (PHPResponse == "0" )
-	{
+    }
+    else if (PHPResponse == "0" )
+    {
         alert ("L'entreprise a été supprimée");
-		Requete(AfficherPage, '../PHP/TBNavigation.php?nomMenu=ListeEntreprise.php');
-	}
+        Requete(AfficherPage, '../PHP/TBNavigation.php?nomMenu=ListeEntreprise.php');
+    }
 }

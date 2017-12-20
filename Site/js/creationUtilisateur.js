@@ -37,8 +37,9 @@
          $("#Prenom").show();
          $("#Nom").show();
          $("#courriel").show();
-
+         $("#noTelEntreprise").show();
     }
+    
     function afficherChampsStagiaire()
     {
          $(".champ").hide();

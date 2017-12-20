@@ -44,13 +44,13 @@
             }
             else//le stagiaire a un stage
             {
-                $profil = $bdd->Request(" SELECT Stagiaire.IdUtilisateur, Stagiaire.Prenom, Stagiaire.Nom, Stagiaire.NumTelPerso, Stagiaire.CourrielPersonnel,Stagiaire.CourrielScolaire, Stagiaire.CodePermanent,
-                                        Stagiaire.CourrielEntreprise, Stagiaire.NumTelEntreprise, Stagiaire.Poste, Ent.Nom AS 'NomEntreprise', IdRole
-                                        FROM vStage AS Stage
-                                        JOIN vStagiaire AS Stagiaire
-                                        ON Stage.Id = Stagiaire.Id
-                                        JOIN vEmploye AS Emp
-                                        ON Emp.IdUtilisateur = Stage.IdSuperviseur
+                $profil = $bdd->Request(" SELECT Stagiaire.IdUtilisateur, Stagiaire.Prenom, Stagiaire.Nom, Stagiaire.NumTelPerso, Stagiaire.CourrielPersonnel, Stagiaire.CourrielScolaire, 
+                                        Stagiaire.CodePermanent, Stagiaire.CourrielEntreprise, Stagiaire.NumTelEntreprise, Stagiaire.Poste, Ent.Nom AS 'NomEntreprise', IdRole
+                                        from vStage as Stage
+                                        join vStagiaire as Stagiaire
+                                        on Stage.IdStagiaire = Stagiaire.IdUtilisateur
+                                        join vEmploye as Emp
+                                        on Emp.Id = Stage.IdSuperviseur
                                         JOIN vEntreprise AS Ent
                                         ON Ent.Id = Emp.IdEntreprise
                                         JOIN vUtilisateurRole AS UR
@@ -80,13 +80,23 @@
     }
 
 
-    if(isset($_REQUEST["post"]))
+    if(isset($_REQUEST["delete"]))
     {
         DeleteUser($bdd);
     }
     else{
         $content = $content.
-        '<article class="stagiaire">
+        '
+        <script>
+            function Delete(){
+                if(confirm("Êtes-vous certains de vouloir supprimer cet utilisateur?")){
+                    Requete(testerRetourSupressionUtilisateur, \'../PHP/TBNavigation.php?nomMenu=profil.php&delete=true&id=' . $_REQUEST["id"]. '\');
+                    Requete(AfficherPage, \'../PHP/TBNavigation.php?nomMenu=ListeUtilisateur.php\');
+                }
+            }
+        </script>
+        
+        <article class="stagiaire">
             <div class="infoStagiaire">';
 
             if($profil->getId() == $_SESSION['idConnecte']){
@@ -109,7 +119,7 @@
                 
                 if($_SESSION["idConnecte"] != $profil->getId()){
                     $content = $content.
-                    '<input class="bouton" type="button" style="width: 100px;" value="Supprimer" onclick= "Requete(testerRetourSupressionUtilisateur, \'../PHP/TBNavigation.php?nomMenu=profil.php&post=true&id=' . $_REQUEST["id"]. '\'); "/>';
+                    '<input class="bouton" type="button" style="width: 100px;" value="Supprimer" onclick= "Delete()"/>';
                 }   
             }
 
@@ -117,11 +127,23 @@
             '</div>';
 
             $content = $content.
-            $profil->AfficherProfil().
-            '<br/><br/>
+            $profil->AfficherProfil();
+        
+            if($_SESSION['IdRole'] == 1){
+                $content = $content.
+                '<br/><br/>
 
-            <input class="bouton" type="button" value="   Retour   ", onclick="Requete(AfficherPage, \'../PHP/TBNavigation.php?nomMenu=ListeUtilisateur.php\');"/>
-        </article>';
+                <input class="bouton" type="button" value="   Retour   ", onclick="Requete(AfficherPage, \'../PHP/TBNavigation.php?nomMenu=ListeUtilisateur.php\');"/>';
+            }
+            else{
+                $content = $content.
+                '<br/><br/>
+
+                <input class="bouton" type="button" value="   Retour   ", onclick="Requete(AfficherPage, \'../PHP/TBNavigation.php?nomMenu=Main\');"/>';
+            }
+            
+        $content = $content.
+        '</article>';
 
         return $content;
     }

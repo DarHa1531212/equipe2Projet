@@ -205,13 +205,15 @@
                 foreach($result as $resultat){
                    $idUtilisateur =  $resultat->Id;
                 } 
-
-            $bdd->Request(" INSERT into tblEmploye (CourrielEntreprise, Nom, Prenom, IdEntreprise, IdUtilisateur)
-                                    values (:courriel, :Nom, :Prenom, 51, :IdUtilisateur)",
+                
+            $bdd->Request(" INSERT into tblEmploye (CourrielEntreprise, Nom, Prenom, IdEntreprise, IdUtilisateur, NumTelEntreprise, Poste)
+                                    values (:courriel, :Nom, :Prenom, 1, :IdUtilisateur, :NumTelEntreprise, :poste)",
                             array('courriel'=>$utilisateurs["courriel"], 
                                     'Prenom'=>$utilisateurs["prenom"],
                                     'Nom'=>$utilisateurs["nom"],
-                                    'IdUtilisateur'=>$idUtilisateur), 
+                                    'poste'=>$utilisateurs["posteTelEntreprise"],
+                                    'IdUtilisateur'=>$idUtilisateur,
+                                    'NumTelEntreprise'=>$utilisateurs["noTelEntreprise"]),
                             'stdClass');   
             //insertion dans la tblUtilisateurRole
             $bdd->Request("INSERT into tblUtilisateurRole (IdUtilisateur, IdRole)

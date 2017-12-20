@@ -45,10 +45,6 @@ $content =
 avoir ce format - (xxx) xxx-xxxx"/>
         </div>
 
-        <div class="champ">
-            <p class="label labelForInput">Logo :</p>
-            <input type="text" value="'.$entreprise->getLogo().'" name="logo" class="value"/>
-        </div>
     </div>
 
     <div class="separateur">

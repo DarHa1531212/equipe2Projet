@@ -75,7 +75,7 @@
         
         if($tblEvaluation[0]->Statut != '0')//le statut est different de pas accéssible
         {
-            $div = '<tr class="itemHover" onclick="Requete(AfficherPage, \'../PHP/TBNavigation.php?id='.$profil->Id.'&nomMenu=Evaluation.php&idStage='.$tblEvaluation[0]->IdStage.'&idEvaluation='.$tblEvaluation[0]->IdEvaluation.'&typeEval=1\');">';
+            $div = '<tr class="itemHover" onclick="cacheMessageErreurConfirmationEval(); Requete(AfficherPage, \'../PHP/TBNavigation.php?id='.$profil->Id.'&nomMenu=Evaluation.php&idStage='.$tblEvaluation[0]->IdStage.'&idEvaluation='.$tblEvaluation[0]->IdEvaluation.'&typeEval=1\');">';
             
         }
         else
@@ -93,7 +93,7 @@
         
         if(($tblEvaluation[1]->Statut != '0')&&(($tblEvaluation[0]->Statut == '3')||($tblEvaluation[0]->Statut == '4')))//statut different de pas accéssible et est soumis ou valide
         {
-            $div = '<tr class="itemHover" onclick="Requete(AfficherPage, \'../PHP/TBNavigation.php?id='.$profil->Id.'&nomMenu=Evaluation.php&idStage='.$tblEvaluation[1]->IdStage.'&idEvaluation='.$tblEvaluation[1]->IdEvaluation.'&typeEval=2\')">';
+            $div = '<tr class="itemHover" onclick="cacheMessageErreurConfirmationEval(); Requete(AfficherPage, \'../PHP/TBNavigation.php?id='.$profil->Id.'&nomMenu=Evaluation.php&idStage='.$tblEvaluation[1]->IdStage.'&idEvaluation='.$tblEvaluation[1]->IdEvaluation.'&typeEval=2\')">';
         }
         else
         {
@@ -110,7 +110,7 @@
 
         if(($tblEvaluation[2]->Statut != '0')&&(($tblEvaluation[0]->Statut == '3')||($tblEvaluation[0]->Statut == '4'))&&(($tblEvaluation[1]->Statut == '3')||($tblEvaluation[1]->Statut == '4')))//statut different de pas accéssible et est soumis ou valide
         {
-             $div = '<tr class="itemHover" onclick="Requete(AfficherPage, \'../PHP/TBNavigation.php?id='.$profil->Id.'&nomMenu=Evaluation.php&idStage='.$tblEvaluation[2]->IdStage.'&idEvaluation='.$tblEvaluation[2]->IdEvaluation.'&typeEval=3\')">';
+             $div = '<tr class="itemHover" onclick="cacheMessageErreurConfirmationEval(); Requete(AfficherPage, \'../PHP/TBNavigation.php?id='.$profil->Id.'&nomMenu=Evaluation.php&idStage='.$tblEvaluation[2]->IdStage.'&idEvaluation='.$tblEvaluation[2]->IdEvaluation.'&typeEval=3\')">';
         }
         else
         {
@@ -200,9 +200,7 @@
         if(count($profils) > 1)
         {//Si il y a plus qu'un stagiaire, affiche les flèches.
             $content = $content.
-            '<input class="bouton" type="button" value="Écrire un commentaire" onclick="Requete(AfficherPage, \'../PHP/TBNavigation.php?id='.$profil->IdSuperviseur.'&nomMenu=AVenir.php\')"/>
-
-            <div class="navigateur">
+            '<div class="navigateur">
                 <div id="gauche" class="fleche flecheGauche" onclick="ChangerItem(this)"></div>
                 <div id="droite" class="fleche flecheDroite" onclick="ChangerItem(this)"></div>
             </div>';

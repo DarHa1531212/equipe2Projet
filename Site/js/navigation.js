@@ -154,8 +154,6 @@ function AfficherPage(xhttp){
     $(".stagiaireContainer").empty();
     $(".stagiaireContainer").append(page);
     
-    if($(".stagiaire").length <= 1)
-        return;
     CacherDiv();//Juste si il y a des stagiaires a afficher ou des evaluations(Fix plus tard).
 }
 
@@ -184,9 +182,7 @@ function submitEvaluation()
     }
     else
     {
-        //AfficherPage('../TBNavigation.php?idEmploye=' + $("input[name=IdSuperviseur]").val() + '&nomMenu=Eval&erreurRadioButton=true&idEvaluation='+ $("input[name=IdEvaluation]").val() +'&idStagiaire='+ $("input[name=IdStagiaire]").val() );
-
-        Requete( AfficherPage, '../PHP/TBNavigation.php?idEmploye=' + $("input[name=IdSuperviseur]").val() + '&nomMenu=Eval&erreurRadioButton=true&idEvaluation='+ $("input[name=IdEvaluation]").val() +'&id='+ $("input[name=IdStagiaire]").val()+'&idStage='+ $("input[name=IdStage]").val());
-        //Execute(1, '../PHP/TBNavigation.php?idEmploye='.$profil["IdSuperviseur"].'&nomMenu=Main');
+         $('.messageErreurRadioButton').show();
+        //Requete( AfficherPage, '../PHP/TBNavigation.php?idEmploye=' + $("input[name=IdSuperviseur]").val() + '&nomMenu=Eval&erreurRadioButton=true&idEvaluation='+ $("input[name=IdEvaluation]").val() +'&id='+ $("input[name=IdStagiaire]").val()+'&idStage='+ $("input[name=IdStage]").val());
     }
 }

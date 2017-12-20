@@ -3,9 +3,14 @@
 
     class EvaluationChoixReponse extends Evaluation{
         
+        private $nombreQuestion;
+        
         public function __construct($bdd, $id){
             parent::__construct($bdd, $id);
             $this->SelectQuestions($bdd, $id);
+            $nombreQuestion = $bdd->Request('SELECT COUNT(*) as nombreQuestion
+                                        FROM vEvaluationQuestionReponse
+                                        where IdEvaluation = :IdEvaluation;', array('IdEvaluation'=> $id), "stdClass")[0]->nombreQuestion;
         }
         
         //Sélectionne toutes les catégories pour chaque question.
@@ -306,7 +311,7 @@
             if( ( $this->statut == 3 ) || ( $this->statut == 4) )//evaluation soumise ou validée
             {
                  $commentaireCategorie = $bdd->Request('select *
-                                    from tblevaluationquestionreponse
+                                    from tblEvaluationQuestionReponse
                                     where IdEvaluation = :IdEvaluation and IdQuestion = :IdQuestion;',
                                             array('IdEvaluation'=>$this->id,'IdQuestion'=> $this->questionsHasComment($bdd, $questions)[0]),
                                             "stdClass");
@@ -652,13 +657,13 @@
             {
                 $motPasse = password_hash($motPasse, PASSWORD_DEFAULT);
 
-                $bdd->Request(" UPDATE tblUtilisateur SET MotDePasse = :motPasse WHERE Id LIKE :id;",
+                $bdd->Request(" UPDATE tblUtilisateur SET MotDePasse = :motPasse WHERE Id = :id;",
                                 array("motPasse"=>$motPasse, "id"=>$this->IdUtilisateur),
                                 "stdClass");
             }
             
             if($courriel != ""){
-                $bdd->Request(" UPDATE tblUtilisateur SET Courriel = :courriel WHERE Id LIKE :id;",
+                $bdd->Request(" UPDATE tblUtilisateur SET Courriel = :courriel WHERE Id = :id;",
                                 array("id"=>$this->IdUtilisateur, "courriel"=>$courriel),
                                 "stdClass");
             }
@@ -821,7 +826,7 @@ avoir ce format - (xxx) xxx-xxxx"/>
                             "numTelEntreprise"=>$profil["numEntreprise"],
                             "poste"=>$profil["poste"],
                             "courrielEntreprise"=>$profil["courrielEntreprise"],
-                            "id"=>'121'),
+                            "id"=>$this->IdUtilisateur),
                             "stdClass");
         }
     }
@@ -1091,6 +1096,7 @@ avoir ce format - (xxx) xxx-xxxx"/>
         }
     }
     
+    
     class Session{
         private $Id, $Annee, $Periode, $MiStageDebut, $MiStageLimite, $FinaleDebut, $FinaleLimite, $FormationDebut, $FormationLimite, $JanvierDebut, $JanvierLimite, $FevrierDebut, $FevrierLimite, $MarsDebut, $MarsLimite;
         
@@ -1122,6 +1128,9 @@ avoir ce format - (xxx) xxx-xxxx"/>
                             "marslimite"=>$session["marslimite"],
                             "id"=>$this->Id),
                             "stdClass");
+        }
+        public function Delete($bdd, $IdSession){           
+            return $bdd->Request("DELETE FROM tblSession WHERE Id = '".$IdSession."'");        
         }
         
         public function getId(){
