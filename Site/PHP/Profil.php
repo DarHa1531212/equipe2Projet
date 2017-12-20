@@ -184,21 +184,28 @@
 
         if ($nbStagesLies == 0)
         {
+            
+
             $stage = array();
+
             $result = $bdd->Request("DELETE FROM tblUtilisateur WHERE Id = :id;",
-                array('id'=>$_REQUEST['id']),'stdClass');       
+                array('id'=>$_REQUEST['id']),'stdClass');
+
             $result = $bdd->Request("DELETE FROM tblEmploye WHERE IdUtilisateur = :id;",
-                array('id'=>$_REQUEST['id']),'stdClass');       
+                array('id'=>$_REQUEST['id']),'stdClass');
+
             $result = $bdd->Request("DELETE FROM tblStagiaire WHERE IdUtilisateur = :id;",
-                array('id'=>$_REQUEST['id']),'stdClass');       
+                array('id'=>$_REQUEST['id']),'stdClass');
+
             $result = $bdd->Request("DELETE FROM tblUtilisateurRole WHERE IdUtilisateur = :id;",
                 array('id'=>$_REQUEST['id']),'stdClass');
 
-            //echo "-0";
+            echo -2 ;
         }
-        else
-        {
-            echo "-1";
+        
+        else {
+            echo -1;
+            //return"a";
         }
     }
 
