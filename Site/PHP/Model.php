@@ -2,9 +2,14 @@
 
     class EvaluationChoixReponse extends Evaluation{
         
+        private $nombreQuestion;
+        
         public function __construct($bdd, $id){
             parent::__construct($bdd, $id);
             $this->SelectQuestions($bdd, $id);
+            $nombreQuestion = $bdd->Request('SELECT COUNT(*) as nombreQuestion
+                                        FROM vEvaluationQuestionReponse
+                                        where IdEvaluation = :IdEvaluation;', array('IdEvaluation'=> $id), "stdClass")[0]->nombreQuestion;
         }
         
         //Sélectionne toutes les catégories pour chaque question.
@@ -305,7 +310,7 @@
             if( ( $this->statut == 3 ) || ( $this->statut == 4) )//evaluation soumise ou validée
             {
                  $commentaireCategorie = $bdd->Request('select *
-                                    from tblevaluationquestionreponse
+                                    from tblEvaluationQuestionReponse
                                     where IdEvaluation = :IdEvaluation and IdQuestion = :IdQuestion;',
                                             array('IdEvaluation'=>$this->id,'IdQuestion'=> $this->questionsHasComment($bdd, $questions)[0]),
                                             "stdClass");

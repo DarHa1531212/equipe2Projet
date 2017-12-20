@@ -2,6 +2,7 @@ var listStagiaire = document.getElementsByClassName("stagiaire");
 var listQuestion = document.getElementsByClassName("categories");
 var liste;
 var itemActu = 0;
+var positionQuestion = 1;
 
 //Chache toutes les divs sauf la premiere.
 function CacherDiv()
@@ -22,6 +23,12 @@ function CacherDiv()
     }
 
     itemActu = 0;
+
+}
+
+function cacheMessageErreurConfirmationEval()
+{
+    $('.messageErreurRadioButton').hide();
 }
 
 
@@ -43,6 +50,47 @@ function ChangerItem(element)
     
     $(liste[itemActu]).show();  
 }
+
+function ChangerItemEvalFinale(element)
+{
+    if((element.id == "gauche") && ((itemActu - 1) >= 0))
+    {
+        $(liste[itemActu]).hide();
+        itemActu--;
+    }
+    else if((element.id == "droite") && ((itemActu + 1) < liste.length))
+    {
+        $(liste[itemActu]).hide();
+        itemActu++;
+    } 
+
+    ActualiseBtnEval(element);
+
+    $('#positionQuestion').text(itemActu+1); 
+
+    $(liste[itemActu]).show();  
+}
+
+function ChangerItemConsultationEvalFinale(element)
+{
+    if((element.id == "gauche") && ((itemActu - 1) >= 0))
+    {
+        $(liste[itemActu]).hide();
+        itemActu--;
+    }
+    else if((element.id == "droite") && ((itemActu + 1) < liste.length))
+    {
+        $(liste[itemActu]).hide();
+        itemActu++;
+    } 
+
+    //ActualiseBtnEval(element);
+
+    $('#positionQuestion').text(itemActu+1); 
+
+    $(liste[itemActu]).show();  
+}
+
 
 function ChangerItemConsultationEvaluation(element)
 {
