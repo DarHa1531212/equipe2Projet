@@ -102,7 +102,7 @@
     }
 
    
-    function afficheNavigation($bdd, $eval)
+    function afficheNavigation($bdd, $eval, $profils)
     {
         if(( $eval->getStatut() == 3 ) || ( $eval->getStatut() == 4))
         {
@@ -110,17 +110,17 @@
             if($eval->getIdTypeEval() == 2)
             {
                 $navigation = 
-                '<input id="gauche" class="bouton" style="width : 150px; float: left;" type="button" value="Précédent" onclick="ChangerItemEvalFinale(this)"/>
+                '<input id="gauche" class="bouton" style="width : 150px; float: left;" type="button" value="Précédent" onclick="ChangerItemConsultationEvalFinale(this)"/>
                     '.navEvalFinale($bdd, $eval).'
-                <input id="droite" class="bouton" style="width : 150px; float: right" type="button" value="Suivant" onclick="ChangerItemEvalFinale(this)"/>';
+                <input id="droite" class="bouton" style="width : 150px; float: right" type="button" value="Suivant" onclick="ChangerItemConsultationEvalFinale(this)"/>';
 
             }
             else
             {
                 $navigation = 
-                '<input id="gauche" class="bouton" style="width : 150px; float: left;" type="button" value="Précédent" onclick="ChangerItemConsultationEvaluation(this)"/>
+                '<input id="gauche" class="bouton" style="width : 150px; float: left;" type="button" value="Précédent" onclick="ChangerItemConsultationEvalFinale(this)"/>
                     '.LettreNav($bdd, $eval).'
-                <input id="droite" class="bouton" style="width : 150px; float: right" type="button" value="Suivant" onclick="ChangerItemConsultationEvaluation(this)"/>';
+                <input id="droite" class="bouton" style="width : 150px; float: right" type="button" value="Suivant" onclick="ChangerItemConsultationEvalFinale(this)"/>';
             }
         }
         else
@@ -134,7 +134,7 @@
                     '.navEvalFinale($bdd, $eval).'
                 <input id="droite" class="bouton" style="width : 150px; float: right" type="button" value="Suivant" onclick="ChangerItemEvalFinale(this)"/>
 
-                <input id="confirmer" class="bouton" style="width : 150px; float: right" type="button" value="Confirmer" onclick="PostEval(ExecuteQuery, \'../PHP/TBNavigation.php?id='.$profils[0]->IdSuperviseur.'&nomMenu=Evaluation.php&post=true&idEvaluation='.$_REQUEST["idEvaluation"].'&id='.$_REQUEST["id"].'\'); Requete(AfficherPage, \'../PHP/TBNavigation.php?id='.$profils[0]->IdSuperviseur.'&nomMenu=Main\')" hidden/>';
+                <input id="confirmer" class="bouton" style="width : 150px; float: right" type="button" value="Confirmer" onclick="submitEvaluation()" hidden/>';
             }
             else
             {
@@ -144,8 +144,10 @@
                     '.LettreNav($bdd, $eval).'
                 <input id="droite" class="bouton" style="width : 150px; float: right" type="button" value="Suivant" onclick="ChangerItem(this)"/>
 
-                <input id="confirmer" class="bouton" style="width : 150px; float: right" type="button" value="Confirmer" onclick="PostEval(ExecuteQuery, \'../PHP/TBNavigation.php?id='.$profils[0]->IdSuperviseur.'&nomMenu=Evaluation.php&post=true&idEvaluation='.$_REQUEST["idEvaluation"].'&id='.$_REQUEST["id"].'\'); Requete(AfficherPage, \'../PHP/TBNavigation.php?id='.$profils[0]->IdSuperviseur.'&nomMenu=Main\')" hidden/>';
+                <input id="confirmer" class="bouton" style="width : 150px; float: right" type="button" value="Confirmer" onclick="submitEvaluation()" hidden/>';
             }
+
+            //<input id="confirmer" class="bouton" style="width : 150px; float: right" type="button" value="Confirmer" onclick="PostEval(ExecuteQuery, \'../PHP/TBNavigation.php?id='.$profils[0]->IdSuperviseur.'&nomMenu=Evaluation.php&post=true&idEvaluation='.$_REQUEST["idEvaluation"].'&id='.$_REQUEST["id"].'\'); Requete(AfficherPage, \'../PHP/TBNavigation.php?id='.$profils[0]->IdSuperviseur.'&nomMenu=Main\')" hidden/>
 
             
         }
@@ -218,9 +220,13 @@
         $content = $content .
         '<div class="navigateurEval">
 
-            '.afficheNavigation($bdd, $eval).'
+            '.afficheNavigation($bdd, $eval, $profils).'
 
-        </div>'.radioButtonValide().'
+        </div>
+
+        <div class="messageErreurRadioButton" style="display:none;">
+            Confirmation impossible. Veuillez choisir une reponse pour toutes les questions.
+        </div>
 
         <div class="commentaireEvalMiStage">
 

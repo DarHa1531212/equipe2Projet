@@ -23,6 +23,12 @@ function CacherDiv()
     }
 
     itemActu = 0;
+
+}
+
+function cacheMessageErreurConfirmationEval()
+{
+    $('.messageErreurRadioButton').hide();
 }
 
 
@@ -47,20 +53,6 @@ function ChangerItem(element)
 
 function ChangerItemEvalFinale(element)
 {
-
-
-    /*if((element.id == "gauche") &&(positionQuestion>1) )
-    {
-       // $(liste[itemActu]).hide();
-        positionQuestion--;
-        $(liste[itemActu]).hide();
-        itemActu--;
-    }
-    else if((element.id == "droite")&&(positionQuestion< liste.length))
-    {
-        positionQuestion++;
-    }*/
-
     if((element.id == "gauche") && ((itemActu - 1) >= 0))
     {
         $(liste[itemActu]).hide();
@@ -72,11 +64,32 @@ function ChangerItemEvalFinale(element)
         itemActu++;
     } 
 
+    ActualiseBtnEval(element);
+
     $('#positionQuestion').text(itemActu+1); 
 
     $(liste[itemActu]).show();  
 }
 
+function ChangerItemConsultationEvalFinale(element)
+{
+    if((element.id == "gauche") && ((itemActu - 1) >= 0))
+    {
+        $(liste[itemActu]).hide();
+        itemActu--;
+    }
+    else if((element.id == "droite") && ((itemActu + 1) < liste.length))
+    {
+        $(liste[itemActu]).hide();
+        itemActu++;
+    } 
+
+    //ActualiseBtnEval(element);
+
+    $('#positionQuestion').text(itemActu+1); 
+
+    $(liste[itemActu]).show();  
+}
 
 
 function ChangerItemConsultationEvaluation(element)
