@@ -208,7 +208,7 @@
         <div id="readStage"></div>
 
 		<br>
-            <input class="bouton" type="button" style="width: 100px;" value="   Annuler   " onclick="Requete(AfficherPage, \'../PHP/TBNavigation.php?nomMenu=ListeStage.php\')"/>      
+            <input class="bouton" type="button" style="width: 100px;" value="   Retour   " onclick="Requete(AfficherPage, \'../PHP/TBNavigation.php?nomMenu=ListeStage.php\')"/>      
             <input class="bouton" type="button" id="Save" style="width: 100px;" value=" Sauvegarder " onclick="Submit()"/>
             <br/><br/>
     </div>   
