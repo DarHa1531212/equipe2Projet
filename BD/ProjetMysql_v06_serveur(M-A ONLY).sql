@@ -249,8 +249,8 @@ AS tag,IdResponsable,IdSuperviseur,IdStagiaire,IdEnseignant FROM tblStage;
 DROP TABLE IF EXISTS tblSession;
 CREATE TABLE tblSession(
 	Id			 			INT				AUTO_INCREMENT,
-	Annee		 			YEAR(4)			NOT NULL, -- -----------------------------------------------
-	Periode		 			VARCHAR(10)		NOT NULL, -- -----------------------------------------------
+	Annee		 			YEAR(4)			NOT NULL, 
+	Periode		 			VARCHAR(10)		NOT NULL,
 	CahierEntreprise		VARCHAR(255)	NULL,
 	CahierStagiaire			VARCHAR(255)	NULL,
 	MiStageDebut			DATE			NULL,
@@ -259,6 +259,8 @@ CREATE TABLE tblSession(
 	FinaleLimite			DATE			NULL,
 	FormationDebut			DATE			NULL,
 	FormationLimite			DATE			NULL,
+	AutoEvalDebut			DATE			NULL,
+	AutoEvalLimite			DATE			NULL,
 	JanvierDebut			DATE			NULL,
 	JanvierLimite			DATE			NULL,
 	FevrierDebut			DATE			NULL,

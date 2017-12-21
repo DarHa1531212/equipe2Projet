@@ -2,6 +2,50 @@
 
      $listeStatut = array('Pas Accessible','Pas Débuté','En Retard','Soumis ','Valide ');
 
+    function definirCouleur($Statut)//permet de definir la couleur des statut d'un evaluation
+    {
+        switch($Statut)//return la couleur qui sera ajouter en CSS
+        {
+            case 4:       return 'rgba(72, 229, 88, 1)'; //Green - Valide
+            break;
+            case 2:       return 'rgba(237, 7, 7, 1)'; //red - En retard
+            break;
+            case 0:       return 'rgba(248, 181, 99, 1)'; //Orange - Non Disponible
+            break;
+            case 3:       return 'rgba(255, 253, 112, 1)'; //Jaune - Soumis
+            break;
+            case 1:       return 'rgba(51, 43, 218, 1)'; //Bleu - Pas débuté
+            break;
+        }
+    }
+
+    function gestionStatutAutoEvaluation($autoEvaluation, $dateDebut, $dateLimite, $bdd)
+    {  
+        if(date("Y-m-d") > $dateLimite) 
+        {
+            if(($autoEvaluation->Statut != 3) && ($autoEvaluation->Statut != 4))
+            {
+                 $bdd->Request("update tblEvaluation set Statut=:Statut where Id=:IdEvaluation;",
+                                array('IdEvaluation'=> $autoEvaluation->IdEvaluation, 'Statut'=>2),
+                                "stdClass");
+
+                $autoEvaluation->Statut = 2;
+            }
+        }
+        else if((date("Y-m-d") > $dateDebut)&&( date("Y-m-d") < $dateLimite))//intervalle de l'évaluation
+        { 
+            if( ($autoEvaluation->Statut != 3) && ($autoEvaluation->Statut != 4))
+            {
+                //l'evaluation n'est ni soumise, ni validée
+                //update du statut de l'evaluation : il passe a pas débuté
+                $bdd->Request(" update tblEvaluation set Statut=:Statut where Id=:IdEvaluation;",
+                                array('Statut'=>1, 'IdEvaluation'=> $autoEvaluation->IdEvaluation), "stdClass");
+                $autoEvaluation->Statut = 1;   
+            }
+        }
+        
+    }
+
     function gestionStatutEtatAvancement($etatAvancement, $dateDebut, $dateLimite, $bdd)
     {
 
@@ -30,6 +74,38 @@
             }
         }
 
+    }
+
+    function VerifAutoEvaluation($autoEvaluation, $profil, $bdd)
+    {
+        $listeStatut = array('Pas Accéssible','Pas Débuté','En Retard','Soumis ','Valide ');
+        $div = "";
+        $eval1 = "";
+
+        gestionStatutAutoEvaluation($autoEvaluation,$profil->MiStageDebut,$profil->MiStageLimite, $bdd);
+        
+        if($autoEvaluation->Statut != '0')//le statut est different de pas accéssible
+        {
+            $div = '<tr class="itemHover" onclick="Requete(AfficherPage, \'../PHP/TBNavigation.php?id='.$profil->Id.'&nomMenu=Evaluation.php&idStage='.$profil->IdStage.'&idEvaluation='.$autoEvaluation->IdEvaluation.'&typeEval=4\')">';
+            
+        }
+        else
+        {
+            $div = '<tr>';
+        }
+
+        $eval1 = $div.
+            '<td>'.$autoEvaluation->TitreTypeEvaluation.'</td>
+            <td> <span class="statutColor" style="background-color:' . definirCouleur($autoEvaluation->Statut) . ';">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>'.$listeStatut[$autoEvaluation->Statut].'</td>
+            <td>'.$profil->MiStageDebut.'</td>
+            <td>'.$profil->MiStageLimite.'</td>
+            <td>'.$autoEvaluation->DateComplétée.'</td>
+        </tr>';
+        
+        
+        $div = $eval1;
+        
+        return $div;
     }
 
     function VerifEtatAvancement($etatAvancements, $profil, $bdd)
@@ -186,16 +262,27 @@
 
             <table>
                 <thead>
+                    <th>Auto-Évaluation</th>
+                    <th>Statut</th>
+                    <th>Date début</th>
+                    <th>Date limite</th>
+                    <th>Date complétée</th>
+                </thead>
+
+                <tbody>'
+                    .VerifAutoEvaluation($autoEvaluation[0], $profil, $bdd).'
+                </tbody>
+            </table>
+
+
+            <table>
+                <thead>
                     <th>Autre</th>
                 </thead>
 
                 <tbody>
                     <tr class="itemHover" onclick="Requete(AfficherPage, \'../PHP/TBNavigation.php?id='.$profil->Id.'&nomMenu=JournalBord.php\', \'&nbEntree=\', 5); addArea2() ">
                         <td>Journal de bord</td>
-                    </tr>
-
-                    <tr class="itemHover" onclick="Requete(AfficherPage, \'../PHP/TBNavigation.php?id='.$profil->Id.'&nomMenu=Evaluation.php&idStage='.$profil->IdStage.'&idEvaluation='.$autoEvaluation[0]->IdEvaluation.'&typeEval=4\')">
-                        <td>Auto-Évaluation</td>
                     </tr>
                 </tbody>
             </table>
