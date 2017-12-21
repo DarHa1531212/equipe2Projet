@@ -25,9 +25,9 @@
         }
     }
 
-    //$bdd = new Database("localhost", "BDProjet_equipe2V2", "root", null);
+    $bdd = new Database("localhost", "BDProjet_equipe2V2", "root", null);
     //$bdd = new Database("localhost", "bdprojet_equipe2v2", "root", "root");
-    $bdd = new Database("dicj.info", "cegepjon_p2017_2_prod", "cegepjon_p2017_2", "madfpfadshdb");
+    //$bdd = new Database("dicj.info", "cegepjon_p2017_2_prod", "cegepjon_p2017_2", "madfpfadshdb");
     //$bdd = new Database("dicj.info", "cegepjon_p2017_2_tests", "cegepjon_p2017_2", "madfpfadshdb");
 
 ?>
