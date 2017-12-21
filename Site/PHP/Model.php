@@ -1,5 +1,6 @@
 <?php
 
+
     class EvaluationChoixReponse extends Evaluation{
         
         private $nombreQuestion;
@@ -641,7 +642,7 @@
     }
 
 
-    class Profil{
+    class Profil implements JsonSerializable{
         
         protected 
         $IdUtilisateur, $Nom, $Prenom, $NumTelEntreprise, $CodePermanent, $Poste, $CourrielEntreprise, $NomEntreprise, $IdRole,
@@ -666,6 +667,10 @@
                                 array("id"=>$this->IdUtilisateur, "courriel"=>$courriel),
                                 "stdClass");
             }
+        }
+        
+        public function jsonSerialize(){
+            return get_object_vars($this);
         }
         
         public function getId(){
@@ -1026,7 +1031,7 @@ avoir ce format - (xxx) xxx-xxxx"/>
     }
 
     
-    class Entreprise{
+    class Entreprise implements JsonSerializable{
         private $Id, $CourrielEntreprise, $Nom, $NumTel, $NumCivique, $Rue, $Ville, $Province, $CodePostal, $Logo;
         
         //Met à jour un objet entreprise dans la BD.
@@ -1052,6 +1057,10 @@ avoir ce format - (xxx) xxx-xxxx"/>
                                     "logo"=>$entreprise["logo"],
                                     "id"=>$this->Id),
                                     "stdClass");
+        }
+        
+        public function jsonSerialize(){
+            return get_object_vars($this);
         }
         
         public function getId(){
@@ -1096,7 +1105,7 @@ avoir ce format - (xxx) xxx-xxxx"/>
     }
     
     
-    class Session{
+    class Session implements JsonSerializable{
         private $Id, $Annee, $Periode, $MiStageDebut, $MiStageLimite, $FinaleDebut, $FinaleLimite, $FormationDebut, $FormationLimite, $JanvierDebut, $JanvierLimite, $FevrierDebut, $FevrierLimite, $MarsDebut, $MarsLimite;
         
         //Met à jour un objet entreprise dans la BD.
@@ -1130,6 +1139,10 @@ avoir ce format - (xxx) xxx-xxxx"/>
         }
         public function Delete($bdd, $IdSession){           
             return $bdd->Request("DELETE FROM tblSession WHERE Id = '".$IdSession."'");        
+        }
+        
+        public function jsonSerialize(){
+            return get_object_vars($this);
         }
         
         public function getId(){

@@ -2,10 +2,14 @@
     
     require 'ListeEntreprise.php';
 
-    if(isset($_REQUEST["id"]))
-    {
-        $entreprise = $entreprises[$_REQUEST["id"]];
-    }
+    if(isset($_REQUEST["id"])){
+        foreach($entreprises as $entre){
+            if($entre->getId() == $_REQUEST["id"]){
+                $entreprise = $entre;
+                break;
+            }  
+        }
+    }     
     
     if(isset($_REQUEST["idEntreprise"])){
         $data = "";
@@ -35,7 +39,7 @@
         <script>
             function Delete(){
                 if(confirm("Êtes-vous certains de vouloir supprimer cette entreprise?")){
-                    Requete(testerRetourSupressionEntreprise, \'../PHP/TBNavigation.php?nomMenu=InfoEntreprise.php&idEntreprise='.$entreprise->getId().'\');
+                    Requete(testerRetourSupressionEntreprise, \'../PHP/TBNavigation.php?nomMenu=InfoEntreprise.php&idEntreprise='.$_REQUEST["id"].'\');
                 }
             }
         </script>
