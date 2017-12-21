@@ -36,7 +36,6 @@ window.addEventListener("click", function(){
     timeout = setTimeout(SessionTimeout, 300000);
 })
 
-//PLEIN D'UTILISATEUR N'ONT PAS D'ID D'UTILISATEUR A VOIR DANS LA BD.
 function PopulateListEmploye(data){
     var option = "";
     data = JSON.parse(data);
@@ -121,23 +120,4 @@ function setLimitDateSession(data)
         min : data + '-03-01',
         max : data + '-03-31'
     });
-}
-
-function PopulateTable(data){
-    var option = "";
-    data = JSON.parse(data);
-    
-    for(var i = 0; i < data.length; i++){
-        option +=   "<tr class=\"itemHover\" onclick=\"Requete(AfficherPage, '../PHP/TBNavigation.php?nomMenu=InfoStage.php&idStage=" + data[i].IdStage + "')\">" +
-                        "<td>" + data[i].NomEntreprise + "</td>" +
-                        "<td>" + data[i].NomStagiaire + "</td>" + 
-                        "<td>" + data[i].SalaireHoraire + "</td>" + 
-                        "<td>" + data[i].DateDebut + "</td>" + 
-                        "<td>" + data[i].DateFin + "</td>" + 
-                    "</tr>";
-    }
-        
-    
-    $("table>tbody").empty();
-    $("table>tbody").append(option);
 }

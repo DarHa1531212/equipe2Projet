@@ -7,9 +7,7 @@
 function testerRetourSupressionUtilisateur(data)
 {
 	var PHPResponse = jQuery.parseJSON(data);
-	alert (PHPResponse);
 
-	alert(data);
 	//PHP envoie nativement 1, donc si j'envoie -1 dans ma fonction PHP, JS reçois -11
 	if(data == -11)
 	{
@@ -20,7 +18,5 @@ function testerRetourSupressionUtilisateur(data)
         alert("L'utilisateur a été supprimé");
 		Requete(AfficherPage, '../PHP/TBNavigation.php?nomMenu=ListeUtilisateur.php');
 	}
-	//(data.substr(data.length - 1) == 1)
-	//(data == 01 )
 }
 

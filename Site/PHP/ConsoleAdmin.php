@@ -21,6 +21,7 @@
         <script src="../js/creationUtilisateur.js"></script>
         <script src="../js/supressionUtilisateur.js"></script>
         <script src="../js/supressionEntreprise.js"></script>
+        <script src="../js/Recherche.js"></script>
 
 
         

@@ -52,7 +52,7 @@
         </div>
         
         <input class="bouton left" type="button" value="Créer un Stage" onclick="Requete(AfficherPage, \'../PHP/TBNavigation.php?nomMenu=CreationStage.php\')"/>
-        <input class="value recherche" type="text" name="recherche" placeholder="Recherche" onkeyup="Post(PopulateTable, \'../PHP/TBNavigation.php?nomMenu=ListeStage.php&recherche\')"/>
+        <input class="value recherche" type="text" name="recherche" placeholder="Recherche" onkeyup="Post(PopulateStage, \'../PHP/TBNavigation.php?nomMenu=ListeStage.php&recherche\')"/>
         <table class="stage">
             <thead>
                 <th>Entreprise </th>
