@@ -9,6 +9,14 @@
 
     if(isset($_REQUEST['delete']))
         DeleteEntree($bdd, $_REQUEST['idEntree']);
+
+    if(isset($_REQUEST['edit']))
+        UpdateEntree($bdd, $_REQUEST['idEntree']);
+
+    if(isset($_REQUEST['selectEdit']))
+        $selectedEntree = SelectEntreeModif($bdd, $_REQUEST['idEntree']);
+    else
+        $selectedEntree = '';
     
     function DateDifference($date_1 , $date_2 , $differenceFormat = '%a' ){
         $datetime1 = date_create($date_1);
@@ -127,11 +135,17 @@
                         array("id"=>$idEntree), "stdClass");
     }
 
-    function UpdateEntree($bdd, $idEntree, $Entree)
+    function UpdateEntree($bdd, $idEntree)
     {
-        $entree = array(htmlspecialchars($Entree));
-        $bdd->Request(" UPDATE tblJournalDeBord SET Entree = :text WHERE Id = :id",
-                        array("text"=>$entree[0], "Id"=>$idEntree), "stdClass");
+        $champs = json_decode($_POST["tabChamp"]);
+        $entree = array();
+        
+        foreach($champs as $champ){
+            $entree[$champ->nom] = $champ->value;
+        }
+
+        $bdd->Request("UPDATE tblJournalDeBord SET Entree = :text WHERE Id = :id",
+                        array("text"=>$entree['contenu'], "id"=>$idEntree), "stdClass");
     }
 
     function SelectEntreeModif($bdd, $idEntree)
@@ -144,13 +158,25 @@
             return $entree->Entree;
         }
     }
+
+    function idEntree()
+    {
+        if(isset($_REQUEST['idEntree']))
+            return '&idEntree='.$_REQUEST['idEntree'];
+        else
+            return'';
+    }
     
     $content=
     '
     <script>
         function Submit(){
-            if(CheckAll()){
+            if(CheckAll() && modificationJournal == false){
                 Post(AfficherPage, \'../PHP/TBNavigation.php?id='.$id.'&nomMenu=JournalBord.php&nbEntree=5&create\');
+            }
+            else{
+                modificationJournal = false;
+                Post(AfficherPage, \'../PHP/TBNavigation.php?id='.$id.'&nomMenu=JournalBord.php&nbEntree=5'.idEntree().'&edit\');
             }
         }
         
@@ -162,7 +188,8 @@
         }
         
         function Edit(id){
-            Post
+            modificationJournal = true;
+            Requete(AfficherPage, \'../PHP/TBNavigation.php?id='.$id.'&nomMenu=JournalBord.php&nbEntree=5&idEntree=\' + id + \'&selectEdit\');
         }
     </script>
     
@@ -179,13 +206,13 @@
     
         <div style="clear: both;"></div>
 
-            <textarea class="value textarea" id="contenu" rows="5" cols="100" maxlength="500" name="contenu" wrap="hard" onkeyup="Required(this)" required></textarea>
+            <textarea class="value textarea" id="contenu" rows="5" cols="100" maxlength="500" name="contenu" wrap="hard" onkeyup="Required(this)" required>'.$selectedEntree.'</textarea>
             <input type="hidden" name="maxFileSize" value="2000000">
-            <input class="inputFile" id="file" type="file" value="Envoyer" name="fichier" onchange="AfficherNom(this)"/>
+            <input class="inputFile" id="file" type="file" value="Envoyer" name="fichier" onchange="AfficherNom(this);"/>
 
             <br/>                           
 
-            <input style="width: 120px;" class="bouton" id="Save" type="button" value="Envoyer" onclick="Submit()"/>
+            <input style="width: 120px;" class="bouton" id="Save" type="button" value="Envoyer" onclick="Submit();"/>
 
             <label class="bouton labelFile" for="file">Pièce Jointe</label>
             <p id="nomPieceJointe"></p>
