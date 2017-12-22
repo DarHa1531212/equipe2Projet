@@ -108,8 +108,6 @@
             </article>';
 
             return $content;
-
-
         }
 
     function creationStagiaire($bdd, $utilisateurs)
@@ -125,12 +123,14 @@
                    $idUtilisateur =  $resultat->Id;
                 } 
 
-            $bdd->Request("  INSERT into tblStagiaire (Prenom, Nom, CourrielScolaire, IdUtilisateur)
-                            values (:Prenom, :Nom,  :courriel, :IdUtilisateur)",
-                            array('courriel'=>$utilisateurs["courriel"], 
+            $bdd->Request(" INSERT into tblStagiaire (Prenom, Nom, CourrielScolaire, IdUtilisateur, NumTelPerso, CourrielPersonnel)
+                            values (:Prenom, :Nom,  :courriel, :IdUtilisateur, :numTelPerso, :courrielPerso)",
+                            array(  'courriel'=>$utilisateurs["courriel"], 
                                     'Prenom'=>$utilisateurs["prenom"],
                                     'Nom'=>$utilisateurs["nom"],
-                                    'IdUtilisateur'=>$idUtilisateur), 
+                                    'IdUtilisateur'=>$idUtilisateur,
+                                    'courrielPerso'=>$utilisateurs["courrielPersonnel"],
+                                    'numTelPerso'=>$utilisateurs["noTelPersonnel"]), 
                             'stdClass'); 
             $bdd->Request("INSERT into tblUtilisateurRole (IdUtilisateur, IdRole)
                             values (:idUtilisateur,  5)", 
