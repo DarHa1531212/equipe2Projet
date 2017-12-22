@@ -82,12 +82,12 @@
         $div = "";
         $eval1 = "";
 
-        gestionStatutAutoEvaluation($autoEvaluation,$profil->MiStageDebut,$profil->MiStageLimite, $bdd);
+        //pour l'instant les dates pour l'auto-evaluations sont celles de l'évaluation de la formation
+        gestionStatutAutoEvaluation($autoEvaluation,$profil->FormationDebut,$profil->FormationLimite, $bdd);
         
         if($autoEvaluation->Statut != '0')//le statut est different de pas accéssible
         {
             $div = '<tr class="itemHover" onclick="Requete(AfficherPage, \'../PHP/TBNavigation.php?id='.$profil->Id.'&nomMenu=Evaluation.php&idStage='.$profil->IdStage.'&idEvaluation='.$autoEvaluation->IdEvaluation.'&typeEval=4\')">';
-            
         }
         else
         {
@@ -97,8 +97,8 @@
         $eval1 = $div.
             '<td>'.$autoEvaluation->TitreTypeEvaluation.'</td>
             <td> <span class="statutColor" style="background-color:' . definirCouleur($autoEvaluation->Statut) . ';">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>'.$listeStatut[$autoEvaluation->Statut].'</td>
-            <td>'.$profil->MiStageDebut.'</td>
-            <td>'.$profil->MiStageLimite.'</td>
+            <td>'.$profil->FormationDebut.'</td>
+            <td>'.$profil->FormationLimite.'</td>
             <td>'.$autoEvaluation->DateComplétée.'</td>
         </tr>';
         
